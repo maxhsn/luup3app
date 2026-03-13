@@ -280,7 +280,7 @@ const UserJourneyDiagram = () => {
                 </div>
                 <div>
                   <span className="text-sm font-display font-bold text-foreground block leading-tight">{lane.label}</span>
-                  <span className="text-[10px] text-muted-foreground">{lane.sub}</span>
+                  <span className="text-xs text-muted-foreground">{lane.sub}</span>
                 </div>
               </div>
 

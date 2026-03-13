@@ -30,7 +30,7 @@ const TreeNodeComponent = ({ node, depth }: { node: TreeNode; depth: number }) =
           <div>
             <span className="text-xs font-semibold text-foreground block leading-tight">{node.label}</span>
             {node.description && (
-              <span className="text-[10px] text-muted-foreground block mt-0.5">{node.description}</span>
+              <span className="text-xs text-muted-foreground block mt-0.5">{node.description}</span>
             )}
           </div>
         </div>
