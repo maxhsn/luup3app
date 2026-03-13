@@ -18,10 +18,10 @@ const StrategySection = () => {
       id: 0,
       label: "Phase 1",
       name: "MVP Launch",
-      status: "1 MARCH 2026",
+      status: "1 APRIL 2026",
       timeline: "Q1 2026",
       accent: true,
-      desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, and merchant dashboard. Hard deadline: 1st March 2026.",
+      desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, and merchant dashboard. Hard deadline: 1st April 2026.",
       deliverables: [
         { item: "Web storefronts", status: "live" },
         { item: "Personal referral codes", status: "live" },
@@ -32,13 +32,13 @@ const StrategySection = () => {
         { item: "4-tier referral engine", status: "building" },
         { item: "Merchant dashboard (LUUP Activate)", status: "building" },
       ],
-      kpis: ["MVP live by 1 March 2026", "Fighter sales tracked", "Storefront conversion rates"],
+      kpis: ["MVP live by 1 April 2026", "Fighter sales tracked", "Storefront conversion rates"],
     },
     {
       id: 1,
       label: "Phase 2",
       name: "Community Engine",
-      status: "1 APRIL 2026",
+      status: "1 MAY 2026",
       timeline: "Q2 2026",
       desc: "Social layer, gamification, and deeper community tools — turning the MVP into a sticky, engaged platform.",
       deliverables: [
@@ -107,7 +107,7 @@ const StrategySection = () => {
               <span className="text-xs font-mono text-background/50 uppercase tracking-widest">Building MVP</span>
             </div>
             <h3 className="text-2xl font-display font-black text-background tracking-tight leading-tight">
-              MVP deadline:<br />1 March 2026.
+              MVP deadline:<br />1 April 2026.
             </h3>
             <p className="text-sm text-background/50 mt-3">
               Storefronts live. Fighters onboarded. Now building the full community commerce platform.
@@ -117,7 +117,7 @@ const StrategySection = () => {
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Storefronts ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Codes ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Fighters ✓</span>
-            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/30 text-background">MVP → 1 Mar</span>
+            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/30 text-background">MVP → 1 Apr</span>
           </div>
         </div>
       </div>
@@ -126,7 +126,7 @@ const StrategySection = () => {
       <div className="grid grid-cols-4 gap-5">
         {[
           { value: "Live", label: "Storefronts", sub: "Web commerce layer — proven" },
-          { value: "1 Mar", label: "MVP Deadline", sub: "Full platform launch" },
+          { value: "1 Apr", label: "MVP Deadline", sub: "Full platform launch" },
           { value: "4", label: "Referral Tiers", sub: "Key differentiator" },
           { value: "🥊", label: "Starting Market", sub: "Combat Sports / Fighters" },
         ].map((m) => (
@@ -146,7 +146,7 @@ const StrategySection = () => {
           <div className="col-span-8 bento-card p-12 flex flex-col gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
             <h3 className="text-[2.4rem] font-display font-black tracking-[-0.04em] leading-[1.05] text-foreground max-w-[600px]">
-              MVP by 1 March.<br />No bloat. Ship what matters.
+              MVP by 1 April.<br />No bloat. Ship what matters.
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-[520px]">
               Phase 1 is proven — storefronts are live, fighters are onboarding. Now we're building the MVP: mobile app, missions, referral engine, and merchant dashboard. Everything else comes after launch.
@@ -169,7 +169,7 @@ const StrategySection = () => {
               <DotGrid rows={3} cols={4} pattern="full" color="hsl(var(--primary-foreground))" size={5} gap={16} className="absolute top-6 right-6 opacity-25" />
               <span className="text-xs font-mono text-primary-foreground/50">THE APPROACH</span>
               <h3 className="text-xl font-display font-bold text-primary-foreground leading-snug mt-4">
-                Foundation proven.<br />MVP by 1 March.<br />Then scale.
+                Foundation proven.<br />MVP by 1 April.<br />Then scale.
               </h3>
             </div>
             <div className="bg-foreground rounded-[1.25rem] p-8 flex-1 flex flex-col justify-between">
@@ -264,8 +264,8 @@ const StrategySection = () => {
                   "text-muted-foreground"
                 }`}>{phase.label}</span>
                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                  phase.status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
-                  phase.status === "1 APRIL 2026" ? "bg-primary/15 text-primary" :
+                  phase.status === "1 APRIL 2026" ? "bg-amber-500/15 text-amber-600" :
+                  phase.status === "1 MAY 2026" ? "bg-primary/15 text-primary" :
                   "bg-muted text-muted-foreground"
                 }`}>{phase.status}</span>
               </div>
@@ -287,8 +287,8 @@ const StrategySection = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-                  phases[activePhase].status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
-                  phases[activePhase].status === "1 APRIL 2026" ? "bg-primary/15 text-primary" :
+                  phases[activePhase].status === "1 APRIL 2026" ? "bg-amber-500/15 text-amber-600" :
+                  phases[activePhase].status === "1 MAY 2026" ? "bg-primary/15 text-primary" :
                   "bg-muted text-muted-foreground"
                 }`}>{phases[activePhase].status}</span>
                 <span className="text-xs font-mono text-muted-foreground">{phases[activePhase].timeline}</span>
@@ -363,14 +363,14 @@ const StrategySection = () => {
                 <div className="w-10 h-10 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center">
                   <span className="text-xs font-bold text-amber-600">P1</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-2">MVP · 1 Mar</span>
+                <span className="text-xs text-muted-foreground mt-2">MVP · 1 Apr</span>
               </div>
               <div className="h-0.5 flex-1 bg-border rounded-full" />
               <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-primary/15 border-2 border-primary flex items-center justify-center">
                   <span className="text-xs font-bold text-primary">P2</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-2">Community · 1 Apr</span>
+                <span className="text-xs text-muted-foreground mt-2">Community · 1 May</span>
               </div>
               <div className="h-0.5 flex-1 bg-border rounded-full" />
               <div className="flex flex-col items-center">
