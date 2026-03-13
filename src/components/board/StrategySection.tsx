@@ -262,8 +262,8 @@ const StrategySection = () => {
                   "text-muted-foreground"
                 }`}>{phase.label}</span>
                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                  phase.status === "LIVE NOW" ? "bg-green-500/15 text-green-600" :
-                  phase.status === "NEXT" ? "bg-amber-500/15 text-amber-600" :
+                  phase.status === "LIVE" ? "bg-green-500/15 text-green-600" :
+                  phase.status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
                   "bg-muted text-muted-foreground"
                 }`}>{phase.status}</span>
               </div>
