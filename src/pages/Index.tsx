@@ -11,11 +11,23 @@ const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial"]
 const Index = () => {
   const [zoom, setZoom] = useState(0.8);
   const [activeSection, setActiveSection] = useState("Strategy");
+  const [transitioning, setTransitioning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleZoomIn = useCallback(() => setZoom((z) => Math.min(z + 0.1, 2)), []);
   const handleZoomOut = useCallback(() => setZoom((z) => Math.max(z - 0.1, 0.3)), []);
   const handleFit = useCallback(() => setZoom(0.8), []);
+
+  const handleSectionChange = useCallback((section: string) => {
+    if (section === activeSection) return;
+    setTransitioning(true);
+    setTimeout(() => {
+      setActiveSection(section);
+      // Scroll to top
+      if (containerRef.current) containerRef.current.scrollTop = 0;
+      setTimeout(() => setTransitioning(false), 50);
+    }, 200);
+  }, [activeSection]);
 
   const handleWheel = useCallback((e: React.WheelEvent) => {
     if (e.ctrlKey || e.metaKey) {
@@ -33,7 +45,7 @@ const Index = () => {
         onFit={handleFit}
         activeSection={activeSection}
         sections={SECTIONS}
-        onSectionChange={setActiveSection}
+        onSectionChange={handleSectionChange}
       />
       <div
         ref={containerRef}
@@ -44,7 +56,11 @@ const Index = () => {
           className="p-12 min-w-max origin-top-left transition-transform duration-200"
           style={{ transform: `scale(${zoom})` }}
         >
-          <div className="max-w-[1800px] mx-auto">
+          <div
+            className={`max-w-[1800px] mx-auto transition-all duration-200 ${
+              transitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"
+            }`}
+          >
             {activeSection === "Strategy" && <StrategySection />}
             {activeSection === "Architecture" && <ArchitectureSection />}
             {activeSection === "Product" && <MVPSection />}
