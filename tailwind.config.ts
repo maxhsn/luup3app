@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      fontSize: {
+        'xs': ['0.8125rem', { lineHeight: '1.25rem' }],
+      },
       fontFamily: {
         display: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         body: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],

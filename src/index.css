@@ -113,13 +113,19 @@
 
   .font-mono {
     font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
-    font-size: 0.85em;
+    font-size: 0.9em;
   }
 
   .tag {
     @apply px-3 py-1.5 rounded-full text-xs font-semibold;
     background: hsl(var(--muted));
     color: hsl(var(--muted-foreground));
+  }
+
+  .tag-accent {
+    @apply px-3 py-1.5 rounded-full text-xs font-semibold;
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
   }
 
   .tag-accent {

@@ -173,7 +173,7 @@ const MVPSection = () => {
                       >
                         <div className="flex items-start gap-3">
                           <span
-                            className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-display font-black flex-shrink-0 mt-0.5"
+                            className="w-6 h-6 rounded-md flex items-center justify-center text-xs font-display font-black flex-shrink-0 mt-0.5"
                             style={f.accent
                               ? { background: 'hsl(var(--background) / 0.15)', color: 'hsl(var(--background))' }
                               : { background: `hsl(${col.color} / 0.1)`, color: `hsl(${col.color})` }
@@ -265,7 +265,7 @@ const MVPSection = () => {
             <div key={step.n} className={`${step.cols} ${step.accent ? "bento-card-accent" : "bento-card"} p-5 flex flex-col gap-2`}>
               <div className="flex items-center justify-between">
                 <span className={`text-xl font-display font-black tracking-tighter ${step.accent ? 'text-primary-foreground/30' : 'text-primary/20'}`}>{step.n}</span>
-                <span className={`text-[10px] font-mono uppercase ${step.accent ? 'text-primary-foreground/50' : 'text-muted-foreground'}`}>{step.phase}</span>
+                <span className={`text-xs font-mono uppercase ${step.accent ? 'text-primary-foreground/50' : 'text-muted-foreground'}`}>{step.phase}</span>
               </div>
               <p className={`text-sm font-semibold leading-snug ${step.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{step.t}</p>
               {'detail' in step && step.detail && (
