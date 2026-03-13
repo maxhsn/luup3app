@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 interface TreeNode {
   label: string;
   icon?: string;
@@ -20,31 +18,31 @@ const TreeNodeComponent = ({ node, isLast, depth }: { node: TreeNode; isLast: bo
     <div className="flex flex-col">
       <div className="flex items-start">
         {depth > 0 && (
-          <div className="flex flex-col items-center mr-3 mt-0">
-            <div className="w-px h-3 tree-line" />
-            <div className="w-4 h-px tree-line" />
+          <div className="flex flex-col items-center mr-4 mt-0">
+            <div className="w-px h-4 tree-line" />
+            <div className="w-5 h-px tree-line" />
           </div>
         )}
         <div
-          className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-all ${
+          className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border transition-all ${
             node.accent
               ? "bg-primary/10 border-primary/20 text-foreground"
               : "bg-card border-border text-foreground"
           } ${depth === 0 ? "shadow-sm" : ""}`}
         >
           {node.icon && (
-            <span className="text-sm flex-shrink-0">{node.icon}</span>
+            <span className="text-base flex-shrink-0">{node.icon}</span>
           )}
           <div>
-            <span className="text-[12px] font-semibold tracking-tight block leading-tight">{node.label}</span>
+            <span className="text-sm font-semibold tracking-tight block leading-tight">{node.label}</span>
             {node.description && (
-              <span className="text-[10px] text-muted-foreground block mt-0.5 leading-snug">{node.description}</span>
+              <span className="text-xs text-muted-foreground block mt-1 leading-snug">{node.description}</span>
             )}
           </div>
         </div>
       </div>
       {hasChildren && (
-        <div className={`${depth > 0 ? "ml-6" : "ml-5"} border-l border-border pl-0`}>
+        <div className={`${depth > 0 ? "ml-7" : "ml-6"} border-l border-border pl-0`}>
           {node.children!.map((child, i) => (
             <TreeNodeComponent
               key={i}

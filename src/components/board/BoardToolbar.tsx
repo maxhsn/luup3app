@@ -18,46 +18,46 @@ const sectionIcons: Record<string, string> = {
 
 const BoardToolbar = ({ zoom, onZoomIn, onZoomOut, onFit, activeSection, sections, onSectionChange }: BoardToolbarProps) => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 glass border-b border-border px-6 py-3 flex items-center justify-between">
-      <div className="flex items-center gap-5">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shadow-sm">
-            <span className="text-primary-foreground font-bold text-sm">L</span>
+    <div className="fixed top-0 left-0 right-0 z-50 glass border-b border-border px-8 py-4 flex items-center justify-between">
+      <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-foreground flex items-center justify-center">
+            <span className="text-background font-bold text-lg font-display">L</span>
           </div>
           <div>
-            <h1 className="font-semibold text-[15px] text-foreground tracking-tight leading-none">LUUP 3.0</h1>
-            <p className="text-[11px] text-muted-foreground tracking-tight">Strategy Board</p>
+            <h1 className="font-display font-bold text-lg text-foreground tracking-tight leading-none">LUUP 3.0</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">Strategy Board</p>
           </div>
         </div>
-        <div className="h-6 w-px bg-border" />
-        <nav className="flex gap-1 bg-muted rounded-xl p-1">
+        <div className="h-8 w-px bg-border" />
+        <nav className="flex gap-1 bg-muted/60 rounded-2xl p-1.5">
           {sections.map((s) => (
             <button
               key={s}
               onClick={() => onSectionChange(s)}
-              className={`px-4 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 flex items-center gap-1.5 ${
+              className={`px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 ${
                 activeSection === s
                   ? "bg-card text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <span className="text-[10px] opacity-50">{sectionIcons[s]}</span>
+              <span className="text-xs opacity-40">{sectionIcons[s]}</span>
               {s}
             </button>
           ))}
         </nav>
       </div>
-      <div className="flex items-center gap-1 bg-muted rounded-xl p-1">
-        <button onClick={onZoomOut} className="p-2 hover:bg-card rounded-lg text-muted-foreground hover:text-foreground transition-all duration-200">
-          <ZoomOut className="w-3.5 h-3.5" />
+      <div className="flex items-center gap-1.5 bg-muted/60 rounded-2xl p-1.5">
+        <button onClick={onZoomOut} className="p-2.5 hover:bg-card rounded-xl text-muted-foreground hover:text-foreground transition-all duration-200">
+          <ZoomOut className="w-4 h-4" />
         </button>
-        <span className="text-[12px] font-medium text-muted-foreground w-11 text-center tabular-nums">{Math.round(zoom * 100)}%</span>
-        <button onClick={onZoomIn} className="p-2 hover:bg-card rounded-lg text-muted-foreground hover:text-foreground transition-all duration-200">
-          <ZoomIn className="w-3.5 h-3.5" />
+        <span className="text-sm font-semibold text-muted-foreground w-12 text-center tabular-nums">{Math.round(zoom * 100)}%</span>
+        <button onClick={onZoomIn} className="p-2.5 hover:bg-card rounded-xl text-muted-foreground hover:text-foreground transition-all duration-200">
+          <ZoomIn className="w-4 h-4" />
         </button>
-        <div className="w-px h-4 bg-border" />
-        <button onClick={onFit} className="p-2 hover:bg-card rounded-lg text-muted-foreground hover:text-foreground transition-all duration-200">
-          <Maximize2 className="w-3.5 h-3.5" />
+        <div className="w-px h-5 bg-border" />
+        <button onClick={onFit} className="p-2.5 hover:bg-card rounded-xl text-muted-foreground hover:text-foreground transition-all duration-200">
+          <Maximize2 className="w-4 h-4" />
         </button>
       </div>
     </div>
