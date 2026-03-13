@@ -6,21 +6,21 @@ interface BoardSectionProps {
   children: ReactNode;
   className?: string;
   tag?: string;
+  number?: string;
 }
 
-const BoardSection = ({ title, subtitle, children, className = "", tag }: BoardSectionProps) => {
+const BoardSection = ({ title, subtitle, children, className = "", tag, number }: BoardSectionProps) => {
   return (
     <div className={`animate-fade-in ${className}`}>
-      <div className="flex items-center gap-3 mb-6">
-        {tag && <span className="tag-accent font-mono">{tag}</span>}
-        <h2 className="font-display text-2xl font-bold text-foreground tracking-tight">{title}</h2>
+      <div className="flex items-end gap-6 mb-10">
+        {number && <span className="section-number">{number}</span>}
+        <div className="pb-2">
+          {tag && <span className="tag-accent mb-2 inline-block">{tag}</span>}
+          <h2 className="font-display text-3xl font-extrabold text-foreground">{title}</h2>
+          {subtitle && <p className="text-lg text-muted-foreground mt-1">{subtitle}</p>}
+        </div>
       </div>
-      {subtitle && (
-        <p className="text-base text-muted-foreground mb-8 -mt-3">{subtitle}</p>
-      )}
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   );
 };
