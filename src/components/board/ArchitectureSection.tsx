@@ -134,7 +134,7 @@ const ArchitectureSection = () => {
       </BoardSection>
 
       {/* Multi-Ecosystem Brand Tagging */}
-      <BoardSection title="Multi-Ecosystem Brand Tagging" number="05" tag="Distribution">
+      <BoardSection title="Multi-Ecosystem Brand Tagging" number="02" tag="Distribution" subtitle="One brand, multiple discovery surfaces.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-5 bento-card p-10 min-h-[300px] flex flex-col gap-6">
             <h3 className="text-xl font-display font-black text-foreground tracking-tight">
