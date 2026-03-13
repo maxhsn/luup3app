@@ -259,7 +259,7 @@ const UserJourneyDiagram = () => {
             >
               <div className={`w-6 h-1 rounded-full mx-auto mb-2 ${STAGE_COLORS[stage.key]}`} />
               <span className={`text-sm font-display font-bold ${STAGE_TEXT[stage.key]}`}>{stage.label}</span>
-              <span className="block text-[10px] font-mono text-muted-foreground mt-0.5">Stage {stage.number}</span>
+              <span className="block text-xs font-mono text-muted-foreground mt-0.5">Stage {stage.number}</span>
             </div>
           ))}
         </div>
