@@ -102,20 +102,21 @@ const StrategySection = () => {
           <DotGrid rows={5} cols={5} pattern="full" color="hsl(var(--background))" size={4} gap={14} className="absolute top-6 right-6 opacity-30" />
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs font-mono text-background/50 uppercase tracking-widest">Live Now</span>
+              <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <span className="text-xs font-mono text-background/50 uppercase tracking-widest">Building MVP</span>
             </div>
             <h3 className="text-2xl font-display font-black text-background tracking-tight leading-tight">
-              Storefronts<br />are live.
+              MVP deadline:<br />1 March 2026.
             </h3>
             <p className="text-sm text-background/50 mt-3">
-              Onboarding fighters in Combat Market. Proving the model before scaling.
+              Storefronts live. Fighters onboarded. Now building the full community commerce platform.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Storefronts ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Codes ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Fighters ✓</span>
+            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/30 text-background">MVP → 1 Mar</span>
           </div>
         </div>
       </div>
