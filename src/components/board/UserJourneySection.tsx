@@ -2,6 +2,7 @@ import { useState } from "react";
 import BoardSection from "./BoardSection";
 import DotGrid from "./DotGrid";
 import JourneyTree from "./JourneyTree";
+import UserJourneyDiagram from "./UserJourneyDiagram";
 
 const UserJourneySection = () => {
   const [activeRoute, setActiveRoute] = useState(0);
