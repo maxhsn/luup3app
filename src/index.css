@@ -83,12 +83,13 @@
     background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
     border-radius: 1.25rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 1px 3px hsl(0 0% 0% / 0.04);
   }
 
   .bento-card:hover {
-    box-shadow: 0 8px 30px hsl(0 0% 0% / 0.08);
+    box-shadow: 0 12px 40px hsl(0 0% 0% / 0.08);
+    transform: translateY(-2px);
   }
 
   .bento-card-accent {
@@ -97,6 +98,12 @@
     border: none;
     border-radius: 1.25rem;
     box-shadow: 0 8px 30px hsl(var(--primary) / 0.25);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .bento-card-accent:hover {
+    box-shadow: 0 16px 48px hsl(var(--primary) / 0.35);
+    transform: translateY(-2px);
   }
 
   .font-display {
