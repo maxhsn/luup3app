@@ -196,7 +196,7 @@ const UserJourneySection = () => {
       </BoardSection>
 
       {/* GTM Strategy */}
-      <BoardSection title="Go-To-Market Beachheads" number="04" tag="GTM" subtitle="Vertical-first market entry strategy.">
+      <BoardSection title="Target Markets" number="04" tag="GTM" subtitle="Vertical-first market entry strategy.">
         <div className="grid grid-cols-12 gap-5">
           {[
             { icon: "🥊", name: "Combat Sports", desc: "Flagship ecosystem — fighters, fans, coaches, gyms", cols: "col-span-4", variant: "blue" as const },
