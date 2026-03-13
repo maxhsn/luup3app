@@ -67,6 +67,14 @@ export default {
           node: "hsl(var(--tree-node))",
           "node-fg": "hsl(var(--tree-node-fg))",
         },
+        stage: {
+          discovery: "hsl(var(--stage-discovery))",
+          onboarding: "hsl(var(--stage-onboarding))",
+          participation: "hsl(var(--stage-participation))",
+          conversion: "hsl(var(--stage-conversion))",
+          earnings: "hsl(var(--stage-earnings))",
+          network: "hsl(var(--stage-network))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

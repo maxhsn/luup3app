@@ -41,6 +41,13 @@
     --tree-line: 220 13% 85%;
     --tree-node: 230 80% 56%;
     --tree-node-fg: 0 0% 100%;
+
+    --stage-discovery: 270 60% 58%;
+    --stage-onboarding: 220 70% 55%;
+    --stage-participation: 150 60% 42%;
+    --stage-conversion: 25 90% 55%;
+    --stage-earnings: 42 90% 52%;
+    --stage-network: 330 65% 58%;
   }
 }
 

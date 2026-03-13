@@ -2,6 +2,7 @@ import { useState } from "react";
 import BoardSection from "./BoardSection";
 import DotGrid from "./DotGrid";
 import JourneyTree from "./JourneyTree";
+import UserJourneyDiagram from "./UserJourneyDiagram";
 
 const UserJourneySection = () => {
   const [activeRoute, setActiveRoute] = useState(0);
@@ -58,7 +59,9 @@ const UserJourneySection = () => {
 
   return (
     <div className="space-y-10">
-      {/* Hero - Growth Loop */}
+      {/* User Journey Diagram */}
+      <UserJourneyDiagram />
+
       <div className="grid grid-cols-12 gap-5">
         <div className="col-span-6 bento-card p-12 min-h-[360px] flex flex-col justify-between relative overflow-hidden">
           <DotGrid rows={8} cols={10} pattern="wave" color="hsl(var(--primary))" size={5} gap={14} className="absolute top-8 right-8 opacity-40" />
