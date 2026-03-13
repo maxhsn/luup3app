@@ -151,4 +151,12 @@
     @apply text-8xl font-black tracking-tighter leading-none;
     color: hsl(var(--border));
   }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
