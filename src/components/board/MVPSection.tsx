@@ -205,7 +205,7 @@ const MVPSection = () => {
       </BoardSection>
 
       {/* Feature Deep Dives - Interactive */}
-      <BoardSection title="Feature Deep Dives" number="02" tag="Detail">
+      <BoardSection title="Feature Deep Dives" number="02" tag="Detail" subtitle="Explore the key feature areas in depth.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-3 flex flex-col gap-3">
             {featureDetails.map((fd, i) => (
