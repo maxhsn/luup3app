@@ -164,7 +164,7 @@ const UserJourneySection = () => {
       </BoardSection>
 
       {/* 4-Tier Referral Structure */}
-      <BoardSection title="4-Tier Referral Structure" number="11" tag="Referral">
+      <BoardSection title="4-Tier Referral Structure" number="03" tag="Referral" subtitle="The core differentiator driving network economics.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-5 bento-card-accent p-10 flex flex-col justify-between min-h-[280px] relative overflow-hidden">
             <DotGrid rows={6} cols={8} pattern="triangle" color="hsl(var(--primary-foreground))" size={5} gap={14} className="absolute bottom-6 right-6 opacity-20" />
