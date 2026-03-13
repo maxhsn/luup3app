@@ -116,7 +116,7 @@ const StrategySection = () => {
       </div>
 
       {/* Section 1: Executive Summary */}
-      <BoardSection title="Executive Summary" number="01" tag="Overview">
+      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="The major strategic simplification driving LUUP 3.0.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-8 bento-card p-12 flex flex-col gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
