@@ -173,7 +173,7 @@ const MVPSection = () => {
                       >
                         <div className="flex items-start gap-3">
                           <span
-                            className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-display font-black flex-shrink-0 mt-0.5"
+                            className="w-6 h-6 rounded-md flex items-center justify-center text-xs font-display font-black flex-shrink-0 mt-0.5"
                             style={f.accent
                               ? { background: 'hsl(var(--background) / 0.15)', color: 'hsl(var(--background))' }
                               : { background: `hsl(${col.color} / 0.1)`, color: `hsl(${col.color})` }
