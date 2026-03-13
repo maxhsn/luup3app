@@ -91,7 +91,7 @@ const ProductEcosystemChart = () => {
       <svg
         viewBox={`0 0 ${SVG_W} ${SVG_H}`}
         className="w-full h-auto"
-        style={{ minWidth: 680 }}
+        style={{ minWidth: 900 }}
       >
         {/* Hub-to-node connections */}
         {deliverables.map((d, i) => {
