@@ -198,10 +198,10 @@ const ProductEcosystemChart = () => {
                 </div>
               </foreignObject>
 
-              {/* Labels below/above node */}
+              {/* Labels */}
               <text
                 x={pos.nx}
-                y={d.position.startsWith("top") ? pos.ny + NODE_R + 18 : pos.ny - NODE_R - 22}
+                y={pos.ny + pos.labelDy}
                 textAnchor="middle"
                 fill="hsl(var(--foreground))"
                 fontSize={13}
@@ -212,7 +212,7 @@ const ProductEcosystemChart = () => {
               </text>
               <text
                 x={pos.nx}
-                y={d.position.startsWith("top") ? pos.ny + NODE_R + 33 : pos.ny - NODE_R - 8}
+                y={pos.ny + pos.subtitleDy}
                 textAnchor="middle"
                 fill="hsl(var(--muted-foreground))"
                 fontSize={10}
