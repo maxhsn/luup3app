@@ -1,45 +1,96 @@
+import { useState } from "react";
 import BoardSection from "./BoardSection";
+import DotGrid from "./DotGrid";
 import PhoneMockup, { WireBlock, WireList } from "./PhoneMockup";
 
 const MVPSection = () => {
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+
+  const features = [
+    { n: "01", title: "Core Activation Engine", desc: "Brand recruitment, commission & program management", category: "Core" },
+    { n: "02", title: "Brand Pages", desc: "Profile, feed, leaderboard, missions", category: "Social" },
+    { n: "03", title: "Ecosystem Layer", desc: "Category hubs as discovery layers", category: "Discovery" },
+    { n: "04", title: "User Profiles", desc: "Identity, wallet, followed brands", category: "Core" },
+    { n: "05", title: "Personal Storefronts", desc: "Curated product collections", category: "Commerce" },
+    { n: "06", title: "Personal Communities", desc: "Create, recruit, curate, earn", category: "Social" },
+    { n: "07", title: "Social Wall Feed", desc: "Posts, UGC, brand announcements", category: "Social" },
+    { n: "08", title: "Missions Engine", desc: "Share, unbox, review, recruit", category: "Engagement" },
+    { n: "09", title: "UGC Engine", desc: "Awareness fuel + conversion proof", category: "Content" },
+    { n: "10", title: "Codes & Referrals", desc: "Generate, manage, track", category: "Commerce" },
+    { n: "11", title: "4-Tier Referral Engine", desc: "Key differentiator — network earnings", category: "Core", accent: true },
+    { n: "12", title: "Wallet & Withdrawals", desc: "Direct + tier + mission rewards", category: "Commerce" },
+    { n: "13", title: "Merchant Dashboard", desc: "LUUP Activate — full merchant OS", category: "Core" },
+    { n: "14", title: "Join Pages & Funnels", desc: "Branded recruitment pages", category: "Growth" },
+    { n: "15", title: "Creator Applications", desc: "Application flows for creators", category: "Social" },
+    { n: "16", title: "AI Automation", desc: "Automated recruitment & growth", category: "AI", accent: true },
+    { n: "17", title: "Notifications", desc: "Real-time sales & activity", category: "Core" },
+    { n: "18", title: "Leaderboards", desc: "Rankings & gamification", category: "Engagement" },
+    { n: "19", title: "Ecosystem Tagging", desc: "Multi-vertical distribution", category: "Discovery" },
+    { n: "20", title: "Template Pages", desc: "Pre-built campaign funnels", category: "Growth" },
+  ];
+
   return (
-    <div className="space-y-24">
-      {/* Product Stack */}
-      <BoardSection title="20 Core Features" subtitle="The complete MVP product stack powering LUUP 3.0." number="01" tag="Product Stack">
-        <div className="grid grid-cols-4 gap-4">
-          {[
-            { n: "01", title: "Core Activation Engine", desc: "Brand recruitment, commission & program management" },
-            { n: "02", title: "Brand Pages", desc: "Profile, feed, leaderboard, missions" },
-            { n: "03", title: "Ecosystem Layer", desc: "Category hubs as discovery layers" },
-            { n: "04", title: "User Profiles", desc: "Identity, wallet, followed brands" },
-            { n: "05", title: "Personal Storefronts", desc: "Curated product collections" },
-            { n: "06", title: "Personal Communities", desc: "Create, recruit, curate, earn" },
-            { n: "07", title: "Social Wall Feed", desc: "Posts, UGC, brand announcements" },
-            { n: "08", title: "Missions Engine", desc: "Share, unbox, review, recruit" },
-            { n: "09", title: "UGC Engine", desc: "Awareness fuel + conversion proof" },
-            { n: "10", title: "Codes & Referrals", desc: "Generate, manage, track" },
-            { n: "11", title: "4-Tier Referral Engine", desc: "Key differentiator — network earnings", accent: true },
-            { n: "12", title: "Wallet & Withdrawals", desc: "Direct + tier + mission rewards" },
-            { n: "13", title: "Merchant Dashboard", desc: "LUUP Activate — full merchant OS" },
-            { n: "14", title: "Join Pages & Funnels", desc: "Branded recruitment pages" },
-            { n: "15", title: "Creator Applications", desc: "Application flows for creators" },
-            { n: "16", title: "AI Automation", desc: "Automated recruitment & growth", accent: true },
-            { n: "17", title: "Notifications", desc: "Real-time sales & activity" },
-            { n: "18", title: "Leaderboards", desc: "Rankings & gamification" },
-            { n: "19", title: "Ecosystem Tagging", desc: "Multi-vertical distribution" },
-            { n: "20", title: "Template Pages", desc: "Pre-built campaign funnels" },
-          ].map((f) => (
-            <div key={f.n} className={`${f.accent ? "bento-card-accent" : "bento-card"} p-6 flex flex-col gap-3`}>
-              <span className={`text-3xl font-display font-black tracking-tighter ${f.accent ? 'opacity-30' : 'text-primary/20'}`}>{f.n}</span>
-              <h4 className={`text-base font-display font-bold tracking-tight leading-snug ${f.accent ? '' : 'text-foreground'}`}>{f.title}</h4>
-              <p className={`text-sm leading-relaxed ${f.accent ? 'opacity-70' : 'text-muted-foreground'}`}>{f.desc}</p>
+    <div className="space-y-8">
+      {/* Hero */}
+      <div className="grid grid-cols-12 gap-5">
+        <div className="col-span-5 bento-card p-12 min-h-[320px] flex flex-col justify-between relative overflow-hidden">
+          <DotGrid rows={6} cols={8} pattern="triangle" color="hsl(var(--primary))" size={5} gap={14} className="absolute top-8 right-8 opacity-50" />
+          <span className="tag-accent w-fit">Product Stack</span>
+          <div>
+            <h2 className="text-[3.2rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
+              20 Core<br />Features.
+            </h2>
+            <p className="text-base text-muted-foreground mt-4 max-w-[300px]">The complete MVP product stack powering LUUP 3.0.</p>
+          </div>
+        </div>
+        <div className="col-span-4 bento-card-accent p-10 min-h-[320px] flex flex-col justify-between relative overflow-hidden">
+          <DotGrid rows={10} cols={10} pattern="scatter" color="hsl(var(--primary-foreground))" size={4} gap={14} className="absolute inset-0 m-auto opacity-20" />
+          <div className="relative z-10">
+            <h3 className="text-[2.5rem] font-display font-black text-primary-foreground tracking-tight leading-[1.05]">
+              Structured<br />Data<br />Modules
+            </h3>
+            <p className="text-sm text-primary-foreground/60 mt-3">Smarter strategies and content for the LUUP frontier.</p>
+          </div>
+        </div>
+        <div className="col-span-3 bg-foreground rounded-[1.25rem] p-8 min-h-[320px] flex flex-col justify-between relative overflow-hidden">
+          <DotGrid rows={6} cols={6} pattern="full" color="hsl(var(--background))" size={3} gap={12} className="absolute top-6 right-6 opacity-20" />
+          <div className="w-10 h-10 rounded-xl bg-background/10 flex items-center justify-center">
+            <span className="text-background font-bold">∞</span>
+          </div>
+          <div>
+            <p className="text-sm text-background/80 leading-relaxed">
+              Building transparent, permissionless infrastructure for the next generation of community commerce.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Grid */}
+      <BoardSection title="Product Stack" number="01" tag="Features">
+        <div className="grid grid-cols-5 gap-4">
+          {features.map((f, i) => (
+            <div
+              key={f.n}
+              onMouseEnter={() => setHoveredFeature(i)}
+              onMouseLeave={() => setHoveredFeature(null)}
+              className={`${f.accent ? "bento-card-accent" : "bento-card"} p-6 flex flex-col gap-3 cursor-default transition-all duration-300 ${
+                hoveredFeature === i ? "shadow-lg scale-[1.02]" : ""
+              } relative overflow-hidden`}
+            >
+              {f.accent && <DotGrid rows={3} cols={3} pattern="full" color="hsl(var(--primary-foreground))" size={3} gap={10} className="absolute top-4 right-4 opacity-20" />}
+              <div className="flex items-center justify-between">
+                <span className={`text-2xl font-display font-black tracking-tighter ${f.accent ? 'text-primary-foreground/30' : 'text-primary/20'}`}>{f.n}</span>
+                <span className={`text-[10px] font-mono uppercase tracking-wider ${f.accent ? 'text-primary-foreground/40' : 'text-muted-foreground/60'}`}>{f.category}</span>
+              </div>
+              <h4 className={`text-sm font-display font-bold tracking-tight leading-snug ${f.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{f.title}</h4>
+              <p className={`text-xs leading-relaxed ${f.accent ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>{f.desc}</p>
             </div>
           ))}
         </div>
       </BoardSection>
 
       {/* Wireframes */}
-      <BoardSection title="App UI Wireframes" subtitle="Key screens of the LUUP consumer experience." number="02" tag="Screens">
+      <BoardSection title="App UI Wireframes" number="02" tag="Screens">
         <div className="flex flex-wrap gap-8 justify-start">
           <PhoneMockup title="Brand Page">
             <div className="w-full h-20 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/15">
@@ -64,13 +115,11 @@ const MVPSection = () => {
             </div>
             <WireBlock label="Product Highlights" height="h-12" />
             <WireBlock label="Active Missions" height="h-12" accent />
-            <WireBlock label="Community Feed" height="h-14" />
           </PhoneMockup>
 
           <PhoneMockup title="Missions">
             <WireBlock label="Active Missions" height="h-8" accent />
-            <WireList items={["Share a code — 5 pts", "Unboxing video — 20 pts", "Product review — 15 pts", "Recruit a friend — 25 pts", "Fan challenge — 10 pts"]} />
-            <WireBlock label="Completed (3)" height="h-8" />
+            <WireList items={["Share a code — 5 pts", "Unboxing video — 20 pts", "Product review — 15 pts", "Recruit a friend — 25 pts"]} />
             <div className="flex gap-2 mt-2">
               <div className="flex-1 bg-primary/10 rounded-xl p-3 text-center border border-primary/15">
                 <span className="text-xs text-primary font-semibold">85 pts</span>
@@ -120,51 +169,27 @@ const MVPSection = () => {
         </div>
       </BoardSection>
 
-      {/* Brand Page Blueprint */}
-      <BoardSection title="Social Brand Page Blueprint" number="03" tag="Blueprint">
-        <div className="grid grid-cols-4 gap-4">
+      {/* Onboarding */}
+      <BoardSection title="Merchant Onboarding" subtitle="10 steps from demo to live." number="03" tag="Flow">
+        <div className="grid grid-cols-12 gap-5">
           {[
-            { title: "Hero & Identity", items: ["Hero/campaign image", "Brand bio", "Follower count", "Join/follow button"] },
-            { title: "Navigation", items: ["About", "Feed", "Wall", "Leaderboard", "Activity"] },
-            { title: "Commerce", items: ["Offers / codes", "Product highlights", "Mission center"] },
-            { title: "Social", items: ["Social channels", "Community content", "Featured members"] },
-          ].map((card) => (
-            <div key={card.title} className="bento-card p-8">
-              <h4 className="text-lg font-display font-bold text-foreground">{card.title}</h4>
-              <div className="mt-5 space-y-3">
-                {card.items.map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary" />
-                    <span className="text-base text-muted-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </BoardSection>
-
-      {/* Onboarding Flow */}
-      <BoardSection title="Merchant Onboarding" subtitle="10 steps from demo to live in the LUUP network." number="04" tag="Flow">
-        <div className="grid grid-cols-5 gap-4">
-          {[
-            { n: "01", t: "Book demo or install plugin", phase: "Discover" },
-            { n: "02", t: "Qualify category fit", phase: "Discover" },
-            { n: "03", t: "Create merchant account", phase: "Setup" },
-            { n: "04", t: "Build profile — logo, bio, feed, tags", phase: "Setup" },
-            { n: "05", t: "Select program type", phase: "Config" },
-            { n: "06", t: "Set commission logic", phase: "Config" },
-            { n: "07", t: "Create join pages", phase: "Build" },
-            { n: "08", t: "Launch first missions", phase: "Build" },
-            { n: "09", t: "Begin recruitment", phase: "Launch" },
-            { n: "10", t: "Go live in LUUP network", phase: "Launch", accent: true },
+            { n: "01", t: "Book demo", phase: "Discover", cols: "col-span-2" },
+            { n: "02", t: "Qualify category", phase: "Discover", cols: "col-span-2" },
+            { n: "03", t: "Create account", phase: "Setup", cols: "col-span-2" },
+            { n: "04", t: "Build profile", phase: "Setup", cols: "col-span-3" },
+            { n: "05", t: "Select program", phase: "Config", cols: "col-span-3" },
+            { n: "06", t: "Set commissions", phase: "Config", cols: "col-span-3" },
+            { n: "07", t: "Create join pages", phase: "Build", cols: "col-span-3" },
+            { n: "08", t: "Launch missions", phase: "Build", cols: "col-span-2" },
+            { n: "09", t: "Begin recruitment", phase: "Launch", cols: "col-span-2" },
+            { n: "10", t: "Go live", phase: "Launch", cols: "col-span-2", accent: true },
           ].map((step) => (
-            <div key={step.n} className={`${step.accent ? "bento-card-accent" : "bento-card"} p-6 flex flex-col gap-3`}>
+            <div key={step.n} className={`${step.cols} ${step.accent ? "bento-card-accent" : "bento-card"} p-5 flex flex-col gap-2`}>
               <div className="flex items-center justify-between">
-                <span className={`text-3xl font-display font-black tracking-tighter ${step.accent ? 'opacity-30' : 'text-primary/20'}`}>{step.n}</span>
-                <span className={`tag ${step.accent ? '!bg-primary-foreground/20 !text-primary-foreground' : ''}`}>{step.phase}</span>
+                <span className={`text-xl font-display font-black tracking-tighter ${step.accent ? 'text-primary-foreground/30' : 'text-primary/20'}`}>{step.n}</span>
+                <span className={`text-[10px] font-mono uppercase ${step.accent ? 'text-primary-foreground/50' : 'text-muted-foreground'}`}>{step.phase}</span>
               </div>
-              <p className={`text-base font-semibold leading-snug ${step.accent ? '' : 'text-foreground'}`}>{step.t}</p>
+              <p className={`text-sm font-semibold leading-snug ${step.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{step.t}</p>
             </div>
           ))}
         </div>
