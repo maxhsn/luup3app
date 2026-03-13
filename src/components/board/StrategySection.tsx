@@ -17,45 +17,46 @@ const StrategySection = () => {
     {
       id: 0,
       label: "Phase 1",
-      name: "Foundation",
-      status: "LIVE",
-      timeline: "2025",
+      name: "MVP Launch",
+      status: "1 MARCH 2026",
+      timeline: "Q1 2026",
       accent: true,
-      desc: "Storefronts, codes, and combat sports onboarding — the model is proven with fighters and brands.",
+      desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, and merchant dashboard. Hard deadline: 1st March 2026.",
       deliverables: [
         { item: "Web storefronts", status: "live" },
         { item: "Personal referral codes", status: "live" },
         { item: "Fighter onboarding (Combat Market)", status: "live" },
         { item: "Brand profiles & product listings", status: "live" },
-        { item: "Basic commission tracking", status: "live" },
-        { item: "Join pages for fighters", status: "live" },
+        { item: "LUUP mobile app (iOS + Android)", status: "building" },
+        { item: "Missions engine", status: "building" },
+        { item: "4-tier referral engine", status: "building" },
+        { item: "Merchant dashboard (LUUP Activate)", status: "building" },
       ],
-      kpis: ["Fighter sales tracked", "Brands onboarded to Combat Market", "Storefront conversion rates"],
+      kpis: ["MVP live by 1 March 2026", "Fighter sales tracked", "Storefront conversion rates"],
     },
     {
       id: 1,
       label: "Phase 2",
-      name: "MVP Launch",
-      status: "1 MARCH 2026",
-      timeline: "Q1 2026",
-      desc: "The full community commerce platform — mobile app, missions, referral engine, and merchant dashboard. Hard deadline: 1st March 2026.",
+      name: "Community Engine",
+      status: "1 APRIL 2026",
+      timeline: "Q2 2026",
+      desc: "Social layer, gamification, and deeper community tools — turning the MVP into a sticky, engaged platform.",
       deliverables: [
-        { item: "LUUP mobile app (iOS + Android)", status: "building" },
-        { item: "Missions engine", status: "building" },
-        { item: "Wall feed & social layer", status: "building" },
-        { item: "Leaderboards & gamification", status: "building" },
-        { item: "4-tier referral engine", status: "building" },
-        { item: "Merchant dashboard (LUUP Activate)", status: "building" },
-        { item: "Brand community pages", status: "building" },
+        { item: "Wall feed & social layer", status: "planned" },
+        { item: "Leaderboards & gamification", status: "planned" },
+        { item: "Brand community pages", status: "planned" },
+        { item: "Advanced mission types", status: "planned" },
+        { item: "UGC engine & content tools", status: "planned" },
+        { item: "Notifications & alerts", status: "planned" },
       ],
-      kpis: ["MVP live by 1 March 2026", "Mission completion rates", "Referral network depth"],
+      kpis: ["Community engagement depth", "Mission completion rates", "Referral network depth"],
     },
     {
       id: 2,
       label: "Phase 3",
       name: "Scale & Ecosystems",
-      status: "POST-MVP",
-      timeline: "Q2 2026+",
+      status: "POST-LAUNCH",
+      timeline: "Q3 2026+",
       desc: "AI matching, multi-vertical ecosystems, and creator tools — scaling beyond combat sports into new verticals.",
       deliverables: [
         { item: "Ecosystem hubs (FanDraft, PetSpace, etc.)", status: "planned" },
@@ -263,8 +264,8 @@ const StrategySection = () => {
                   "text-muted-foreground"
                 }`}>{phase.label}</span>
                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                  phase.status === "LIVE" ? "bg-green-500/15 text-green-600" :
                   phase.status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
+                  phase.status === "1 APRIL 2026" ? "bg-primary/15 text-primary" :
                   "bg-muted text-muted-foreground"
                 }`}>{phase.status}</span>
               </div>
@@ -286,8 +287,8 @@ const StrategySection = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-                  phases[activePhase].status === "LIVE" ? "bg-green-500/15 text-green-600" :
                   phases[activePhase].status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
+                  phases[activePhase].status === "1 APRIL 2026" ? "bg-primary/15 text-primary" :
                   "bg-muted text-muted-foreground"
                 }`}>{phases[activePhase].status}</span>
                 <span className="text-xs font-mono text-muted-foreground">{phases[activePhase].timeline}</span>
@@ -359,24 +360,24 @@ const StrategySection = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4 flex-1">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">P1</span>
-                </div>
-                <span className="text-xs text-muted-foreground mt-2">Foundation</span>
-              </div>
-              <div className="h-0.5 flex-1 bg-green-500 rounded-full" />
-              <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center">
-                  <span className="text-xs font-bold text-amber-600">P2</span>
+                  <span className="text-xs font-bold text-amber-600">P1</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-2">Community</span>
+                <span className="text-xs text-muted-foreground mt-2">MVP · 1 Mar</span>
+              </div>
+              <div className="h-0.5 flex-1 bg-border rounded-full" />
+              <div className="flex flex-col items-center">
+                <div className="w-10 h-10 rounded-full bg-primary/15 border-2 border-primary flex items-center justify-center">
+                  <span className="text-xs font-bold text-primary">P2</span>
+                </div>
+                <span className="text-xs text-muted-foreground mt-2">Community · 1 Apr</span>
               </div>
               <div className="h-0.5 flex-1 bg-border rounded-full" />
               <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-muted border-2 border-border flex items-center justify-center">
                   <span className="text-xs font-bold text-muted-foreground">P3</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-2">Scale</span>
+                <span className="text-xs text-muted-foreground mt-2">Scale · Q3+</span>
               </div>
             </div>
           </div>
