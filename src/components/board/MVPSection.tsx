@@ -1,69 +1,65 @@
 import { useState } from "react";
+import { LayoutDashboard, Smartphone, Store, Brain } from "lucide-react";
 import BoardSection from "./BoardSection";
 import DotGrid from "./DotGrid";
 import ProductEcosystemChart from "./ProductEcosystemChart";
 
-const featureGroups = [
+const deliverableColumns = [
   {
-    group: "Merchant Tools",
-    icon: "🏢",
+    title: "Merchant Dashboard",
+    subtitle: "LUUP Activate",
+    icon: LayoutDashboard,
     color: "var(--stage-onboarding)",
     features: [
-      { title: "Core Activation Engine", desc: "Brand recruitment, commission & program management" },
-      { title: "Merchant Dashboard", desc: "LUUP Activate — full merchant activation OS" },
+      { title: "Brand Profile & Setup", desc: "Logo, bio, channels, products, ecosystem tags" },
+      { title: "Commission Config", desc: "Direct, tiered, and mission-based commission logic" },
+      { title: "Program Management", desc: "Ambassador, affiliate, influencer, creator programs" },
       { title: "Join Pages & Funnels", desc: "Branded recruitment pages for customers & creators" },
       { title: "Template Pages", desc: "Pre-built campaign and recruitment funnels" },
+      { title: "Recruitment Tools", desc: "Invite links, QR codes, referral tracking" },
+      { title: "Analytics & Reporting", desc: "Performance dashboards and conversion insights" },
     ],
   },
   {
-    group: "Customer & Creator",
-    icon: "👥",
+    title: "Consumer App",
+    subtitle: "LUUP Mobile",
+    icon: Smartphone,
     color: "var(--stage-participation)",
     features: [
-      { title: "User Profiles", desc: "Identity, wallet, followed brands, community" },
-      { title: "Creator Applications", desc: "Application flows for creators, influencers, affiliates" },
-      { title: "Personal Communities", desc: "Create, recruit, curate brands, run mini campaigns" },
+      { title: "User Profiles & Wallet", desc: "Identity, earnings, followed brands, community" },
+      { title: "Brand Discovery Feed", desc: "Curated brand content and recommendation engine" },
+      { title: "Missions & Challenges", desc: "Share, review, unboxing, recruit, gym activation" },
+      { title: "Leaderboards & Ranks", desc: "Rankings, gamification, status unlocks" },
+      { title: "Social Wall & UGC", desc: "User posts, brand shout-outs, challenge entries" },
+      { title: "Notifications & Alerts", desc: "Real-time sales, activity and mission alerts" },
     ],
   },
   {
-    group: "Storefronts & Commerce",
-    icon: "🛍️",
+    title: "Storefronts",
+    subtitle: "Commerce Layer",
+    icon: Store,
     color: "var(--stage-conversion)",
     features: [
       { title: "Personal Storefronts", desc: "Favourite products, niche collections, creator picks" },
-      { title: "Codes & Referrals", desc: "Generate, manage, track affiliate links" },
+      { title: "Creator Collections", desc: "Curated product bundles and themed shops" },
+      { title: "Codes & Referral Links", desc: "Generate, manage, and track affiliate links" },
+      { title: "4-Tier Referral Engine", desc: "Network earnings across 4 tiers — key differentiator", accent: true },
       { title: "Wallet & Withdrawals", desc: "Direct + tier + mission rewards tracking" },
-      { title: "4-Tier Referral Engine", desc: "Key differentiator — network earnings across 4 tiers", accent: true },
+      { title: "Community Commerce", desc: "Group buying, shared collections, social proof" },
     ],
   },
   {
-    group: "Social & Content",
-    icon: "📱",
-    color: "var(--stage-network)",
-    features: [
-      { title: "Brand Pages", desc: "Hero image, bio, feed, wall, leaderboard, missions, offers" },
-      { title: "Social Wall Feed", desc: "User posts, UGC highlights, brand announcements" },
-      { title: "UGC Engine", desc: "Awareness fuel, conversion proof, paid media assets" },
-    ],
-  },
-  {
-    group: "Engagement",
-    icon: "🎯",
-    color: "var(--stage-earnings)",
-    features: [
-      { title: "Missions Engine", desc: "Share code, unboxing, review, recruit, gym activation" },
-      { title: "Leaderboards", desc: "Rankings, gamification, status unlocks" },
-      { title: "Notifications", desc: "Real-time sales, activity & mission alerts" },
-    ],
-  },
-  {
-    group: "Discovery & AI",
-    icon: "🔍",
+    title: "Platform & AI",
+    subtitle: "Ecosystem Engine",
+    icon: Brain,
     color: "var(--stage-discovery)",
     features: [
-      { title: "Ecosystem Layer", desc: "Category hubs as discovery and relevance layers" },
-      { title: "Ecosystem Tagging", desc: "Multi-vertical brand distribution" },
-      { title: "AI Automation", desc: "Automated recruitment, growth, and matching", accent: true },
+      { title: "Ecosystem Categories", desc: "Category hubs as discovery and relevance layers" },
+      { title: "Multi-Vertical Tagging", desc: "Cross-category brand distribution" },
+      { title: "AI Matching", desc: "Automated creator–brand matching and recruitment", accent: true },
+      { title: "Growth Loops", desc: "Automated viral loops and network expansion" },
+      { title: "Brand Pages & Content", desc: "Hero, bio, feed, wall, leaderboard, missions" },
+      { title: "Creator Applications", desc: "Application flows for creators and influencers" },
     ],
   },
 ];
@@ -92,10 +88,10 @@ const featureDetails = [
 ];
 
 const MVPSection = () => {
-  const [hoveredFeature, setHoveredFeature] = useState<string | null>(null);
+  const [hoveredCol, setHoveredCol] = useState<number | null>(null);
   const [activeFeature, setActiveFeature] = useState(0);
 
-  const totalFeatures = featureGroups.reduce((sum, g) => sum + g.features.length, 0);
+  const totalFeatures = deliverableColumns.reduce((sum, g) => sum + g.features.length, 0);
 
   return (
     <div className="space-y-10">
@@ -115,9 +111,9 @@ const MVPSection = () => {
           <DotGrid rows={10} cols={10} pattern="scatter" color="hsl(var(--primary-foreground))" size={4} gap={14} className="absolute inset-0 m-auto opacity-20" />
           <div className="relative z-10">
             <h3 className="text-[2.5rem] font-display font-black text-primary-foreground tracking-tight leading-[1.05]">
-              Structured<br />Data<br />Modules
+              4 Core<br />Deliverables
             </h3>
-            <p className="text-sm text-primary-foreground/60 mt-3">Smarter strategies and content for the LUUP frontier.</p>
+            <p className="text-sm text-primary-foreground/60 mt-3">Dashboard · App · Storefronts · AI Platform</p>
           </div>
         </div>
         <div className="col-span-3 bg-foreground rounded-[1.25rem] p-8 min-h-[340px] flex flex-col justify-between relative overflow-hidden">
@@ -131,60 +127,80 @@ const MVPSection = () => {
         </div>
       </div>
 
-      {/* Feature Grid - Categorized */}
-      <BoardSection title="Product Stack" number="01" tag="Features">
-        <div className="space-y-10">
-          {featureGroups.map((group) => (
-            <div key={group.group}>
-              {/* Group Header */}
-              <div className="flex items-center gap-4 mb-5">
+      {/* Visual Feature Map - 4 Columns by Deliverable */}
+      <BoardSection title="Product Stack" number="01" tag="Feature Map">
+        <div className="grid grid-cols-4 gap-5">
+          {deliverableColumns.map((col, ci) => {
+            const Icon = col.icon;
+            const isHovered = hoveredCol === ci;
+            return (
+              <div
+                key={col.title}
+                className="flex flex-col gap-0 transition-all duration-300"
+                onMouseEnter={() => setHoveredCol(ci)}
+                onMouseLeave={() => setHoveredCol(null)}
+              >
+                {/* Column Header */}
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
-                  style={{ background: `hsl(${group.color} / 0.12)` }}
+                  className="rounded-t-[1.25rem] p-6 pb-5 relative overflow-hidden"
+                  style={{
+                    background: `linear-gradient(135deg, hsl(${col.color}), hsl(${col.color} / 0.85))`,
+                  }}
                 >
-                  {group.icon}
-                </div>
-                <div>
-                  <h3 className="text-lg font-display font-black tracking-tight text-foreground">{group.group}</h3>
-                  <span className="text-xs text-muted-foreground">{group.features.length} features</span>
-                </div>
-                <div className="flex-1 h-px bg-border" />
-              </div>
-
-              {/* Feature Cards */}
-              <div className="grid grid-cols-4 gap-4">
-                {group.features.map((f, i) => {
-                  const key = `${group.group}-${i}`;
-                  const num = String(i + 1).padStart(2, "0");
-                  return (
-                    <div
-                      key={key}
-                      onMouseEnter={() => setHoveredFeature(key)}
-                      onMouseLeave={() => setHoveredFeature(null)}
-                      className={`${f.accent ? "bento-card-accent" : "bento-card"} p-6 flex flex-col gap-3 cursor-default transition-all duration-300 ${
-                        hoveredFeature === key ? "shadow-lg scale-[1.02]" : ""
-                      } relative overflow-hidden`}
-                    >
-                      {f.accent && <DotGrid rows={3} cols={3} pattern="full" color="hsl(var(--primary-foreground))" size={3} gap={10} className="absolute top-4 right-4 opacity-20" />}
-                      <div className="flex items-center gap-3">
-                        <span
-                          className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-display font-black"
-                          style={f.accent
-                            ? { background: 'hsl(var(--primary-foreground) / 0.15)', color: 'hsl(var(--primary-foreground))' }
-                            : { background: `hsl(${group.color} / 0.1)`, color: `hsl(${group.color})` }
-                          }
-                        >
-                          {num}
-                        </span>
-                      </div>
-                      <h4 className={`text-sm font-display font-bold tracking-tight leading-snug ${f.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{f.title}</h4>
-                      <p className={`text-xs leading-relaxed ${f.accent ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>{f.desc}</p>
+                  <DotGrid rows={3} cols={4} pattern="scatter" color="hsl(0 0% 100%)" size={3} gap={12} className="absolute top-3 right-3 opacity-15" />
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                      <Icon size={20} color="white" />
                     </div>
-                  );
-                })}
+                    <span className="text-xs font-mono text-white/60 uppercase tracking-widest">{col.subtitle}</span>
+                  </div>
+                  <h3 className="text-lg font-display font-black text-white tracking-tight leading-tight">{col.title}</h3>
+                  <span className="text-xs font-mono text-white/50 mt-1 block">{col.features.length} features</span>
+                </div>
+
+                {/* Feature Cards */}
+                <div className="flex flex-col gap-px bg-border rounded-b-[1.25rem] overflow-hidden">
+                  {col.features.map((f, fi) => {
+                    const num = String(fi + 1).padStart(2, "0");
+                    return (
+                      <div
+                        key={f.title}
+                        className={`p-4 transition-all duration-200 ${
+                          f.accent
+                            ? "bg-foreground"
+                            : "bg-card hover:bg-muted/60"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <span
+                            className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-display font-black flex-shrink-0 mt-0.5"
+                            style={f.accent
+                              ? { background: 'hsl(var(--background) / 0.15)', color: 'hsl(var(--background))' }
+                              : { background: `hsl(${col.color} / 0.1)`, color: `hsl(${col.color})` }
+                            }
+                          >
+                            {num}
+                          </span>
+                          <div className="min-w-0">
+                            <h4 className={`text-sm font-display font-bold tracking-tight leading-snug ${
+                              f.accent ? "text-background" : "text-foreground"
+                            }`}>
+                              {f.title}
+                            </h4>
+                            <p className={`text-xs leading-relaxed mt-1 ${
+                              f.accent ? "text-background/50" : "text-muted-foreground"
+                            }`}>
+                              {f.desc}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </BoardSection>
 
