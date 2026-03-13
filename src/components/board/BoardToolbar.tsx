@@ -19,28 +19,27 @@ const TAB_META: Record<string, { desc: string; icon: string }> = {
 };
 
 const BoardToolbar = ({ zoom, onZoomIn, onZoomOut, onFit, activeSection, sections, onSectionChange }: BoardToolbarProps) => {
-  const meta = TAB_META[activeSection];
   const activeIdx = sections.indexOf(activeSection);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
-      <div className="px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">L</span>
+      <div className="px-4 md:px-8 h-14 md:h-16 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 md:gap-8 min-w-0">
+          <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
+            <div className="w-8 h-8 md:w-9 md:h-9 rounded-xl bg-primary flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-base md:text-lg">L</span>
             </div>
-            <div>
-              <h1 className="font-display font-extrabold text-lg text-foreground leading-none">LUUP 3.0</h1>
+            <div className="hidden sm:block">
+              <h1 className="font-display font-extrabold text-base md:text-lg text-foreground leading-none">LUUP 3.0</h1>
               <p className="text-xs text-muted-foreground mt-0.5">Strategy Board</p>
             </div>
           </div>
-          <nav className="flex gap-1 bg-muted rounded-xl p-1">
-            {sections.map((s, i) => (
+          <nav className="flex gap-0.5 md:gap-1 bg-muted rounded-xl p-0.5 md:p-1 overflow-x-auto no-scrollbar">
+            {sections.map((s) => (
               <button
                 key={s}
                 onClick={() => onSectionChange(s)}
-                className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
+                className={`px-3 md:px-5 py-1.5 md:py-2 text-xs md:text-sm font-semibold rounded-lg transition-all duration-200 whitespace-nowrap ${
                   activeSection === s
                     ? "bg-card text-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
@@ -51,16 +50,8 @@ const BoardToolbar = ({ zoom, onZoomIn, onZoomOut, onFit, activeSection, section
             ))}
           </nav>
         </div>
-        <div className="flex items-center gap-4">
-          {/* Tab context */}
-          {meta && (
-            <div className="flex items-center gap-2 mr-2">
-              <span className="text-base">{meta.icon}</span>
-              <span className="text-xs text-muted-foreground max-w-[200px] leading-tight">{meta.desc}</span>
-            </div>
-          )}
-          <div className="w-px h-6 bg-border" />
-          <div className="flex items-center gap-1 bg-muted rounded-xl p-1">
+        <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-1 bg-muted rounded-xl p-1">
             <button onClick={onZoomOut} className="p-2 hover:bg-card rounded-lg text-muted-foreground hover:text-foreground transition-colors">
               <ZoomOut className="w-4 h-4" />
             </button>

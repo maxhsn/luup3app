@@ -63,27 +63,27 @@ const ArchitectureSection = () => {
   ];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6 md:space-y-10">
       {/* Hero */}
-      <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-7 bento-card p-12 min-h-[360px] flex flex-col justify-between relative overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+        <div className="md:col-span-7 bento-card p-8 md:p-12 min-h-[260px] md:min-h-[360px] flex flex-col justify-between relative overflow-hidden">
           <DotGrid rows={8} cols={12} pattern="wave" color="hsl(var(--primary))" size={5} gap={14} className="absolute top-8 right-8 opacity-40" />
           <span className="tag-accent w-fit">Architecture</span>
-          <div>
-            <h2 className="text-[3rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
+          <div className="mt-4 md:mt-0">
+            <h2 className="text-[2rem] md:text-[3rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
               The New LUUP 3.0<br />Architecture.
             </h2>
-            <p className="text-base text-muted-foreground mt-4 max-w-[500px]">Three layers working together — consumer app, merchant engine, and vertical ecosystems — all inside one platform.</p>
+            <p className="text-sm md:text-base text-muted-foreground mt-3 md:mt-4 max-w-[500px]">Three layers working together — consumer app, merchant engine, and vertical ecosystems — all inside one platform.</p>
           </div>
         </div>
-        <div className="col-span-5 bento-card-accent p-10 min-h-[360px] flex flex-col justify-between relative overflow-hidden">
+        <div className="md:col-span-5 bento-card-accent p-8 md:p-10 min-h-[220px] md:min-h-[360px] flex flex-col justify-between relative overflow-hidden">
           <DotGrid rows={10} cols={10} pattern="scatter" color="hsl(var(--primary-foreground))" size={5} gap={14} className="absolute inset-0 m-auto opacity-20" />
           <span className="text-xs font-mono text-primary-foreground/50 relative z-10">ONE CLEAR EXPERIENCE</span>
-          <div className="relative z-10">
-            <h3 className="text-2xl font-display font-black text-primary-foreground tracking-tight leading-snug">
+          <div className="relative z-10 mt-4 md:mt-0">
+            <h3 className="text-xl md:text-2xl font-display font-black text-primary-foreground tracking-tight leading-snug">
               A brand invites people to:<br />"Join our LUUP community"
             </h3>
-            <p className="text-sm text-primary-foreground/60 mt-4">
+            <p className="text-sm text-primary-foreground/60 mt-3 md:mt-4">
               Tap a link → land on branded LUUP page → join community → begin missions, rewards, referrals, and content creation.
             </p>
           </div>
@@ -92,39 +92,39 @@ const ArchitectureSection = () => {
 
       {/* Platform Architecture - Interactive */}
       <BoardSection title="Platform Architecture" number="01" tag="Layers" subtitle="Three interconnected layers powering one experience.">
-        <div className="grid grid-cols-12 gap-5">
-          <div className="col-span-4 flex flex-col gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          <div className="md:col-span-4 flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
             {archLayers.map((layer) => (
               <button
                 key={layer.id}
                 onClick={() => setActiveArch(layer.id)}
-                className={`text-left p-6 rounded-[1.25rem] border transition-all duration-300 ${
+                className={`text-left p-4 md:p-6 rounded-[1.25rem] border transition-all duration-300 min-w-[200px] md:min-w-0 flex-shrink-0 md:flex-shrink ${
                   activeArch === layer.id
                     ? "bento-card-accent border-transparent"
                     : "bento-card hover:shadow-md"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{layer.icon}</span>
+                  <span className="text-xl md:text-2xl">{layer.icon}</span>
                   <div>
                     <span className={`text-xs font-mono ${activeArch === layer.id ? 'text-primary-foreground/50' : 'text-muted-foreground'}`}>{layer.layer}</span>
-                    <h4 className={`text-xl font-display font-extrabold tracking-tight ${activeArch === layer.id ? 'text-primary-foreground' : 'text-foreground'}`}>{layer.label}</h4>
+                    <h4 className={`text-base md:text-xl font-display font-extrabold tracking-tight ${activeArch === layer.id ? 'text-primary-foreground' : 'text-foreground'}`}>{layer.label}</h4>
                   </div>
                 </div>
               </button>
             ))}
           </div>
 
-          <div className="col-span-8 bento-card p-10 relative overflow-hidden min-h-[360px]">
+          <div className="md:col-span-8 bento-card p-6 md:p-10 relative overflow-hidden min-h-[280px] md:min-h-[360px]">
             <DotGrid rows={6} cols={10} pattern="scatter" color="hsl(var(--primary))" size={4} gap={16} className="absolute top-6 right-6 opacity-10" />
             <div className="animate-fade-in" key={activeArch}>
-              <h3 className="text-3xl font-display font-black text-foreground tracking-tight">{archLayers[activeArch].label}</h3>
-              <p className="text-base text-muted-foreground mt-2 mb-8">{archLayers[activeArch].desc}</p>
-              <div className="grid grid-cols-2 gap-3">
+              <h3 className="text-2xl md:text-3xl font-display font-black text-foreground tracking-tight">{archLayers[activeArch].label}</h3>
+              <p className="text-sm md:text-base text-muted-foreground mt-2 mb-6 md:mb-8">{archLayers[activeArch].desc}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {archLayers[activeArch].features.map((item) => (
-                  <div key={item} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
+                  <div key={item} className="flex items-center gap-3 p-2.5 md:p-3 rounded-xl bg-muted/50">
                     <div className="w-2 h-2 rounded-full bg-primary" />
-                    <span className="text-sm font-medium text-foreground">{item}</span>
+                    <span className="text-xs md:text-sm font-medium text-foreground">{item}</span>
                   </div>
                 ))}
               </div>
@@ -135,9 +135,9 @@ const ArchitectureSection = () => {
 
       {/* Multi-Ecosystem Brand Tagging */}
       <BoardSection title="Multi-Ecosystem Brand Tagging" number="02" tag="Distribution" subtitle="One brand, multiple discovery surfaces.">
-        <div className="grid grid-cols-12 gap-5">
-          <div className="col-span-5 bento-card p-10 min-h-[300px] flex flex-col gap-6">
-            <h3 className="text-xl font-display font-black text-foreground tracking-tight">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          <div className="md:col-span-5 bento-card p-6 md:p-10 min-h-[240px] md:min-h-[300px] flex flex-col gap-4 md:gap-6">
+            <h3 className="text-lg md:text-xl font-display font-black text-foreground tracking-tight">
               One brand, multiple ecosystems.
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -146,7 +146,7 @@ const ArchitectureSection = () => {
             <div className="mt-auto space-y-2">
               <span className="text-xs font-mono text-muted-foreground">BENEFITS</span>
               {["Broad visibility across full LUUP network", "Deeper relevance inside verticals", "More organic discovery", "Multiple recruitment surfaces", "More efficient growth"].map((b) => (
-                <div key={b} className="flex items-center gap-2.5 p-2.5 rounded-lg bg-muted/50">
+                <div key={b} className="flex items-center gap-2.5 p-2 md:p-2.5 rounded-lg bg-muted/50">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                   <span className="text-xs text-foreground font-medium">{b}</span>
                 </div>
@@ -154,31 +154,28 @@ const ArchitectureSection = () => {
             </div>
           </div>
 
-          <div className="col-span-7 grid grid-cols-2 gap-4">
-            {/* Example 1 */}
-            <div className="bento-card-accent p-8 flex flex-col gap-4">
+          <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bento-card-accent p-6 md:p-8 flex flex-col gap-4">
               <span className="text-xs font-mono text-primary-foreground/50">EXAMPLE</span>
-              <h4 className="text-lg font-display font-bold text-primary-foreground">Hydration / Supplement Brand</h4>
+              <h4 className="text-base md:text-lg font-display font-bold text-primary-foreground">Hydration / Supplement Brand</h4>
               <div className="flex flex-wrap gap-2 mt-auto">
                 {["LUUP Master", "Combat Market", "RoxNation", "Superminds"].map((eco) => (
                   <span key={eco} className="px-2.5 py-1 rounded-full text-xs font-medium bg-primary-foreground/15 text-primary-foreground">{eco}</span>
                 ))}
               </div>
             </div>
-            {/* Example 2 */}
-            <div className="bg-foreground rounded-[1.25rem] p-8 flex flex-col gap-4">
+            <div className="bg-foreground rounded-[1.25rem] p-6 md:p-8 flex flex-col gap-4">
               <span className="text-xs font-mono text-background/40">EXAMPLE</span>
-              <h4 className="text-lg font-display font-bold text-background">Football Lifestyle Brand</h4>
+              <h4 className="text-base md:text-lg font-display font-bold text-background">Football Lifestyle Brand</h4>
               <div className="flex flex-wrap gap-2 mt-auto">
                 {["LUUP Master", "FanDraft", "WanderWorld", "Lifestyle"].map((eco) => (
                   <span key={eco} className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">{eco}</span>
                 ))}
               </div>
             </div>
-            {/* Ecosystems grid */}
-            <div className="col-span-2 bento-card p-6">
-              <span className="text-xs font-mono text-muted-foreground mb-4 block">ECOSYSTEM HUBS</span>
-              <div className="grid grid-cols-3 gap-3">
+            <div className="sm:col-span-2 bento-card p-5 md:p-6">
+              <span className="text-xs font-mono text-muted-foreground mb-3 md:mb-4 block">ECOSYSTEM HUBS</span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {[
                   { name: "Combat Market", icon: "🥊" },
                   { name: "FanDraft", icon: "⚽" },
@@ -187,9 +184,9 @@ const ArchitectureSection = () => {
                   { name: "Superminds", icon: "🧠" },
                   { name: "WanderWorld", icon: "✈️" },
                 ].map((eco) => (
-                  <div key={eco.name} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-primary/5 transition-colors">
+                  <div key={eco.name} className="flex items-center gap-3 p-2.5 md:p-3 rounded-xl bg-muted/50 hover:bg-primary/5 transition-colors">
                     <span className="text-lg">{eco.icon}</span>
-                    <span className="text-sm font-bold text-foreground">{eco.name}</span>
+                    <span className="text-xs md:text-sm font-bold text-foreground">{eco.name}</span>
                   </div>
                 ))}
               </div>
@@ -200,46 +197,44 @@ const ArchitectureSection = () => {
 
       {/* Participant Model */}
       <BoardSection title="Participant Model" number="03" tag="Users" subtitle="Six participant types, one unified platform.">
-        <div className="grid grid-cols-12 gap-5">
-          {/* Participant selector */}
-          <div className="col-span-4 flex flex-col gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          <div className="md:col-span-4 flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
             {participants.map((p, i) => (
               <button
                 key={p.name}
                 onClick={() => setActiveParticipant(i)}
-                className={`text-left p-5 rounded-[1.25rem] border transition-all duration-300 ${
+                className={`text-left p-4 md:p-5 rounded-[1.25rem] border transition-all duration-300 min-w-[180px] md:min-w-0 flex-shrink-0 md:flex-shrink ${
                   activeParticipant === i
                     ? "bento-card-accent border-transparent"
                     : "bento-card hover:shadow-md"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{p.icon}</span>
+                  <span className="text-xl md:text-2xl">{p.icon}</span>
                   <div>
-                    <h4 className={`text-base font-display font-extrabold tracking-tight ${activeParticipant === i ? 'text-primary-foreground' : 'text-foreground'}`}>{p.name}</h4>
-                    <p className={`text-xs mt-0.5 ${activeParticipant === i ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>{p.desc}</p>
+                    <h4 className={`text-sm md:text-base font-display font-extrabold tracking-tight ${activeParticipant === i ? 'text-primary-foreground' : 'text-foreground'}`}>{p.name}</h4>
+                    <p className={`text-xs mt-0.5 hidden md:block ${activeParticipant === i ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>{p.desc}</p>
                   </div>
                 </div>
               </button>
             ))}
           </div>
 
-          {/* Detail */}
-          <div className="col-span-8 bento-card p-10 relative overflow-hidden min-h-[400px]">
+          <div className="md:col-span-8 bento-card p-6 md:p-10 relative overflow-hidden min-h-[300px] md:min-h-[400px]">
             <DotGrid rows={4} cols={6} pattern="scatter" color="hsl(var(--primary))" size={4} gap={14} className="absolute top-6 right-6 opacity-10" />
             <div className="animate-fade-in" key={activeParticipant}>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="text-4xl">{participants[activeParticipant].icon}</span>
+              <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                <span className="text-3xl md:text-4xl">{participants[activeParticipant].icon}</span>
                 <div>
-                  <h3 className="text-2xl font-display font-black text-foreground tracking-tight">{participants[activeParticipant].name}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{participants[activeParticipant].desc}</p>
+                  <h3 className="text-xl md:text-2xl font-display font-black text-foreground tracking-tight">{participants[activeParticipant].name}</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground mt-1">{participants[activeParticipant].desc}</p>
                 </div>
               </div>
               <div className="space-y-2">
                 {participants[activeParticipant].details.map((d) => (
-                  <div key={d} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
+                  <div key={d} className="flex items-center gap-3 p-2.5 md:p-3 rounded-xl bg-muted/50">
                     <div className="w-2 h-2 rounded-full bg-primary" />
-                    <span className="text-sm font-medium text-foreground">{d}</span>
+                    <span className="text-xs md:text-sm font-medium text-foreground">{d}</span>
                   </div>
                 ))}
               </div>
