@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'SF Pro Display', 'sans-serif'],
-        body: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'SF Pro Display', 'sans-serif'],
+        display: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,20 +62,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        sticky: {
-          yellow: "hsl(var(--sticky-yellow))",
-          "yellow-fg": "hsl(var(--sticky-yellow-fg))",
-          blue: "hsl(var(--sticky-blue))",
-          "blue-fg": "hsl(var(--sticky-blue-fg))",
-          green: "hsl(var(--sticky-green))",
-          "green-fg": "hsl(var(--sticky-green-fg))",
-          pink: "hsl(var(--sticky-pink))",
-          "pink-fg": "hsl(var(--sticky-pink-fg))",
-          orange: "hsl(var(--sticky-orange))",
-          "orange-fg": "hsl(var(--sticky-orange-fg))",
-          purple: "hsl(var(--sticky-purple))",
-          "purple-fg": "hsl(var(--sticky-purple-fg))",
-        },
         tree: {
           line: "hsl(var(--tree-line))",
           node: "hsl(var(--tree-node))",
@@ -96,19 +83,19 @@ export default {
           to: { height: "0" },
         },
         "fade-in": {
-          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "0%": { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "scale-in": {
-          "0%": { opacity: "0", transform: "scale(0.96)" },
+          "0%": { opacity: "0", transform: "scale(0.95)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.4s ease-out forwards",
-        "scale-in": "scale-in 0.3s ease-out forwards",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "scale-in": "scale-in 0.4s ease-out forwards",
       },
     },
   },

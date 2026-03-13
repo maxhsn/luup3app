@@ -5,20 +5,20 @@ interface BoardSectionProps {
   subtitle?: string;
   children: ReactNode;
   className?: string;
-  color?: string;
+  tag?: string;
 }
 
-const BoardSection = ({ title, subtitle, children, className = "", color }: BoardSectionProps) => {
+const BoardSection = ({ title, subtitle, children, className = "", tag }: BoardSectionProps) => {
   return (
-    <div className={`section-frame p-10 relative animate-fade-in ${className}`}>
-      <div className="absolute -top-4 left-10 px-5 py-1.5 rounded-full glass border border-border font-display font-bold text-base text-foreground tracking-tight flex items-center gap-2.5 shadow-sm">
-        {color && <span className="text-base">{color}</span>}
-        {title}
+    <div className={`animate-fade-in ${className}`}>
+      <div className="flex items-center gap-3 mb-6">
+        {tag && <span className="tag-accent font-mono">{tag}</span>}
+        <h2 className="font-display text-2xl font-bold text-foreground tracking-tight">{title}</h2>
       </div>
       {subtitle && (
-        <p className="text-base text-muted-foreground mt-3 mb-6 font-normal">{subtitle}</p>
+        <p className="text-base text-muted-foreground mb-8 -mt-3">{subtitle}</p>
       )}
-      <div className="mt-6">
+      <div>
         {children}
       </div>
     </div>
