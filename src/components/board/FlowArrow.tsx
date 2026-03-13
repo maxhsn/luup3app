@@ -10,7 +10,7 @@ const FlowArrow = ({ direction = "right", label, className = "" }: FlowArrowProp
       <div className={`flex flex-col items-center gap-1 py-3 ${className}`}>
         <div className="w-px h-8 bg-border" />
         {label && (
-          <span className="text-[10px] text-muted-foreground font-medium px-2.5 py-0.5 bg-muted rounded-full">
+          <span className="text-xs text-muted-foreground font-medium px-2.5 py-0.5 bg-muted rounded-full">
             {label}
           </span>
         )}
