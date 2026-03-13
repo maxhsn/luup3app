@@ -98,7 +98,7 @@ const UserJourneySection = () => {
       </div>
 
       {/* Onboarding Routes - Interactive */}
-      <BoardSection title="Onboarding Routes" number="09" tag="Onboarding">
+      <BoardSection title="Onboarding Routes" number="01" tag="Onboarding" subtitle="Three pathways into the LUUP ecosystem.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-4 flex flex-col gap-3">
             {routes.map((route, i) => (
@@ -132,7 +132,7 @@ const UserJourneySection = () => {
       </BoardSection>
 
       {/* Social UX Layer */}
-      <BoardSection title="Social UX Layer" number="10" tag="Experience">
+      <BoardSection title="Social UX Layer" number="02" tag="Experience" subtitle="Making participation feel alive and visible.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-5 bento-card p-10 min-h-[300px] flex flex-col justify-between">
             <h3 className="text-2xl font-display font-black text-foreground tracking-tight">
@@ -164,7 +164,7 @@ const UserJourneySection = () => {
       </BoardSection>
 
       {/* 4-Tier Referral Structure */}
-      <BoardSection title="4-Tier Referral Structure" number="11" tag="Referral">
+      <BoardSection title="4-Tier Referral Structure" number="03" tag="Referral" subtitle="The core differentiator driving network economics.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-5 bento-card-accent p-10 flex flex-col justify-between min-h-[280px] relative overflow-hidden">
             <DotGrid rows={6} cols={8} pattern="triangle" color="hsl(var(--primary-foreground))" size={5} gap={14} className="absolute bottom-6 right-6 opacity-20" />
@@ -196,7 +196,7 @@ const UserJourneySection = () => {
       </BoardSection>
 
       {/* GTM Strategy */}
-      <BoardSection title="Go-To-Market Beachheads" number="15" tag="GTM">
+      <BoardSection title="Go-To-Market Beachheads" number="04" tag="GTM" subtitle="Vertical-first market entry strategy.">
         <div className="grid grid-cols-12 gap-5">
           {[
             { icon: "🥊", name: "Combat Sports", desc: "Flagship ecosystem — fighters, fans, coaches, gyms", cols: "col-span-4", variant: "blue" as const },

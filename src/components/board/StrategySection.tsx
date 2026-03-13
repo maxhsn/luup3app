@@ -116,7 +116,7 @@ const StrategySection = () => {
       </div>
 
       {/* Section 1: Executive Summary */}
-      <BoardSection title="Executive Summary" number="01" tag="Overview">
+      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="The major strategic simplification driving LUUP 3.0.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-8 bento-card p-12 flex flex-col gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
@@ -159,7 +159,7 @@ const StrategySection = () => {
       </BoardSection>
 
       {/* Section 2: The Core Strategic Shift */}
-      <BoardSection title="The Core Strategic Shift" number="02" tag="Strategy">
+      <BoardSection title="The Core Strategic Shift" number="02" tag="Strategy" subtitle="From fragmented products to one unified platform.">
         <div className="grid grid-cols-12 gap-5">
           {/* From / To */}
           <div className="col-span-5 bento-card p-10 min-h-[320px] flex flex-col gap-8">
@@ -215,7 +215,7 @@ const StrategySection = () => {
       </BoardSection>
 
       {/* Section 3: The LUUP 3.0 Vision */}
-      <BoardSection title="The LUUP 3.0 Vision" number="03" tag="Vision">
+      <BoardSection title="The LUUP 3.0 Vision" number="03" tag="Vision" subtitle="Every person becomes part of commerce.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-6 bento-card p-12 min-h-[340px] flex flex-col justify-between relative overflow-hidden">
             <DotGrid rows={6} cols={10} pattern="wave" color="hsl(var(--primary))" size={4} gap={14} className="absolute top-8 right-8 opacity-30" />

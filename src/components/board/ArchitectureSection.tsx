@@ -91,7 +91,7 @@ const ArchitectureSection = () => {
       </div>
 
       {/* Platform Architecture - Interactive */}
-      <BoardSection title="Platform Architecture" number="04" tag="Layers">
+      <BoardSection title="Platform Architecture" number="01" tag="Layers" subtitle="Three interconnected layers powering one experience.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-4 flex flex-col gap-3">
             {archLayers.map((layer) => (
@@ -134,7 +134,7 @@ const ArchitectureSection = () => {
       </BoardSection>
 
       {/* Multi-Ecosystem Brand Tagging */}
-      <BoardSection title="Multi-Ecosystem Brand Tagging" number="05" tag="Distribution">
+      <BoardSection title="Multi-Ecosystem Brand Tagging" number="02" tag="Distribution" subtitle="One brand, multiple discovery surfaces.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-5 bento-card p-10 min-h-[300px] flex flex-col gap-6">
             <h3 className="text-xl font-display font-black text-foreground tracking-tight">
@@ -199,7 +199,7 @@ const ArchitectureSection = () => {
       </BoardSection>
 
       {/* Participant Model */}
-      <BoardSection title="Participant Model" number="06" tag="Users">
+      <BoardSection title="Participant Model" number="03" tag="Users" subtitle="Six participant types, one unified platform.">
         <div className="grid grid-cols-12 gap-5">
           {/* Participant selector */}
           <div className="col-span-4 flex flex-col gap-3">

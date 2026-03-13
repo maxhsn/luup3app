@@ -128,7 +128,7 @@ const MVPSection = () => {
       </div>
 
       {/* Visual Feature Map - 4 Columns by Deliverable */}
-      <BoardSection title="Product Stack" number="01" tag="Feature Map">
+      <BoardSection title="Product Stack" number="01" tag="Feature Map" subtitle="The complete MVP feature set across four deliverables.">
         <div className="grid grid-cols-4 gap-5">
           {deliverableColumns.map((col, ci) => {
             const Icon = col.icon;
@@ -205,7 +205,7 @@ const MVPSection = () => {
       </BoardSection>
 
       {/* Feature Deep Dives - Interactive */}
-      <BoardSection title="Feature Deep Dives" number="02" tag="Detail">
+      <BoardSection title="Feature Deep Dives" number="02" tag="Detail" subtitle="Explore the key feature areas in depth.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-3 flex flex-col gap-3">
             {featureDetails.map((fd, i) => (
@@ -240,7 +240,7 @@ const MVPSection = () => {
       </BoardSection>
 
       {/* Product Ecosystem Chart */}
-      <BoardSection title="Product Ecosystem" number="03" tag="Map">
+      <BoardSection title="Product Ecosystem" number="03" tag="Map" subtitle="How the four deliverables connect.">
         <div className="bento-card p-10 relative overflow-hidden">
           <DotGrid rows={8} cols={12} pattern="scatter" color="hsl(var(--primary))" size={3} gap={18} className="absolute inset-0 opacity-5" />
           <ProductEcosystemChart />

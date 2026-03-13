@@ -31,7 +31,7 @@ const CommercialSection = () => {
       </div>
 
       {/* Pricing Tiers */}
-      <BoardSection title="Pricing Ladder" number="14" tag="Pricing">
+      <BoardSection title="Pricing Ladder" number="01" tag="Pricing" subtitle="Progressive tiers for brands of all sizes.">
         <div className="grid grid-cols-12 gap-5">
           {[
             {
@@ -101,7 +101,7 @@ const CommercialSection = () => {
       </BoardSection>
 
       {/* Merchant Explanation */}
-      <BoardSection title="Merchant Experience" number="13" tag="Messaging">
+      <BoardSection title="Merchant Experience" number="02" tag="Messaging" subtitle="How we explain LUUP to brands.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-8 bento-card p-10 min-h-[240px] flex flex-col justify-between">
             <span className="text-xs font-mono text-muted-foreground">THE CLEAN MESSAGE</span>
@@ -122,7 +122,7 @@ const CommercialSection = () => {
       </BoardSection>
 
       {/* Strategic Positioning */}
-      <BoardSection title="What LUUP Must Stand For" number="18" tag="Position">
+      <BoardSection title="What LUUP Must Stand For" number="03" tag="Position" subtitle="Core brand positioning statements.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-4 bento-card p-10 min-h-[280px] flex flex-col justify-between">
             <span className="text-xs font-mono text-muted-foreground">POSITIONING</span>
@@ -153,7 +153,7 @@ const CommercialSection = () => {
       </BoardSection>
 
       {/* Final Strategic Model */}
-      <BoardSection title="Final Strategic Model" number="19" tag="Summary">
+      <BoardSection title="Final Strategic Model" number="04" tag="Summary" subtitle="The complete LUUP 3.0 strategic model.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-3 bento-card-accent p-8 min-h-[300px] flex flex-col justify-between">
             <span className="text-xs font-mono text-primary-foreground/50">CONSUMER SIDE</span>
