@@ -18,44 +18,44 @@ const StrategySection = () => {
       id: 0,
       label: "Phase 1",
       name: "Foundation",
-      status: "LIVE NOW",
-      timeline: "Q1–Q2 2025",
+      status: "LIVE",
+      timeline: "2025",
       accent: true,
-      desc: "Storefronts, codes, and combat sports onboarding — proving the model with fighters and brands.",
+      desc: "Storefronts, codes, and combat sports onboarding — the model is proven with fighters and brands.",
       deliverables: [
         { item: "Web storefronts", status: "live" },
         { item: "Personal referral codes", status: "live" },
         { item: "Fighter onboarding (Combat Market)", status: "live" },
         { item: "Brand profiles & product listings", status: "live" },
         { item: "Basic commission tracking", status: "live" },
-        { item: "Join pages for fighters", status: "building" },
+        { item: "Join pages for fighters", status: "live" },
       ],
-      kpis: ["First fighter sales tracked", "Brands onboarded to Combat Market", "Storefront conversion rates"],
+      kpis: ["Fighter sales tracked", "Brands onboarded to Combat Market", "Storefront conversion rates"],
     },
     {
       id: 1,
       label: "Phase 2",
-      name: "Community Engine",
-      status: "NEXT",
-      timeline: "Q3–Q4 2025",
-      desc: "Missions, wall feeds, and the mobile app — turning passive affiliates into active community participants.",
+      name: "MVP Launch",
+      status: "1 MARCH 2026",
+      timeline: "Q1 2026",
+      desc: "The full community commerce platform — mobile app, missions, referral engine, and merchant dashboard. Hard deadline: 1st March 2026.",
       deliverables: [
-        { item: "LUUP mobile app (iOS + Android)", status: "planned" },
-        { item: "Missions engine", status: "planned" },
-        { item: "Wall feed & social layer", status: "planned" },
-        { item: "Leaderboards & gamification", status: "planned" },
-        { item: "4-tier referral engine", status: "planned" },
-        { item: "Merchant dashboard (LUUP Activate)", status: "planned" },
-        { item: "Brand community pages", status: "planned" },
+        { item: "LUUP mobile app (iOS + Android)", status: "building" },
+        { item: "Missions engine", status: "building" },
+        { item: "Wall feed & social layer", status: "building" },
+        { item: "Leaderboards & gamification", status: "building" },
+        { item: "4-tier referral engine", status: "building" },
+        { item: "Merchant dashboard (LUUP Activate)", status: "building" },
+        { item: "Brand community pages", status: "building" },
       ],
-      kpis: ["Mission completion rates", "Community engagement depth", "Referral network depth"],
+      kpis: ["MVP live by 1 March 2026", "Mission completion rates", "Referral network depth"],
     },
     {
       id: 2,
       label: "Phase 3",
       name: "Scale & Ecosystems",
-      status: "FUTURE",
-      timeline: "2026+",
+      status: "POST-MVP",
+      timeline: "Q2 2026+",
       desc: "AI matching, multi-vertical ecosystems, and creator tools — scaling beyond combat sports into new verticals.",
       deliverables: [
         { item: "Ecosystem hubs (FanDraft, PetSpace, etc.)", status: "planned" },
@@ -102,20 +102,21 @@ const StrategySection = () => {
           <DotGrid rows={5} cols={5} pattern="full" color="hsl(var(--background))" size={4} gap={14} className="absolute top-6 right-6 opacity-30" />
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs font-mono text-background/50 uppercase tracking-widest">Live Now</span>
+              <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <span className="text-xs font-mono text-background/50 uppercase tracking-widest">Building MVP</span>
             </div>
             <h3 className="text-2xl font-display font-black text-background tracking-tight leading-tight">
-              Storefronts<br />are live.
+              MVP deadline:<br />1 March 2026.
             </h3>
             <p className="text-sm text-background/50 mt-3">
-              Onboarding fighters in Combat Market. Proving the model before scaling.
+              Storefronts live. Fighters onboarded. Now building the full community commerce platform.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Storefronts ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Codes ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Fighters ✓</span>
+            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/30 text-background">MVP → 1 Mar</span>
           </div>
         </div>
       </div>
@@ -123,10 +124,10 @@ const StrategySection = () => {
       {/* Key Stats - Updated to reflect reality */}
       <div className="grid grid-cols-4 gap-5">
         {[
-          { value: "Live", label: "Storefronts", sub: "Web commerce layer" },
-          { value: "3", label: "Build Phases", sub: "Foundation → Community → Scale" },
+          { value: "Live", label: "Storefronts", sub: "Web commerce layer — proven" },
+          { value: "1 Mar", label: "MVP Deadline", sub: "Full platform launch" },
           { value: "4", label: "Referral Tiers", sub: "Key differentiator" },
-          { value: "1st", label: "Beachhead", sub: "Combat Market / Fighters" },
+          { value: "🥊", label: "Beachhead", sub: "Combat Market / Fighters" },
         ].map((m) => (
           <div key={m.label} className="bento-card p-8 group hover:shadow-lg transition-shadow duration-300">
             <span className="text-sm text-muted-foreground font-medium">{m.label}</span>
@@ -144,18 +145,19 @@ const StrategySection = () => {
           <div className="col-span-8 bento-card p-12 flex flex-col gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
             <h3 className="text-[2.4rem] font-display font-black tracking-[-0.04em] leading-[1.05] text-foreground max-w-[600px]">
-              Build lean. Prove first.<br />Then expand.
+              MVP by 1 March.<br />No bloat. Ship what matters.
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-[520px]">
-              LUUP 3.0 is not a big-bang launch. It's a phased rollout starting from what's already live — storefronts and fighter onboarding — and expanding into community, missions, and ecosystems as each layer proves itself.
+              Phase 1 is proven — storefronts are live, fighters are onboarding. Now we're building the MVP: mobile app, missions, referral engine, and merchant dashboard. Everything else comes after launch.
             </p>
             <div className="grid grid-cols-2 gap-3 mt-4">
-              {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (Phase 2)", "Missions engine (Phase 2)", "Community layer (Phase 2)", "Ecosystems (Phase 3)"].map((item) => {
+              {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (MVP)", "Missions engine (MVP)", "Merchant dashboard (MVP)", "Ecosystems (post-MVP)"].map((item) => {
                 const isLive = item.includes("(live)");
+                const isMVP = item.includes("(MVP)");
                 return (
-                  <div key={item} className={`flex items-center gap-3 p-3 rounded-xl ${isLive ? "bg-primary/5 border border-primary/10" : "bg-muted/50"}`}>
-                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${isLive ? "bg-green-500" : "bg-muted-foreground/30"}`} />
-                    <span className={`text-sm font-medium ${isLive ? "text-foreground" : "text-muted-foreground"}`}>{item}</span>
+                  <div key={item} className={`flex items-center gap-3 p-3 rounded-xl ${isLive ? "bg-primary/5 border border-primary/10" : isMVP ? "bg-amber-500/5 border border-amber-500/10" : "bg-muted/50"}`}>
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${isLive ? "bg-green-500" : isMVP ? "bg-amber-500" : "bg-muted-foreground/30"}`} />
+                    <span className={`text-sm font-medium ${isLive ? "text-foreground" : isMVP ? "text-foreground" : "text-muted-foreground"}`}>{item}</span>
                   </div>
                 );
               })}
@@ -166,7 +168,7 @@ const StrategySection = () => {
               <DotGrid rows={3} cols={4} pattern="full" color="hsl(var(--primary-foreground))" size={5} gap={16} className="absolute top-6 right-6 opacity-25" />
               <span className="text-xs font-mono text-primary-foreground/50">THE APPROACH</span>
               <h3 className="text-xl font-display font-bold text-primary-foreground leading-snug mt-4">
-                Ship what works.<br />Validate with fighters.<br />Then build the engine.
+                Foundation proven.<br />MVP by 1 March.<br />Then scale.
               </h3>
             </div>
             <div className="bg-foreground rounded-[1.25rem] p-8 flex-1 flex flex-col justify-between">
@@ -261,8 +263,8 @@ const StrategySection = () => {
                   "text-muted-foreground"
                 }`}>{phase.label}</span>
                 <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
-                  phase.status === "LIVE NOW" ? "bg-green-500/15 text-green-600" :
-                  phase.status === "NEXT" ? "bg-amber-500/15 text-amber-600" :
+                  phase.status === "LIVE" ? "bg-green-500/15 text-green-600" :
+                  phase.status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
                   "bg-muted text-muted-foreground"
                 }`}>{phase.status}</span>
               </div>
@@ -284,8 +286,8 @@ const StrategySection = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-                  phases[activePhase].status === "LIVE NOW" ? "bg-green-500/15 text-green-600" :
-                  phases[activePhase].status === "NEXT" ? "bg-amber-500/15 text-amber-600" :
+                  phases[activePhase].status === "LIVE" ? "bg-green-500/15 text-green-600" :
+                  phases[activePhase].status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
                   "bg-muted text-muted-foreground"
                 }`}>{phases[activePhase].status}</span>
                 <span className="text-xs font-mono text-muted-foreground">{phases[activePhase].timeline}</span>
