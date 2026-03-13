@@ -64,16 +64,16 @@ const deliverables = [
   },
 ];
 
-const SVG_W = 1200;
-const SVG_H = 700;
+const SVG_W = 1400;
+const SVG_H = 900;
 const CX = SVG_W / 2;
 const CY = SVG_H / 2;
 
 const positions: Record<string, { nx: number; ny: number; pillDir: "left" | "right"; pillAnchorX: number }> = {
-  "top-left":     { nx: CX - 220, ny: CY - 160, pillDir: "left",  pillAnchorX: CX - 220 - 50 },
-  "top-right":    { nx: CX + 220, ny: CY - 160, pillDir: "right", pillAnchorX: CX + 220 + 50 },
-  "bottom-left":  { nx: CX - 220, ny: CY + 160, pillDir: "left",  pillAnchorX: CX - 220 - 50 },
-  "bottom-right": { nx: CX + 220, ny: CY + 160, pillDir: "right", pillAnchorX: CX + 220 + 50 },
+  "top-left":     { nx: CX - 280, ny: CY - 200, pillDir: "left",  pillAnchorX: CX - 280 - 60 },
+  "top-right":    { nx: CX + 280, ny: CY - 200, pillDir: "right", pillAnchorX: CX + 280 + 60 },
+  "bottom-left":  { nx: CX - 280, ny: CY + 200, pillDir: "left",  pillAnchorX: CX - 280 - 60 },
+  "bottom-right": { nx: CX + 280, ny: CY + 200, pillDir: "right", pillAnchorX: CX + 280 + 60 },
 };
 
 const PILL_W = 175;
