@@ -126,7 +126,7 @@ const StrategySection = () => {
       <div className="grid grid-cols-4 gap-5">
         {[
           { value: "Live", label: "Storefronts", sub: "Web commerce layer — proven" },
-          { value: "1 Mar", label: "MVP Deadline", sub: "Full platform launch" },
+          { value: "1 Apr", label: "MVP Deadline", sub: "Full platform launch" },
           { value: "4", label: "Referral Tiers", sub: "Key differentiator" },
           { value: "🥊", label: "Starting Market", sub: "Combat Sports / Fighters" },
         ].map((m) => (
