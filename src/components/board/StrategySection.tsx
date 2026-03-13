@@ -38,7 +38,7 @@ const StrategySection = () => {
       id: 1,
       label: "Phase 2",
       name: "Community Engine",
-      status: "1 APRIL 2026",
+      status: "1 MAY 2026",
       timeline: "Q2 2026",
       desc: "Social layer, gamification, and deeper community tools — turning the MVP into a sticky, engaged platform.",
       deliverables: [
