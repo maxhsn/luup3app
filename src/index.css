@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=SF+Pro+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,44 +6,47 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 30% 15%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 220 30% 15%;
+    --card-foreground: 0 0% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 15%;
-    --primary: 250 65% 55%;
+    --popover-foreground: 0 0% 11%;
+    --primary: 211 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 220 30% 15%;
-    --muted: 220 15% 92%;
-    --muted-foreground: 220 10% 50%;
-    --accent: 170 60% 45%;
-    --accent-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 0 0% 11%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 240 5% 96%;
+    --accent-foreground: 0 0% 11%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 250 65% 55%;
-    --radius: 0.75rem;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 211 100% 50%;
+    --radius: 1rem;
 
-    /* Board-specific tokens */
-    --board-bg: 220 20% 95%;
-    --board-dot: 220 15% 82%;
-    --sticky-yellow: 45 95% 65%;
-    --sticky-yellow-fg: 40 60% 20%;
-    --sticky-blue: 210 85% 65%;
-    --sticky-blue-fg: 210 60% 15%;
-    --sticky-green: 150 65% 55%;
-    --sticky-green-fg: 150 50% 12%;
-    --sticky-pink: 340 80% 68%;
-    --sticky-pink-fg: 340 50% 15%;
-    --sticky-orange: 25 90% 60%;
-    --sticky-orange-fg: 25 60% 15%;
-    --sticky-purple: 270 70% 65%;
-    --sticky-purple-fg: 270 50% 15%;
-    --connector: 220 20% 60%;
-    --section-border: 220 15% 80%;
+    /* Board tokens */
+    --board-bg: 220 14% 96%;
+    --board-dot: 220 10% 88%;
+
+    /* Sticky note tokens — softer, more refined */
+    --sticky-yellow: 48 100% 96%;
+    --sticky-yellow-fg: 35 80% 25%;
+    --sticky-blue: 213 100% 96%;
+    --sticky-blue-fg: 213 70% 25%;
+    --sticky-green: 152 60% 95%;
+    --sticky-green-fg: 152 50% 20%;
+    --sticky-pink: 340 80% 96%;
+    --sticky-pink-fg: 340 50% 25%;
+    --sticky-orange: 28 100% 96%;
+    --sticky-orange-fg: 28 70% 25%;
+    --sticky-purple: 270 80% 96%;
+    --sticky-purple-fg: 270 50% 25%;
+
+    --connector: 0 0% 78%;
+    --section-border: 0 0% 88%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -54,33 +57,44 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    /* Journey tree */
+    --tree-line: 0 0% 82%;
+    --tree-node: 211 100% 50%;
+    --tree-node-fg: 0 0% 100%;
+
+    /* Wireframe */
+    --wireframe-bg: 240 5% 96%;
+    --wireframe-border: 0 0% 85%;
+    --wireframe-accent: 211 100% 50%;
   }
 
   .dark {
-    --background: 220 25% 10%;
-    --foreground: 210 40% 95%;
-    --card: 220 25% 14%;
-    --card-foreground: 210 40% 95%;
-    --popover: 220 25% 14%;
-    --popover-foreground: 210 40% 95%;
-    --primary: 250 65% 60%;
+    --background: 0 0% 7%;
+    --foreground: 0 0% 93%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 93%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 93%;
+    --primary: 211 100% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 25% 18%;
-    --secondary-foreground: 210 40% 95%;
-    --muted: 220 20% 20%;
-    --muted-foreground: 220 15% 60%;
-    --accent: 170 60% 45%;
-    --accent-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 93%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 93%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 220 20% 22%;
-    --input: 220 20% 22%;
-    --ring: 250 65% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 211 100% 55%;
 
-    --board-bg: 220 25% 8%;
-    --board-dot: 220 20% 18%;
+    --board-bg: 0 0% 5%;
+    --board-dot: 0 0% 12%;
+    --tree-line: 0 0% 25%;
+    --tree-node: 211 100% 55%;
+    --wireframe-bg: 0 0% 12%;
+    --wireframe-border: 0 0% 20%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -98,28 +112,48 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-body);
+    @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 600;
   }
 }
 
 @layer utilities {
   .board-grid {
     background-image: radial-gradient(circle, hsl(var(--board-dot)) 1px, transparent 1px);
-    background-size: 24px 24px;
+    background-size: 20px 20px;
     background-color: hsl(var(--board-bg));
   }
   .sticky-shadow {
-    box-shadow: 2px 3px 8px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   }
   .sticky-shadow-hover {
-    box-shadow: 4px 6px 16px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
   }
   .section-frame {
-    border: 2px dashed hsl(var(--section-border));
-    border-radius: 1rem;
+    border: 1.5px solid hsl(var(--section-border));
+    border-radius: 1.25rem;
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(12px);
+  }
+  .glass {
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .tree-line {
+    background: hsl(var(--tree-line));
+  }
+  .wireframe-shell {
+    background: hsl(var(--wireframe-bg));
+    border: 1.5px solid hsl(var(--wireframe-border));
+    border-radius: 1.5rem;
   }
 }

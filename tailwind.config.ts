@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Space Grotesk', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        display: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'SF Pro Display', 'sans-serif'],
+        body: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'SF Pro Display', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -75,6 +75,11 @@ export default {
           purple: "hsl(var(--sticky-purple))",
           "purple-fg": "hsl(var(--sticky-purple-fg))",
         },
+        tree: {
+          line: "hsl(var(--tree-line))",
+          node: "hsl(var(--tree-node))",
+          "node-fg": "hsl(var(--tree-node-fg))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -90,15 +95,20 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "pop-in": {
-          "0%": { transform: "scale(0.8)", opacity: "0" },
-          "100%": { transform: "scale(1)", opacity: "1" },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.96)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pop-in": "pop-in 0.3s ease-out",
+        "fade-in": "fade-in 0.4s ease-out forwards",
+        "scale-in": "scale-in 0.3s ease-out forwards",
       },
     },
   },

@@ -1,13 +1,23 @@
 import StickyNote from "./StickyNote";
 import BoardSection from "./BoardSection";
 import FlowArrow from "./FlowArrow";
+import MetricCard from "./MetricCard";
 
 const StrategySection = () => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
+      {/* Key Metrics */}
+      <div className="flex flex-wrap gap-3">
+        <MetricCard icon="🎯" label="Platform" value="LUUP 3.0" detail="Networked Commerce OS" />
+        <MetricCard icon="👥" label="Participant Types" value="6" detail="Brands → Side Hustlers" />
+        <MetricCard icon="🏗️" label="Core Features" value="20" detail="MVP Product Stack" />
+        <MetricCard icon="🌍" label="Ecosystems" value="6+" detail="Vertical worlds at launch" />
+        <MetricCard icon="💰" label="Pricing Tiers" value="5" detail="Lite → Bespoke" />
+      </div>
+
       {/* Vision & Core Shift */}
-      <BoardSection title="Vision & Core Strategic Shift" color="🎯">
-        <div className="flex flex-wrap gap-4">
+      <BoardSection title="Vision & Core Strategic Shift" color="◆">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <StickyNote
             color="purple"
             icon="💡"
@@ -41,85 +51,115 @@ const StrategySection = () => {
         </div>
       </BoardSection>
 
-      {/* Architecture */}
-      <BoardSection title="New Architecture" color="🏗️">
-        <div className="flex flex-wrap items-start gap-4">
-          <StickyNote
-            color="blue"
-            icon="📱"
-            title="LUUP App (Consumer)"
-            items={[
-              "One app users download",
-              "Create profile, follow brands",
-              "Join brand communities",
-              "Browse ecosystems",
-              "Access missions & earn",
-              "Build personal storefronts",
-              "Post content to wall feeds",
-            ]}
-          />
-          <FlowArrow label="powers" />
-          <StickyNote
-            color="orange"
-            icon="🎛️"
-            title="LUUP Activate (Merchant)"
-            items={[
-              "Merchant dashboard & OS",
-              "Set commissions & programs",
-              "Create missions",
-              "Manage recruitment",
-              "View analytics",
-              "Ecosystem placement",
-              "UGC management",
-            ]}
-          />
-          <FlowArrow label="contains" />
-          <StickyNote
-            color="green"
-            icon="🌍"
-            title="Ecosystems (Verticals)"
-            items={[
-              "Combat Market",
-              "FanDraft",
-              "RoxNation",
-              "PetSpace",
-              "Superminds",
-              "WanderWorld",
-              "Future ecosystems",
-            ]}
-          />
-        </div>
-        <div className="mt-4">
-          <StickyNote
-            color="pink"
-            icon="🏷️"
-            title="Multi-Ecosystem Brand Tagging"
-            description="One brand record, one dashboard — but tagged into multiple ecosystems. A supplement brand appears in LUUP master + Combat Market + RoxNation + Superminds simultaneously."
-            className="max-w-md"
-          />
+      {/* Architecture — Visual Diagram */}
+      <BoardSection title="Platform Architecture" color="🏗️">
+        <div className="flex flex-col gap-6">
+          {/* Architecture diagram */}
+          <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+            <div className="grid grid-cols-3 gap-6">
+              {/* Consumer */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-primary" />
+                  <span className="text-[13px] font-semibold text-foreground tracking-tight">Consumer Layer</span>
+                </div>
+                <div className="bg-sticky-blue rounded-xl p-4 space-y-2">
+                  <p className="text-[12px] font-semibold text-sticky-blue-fg">📱 LUUP App</p>
+                  {["Profile & identity", "Follow brands", "Join communities", "Browse ecosystems", "Missions & earn", "Personal storefronts", "Wall feed content"].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <div className="w-1 h-1 rounded-full bg-sticky-blue-fg/40" />
+                      <span className="text-[11px] text-sticky-blue-fg/80">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Merchant */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-sticky-orange-fg" />
+                  <span className="text-[13px] font-semibold text-foreground tracking-tight">Merchant Layer</span>
+                </div>
+                <div className="bg-sticky-orange rounded-xl p-4 space-y-2">
+                  <p className="text-[12px] font-semibold text-sticky-orange-fg">🎛️ LUUP Activate</p>
+                  {["Dashboard & OS", "Commissions & programs", "Create missions", "Manage recruitment", "Analytics & insights", "Ecosystem placement", "UGC management"].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <div className="w-1 h-1 rounded-full bg-sticky-orange-fg/40" />
+                      <span className="text-[11px] text-sticky-orange-fg/80">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Ecosystems */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-sticky-green-fg" />
+                  <span className="text-[13px] font-semibold text-foreground tracking-tight">Ecosystem Layer</span>
+                </div>
+                <div className="bg-sticky-green rounded-xl p-4 space-y-2">
+                  <p className="text-[12px] font-semibold text-sticky-green-fg">🌍 Vertical Worlds</p>
+                  {["Combat Market", "FanDraft", "RoxNation", "PetSpace", "Superminds", "WanderWorld"].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <div className="w-1 h-1 rounded-full bg-sticky-green-fg/40" />
+                      <span className="text-[11px] text-sticky-green-fg/80">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Connection lines */}
+            <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-border">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-px bg-primary" />
+                <span className="text-[10px] text-muted-foreground">Powers</span>
+                <div className="w-6 h-px bg-primary" />
+              </div>
+              <StickyNote
+                color="pink"
+                icon="🏷️"
+                title="Multi-Ecosystem Brand Tagging"
+                description="One brand record, one dashboard — tagged across multiple ecosystems simultaneously."
+                compact
+                className="!max-w-[260px]"
+              />
+            </div>
+          </div>
         </div>
       </BoardSection>
 
-      {/* Participant Model */}
+      {/* Participant Model — Refined Grid */}
       <BoardSection title="Participant Model" color="👥">
-        <div className="flex flex-wrap gap-3">
-          <StickyNote color="blue" icon="🏪" title="Brands / Merchants" items={["Recruit customers", "Generate UGC", "Drive sales", "Build communities"]} />
-          <StickyNote color="yellow" icon="🛒" title="Customers" items={["Join communities", "Complete missions", "Share codes", "Become side hustlers"]} />
-          <StickyNote color="green" icon="🔗" title="Affiliates" items={["Recruit creators", "Drive sales", "Build communities", "Earn 4-tier commissions"]} />
-          <StickyNote color="pink" icon="⭐" title="Influencers" items={["Personal funnels", "Launch communities", "Recruit sub-influencers", "Network royalties"]} />
-          <StickyNote color="orange" icon="🎨" title="Creators" items={["Respond to UGC missions", "Earn for content", "Join brand communities"]} />
-          <StickyNote color="purple" icon="🚀" title="Side Hustlers" items={["Share products they love", "Refer friends", "Build personal community", "Earn recurring income"]} />
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+          <StickyNote color="blue" icon="🏪" title="Brands" items={["Recruit customers", "Generate UGC", "Drive sales", "Build communities"]} compact />
+          <StickyNote color="yellow" icon="🛒" title="Customers" items={["Join communities", "Complete missions", "Share codes", "Become side hustlers"]} compact />
+          <StickyNote color="green" icon="🔗" title="Affiliates" items={["Recruit creators", "Drive sales", "Build communities", "4-tier commissions"]} compact />
+          <StickyNote color="pink" icon="⭐" title="Influencers" items={["Personal funnels", "Launch communities", "Sub-influencers", "Network royalties"]} compact />
+          <StickyNote color="orange" icon="🎨" title="Creators" items={["UGC missions", "Earn for content", "Join brand communities"]} compact />
+          <StickyNote color="purple" icon="🚀" title="Side Hustlers" items={["Share products", "Refer friends", "Build community", "Recurring income"]} compact />
         </div>
       </BoardSection>
 
-      {/* Pricing */}
-      <BoardSection title="Commercial / Pricing Ladder" color="💰">
-        <div className="flex flex-wrap gap-3">
-          <StickyNote color="yellow" icon="🌱" title="LUUP Lite" description="Basic onboarding for smaller brands wanting to get started" />
-          <StickyNote color="green" icon="📈" title="LUUP Growth" items={["Stronger recruitment", "Mission flows", "Creator activation", "UGC campaigns"]} />
-          <StickyNote color="blue" icon="⚙️" title="LUUP Pro" items={["Advanced segmentation", "Multiple join funnels", "Creator workflows"]} />
-          <StickyNote color="purple" icon="🌍" title="LUUP Ecosystem" items={["Ecosystem placement", "Category discovery", "Creator matching", "Vertical reporting"]} />
-          <StickyNote color="orange" icon="🏢" title="LUUP Bespoke" items={["White-label", "Custom environments", "Enterprise integrations", "Multi-market rollouts"]} />
+      {/* Pricing Ladder — Card Grid */}
+      <BoardSection title="Commercial Pricing Ladder" color="💰">
+        <div className="grid grid-cols-5 gap-3">
+          {[
+            { name: "Lite", icon: "🌱", color: "yellow" as const, desc: "Basic onboarding for smaller brands", price: "Entry" },
+            { name: "Growth", icon: "📈", color: "green" as const, desc: "Recruitment + missions + creator activation", price: "Scale" },
+            { name: "Pro", icon: "⚙️", color: "blue" as const, desc: "Advanced segmentation + multiple funnels", price: "Advanced" },
+            { name: "Ecosystem", icon: "🌍", color: "purple" as const, desc: "Ecosystem placement + category discovery", price: "Premium" },
+            { name: "Bespoke", icon: "🏢", color: "orange" as const, desc: "White-label + enterprise integrations", price: "Custom" },
+          ].map((tier) => (
+            <div key={tier.name} className="bg-card border border-border rounded-2xl p-4 space-y-2 shadow-sm">
+              <span className="text-xl">{tier.icon}</span>
+              <div>
+                <p className="text-[13px] font-semibold text-foreground tracking-tight">{tier.name}</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-0.5">{tier.price}</p>
+              </div>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">{tier.desc}</p>
+            </div>
+          ))}
         </div>
       </BoardSection>
     </div>
