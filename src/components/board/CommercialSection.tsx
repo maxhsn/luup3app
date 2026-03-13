@@ -101,7 +101,7 @@ const CommercialSection = () => {
       </BoardSection>
 
       {/* Merchant Explanation */}
-      <BoardSection title="Merchant Experience" number="13" tag="Messaging">
+      <BoardSection title="Merchant Experience" number="02" tag="Messaging" subtitle="How we explain LUUP to brands.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-8 bento-card p-10 min-h-[240px] flex flex-col justify-between">
             <span className="text-xs font-mono text-muted-foreground">THE CLEAN MESSAGE</span>
