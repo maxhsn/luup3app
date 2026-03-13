@@ -21,7 +21,7 @@ const StrategySection = () => {
       status: "1 APRIL 2026",
       timeline: "Q1 2026",
       accent: true,
-      desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, and merchant dashboard. Hard deadline: 1st March 2026.",
+      desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, and merchant dashboard. Hard deadline: 1st April 2026.",
       deliverables: [
         { item: "Web storefronts", status: "live" },
         { item: "Personal referral codes", status: "live" },
