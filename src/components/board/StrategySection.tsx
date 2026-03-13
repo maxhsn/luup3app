@@ -18,7 +18,7 @@ const StrategySection = () => {
       id: 0,
       label: "Phase 1",
       name: "MVP Launch",
-      status: "1 MARCH 2026",
+      status: "1 APRIL 2026",
       timeline: "Q1 2026",
       accent: true,
       desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, and merchant dashboard. Hard deadline: 1st March 2026.",
