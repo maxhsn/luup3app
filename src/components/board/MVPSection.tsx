@@ -3,55 +3,99 @@ import BoardSection from "./BoardSection";
 import DotGrid from "./DotGrid";
 import PhoneMockup, { WireBlock, WireList } from "./PhoneMockup";
 
+const featureGroups = [
+  {
+    group: "Merchant Tools",
+    icon: "🏢",
+    color: "var(--stage-onboarding)",
+    features: [
+      { title: "Core Activation Engine", desc: "Brand recruitment, commission & program management" },
+      { title: "Merchant Dashboard", desc: "LUUP Activate — full merchant activation OS" },
+      { title: "Join Pages & Funnels", desc: "Branded recruitment pages for customers & creators" },
+      { title: "Template Pages", desc: "Pre-built campaign and recruitment funnels" },
+    ],
+  },
+  {
+    group: "Customer & Creator",
+    icon: "👥",
+    color: "var(--stage-participation)",
+    features: [
+      { title: "User Profiles", desc: "Identity, wallet, followed brands, community" },
+      { title: "Creator Applications", desc: "Application flows for creators, influencers, affiliates" },
+      { title: "Personal Communities", desc: "Create, recruit, curate brands, run mini campaigns" },
+    ],
+  },
+  {
+    group: "Storefronts & Commerce",
+    icon: "🛍️",
+    color: "var(--stage-conversion)",
+    features: [
+      { title: "Personal Storefronts", desc: "Favourite products, niche collections, creator picks" },
+      { title: "Codes & Referrals", desc: "Generate, manage, track affiliate links" },
+      { title: "Wallet & Withdrawals", desc: "Direct + tier + mission rewards tracking" },
+      { title: "4-Tier Referral Engine", desc: "Key differentiator — network earnings across 4 tiers", accent: true },
+    ],
+  },
+  {
+    group: "Social & Content",
+    icon: "📱",
+    color: "var(--stage-network)",
+    features: [
+      { title: "Brand Pages", desc: "Hero image, bio, feed, wall, leaderboard, missions, offers" },
+      { title: "Social Wall Feed", desc: "User posts, UGC highlights, brand announcements" },
+      { title: "UGC Engine", desc: "Awareness fuel, conversion proof, paid media assets" },
+    ],
+  },
+  {
+    group: "Engagement",
+    icon: "🎯",
+    color: "var(--stage-earnings)",
+    features: [
+      { title: "Missions Engine", desc: "Share code, unboxing, review, recruit, gym activation" },
+      { title: "Leaderboards", desc: "Rankings, gamification, status unlocks" },
+      { title: "Notifications", desc: "Real-time sales, activity & mission alerts" },
+    ],
+  },
+  {
+    group: "Discovery & AI",
+    icon: "🔍",
+    color: "var(--stage-discovery)",
+    features: [
+      { title: "Ecosystem Layer", desc: "Category hubs as discovery and relevance layers" },
+      { title: "Ecosystem Tagging", desc: "Multi-vertical brand distribution" },
+      { title: "AI Automation", desc: "Automated recruitment, growth, and matching", accent: true },
+    ],
+  },
+];
+
+const featureDetails = [
+  {
+    title: "Social Brand Pages",
+    items: ["Hero / campaign image", "Brand bio & story", "Follower count", "Join / Follow button", "Feed tab", "Wall tab", "Leaderboard", "Activity tab", "Offers & codes", "Social channels", "Community-generated content", "Product highlights", "Mission center"],
+  },
+  {
+    title: "Wall Feed",
+    items: ["User posts", "Mission completions", "Brand shout-outs", "UGC highlights", "Brand announcements", "Challenge entries", "Community wins", "Featured members", "Campaign boosts"],
+  },
+  {
+    title: "Missions Engine",
+    items: ["Share a code", "First referral sale", "Unboxing video", "Product review", "Training routine", "Before/after", "Story post", "Event attendance", "Recruit a friend", "Gym activation mission"],
+  },
+  {
+    title: "UGC Engine",
+    items: ["Awareness fuel", "Conversion proof", "Paid media asset creation", "Missions for customers, creators, influencers, fighters, superfans, affiliates"],
+  },
+  {
+    title: "Wallet",
+    items: ["Direct earnings", "Tier earnings", "Mission rewards", "Bonuses", "Withdrawals", "Community performance", "Brand-by-brand income", "Ecosystem performance"],
+  },
+];
+
 const MVPSection = () => {
-  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+  const [hoveredFeature, setHoveredFeature] = useState<string | null>(null);
   const [activeFeature, setActiveFeature] = useState(0);
 
-  const features = [
-    { n: "01", title: "Core Activation Engine", desc: "Brand recruitment, commission & program management", category: "Core" },
-    { n: "02", title: "Brand Pages", desc: "Hero image, bio, feed, wall, leaderboard, missions, offers", category: "Social" },
-    { n: "03", title: "Ecosystem Layer", desc: "Category hubs as discovery and relevance layers", category: "Discovery" },
-    { n: "04", title: "User Profiles", desc: "Identity, wallet, followed brands, community", category: "Core" },
-    { n: "05", title: "Personal Storefronts", desc: "Favourite products, niche collections, creator picks", category: "Commerce" },
-    { n: "06", title: "Personal Communities", desc: "Create, recruit, curate brands, run mini campaigns", category: "Social" },
-    { n: "07", title: "Social Wall Feed", desc: "User posts, UGC highlights, brand announcements", category: "Social" },
-    { n: "08", title: "Missions Engine", desc: "Share code, unboxing, review, recruit, gym activation", category: "Engagement" },
-    { n: "09", title: "UGC Engine", desc: "Awareness fuel, conversion proof, paid media assets", category: "Content" },
-    { n: "10", title: "Codes & Referrals", desc: "Generate, manage, track affiliate links", category: "Commerce" },
-    { n: "11", title: "4-Tier Referral Engine", desc: "Key differentiator — network earnings across 4 tiers", category: "Core", accent: true },
-    { n: "12", title: "Wallet & Withdrawals", desc: "Direct + tier + mission rewards tracking", category: "Commerce" },
-    { n: "13", title: "Merchant Dashboard", desc: "LUUP Activate — full merchant activation OS", category: "Core" },
-    { n: "14", title: "Join Pages & Funnels", desc: "Branded recruitment pages for customers & creators", category: "Growth" },
-    { n: "15", title: "Creator Applications", desc: "Application flows for creators, influencers, affiliates", category: "Social" },
-    { n: "16", title: "AI Automation", desc: "Automated recruitment, growth, and matching", category: "AI", accent: true },
-    { n: "17", title: "Notifications", desc: "Real-time sales, activity & mission alerts", category: "Core" },
-    { n: "18", title: "Leaderboards", desc: "Rankings, gamification, status unlocks", category: "Engagement" },
-    { n: "19", title: "Ecosystem Tagging", desc: "Multi-vertical brand distribution", category: "Discovery" },
-    { n: "20", title: "Template Pages", desc: "Pre-built campaign and recruitment funnels", category: "Growth" },
-  ];
-
-  const featureDetails = [
-    {
-      title: "Social Brand Pages",
-      items: ["Hero / campaign image", "Brand bio & story", "Follower count", "Join / Follow button", "Feed tab", "Wall tab", "Leaderboard", "Activity tab", "Offers & codes", "Social channels", "Community-generated content", "Product highlights", "Mission center"],
-    },
-    {
-      title: "Wall Feed",
-      items: ["User posts", "Mission completions", "Brand shout-outs", "UGC highlights", "Brand announcements", "Challenge entries", "Community wins", "Featured members", "Campaign boosts"],
-    },
-    {
-      title: "Missions Engine",
-      items: ["Share a code", "First referral sale", "Unboxing video", "Product review", "Training routine", "Before/after", "Story post", "Event attendance", "Recruit a friend", "Gym activation mission"],
-    },
-    {
-      title: "UGC Engine",
-      items: ["Awareness fuel", "Conversion proof", "Paid media asset creation", "Missions for customers, creators, influencers, fighters, superfans, affiliates"],
-    },
-    {
-      title: "Wallet",
-      items: ["Direct earnings", "Tier earnings", "Mission rewards", "Bonuses", "Withdrawals", "Community performance", "Brand-by-brand income", "Ecosystem performance"],
-    },
-  ];
+  const totalFeatures = featureGroups.reduce((sum, g) => sum + g.features.length, 0);
 
   return (
     <div className="space-y-10">
@@ -62,7 +106,7 @@ const MVPSection = () => {
           <span className="tag-accent w-fit">Product Stack</span>
           <div>
             <h2 className="text-[3.2rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
-              20 Core<br />Features.
+              {totalFeatures} Core<br />Features.
             </h2>
             <p className="text-base text-muted-foreground mt-4 max-w-[300px]">The complete MVP product stack powering LUUP 3.0 — unified into one coherent platform.</p>
           </div>
@@ -89,63 +133,49 @@ const MVPSection = () => {
 
       {/* Feature Grid - Categorized */}
       <BoardSection title="Product Stack" number="01" tag="Features">
-        {[
-          {
-            group: "Merchant Tools",
-            icon: "🏢",
-            indices: [0, 12, 13, 19],
-          },
-          {
-            group: "Customer & Creator",
-            icon: "👥",
-            indices: [3, 14, 5],
-          },
-          {
-            group: "Storefronts & Commerce",
-            icon: "🛍️",
-            indices: [4, 9, 11, 10],
-          },
-          {
-            group: "Social & Content",
-            icon: "📱",
-            indices: [1, 6, 8],
-          },
-          {
-            group: "Engagement",
-            icon: "🎯",
-            indices: [7, 17, 16],
-          },
-          {
-            group: "Discovery & AI",
-            icon: "🔍",
-            indices: [2, 18, 15],
-          },
-        ].map((group) => {
-          const groupFeatures = group.indices.map(idx => features[idx]).filter(Boolean);
-          return (
-            <div key={group.group} className="mb-6 last:mb-0">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-lg">{group.icon}</span>
-                <h3 className="text-base font-display font-extrabold tracking-tight text-foreground uppercase">{group.group}</h3>
+        <div className="space-y-10">
+          {featureGroups.map((group) => (
+            <div key={group.group}>
+              {/* Group Header */}
+              <div className="flex items-center gap-4 mb-5">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
+                  style={{ background: `hsl(${group.color} / 0.12)` }}
+                >
+                  {group.icon}
+                </div>
+                <div>
+                  <h3 className="text-lg font-display font-black tracking-tight text-foreground">{group.group}</h3>
+                  <span className="text-xs text-muted-foreground">{group.features.length} features</span>
+                </div>
                 <div className="flex-1 h-px bg-border" />
-                <span className="text-xs font-mono text-muted-foreground">{groupFeatures.length} features</span>
               </div>
+
+              {/* Feature Cards */}
               <div className="grid grid-cols-4 gap-4">
-                {groupFeatures.map((f, i) => {
-                  const globalIdx = group.indices[i];
+                {group.features.map((f, i) => {
+                  const key = `${group.group}-${i}`;
+                  const num = String(i + 1).padStart(2, "0");
                   return (
                     <div
-                      key={f.n}
-                      onMouseEnter={() => setHoveredFeature(globalIdx)}
+                      key={key}
+                      onMouseEnter={() => setHoveredFeature(key)}
                       onMouseLeave={() => setHoveredFeature(null)}
                       className={`${f.accent ? "bento-card-accent" : "bento-card"} p-6 flex flex-col gap-3 cursor-default transition-all duration-300 ${
-                        hoveredFeature === globalIdx ? "shadow-lg scale-[1.02]" : ""
+                        hoveredFeature === key ? "shadow-lg scale-[1.02]" : ""
                       } relative overflow-hidden`}
                     >
                       {f.accent && <DotGrid rows={3} cols={3} pattern="full" color="hsl(var(--primary-foreground))" size={3} gap={10} className="absolute top-4 right-4 opacity-20" />}
-                      <div className="flex items-center justify-between">
-                        <span className={`text-2xl font-display font-black tracking-tighter ${f.accent ? 'text-primary-foreground/30' : 'text-primary/20'}`}>{f.n}</span>
-                        <span className={`text-[10px] font-mono uppercase tracking-wider ${f.accent ? 'text-primary-foreground/40' : 'text-muted-foreground/60'}`}>{f.category}</span>
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-display font-black"
+                          style={f.accent
+                            ? { background: 'hsl(var(--primary-foreground) / 0.15)', color: 'hsl(var(--primary-foreground))' }
+                            : { background: `hsl(${group.color} / 0.1)`, color: `hsl(${group.color})` }
+                          }
+                        >
+                          {num}
+                        </span>
                       </div>
                       <h4 className={`text-sm font-display font-bold tracking-tight leading-snug ${f.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{f.title}</h4>
                       <p className={`text-xs leading-relaxed ${f.accent ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>{f.desc}</p>
@@ -154,8 +184,8 @@ const MVPSection = () => {
                 })}
               </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </BoardSection>
 
       {/* Feature Deep Dives - Interactive */}
