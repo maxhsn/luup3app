@@ -5,45 +5,69 @@ import PhoneMockup, { WireBlock, WireList } from "./PhoneMockup";
 
 const MVPSection = () => {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+  const [activeFeature, setActiveFeature] = useState(0);
 
   const features = [
     { n: "01", title: "Core Activation Engine", desc: "Brand recruitment, commission & program management", category: "Core" },
-    { n: "02", title: "Brand Pages", desc: "Profile, feed, leaderboard, missions", category: "Social" },
-    { n: "03", title: "Ecosystem Layer", desc: "Category hubs as discovery layers", category: "Discovery" },
-    { n: "04", title: "User Profiles", desc: "Identity, wallet, followed brands", category: "Core" },
-    { n: "05", title: "Personal Storefronts", desc: "Curated product collections", category: "Commerce" },
-    { n: "06", title: "Personal Communities", desc: "Create, recruit, curate, earn", category: "Social" },
-    { n: "07", title: "Social Wall Feed", desc: "Posts, UGC, brand announcements", category: "Social" },
-    { n: "08", title: "Missions Engine", desc: "Share, unbox, review, recruit", category: "Engagement" },
-    { n: "09", title: "UGC Engine", desc: "Awareness fuel + conversion proof", category: "Content" },
-    { n: "10", title: "Codes & Referrals", desc: "Generate, manage, track", category: "Commerce" },
-    { n: "11", title: "4-Tier Referral Engine", desc: "Key differentiator — network earnings", category: "Core", accent: true },
-    { n: "12", title: "Wallet & Withdrawals", desc: "Direct + tier + mission rewards", category: "Commerce" },
-    { n: "13", title: "Merchant Dashboard", desc: "LUUP Activate — full merchant OS", category: "Core" },
-    { n: "14", title: "Join Pages & Funnels", desc: "Branded recruitment pages", category: "Growth" },
-    { n: "15", title: "Creator Applications", desc: "Application flows for creators", category: "Social" },
-    { n: "16", title: "AI Automation", desc: "Automated recruitment & growth", category: "AI", accent: true },
-    { n: "17", title: "Notifications", desc: "Real-time sales & activity", category: "Core" },
-    { n: "18", title: "Leaderboards", desc: "Rankings & gamification", category: "Engagement" },
-    { n: "19", title: "Ecosystem Tagging", desc: "Multi-vertical distribution", category: "Discovery" },
-    { n: "20", title: "Template Pages", desc: "Pre-built campaign funnels", category: "Growth" },
+    { n: "02", title: "Brand Pages", desc: "Hero image, bio, feed, wall, leaderboard, missions, offers", category: "Social" },
+    { n: "03", title: "Ecosystem Layer", desc: "Category hubs as discovery and relevance layers", category: "Discovery" },
+    { n: "04", title: "User Profiles", desc: "Identity, wallet, followed brands, community", category: "Core" },
+    { n: "05", title: "Personal Storefronts", desc: "Favourite products, niche collections, creator picks", category: "Commerce" },
+    { n: "06", title: "Personal Communities", desc: "Create, recruit, curate brands, run mini campaigns", category: "Social" },
+    { n: "07", title: "Social Wall Feed", desc: "User posts, UGC highlights, brand announcements", category: "Social" },
+    { n: "08", title: "Missions Engine", desc: "Share code, unboxing, review, recruit, gym activation", category: "Engagement" },
+    { n: "09", title: "UGC Engine", desc: "Awareness fuel, conversion proof, paid media assets", category: "Content" },
+    { n: "10", title: "Codes & Referrals", desc: "Generate, manage, track affiliate links", category: "Commerce" },
+    { n: "11", title: "4-Tier Referral Engine", desc: "Key differentiator — network earnings across 4 tiers", category: "Core", accent: true },
+    { n: "12", title: "Wallet & Withdrawals", desc: "Direct + tier + mission rewards tracking", category: "Commerce" },
+    { n: "13", title: "Merchant Dashboard", desc: "LUUP Activate — full merchant activation OS", category: "Core" },
+    { n: "14", title: "Join Pages & Funnels", desc: "Branded recruitment pages for customers & creators", category: "Growth" },
+    { n: "15", title: "Creator Applications", desc: "Application flows for creators, influencers, affiliates", category: "Social" },
+    { n: "16", title: "AI Automation", desc: "Automated recruitment, growth, and matching", category: "AI", accent: true },
+    { n: "17", title: "Notifications", desc: "Real-time sales, activity & mission alerts", category: "Core" },
+    { n: "18", title: "Leaderboards", desc: "Rankings, gamification, status unlocks", category: "Engagement" },
+    { n: "19", title: "Ecosystem Tagging", desc: "Multi-vertical brand distribution", category: "Discovery" },
+    { n: "20", title: "Template Pages", desc: "Pre-built campaign and recruitment funnels", category: "Growth" },
+  ];
+
+  const featureDetails = [
+    {
+      title: "Social Brand Pages",
+      items: ["Hero / campaign image", "Brand bio & story", "Follower count", "Join / Follow button", "Feed tab", "Wall tab", "Leaderboard", "Activity tab", "Offers & codes", "Social channels", "Community-generated content", "Product highlights", "Mission center"],
+    },
+    {
+      title: "Wall Feed",
+      items: ["User posts", "Mission completions", "Brand shout-outs", "UGC highlights", "Brand announcements", "Challenge entries", "Community wins", "Featured members", "Campaign boosts"],
+    },
+    {
+      title: "Missions Engine",
+      items: ["Share a code", "First referral sale", "Unboxing video", "Product review", "Training routine", "Before/after", "Story post", "Event attendance", "Recruit a friend", "Gym activation mission"],
+    },
+    {
+      title: "UGC Engine",
+      items: ["Awareness fuel", "Conversion proof", "Paid media asset creation", "Missions for customers, creators, influencers, fighters, superfans, affiliates"],
+    },
+    {
+      title: "Wallet",
+      items: ["Direct earnings", "Tier earnings", "Mission rewards", "Bonuses", "Withdrawals", "Community performance", "Brand-by-brand income", "Ecosystem performance"],
+    },
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Hero */}
       <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-5 bento-card p-12 min-h-[320px] flex flex-col justify-between relative overflow-hidden">
+        <div className="col-span-5 bento-card p-12 min-h-[340px] flex flex-col justify-between relative overflow-hidden">
           <DotGrid rows={6} cols={8} pattern="triangle" color="hsl(var(--primary))" size={5} gap={14} className="absolute top-8 right-8 opacity-50" />
           <span className="tag-accent w-fit">Product Stack</span>
           <div>
             <h2 className="text-[3.2rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
               20 Core<br />Features.
             </h2>
-            <p className="text-base text-muted-foreground mt-4 max-w-[300px]">The complete MVP product stack powering LUUP 3.0.</p>
+            <p className="text-base text-muted-foreground mt-4 max-w-[300px]">The complete MVP product stack powering LUUP 3.0 — unified into one coherent platform.</p>
           </div>
         </div>
-        <div className="col-span-4 bento-card-accent p-10 min-h-[320px] flex flex-col justify-between relative overflow-hidden">
+        <div className="col-span-4 bento-card-accent p-10 min-h-[340px] flex flex-col justify-between relative overflow-hidden">
           <DotGrid rows={10} cols={10} pattern="scatter" color="hsl(var(--primary-foreground))" size={4} gap={14} className="absolute inset-0 m-auto opacity-20" />
           <div className="relative z-10">
             <h3 className="text-[2.5rem] font-display font-black text-primary-foreground tracking-tight leading-[1.05]">
@@ -52,16 +76,14 @@ const MVPSection = () => {
             <p className="text-sm text-primary-foreground/60 mt-3">Smarter strategies and content for the LUUP frontier.</p>
           </div>
         </div>
-        <div className="col-span-3 bg-foreground rounded-[1.25rem] p-8 min-h-[320px] flex flex-col justify-between relative overflow-hidden">
+        <div className="col-span-3 bg-foreground rounded-[1.25rem] p-8 min-h-[340px] flex flex-col justify-between relative overflow-hidden">
           <DotGrid rows={6} cols={6} pattern="full" color="hsl(var(--background))" size={3} gap={12} className="absolute top-6 right-6 opacity-20" />
           <div className="w-10 h-10 rounded-xl bg-background/10 flex items-center justify-center">
             <span className="text-background font-bold">∞</span>
           </div>
-          <div>
-            <p className="text-sm text-background/80 leading-relaxed">
-              Building transparent, permissionless infrastructure for the next generation of community commerce.
-            </p>
-          </div>
+          <p className="text-sm text-background/80 leading-relaxed">
+            Building transparent, permissionless infrastructure for the next generation of community commerce.
+          </p>
         </div>
       </div>
 
@@ -89,8 +111,43 @@ const MVPSection = () => {
         </div>
       </BoardSection>
 
+      {/* Feature Deep Dives - Interactive */}
+      <BoardSection title="Feature Deep Dives" number="02" tag="Detail">
+        <div className="grid grid-cols-12 gap-5">
+          <div className="col-span-3 flex flex-col gap-3">
+            {featureDetails.map((fd, i) => (
+              <button
+                key={fd.title}
+                onClick={() => setActiveFeature(i)}
+                className={`text-left p-5 rounded-[1.25rem] border transition-all duration-300 ${
+                  activeFeature === i
+                    ? "bento-card-accent border-transparent"
+                    : "bento-card hover:shadow-md"
+                }`}
+              >
+                <h4 className={`text-base font-display font-extrabold tracking-tight ${activeFeature === i ? 'text-primary-foreground' : 'text-foreground'}`}>{fd.title}</h4>
+              </button>
+            ))}
+          </div>
+          <div className="col-span-9 bento-card p-10 relative overflow-hidden min-h-[320px]">
+            <DotGrid rows={4} cols={8} pattern="wave" color="hsl(var(--primary))" size={4} gap={14} className="absolute top-6 right-6 opacity-10" />
+            <div className="animate-fade-in" key={activeFeature}>
+              <h3 className="text-2xl font-display font-black text-foreground tracking-tight mb-6">{featureDetails[activeFeature].title}</h3>
+              <div className="grid grid-cols-3 gap-3">
+                {featureDetails[activeFeature].items.map((item) => (
+                  <div key={item} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
+                    <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
+                    <span className="text-sm font-medium text-foreground">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </BoardSection>
+
       {/* Wireframes */}
-      <BoardSection title="App UI Wireframes" number="02" tag="Screens">
+      <BoardSection title="App UI Wireframes" number="03" tag="Screens">
         <div className="flex flex-wrap gap-8 justify-start">
           <PhoneMockup title="Brand Page">
             <div className="w-full h-20 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/15">
@@ -166,23 +223,43 @@ const MVPSection = () => {
               ))}
             </div>
           </PhoneMockup>
+
+          <PhoneMockup title="Community">
+            <WireBlock label="My Community" height="h-8" accent />
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-muted border border-border" />
+              <div className="flex-1">
+                <div className="w-28 h-2.5 rounded bg-muted" />
+                <div className="w-16 h-2 rounded bg-muted mt-1" />
+              </div>
+            </div>
+            <WireList items={["Paul's Fight Picks", "Dubai Recovery Crew", "FanDraft Arsenal", "Women's Wellness"]} />
+            <div className="flex gap-2 mt-2">
+              <div className="flex-1 bg-primary rounded-xl p-2.5 text-center">
+                <span className="text-[10px] text-primary-foreground font-semibold">Invite</span>
+              </div>
+              <div className="flex-1 bg-muted rounded-xl p-2.5 text-center">
+                <span className="text-[10px] text-muted-foreground font-semibold">Manage</span>
+              </div>
+            </div>
+          </PhoneMockup>
         </div>
       </BoardSection>
 
-      {/* Onboarding */}
-      <BoardSection title="Merchant Onboarding" subtitle="10 steps from demo to live." number="03" tag="Flow">
+      {/* Merchant Onboarding */}
+      <BoardSection title="Merchant Onboarding" subtitle="10 steps from demo to live." number="04" tag="Flow">
         <div className="grid grid-cols-12 gap-5">
           {[
             { n: "01", t: "Book demo", phase: "Discover", cols: "col-span-2" },
-            { n: "02", t: "Qualify category", phase: "Discover", cols: "col-span-2" },
-            { n: "03", t: "Create account", phase: "Setup", cols: "col-span-2" },
-            { n: "04", t: "Build profile", phase: "Setup", cols: "col-span-3" },
-            { n: "05", t: "Select program", phase: "Config", cols: "col-span-3" },
-            { n: "06", t: "Set commissions", phase: "Config", cols: "col-span-3" },
-            { n: "07", t: "Create join pages", phase: "Build", cols: "col-span-3" },
-            { n: "08", t: "Launch missions", phase: "Build", cols: "col-span-2" },
+            { n: "02", t: "Qualify category fit", phase: "Discover", cols: "col-span-2" },
+            { n: "03", t: "Create merchant account", phase: "Setup", cols: "col-span-2" },
+            { n: "04", t: "Build core profile", phase: "Setup", cols: "col-span-3", detail: "Logo, bio, channels, products, category & ecosystem tags" },
+            { n: "05", t: "Select program type", phase: "Config", cols: "col-span-3", detail: "Customer ambassador, affiliate, influencer, creator, hybrid" },
+            { n: "06", t: "Set commission logic", phase: "Config", cols: "col-span-3", detail: "Direct commissions, mission rewards, 4-tier structure, code terms" },
+            { n: "07", t: "Create join pages", phase: "Build", cols: "col-span-3", detail: "Customer join page + creator join page" },
+            { n: "08", t: "Launch first missions", phase: "Build", cols: "col-span-2" },
             { n: "09", t: "Begin recruitment", phase: "Launch", cols: "col-span-2" },
-            { n: "10", t: "Go live", phase: "Launch", cols: "col-span-2", accent: true },
+            { n: "10", t: "Go live in LUUP", phase: "Launch", cols: "col-span-2", accent: true },
           ].map((step) => (
             <div key={step.n} className={`${step.cols} ${step.accent ? "bento-card-accent" : "bento-card"} p-5 flex flex-col gap-2`}>
               <div className="flex items-center justify-between">
@@ -190,6 +267,18 @@ const MVPSection = () => {
                 <span className={`text-[10px] font-mono uppercase ${step.accent ? 'text-primary-foreground/50' : 'text-muted-foreground'}`}>{step.phase}</span>
               </div>
               <p className={`text-sm font-semibold leading-snug ${step.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{step.t}</p>
+              {'detail' in step && step.detail && (
+                <p className="text-xs text-muted-foreground leading-relaxed mt-1">{step.detail}</p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Merchant Promise */}
+        <div className="grid grid-cols-6 gap-4 mt-6">
+          {["Fast to launch", "Low friction", "Brand-safe", "Measurable", "Social", "Scalable"].map((promise, i) => (
+            <div key={promise} className={`${i === 3 ? "bento-card-accent" : "bento-card"} p-5 text-center`}>
+              <span className={`text-sm font-display font-bold ${i === 3 ? "text-primary-foreground" : "text-foreground"}`}>{promise}</span>
             </div>
           ))}
         </div>
