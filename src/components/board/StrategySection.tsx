@@ -107,7 +107,7 @@ const StrategySection = () => {
               <span className="text-xs font-mono text-background/50 uppercase tracking-widest">Building MVP</span>
             </div>
             <h3 className="text-2xl font-display font-black text-background tracking-tight leading-tight">
-              MVP deadline:<br />1 March 2026.
+              MVP deadline:<br />1 April 2026.
             </h3>
             <p className="text-sm text-background/50 mt-3">
               Storefronts live. Fighters onboarded. Now building the full community commerce platform.
