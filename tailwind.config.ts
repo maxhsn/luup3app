@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['Space Grotesk', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +61,20 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        sticky: {
+          yellow: "hsl(var(--sticky-yellow))",
+          "yellow-fg": "hsl(var(--sticky-yellow-fg))",
+          blue: "hsl(var(--sticky-blue))",
+          "blue-fg": "hsl(var(--sticky-blue-fg))",
+          green: "hsl(var(--sticky-green))",
+          "green-fg": "hsl(var(--sticky-green-fg))",
+          pink: "hsl(var(--sticky-pink))",
+          "pink-fg": "hsl(var(--sticky-pink-fg))",
+          orange: "hsl(var(--sticky-orange))",
+          "orange-fg": "hsl(var(--sticky-orange-fg))",
+          purple: "hsl(var(--sticky-purple))",
+          "purple-fg": "hsl(var(--sticky-purple-fg))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,25 +83,22 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pop-in": {
+          "0%": { transform: "scale(0.8)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pop-in": "pop-in 0.3s ease-out",
       },
     },
   },
