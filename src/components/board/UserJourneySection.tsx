@@ -132,7 +132,7 @@ const UserJourneySection = () => {
       </BoardSection>
 
       {/* Social UX Layer */}
-      <BoardSection title="Social UX Layer" number="10" tag="Experience">
+      <BoardSection title="Social UX Layer" number="02" tag="Experience" subtitle="Making participation feel alive and visible.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-5 bento-card p-10 min-h-[300px] flex flex-col justify-between">
             <h3 className="text-2xl font-display font-black text-foreground tracking-tight">
