@@ -7,13 +7,13 @@ import UserJourneySection from "@/components/board/UserJourneySection";
 const SECTIONS = ["Strategy", "MVP Features", "User Journey"];
 
 const Index = () => {
-  const [zoom, setZoom] = useState(0.85);
+  const [zoom, setZoom] = useState(0.8);
   const [activeSection, setActiveSection] = useState("Strategy");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleZoomIn = useCallback(() => setZoom((z) => Math.min(z + 0.1, 2)), []);
   const handleZoomOut = useCallback(() => setZoom((z) => Math.max(z - 0.1, 0.3)), []);
-  const handleFit = useCallback(() => setZoom(0.85), []);
+  const handleFit = useCallback(() => setZoom(0.8), []);
 
   const handleWheel = useCallback((e: React.WheelEvent) => {
     if (e.ctrlKey || e.metaKey) {
@@ -35,14 +35,14 @@ const Index = () => {
       />
       <div
         ref={containerRef}
-        className="flex-1 board-grid overflow-auto pt-16"
+        className="flex-1 board-grid overflow-auto pt-20"
         onWheel={handleWheel}
       >
         <div
-          className="p-10 min-w-max origin-top-left transition-transform duration-200"
+          className="p-12 min-w-max origin-top-left transition-transform duration-200"
           style={{ transform: `scale(${zoom})` }}
         >
-          <div className="max-w-[1700px] mx-auto">
+          <div className="max-w-[1800px] mx-auto">
             {activeSection === "Strategy" && <StrategySection />}
             {activeSection === "MVP Features" && <MVPSection />}
             {activeSection === "User Journey" && <UserJourneySection />}
