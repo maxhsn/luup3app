@@ -122,7 +122,7 @@ const CommercialSection = () => {
       </BoardSection>
 
       {/* Strategic Positioning */}
-      <BoardSection title="What LUUP Must Stand For" number="18" tag="Position">
+      <BoardSection title="What LUUP Must Stand For" number="03" tag="Position" subtitle="Core brand positioning statements.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-4 bento-card p-10 min-h-[280px] flex flex-col justify-between">
             <span className="text-xs font-mono text-muted-foreground">POSITIONING</span>
