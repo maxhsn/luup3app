@@ -98,7 +98,7 @@ const UserJourneySection = () => {
       </div>
 
       {/* Onboarding Routes - Interactive */}
-      <BoardSection title="Onboarding Routes" number="09" tag="Onboarding">
+      <BoardSection title="Onboarding Routes" number="01" tag="Onboarding" subtitle="Three pathways into the LUUP ecosystem.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-4 flex flex-col gap-3">
             {routes.map((route, i) => (
