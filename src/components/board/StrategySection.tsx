@@ -145,10 +145,10 @@ const StrategySection = () => {
           <div className="col-span-8 bento-card p-12 flex flex-col gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
             <h3 className="text-[2.4rem] font-display font-black tracking-[-0.04em] leading-[1.05] text-foreground max-w-[600px]">
-              Build lean. Prove first.<br />Then expand.
+              MVP by 1 March.<br />No bloat. Ship what matters.
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-[520px]">
-              LUUP 3.0 is not a big-bang launch. It's a phased rollout starting from what's already live — storefronts and fighter onboarding — and expanding into community, missions, and ecosystems as each layer proves itself.
+              Phase 1 is proven — storefronts are live, fighters are onboarding. Now we're building the MVP: mobile app, missions, referral engine, and merchant dashboard. Everything else comes after launch.
             </p>
             <div className="grid grid-cols-2 gap-3 mt-4">
               {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (Phase 2)", "Missions engine (Phase 2)", "Community layer (Phase 2)", "Ecosystems (Phase 3)"].map((item) => {
