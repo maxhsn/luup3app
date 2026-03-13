@@ -32,7 +32,7 @@ const BoardToolbar = ({ zoom, onZoomIn, onZoomOut, onFit, activeSection, section
             </div>
             <div>
               <h1 className="font-display font-extrabold text-lg text-foreground leading-none">LUUP 3.0</h1>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Strategy Board</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Strategy Board</p>
             </div>
           </div>
           <nav className="flex gap-1 bg-muted rounded-xl p-1">

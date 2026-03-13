@@ -128,6 +128,12 @@
     color: hsl(var(--primary));
   }
 
+  .tag-accent {
+    @apply px-3 py-1.5 rounded-full text-xs font-semibold;
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+  }
+
   .stat-value {
     @apply text-6xl font-black tracking-tighter leading-none;
     font-family: 'Space Grotesk', sans-serif;
