@@ -360,24 +360,24 @@ const StrategySection = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4 flex-1">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">P1</span>
-                </div>
-                <span className="text-xs text-muted-foreground mt-2">Foundation</span>
-              </div>
-              <div className="h-0.5 flex-1 bg-green-500 rounded-full" />
-              <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center">
-                  <span className="text-xs font-bold text-amber-600">P2</span>
+                  <span className="text-xs font-bold text-amber-600">P1</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-2">Community</span>
+                <span className="text-xs text-muted-foreground mt-2">MVP · 1 Mar</span>
+              </div>
+              <div className="h-0.5 flex-1 bg-border rounded-full" />
+              <div className="flex flex-col items-center">
+                <div className="w-10 h-10 rounded-full bg-primary/15 border-2 border-primary flex items-center justify-center">
+                  <span className="text-xs font-bold text-primary">P2</span>
+                </div>
+                <span className="text-xs text-muted-foreground mt-2">Community · 1 Apr</span>
               </div>
               <div className="h-0.5 flex-1 bg-border rounded-full" />
               <div className="flex flex-col items-center">
                 <div className="w-10 h-10 rounded-full bg-muted border-2 border-border flex items-center justify-center">
                   <span className="text-xs font-bold text-muted-foreground">P3</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-2">Scale</span>
+                <span className="text-xs text-muted-foreground mt-2">Scale · Q3+</span>
               </div>
             </div>
           </div>
