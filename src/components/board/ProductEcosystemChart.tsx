@@ -64,22 +64,24 @@ const deliverables = [
   },
 ];
 
-const SVG_W = 1500;
-const SVG_H = 1000;
+const SVG_W = 1200;
+const SVG_H = 780;
 const CX = SVG_W / 2;
 const CY = SVG_H / 2;
 
+// Pills go outward (left side = pills on left, right side = pills on right)
+// Labels go between node and pills
 const positions: Record<string, { nx: number; ny: number; pillDir: "left" | "right"; pillAnchorX: number; labelDy: number; subtitleDy: number }> = {
-  "top-left":     { nx: CX - 300, ny: CY - 230, pillDir: "left",  pillAnchorX: CX - 300 - 70, labelDy: 52, subtitleDy: 67 },
-  "top-right":    { nx: CX + 300, ny: CY - 230, pillDir: "right", pillAnchorX: CX + 300 + 70, labelDy: 52, subtitleDy: 67 },
-  "bottom-left":  { nx: CX - 300, ny: CY + 230, pillDir: "left",  pillAnchorX: CX - 300 - 70, labelDy: -54, subtitleDy: -40 },
-  "bottom-right": { nx: CX + 300, ny: CY + 230, pillDir: "right", pillAnchorX: CX + 300 + 70, labelDy: -54, subtitleDy: -40 },
+  "top-left":     { nx: 370, ny: 200, pillDir: "left",  pillAnchorX: 370 - 65, labelDy: 50, subtitleDy: 65 },
+  "top-right":    { nx: 830, ny: 200, pillDir: "right", pillAnchorX: 830 + 65, labelDy: 50, subtitleDy: 65 },
+  "bottom-left":  { nx: 370, ny: 580, pillDir: "left",  pillAnchorX: 370 - 65, labelDy: -50, subtitleDy: -38 },
+  "bottom-right": { nx: 830, ny: 580, pillDir: "right", pillAnchorX: 830 + 65, labelDy: -50, subtitleDy: -38 },
 };
 
-const PILL_W = 190;
-const PILL_H = 30;
-const PILL_GAP = 6;
-const NODE_R = 32;
+const PILL_W = 195;
+const PILL_H = 28;
+const PILL_GAP = 5;
+const NODE_R = 30;
 
 const ProductEcosystemChart = () => {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -89,7 +91,7 @@ const ProductEcosystemChart = () => {
       <svg
         viewBox={`0 0 ${SVG_W} ${SVG_H}`}
         className="w-full h-auto"
-        style={{ minWidth: 680 }}
+        style={{ minWidth: 900 }}
       >
         {/* Hub-to-node connections */}
         {deliverables.map((d, i) => {
