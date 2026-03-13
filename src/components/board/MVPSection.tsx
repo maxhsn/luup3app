@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BoardSection from "./BoardSection";
 import DotGrid from "./DotGrid";
-import PhoneMockup, { WireBlock, WireList } from "./PhoneMockup";
+import ProductEcosystemChart from "./ProductEcosystemChart";
 
 const featureGroups = [
   {
@@ -223,182 +223,11 @@ const MVPSection = () => {
         </div>
       </BoardSection>
 
-      {/* Wireframes */}
-      <BoardSection title="App UI Wireframes" number="03" tag="Screens">
-        <div className="grid grid-cols-4 gap-6">
-          <PhoneMockup title="Brand Page">
-            <div className="w-full h-16 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/15 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
-              <span className="text-[10px] text-primary font-mono relative z-10">HERO_IMAGE</span>
-            </div>
-            <div className="flex items-center gap-2 mt-1.5">
-              <div className="w-9 h-9 rounded-full bg-muted border border-border flex items-center justify-center">
-                <span className="text-[8px] text-muted-foreground">LOGO</span>
-              </div>
-              <div className="flex-1">
-                <div className="w-20 h-2.5 rounded bg-foreground/10" />
-                <div className="w-12 h-2 rounded bg-muted mt-1" />
-              </div>
-              <div className="px-2.5 py-1 rounded-lg bg-primary">
-                <span className="text-[9px] text-primary-foreground font-semibold">Follow</span>
-              </div>
-            </div>
-            <div className="flex gap-0.5 mt-2">
-              {["Feed", "Wall", "Missions", "Rank", "Offers"].map((tab, i) => (
-                <div key={tab} className={`flex-1 py-1 rounded-md text-center ${i === 0 ? 'bg-primary' : 'bg-muted'}`}>
-                  <span className={`text-[8px] font-medium ${i === 0 ? 'text-primary-foreground' : 'text-muted-foreground'}`}>{tab}</span>
-                </div>
-              ))}
-            </div>
-            <WireBlock label="Product Highlights" height="h-10" />
-            <WireBlock label="Active Missions" height="h-10" accent />
-            <WireBlock label="Community Posts" height="h-10" />
-          </PhoneMockup>
-
-          <PhoneMockup title="Social Wall">
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-7 h-7 rounded-full bg-muted border border-border" />
-              <div className="flex-1"><div className="w-16 h-2 rounded bg-muted" /></div>
-              <span className="text-[8px] text-muted-foreground">2h</span>
-            </div>
-            <div className="w-full h-24 rounded-xl bg-muted border border-border flex items-center justify-center">
-              <span className="text-[9px] text-muted-foreground">UGC_IMAGE</span>
-            </div>
-            <div className="flex items-center gap-3 mt-1">
-              <span className="text-[9px] text-muted-foreground">♥ 24</span>
-              <span className="text-[9px] text-muted-foreground">💬 8</span>
-              <span className="text-[9px] text-muted-foreground">↗ Share</span>
-            </div>
-            <div className="border-t border-border my-1" />
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-primary/10 border border-primary/15" />
-              <div className="flex-1 bg-muted rounded-lg p-1.5">
-                <span className="text-[8px] text-muted-foreground">Brand announcement...</span>
-              </div>
-            </div>
-            <WireBlock label="Challenge Entry" height="h-10" accent />
-            <WireBlock label="Community Win" height="h-8" />
-          </PhoneMockup>
-
-          <PhoneMockup title="Missions">
-            <div className="flex gap-1.5 mb-1">
-              <div className="px-2 py-0.5 rounded-full bg-primary"><span className="text-[8px] text-primary-foreground">Active</span></div>
-              <div className="px-2 py-0.5 rounded-full bg-muted"><span className="text-[8px] text-muted-foreground">Complete</span></div>
-              <div className="px-2 py-0.5 rounded-full bg-muted"><span className="text-[8px] text-muted-foreground">Locked</span></div>
-            </div>
-            <WireList items={["Share a code — 5 pts", "Unboxing video — 20 pts", "Product review — 15 pts", "Recruit a friend — 25 pts", "Gym activation — 30 pts", "Before/After — 20 pts"]} />
-            <div className="flex gap-1.5 mt-1.5">
-              <div className="flex-1 bg-primary/10 rounded-xl p-2 text-center border border-primary/15">
-                <span className="text-[9px] text-primary font-bold">85 pts</span>
-              </div>
-              <div className="flex-1 bg-muted rounded-xl p-2 text-center">
-                <span className="text-[9px] text-muted-foreground font-semibold">Rank #12</span>
-              </div>
-            </div>
-          </PhoneMockup>
-
-          <PhoneMockup title="Wallet">
-            <div className="bg-primary rounded-2xl p-3 text-center">
-              <span className="text-[9px] text-primary-foreground/70">TOTAL BALANCE</span>
-              <p className="text-2xl font-display font-bold text-primary-foreground mt-0.5">£247.50</p>
-            </div>
-            <div className="grid grid-cols-3 gap-1.5 mt-1.5">
-              <div className="bento-card p-2 text-center">
-                <span className="text-[8px] text-muted-foreground">DIRECT</span>
-                <p className="text-sm font-display font-bold text-foreground">£120</p>
-              </div>
-              <div className="bento-card p-2 text-center">
-                <span className="text-[8px] text-muted-foreground">TIERS</span>
-                <p className="text-sm font-display font-bold text-foreground">£77</p>
-              </div>
-              <div className="bento-card p-2 text-center">
-                <span className="text-[8px] text-muted-foreground">MISSIONS</span>
-                <p className="text-sm font-display font-bold text-foreground">£50</p>
-              </div>
-            </div>
-            <WireList items={["Tier 1 — £50", "Tier 2 — £42.50", "Tier 3 — £25", "Tier 4 — £10"]} />
-            <div className="px-3 py-1.5 rounded-lg bg-primary text-center mt-1">
-              <span className="text-[9px] text-primary-foreground font-semibold">Withdraw →</span>
-            </div>
-          </PhoneMockup>
-
-          <PhoneMockup title="Storefront">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-muted border border-border" />
-              <div>
-                <div className="w-20 h-2.5 rounded bg-foreground/10" />
-                <div className="w-12 h-2 rounded bg-muted mt-1" />
-              </div>
-            </div>
-            <WireBlock label="Share Store Link" height="h-8" accent />
-            <div className="grid grid-cols-2 gap-1.5">
-              {["Fav Product", "Niche Pick", "Collection", "Creator Pick", "Top Seller", "New Drop"].map((item) => (
-                <div key={item} className="bento-card p-2 text-center">
-                  <div className="w-full h-10 rounded-lg bg-muted mb-1" />
-                  <span className="text-[8px] font-medium text-muted-foreground">{item}</span>
-                </div>
-              ))}
-            </div>
-          </PhoneMockup>
-
-          <PhoneMockup title="Community">
-            <WireBlock label="My Community" height="h-7" accent />
-            <div className="flex items-center gap-2 bg-muted/50 rounded-xl p-2">
-              <div className="w-7 h-7 rounded-full bg-muted border border-border" />
-              <div className="flex-1">
-                <div className="w-24 h-2 rounded bg-foreground/10" />
-                <div className="w-14 h-1.5 rounded bg-muted mt-1" />
-              </div>
-              <span className="text-[8px] text-primary font-semibold">Admin</span>
-            </div>
-            <WireList items={["Paul's Fight Picks", "Dubai Recovery Crew", "FanDraft Arsenal", "Women's Wellness"]} />
-            <div className="grid grid-cols-3 gap-1.5 mt-1">
-              <div className="bg-primary rounded-xl p-2 text-center"><span className="text-[8px] text-primary-foreground font-semibold">Invite</span></div>
-              <div className="bg-muted rounded-xl p-2 text-center"><span className="text-[8px] text-muted-foreground font-semibold">Manage</span></div>
-              <div className="bg-muted rounded-xl p-2 text-center"><span className="text-[8px] text-muted-foreground font-semibold">Curate</span></div>
-            </div>
-          </PhoneMockup>
-
-          <PhoneMockup title="Leaderboard">
-            <div className="flex items-end justify-center gap-2 mb-2">
-              <div className="flex flex-col items-center">
-                <div className="w-7 h-7 rounded-full bg-muted border border-border" />
-                <div className="w-10 h-12 rounded-t-lg bg-muted mt-1 flex items-center justify-center"><span className="text-[9px] font-bold text-muted-foreground">2nd</span></div>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-8 h-8 rounded-full bg-primary/20 border-2 border-primary" />
-                <div className="w-10 h-16 rounded-t-lg bg-primary/10 border border-primary/15 mt-1 flex items-center justify-center"><span className="text-[9px] font-bold text-primary">1st</span></div>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="w-7 h-7 rounded-full bg-muted border border-border" />
-                <div className="w-10 h-8 rounded-t-lg bg-muted mt-1 flex items-center justify-center"><span className="text-[9px] font-bold text-muted-foreground">3rd</span></div>
-              </div>
-            </div>
-            <WireList items={["#4 — Sarah K · 820 pts", "#5 — Mike R · 710 pts", "#6 — Jade L · 690 pts", "#7 — You · 650 pts"]} />
-          </PhoneMockup>
-
-          <PhoneMockup title="Merchant Dashboard">
-            <div className="flex gap-1 mb-1.5">
-              {["Overview", "Users", "UGC"].map((tab, i) => (
-                <div key={tab} className={`flex-1 py-1 rounded-md text-center ${i === 0 ? 'bg-primary' : 'bg-muted'}`}>
-                  <span className={`text-[8px] font-medium ${i === 0 ? 'text-primary-foreground' : 'text-muted-foreground'}`}>{tab}</span>
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 gap-1.5">
-              <div className="bento-card p-2 text-center">
-                <span className="text-[8px] text-muted-foreground">AMBASSADORS</span>
-                <p className="text-lg font-display font-bold text-foreground">1,247</p>
-              </div>
-              <div className="bento-card p-2 text-center">
-                <span className="text-[8px] text-muted-foreground">REVENUE</span>
-                <p className="text-lg font-display font-bold text-foreground">£48k</p>
-              </div>
-            </div>
-            <WireBlock label="Conversion Funnel" height="h-14" />
-            <WireBlock label="Active Campaigns" height="h-10" accent />
-            <WireBlock label="UGC Feed" height="h-10" />
-          </PhoneMockup>
+      {/* Product Ecosystem Chart */}
+      <BoardSection title="Product Ecosystem" number="03" tag="Map">
+        <div className="bento-card p-10 relative overflow-hidden">
+          <DotGrid rows={8} cols={12} pattern="scatter" color="hsl(var(--primary))" size={3} gap={18} className="absolute inset-0 opacity-5" />
+          <ProductEcosystemChart />
         </div>
       </BoardSection>
 
