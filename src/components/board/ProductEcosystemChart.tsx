@@ -64,21 +64,21 @@ const deliverables = [
   },
 ];
 
-const SVG_W = 1400;
-const SVG_H = 900;
+const SVG_W = 1500;
+const SVG_H = 1000;
 const CX = SVG_W / 2;
 const CY = SVG_H / 2;
 
-const positions: Record<string, { nx: number; ny: number; pillDir: "left" | "right"; pillAnchorX: number }> = {
-  "top-left":     { nx: CX - 280, ny: CY - 200, pillDir: "left",  pillAnchorX: CX - 280 - 60 },
-  "top-right":    { nx: CX + 280, ny: CY - 200, pillDir: "right", pillAnchorX: CX + 280 + 60 },
-  "bottom-left":  { nx: CX - 280, ny: CY + 200, pillDir: "left",  pillAnchorX: CX - 280 - 60 },
-  "bottom-right": { nx: CX + 280, ny: CY + 200, pillDir: "right", pillAnchorX: CX + 280 + 60 },
+const positions: Record<string, { nx: number; ny: number; pillDir: "left" | "right"; pillAnchorX: number; labelDy: number; subtitleDy: number }> = {
+  "top-left":     { nx: CX - 300, ny: CY - 230, pillDir: "left",  pillAnchorX: CX - 300 - 70, labelDy: 52, subtitleDy: 67 },
+  "top-right":    { nx: CX + 300, ny: CY - 230, pillDir: "right", pillAnchorX: CX + 300 + 70, labelDy: 52, subtitleDy: 67 },
+  "bottom-left":  { nx: CX - 300, ny: CY + 230, pillDir: "left",  pillAnchorX: CX - 300 - 70, labelDy: -54, subtitleDy: -40 },
+  "bottom-right": { nx: CX + 300, ny: CY + 230, pillDir: "right", pillAnchorX: CX + 300 + 70, labelDy: -54, subtitleDy: -40 },
 };
 
-const PILL_W = 175;
+const PILL_W = 190;
 const PILL_H = 30;
-const PILL_GAP = 5;
+const PILL_GAP = 6;
 const NODE_R = 32;
 
 const ProductEcosystemChart = () => {
