@@ -32,7 +32,7 @@ const StrategySection = () => {
         { item: "4-tier referral engine", status: "building" },
         { item: "Merchant dashboard (LUUP Activate)", status: "building" },
       ],
-      kpis: ["MVP live by 1 March 2026", "Fighter sales tracked", "Storefront conversion rates"],
+      kpis: ["MVP live by 1 April 2026", "Fighter sales tracked", "Storefront conversion rates"],
     },
     {
       id: 1,
