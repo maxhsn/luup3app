@@ -146,7 +146,7 @@ const StrategySection = () => {
           <div className="col-span-8 bento-card p-12 flex flex-col gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
             <h3 className="text-[2.4rem] font-display font-black tracking-[-0.04em] leading-[1.05] text-foreground max-w-[600px]">
-              MVP by 1 March.<br />No bloat. Ship what matters.
+              MVP by 1 April.<br />No bloat. Ship what matters.
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-[520px]">
               Phase 1 is proven — storefronts are live, fighters are onboarding. Now we're building the MVP: mobile app, missions, referral engine, and merchant dashboard. Everything else comes after launch.
