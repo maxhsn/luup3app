@@ -35,14 +35,14 @@ const Index = () => {
       />
       <div
         ref={containerRef}
-        className="flex-1 board-grid overflow-auto pt-14"
+        className="flex-1 board-grid overflow-auto pt-16"
         onWheel={handleWheel}
       >
         <div
-          className="p-8 min-w-max origin-top-left transition-transform duration-200"
+          className="p-10 min-w-max origin-top-left transition-transform duration-200"
           style={{ transform: `scale(${zoom})` }}
         >
-          <div className="max-w-[1600px] mx-auto">
+          <div className="max-w-[1700px] mx-auto">
             {activeSection === "Strategy" && <StrategySection />}
             {activeSection === "MVP Features" && <MVPSection />}
             {activeSection === "User Journey" && <UserJourneySection />}
