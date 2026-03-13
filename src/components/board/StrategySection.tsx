@@ -363,7 +363,7 @@ const StrategySection = () => {
                 <div className="w-10 h-10 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center">
                   <span className="text-xs font-bold text-amber-600">P1</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-2">MVP · 1 Mar</span>
+                <span className="text-xs text-muted-foreground mt-2">MVP · 1 Apr</span>
               </div>
               <div className="h-0.5 flex-1 bg-border rounded-full" />
               <div className="flex flex-col items-center">
