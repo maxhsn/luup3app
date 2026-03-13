@@ -287,8 +287,8 @@ const StrategySection = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <span className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-                  phases[activePhase].status === "LIVE" ? "bg-green-500/15 text-green-600" :
                   phases[activePhase].status === "1 MARCH 2026" ? "bg-amber-500/15 text-amber-600" :
+                  phases[activePhase].status === "1 APRIL 2026" ? "bg-primary/15 text-primary" :
                   "bg-muted text-muted-foreground"
                 }`}>{phases[activePhase].status}</span>
                 <span className="text-xs font-mono text-muted-foreground">{phases[activePhase].timeline}</span>
