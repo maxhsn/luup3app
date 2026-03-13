@@ -399,23 +399,16 @@ const StrategySection = () => {
 
           <div className="col-span-6 grid grid-cols-2 gap-5">
             {[
-              { label: "Fighters → Advocates", icon: "🥊", note: "Phase 1" },
-              { label: "Customers → Sellers", icon: "🛒", note: "Phase 2" },
-              { label: "Creators → Earners", icon: "🎨", note: "Phase 2" },
-              { label: "Affiliates → Network Builders", icon: "🔗", note: "Phase 2" },
-              { label: "Influencers → Team Leaders", icon: "⭐", note: "Phase 3" },
-              { label: "Ecosystems → Demand Engines", icon: "🌍", note: "Phase 3" },
+              { label: "Fighters → Advocates", icon: "🥊" },
+              { label: "Customers → Sellers", icon: "🛒" },
+              { label: "Creators → Earners", icon: "🎨" },
+              { label: "Affiliates → Network Builders", icon: "🔗" },
+              { label: "Influencers → Team Leaders", icon: "⭐" },
+              { label: "Ecosystems → Demand Engines", icon: "🌍" },
             ].map((item) => (
               <div key={item.label} className="bento-card p-6 flex items-center gap-4 hover:shadow-lg transition-all duration-300">
                 <span className="text-2xl">{item.icon}</span>
-                <div>
-                  <span className="text-sm font-display font-bold text-foreground tracking-tight block">{item.label}</span>
-                  <span className={`text-xs font-mono ${
-                    item.note === "Phase 1" ? "text-green-600" :
-                    item.note === "Phase 2" ? "text-amber-600" :
-                    "text-muted-foreground"
-                  }`}>{item.note}</span>
-                </div>
+                <span className="text-sm font-display font-bold text-foreground tracking-tight">{item.label}</span>
               </div>
             ))}
           </div>
