@@ -235,7 +235,7 @@ const UserJourneyDiagram = () => {
                   : `${STAGE_BG_LIGHT[s.key]} ${STAGE_TEXT[s.key]} ${STAGE_BORDER[s.key]} hover:shadow-sm`
               }`}
             >
-              <span className="font-mono text-[10px] opacity-60">{s.number}</span>
+              <span className="font-mono text-xs opacity-60">{s.number}</span>
               {s.label}
             </button>
           ))}
