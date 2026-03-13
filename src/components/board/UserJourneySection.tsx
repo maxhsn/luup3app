@@ -1,58 +1,48 @@
 import StickyNote from "./StickyNote";
 import BoardSection from "./BoardSection";
-import FlowArrow from "./FlowArrow";
 import JourneyTree from "./JourneyTree";
-import MetricCard from "./MetricCard";
 
 const UserJourneySection = () => {
   return (
-    <div className="space-y-10">
-      {/* Growth Loop — Visual Circle */}
+    <div className="space-y-12">
+      {/* Growth Loop */}
       <BoardSection title="The LUUP Growth Loop" subtitle="7-step flywheel driving compounding advocacy" color="🔄">
         <div className="flex justify-center">
-          <div className="relative w-[700px] h-[420px]">
+          <div className="relative w-[780px] h-[480px]">
             {/* Center label */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card border border-border rounded-2xl px-5 py-3 shadow-sm z-10 text-center">
-              <p className="text-[13px] font-semibold text-foreground tracking-tight">LUUP</p>
-              <p className="text-[10px] text-muted-foreground">Growth Flywheel</p>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-foreground text-background rounded-2xl px-7 py-5 z-10 text-center" style={{ boxShadow: 'var(--card-shadow-lg)' }}>
+              <p className="text-xl font-display font-bold tracking-tight">LUUP</p>
+              <p className="text-sm text-background/60 mt-0.5">Growth Flywheel</p>
             </div>
 
-            {/* Steps positioned around the circle */}
+            {/* Steps */}
             {[
-              { n: "1", title: "Discover", color: "blue" as const, x: "50%", y: "0%", translate: "-translate-x-1/2" },
-              { n: "2", title: "Join", color: "green" as const, x: "88%", y: "18%", translate: "-translate-x-1/2" },
-              { n: "3", title: "Participate", color: "yellow" as const, x: "95%", y: "55%", translate: "-translate-x-1/2" },
-              { n: "4", title: "Convert", color: "orange" as const, x: "75%", y: "85%", translate: "-translate-x-1/2" },
-              { n: "5", title: "Earn", color: "purple" as const, x: "25%", y: "85%", translate: "-translate-x-1/2" },
-              { n: "6", title: "Recruit", color: "pink" as const, x: "5%", y: "55%", translate: "-translate-x-1/2" },
-              { n: "7", title: "Expand", color: "green" as const, x: "12%", y: "18%", translate: "-translate-x-1/2" },
+              { n: "01", title: "Discover", color: "blue" as const, x: "50%", y: "0%" },
+              { n: "02", title: "Join", color: "green" as const, x: "90%", y: "18%" },
+              { n: "03", title: "Participate", color: "yellow" as const, x: "97%", y: "55%" },
+              { n: "04", title: "Convert", color: "orange" as const, x: "78%", y: "85%" },
+              { n: "05", title: "Earn", color: "purple" as const, x: "22%", y: "85%" },
+              { n: "06", title: "Recruit", color: "pink" as const, x: "3%", y: "55%" },
+              { n: "07", title: "Expand", color: "green" as const, x: "10%", y: "18%" },
             ].map((step) => (
               <div
                 key={step.n}
-                className={`absolute ${step.translate}`}
+                className="absolute -translate-x-1/2"
                 style={{ left: step.x, top: step.y }}
               >
                 <StickyNote color={step.color} icon={step.n} title={step.title} compact />
               </div>
             ))}
 
-            {/* SVG circle connector */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 700 420">
-              <ellipse cx="350" cy="210" rx="240" ry="160" fill="none" stroke="hsl(var(--border))" strokeWidth="1.5" strokeDasharray="6 4" />
-              {/* Directional arrows */}
-              <path d="M350 50 L356 58 L344 58 Z" fill="hsl(var(--border))" transform="rotate(25, 350, 210)" />
-              <path d="M350 50 L356 58 L344 58 Z" fill="hsl(var(--border))" transform="rotate(75, 350, 210)" />
-              <path d="M350 50 L356 58 L344 58 Z" fill="hsl(var(--border))" transform="rotate(130, 350, 210)" />
-              <path d="M350 50 L356 58 L344 58 Z" fill="hsl(var(--border))" transform="rotate(180, 350, 210)" />
-              <path d="M350 50 L356 58 L344 58 Z" fill="hsl(var(--border))" transform="rotate(230, 350, 210)" />
-              <path d="M350 50 L356 58 L344 58 Z" fill="hsl(var(--border))" transform="rotate(280, 350, 210)" />
-              <path d="M350 50 L356 58 L344 58 Z" fill="hsl(var(--border))" transform="rotate(335, 350, 210)" />
+            {/* SVG connector */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 780 480">
+              <ellipse cx="390" cy="240" rx="270" ry="180" fill="none" stroke="hsl(var(--border))" strokeWidth="2" strokeDasharray="8 5" />
             </svg>
           </div>
         </div>
       </BoardSection>
 
-      {/* Onboarding Routes — Journey Trees */}
+      {/* Onboarding Routes */}
       <BoardSection title="User Onboarding Routes" subtitle="Three distinct paths converge into the LUUP platform" color="🚪">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <JourneyTree
@@ -66,12 +56,7 @@ const UserJourneySection = () => {
                 { label: "Post-purchase flows", icon: "📦" },
                 { label: "Packaging inserts", icon: "🏷️" },
                 { label: "Website join pages", icon: "🌐" },
-                {
-                  label: "Joins brand community",
-                  icon: "✅",
-                  accent: true,
-                  description: "Begins missions, rewards, referrals"
-                },
+                { label: "Joins brand community", icon: "✅", accent: true, description: "Begins missions, rewards, referrals" },
               ],
             }}
           />
@@ -85,12 +70,7 @@ const UserJourneySection = () => {
                 { label: "Gym owners", icon: "💪" },
                 { label: "Side hustlers", icon: "🚀" },
                 { label: "Niche influencers", icon: "⭐" },
-                {
-                  label: "Discovers brands via vertical",
-                  icon: "✅",
-                  accent: true,
-                  description: "Joins communities through context"
-                },
+                { label: "Discovers brands via vertical", icon: "✅", accent: true, description: "Joins communities through context" },
               ],
             }}
           />
@@ -104,21 +84,16 @@ const UserJourneySection = () => {
                 { label: "Influencers", icon: "⭐" },
                 { label: "Superfans", icon: "❤️" },
                 { label: "Community leaders", icon: "👑" },
-                {
-                  label: "Builds storefront & community",
-                  icon: "✅",
-                  accent: true,
-                  description: "Earns network royalties across 4 tiers"
-                },
+                { label: "Builds storefront & community", icon: "✅", accent: true, description: "Earns network royalties across 4 tiers" },
               ],
             }}
           />
         </div>
       </BoardSection>
 
-      {/* Customer-to-Advocate Journey — Horizontal Pipeline */}
+      {/* Customer → Advocate Journey */}
       <BoardSection title="Customer → Advocate Journey" subtitle="How a buyer becomes a growth channel" color="🦋">
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+        <div className="card-elevated p-8">
           <div className="flex items-stretch gap-0">
             {[
               { icon: "🛒", title: "Purchase", desc: "Customer buys from a brand", color: "bg-sticky-yellow" },
@@ -129,15 +104,15 @@ const UserJourneySection = () => {
               { icon: "🏆", title: "Community Leader", desc: "4-tier royalties & leaderboards", color: "bg-sticky-purple" },
             ].map((step, i, arr) => (
               <div key={step.title} className="flex items-stretch flex-1">
-                <div className={`${step.color} rounded-xl p-3 flex-1 flex flex-col items-center text-center gap-1.5`}>
-                  <span className="text-xl">{step.icon}</span>
-                  <p className="text-[12px] font-semibold text-foreground/80 tracking-tight leading-tight">{step.title}</p>
-                  <p className="text-[10px] text-foreground/50 leading-snug">{step.desc}</p>
+                <div className={`${step.color} rounded-2xl p-4 flex-1 flex flex-col items-center text-center gap-2`}>
+                  <span className="text-2xl">{step.icon}</span>
+                  <p className="text-sm font-display font-bold text-foreground/80 tracking-tight leading-tight">{step.title}</p>
+                  <p className="text-xs text-foreground/50 leading-snug">{step.desc}</p>
                 </div>
                 {i < arr.length - 1 && (
-                  <div className="flex items-center px-1">
-                    <svg width="12" height="12" viewBox="0 0 12 12" className="text-border">
-                      <path d="M2 6h8M7 3l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <div className="flex items-center px-2">
+                    <svg width="16" height="16" viewBox="0 0 16 16" className="text-border">
+                      <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                 )}
@@ -147,7 +122,7 @@ const UserJourneySection = () => {
         </div>
       </BoardSection>
 
-      {/* 4-Tier Referral Structure — Visual Tree */}
+      {/* 4-Tier Referral */}
       <BoardSection title="4-Tier Referral Structure" subtitle="The engine behind network-based earnings" color="💎">
         <div className="flex justify-center">
           <JourneyTree
@@ -184,7 +159,7 @@ const UserJourneySection = () => {
 
       {/* GTM Beachheads */}
       <BoardSection title="Go-To-Market Beachheads" color="🎯">
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           {[
             { icon: "🥊", name: "Combat Sports", desc: "Flagship ecosystem", color: "orange" as const },
             { icon: "⚽", name: "Football Fandom", desc: "FanDraft vertical", color: "green" as const },
@@ -198,20 +173,21 @@ const UserJourneySection = () => {
         </div>
       </BoardSection>
 
-      {/* Target Merchant Profile */}
+      {/* Target Merchant */}
       <BoardSection title="Target Merchant Profile" color="🏢">
-        <div className="grid grid-cols-5 gap-3">
+        <div className="grid grid-cols-5 gap-4">
           {[
-            { title: "DTC Brands", desc: "Strong customer love, needs community", icon: "❤️" },
-            { title: "Challenger E-Com", desc: "Seeking UGC + affiliate migration", icon: "🚀" },
-            { title: "Side-Hustle Ready", desc: "Want side-hustle recruitment model", icon: "💼" },
-            { title: "Creator-Ready", desc: "Seeking creator participation", icon: "🎨" },
-            { title: "Ecosystem Fit", desc: "Fit one or more vertical ecosystems", icon: "🌐" },
+            { title: "DTC Brands", desc: "Strong customer love, needs community", icon: "❤️", n: "01" },
+            { title: "Challenger E-Com", desc: "Seeking UGC + affiliate migration", icon: "🚀", n: "02" },
+            { title: "Side-Hustle Ready", desc: "Want side-hustle recruitment model", icon: "💼", n: "03" },
+            { title: "Creator-Ready", desc: "Seeking creator participation", icon: "🎨", n: "04" },
+            { title: "Ecosystem Fit", desc: "Fit one or more vertical ecosystems", icon: "🌐", n: "05" },
           ].map((m) => (
-            <div key={m.title} className="bg-card border border-border rounded-2xl p-4 shadow-sm space-y-2 animate-scale-in">
-              <span className="text-lg">{m.icon}</span>
-              <p className="text-[13px] font-semibold text-foreground tracking-tight">{m.title}</p>
-              <p className="text-[11px] text-muted-foreground leading-relaxed">{m.desc}</p>
+            <div key={m.title} className="card-elevated p-6 space-y-3 animate-scale-in">
+              <span className="text-3xl font-display font-bold text-primary tracking-tighter">{m.n}</span>
+              <span className="text-2xl block">{m.icon}</span>
+              <p className="text-base font-display font-bold text-foreground tracking-tight">{m.title}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{m.desc}</p>
             </div>
           ))}
         </div>
