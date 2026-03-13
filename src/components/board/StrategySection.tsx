@@ -128,7 +128,7 @@ const StrategySection = () => {
           { value: "Live", label: "Storefronts", sub: "Web commerce layer — proven" },
           { value: "1 Mar", label: "MVP Deadline", sub: "Full platform launch" },
           { value: "4", label: "Referral Tiers", sub: "Key differentiator" },
-          { value: "🥊", label: "Beachhead", sub: "Combat Market / Fighters" },
+          { value: "🥊", label: "Starting Market", sub: "Combat Sports / Fighters" },
         ].map((m) => (
           <div key={m.label} className="bento-card p-8 group hover:shadow-lg transition-shadow duration-300">
             <span className="text-sm text-muted-foreground font-medium">{m.label}</span>
