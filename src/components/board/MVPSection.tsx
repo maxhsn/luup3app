@@ -128,7 +128,7 @@ const MVPSection = () => {
       </div>
 
       {/* Visual Feature Map - 4 Columns by Deliverable */}
-      <BoardSection title="Product Stack" number="01" tag="Feature Map">
+      <BoardSection title="Product Stack" number="01" tag="Feature Map" subtitle="The complete MVP feature set across four deliverables.">
         <div className="grid grid-cols-4 gap-5">
           {deliverableColumns.map((col, ci) => {
             const Icon = col.icon;
