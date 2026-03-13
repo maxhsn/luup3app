@@ -117,7 +117,7 @@ const StrategySection = () => {
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Storefronts ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Codes ✓</span>
             <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-background/15 text-background">Fighters ✓</span>
-            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/30 text-background">MVP → 1 Mar</span>
+            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/30 text-background">MVP → 1 Apr</span>
           </div>
         </div>
       </div>
