@@ -9,21 +9,20 @@ import CommercialSection from "@/components/board/CommercialSection";
 const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial"];
 
 const Index = () => {
-  const [zoom, setZoom] = useState(0.8);
+  const [zoom, setZoom] = useState(1);
   const [activeSection, setActiveSection] = useState("Strategy");
   const [transitioning, setTransitioning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleZoomIn = useCallback(() => setZoom((z) => Math.min(z + 0.1, 2)), []);
   const handleZoomOut = useCallback(() => setZoom((z) => Math.max(z - 0.1, 0.3)), []);
-  const handleFit = useCallback(() => setZoom(0.8), []);
+  const handleFit = useCallback(() => setZoom(1), []);
 
   const handleSectionChange = useCallback((section: string) => {
     if (section === activeSection) return;
     setTransitioning(true);
     setTimeout(() => {
       setActiveSection(section);
-      // Scroll to top
       if (containerRef.current) containerRef.current.scrollTop = 0;
       setTimeout(() => setTransitioning(false), 50);
     }, 200);
@@ -49,11 +48,11 @@ const Index = () => {
       />
       <div
         ref={containerRef}
-        className="flex-1 board-grid overflow-auto pt-20"
+        className="flex-1 board-grid overflow-auto pt-16 md:pt-20"
         onWheel={handleWheel}
       >
         <div
-          className="p-12 min-w-max origin-top-left transition-transform duration-200"
+          className="p-4 md:p-12 origin-top-left transition-transform duration-200"
           style={{ transform: `scale(${zoom})` }}
         >
           <div

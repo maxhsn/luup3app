@@ -213,158 +213,158 @@ const UserJourneyDiagram = () => {
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Title */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-[2.8rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
+          <h2 className="text-[1.8rem] md:text-[2.8rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
             LUUP Community Commerce<br />User Journey
           </h2>
-          <p className="text-sm text-muted-foreground mt-3 max-w-[500px]">
+          <p className="text-sm text-muted-foreground mt-2 md:mt-3 max-w-[500px]">
             How a person moves from discovery to earning inside LUUP — across 5 participant layers and 6 lifecycle stages.
           </p>
         </div>
-        <div className="flex items-center gap-2 flex-wrap justify-end max-w-[400px]">
+        <div className="flex items-center gap-2 flex-wrap">
           {STAGES.map((s) => (
             <button
               key={s.key}
               onClick={() => setActiveStage(activeStage === s.key ? null : s.key)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
+              className={`flex items-center gap-1.5 px-2.5 md:px-3 py-1 md:py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
                 activeStage === s.key
                   ? `${STAGE_COLORS[s.key]} text-white border-transparent shadow-md`
                   : `${STAGE_BG_LIGHT[s.key]} ${STAGE_TEXT[s.key]} ${STAGE_BORDER[s.key]} hover:shadow-sm`
               }`}
             >
-              <span className="font-mono text-xs opacity-60">{s.number}</span>
+              <span className="font-mono text-xs opacity-60 hidden sm:inline">{s.number}</span>
               {s.label}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Diagram Grid */}
-      <div className="bento-card overflow-hidden">
-        {/* Stage Header Row */}
-        <div className="grid" style={{ gridTemplateColumns: "200px repeat(6, 1fr)" }}>
-          <div className="p-4 border-b border-r border-border bg-muted/30">
-            <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Swimlanes</span>
-          </div>
-          {STAGES.map((stage) => (
-            <div
-              key={stage.key}
-              className={`p-4 border-b border-r border-border last:border-r-0 text-center transition-all duration-300 cursor-pointer ${
-                activeStage && activeStage !== stage.key ? "opacity-30" : ""
-              } ${STAGE_BG_LIGHT[stage.key]}`}
-              onClick={() => setActiveStage(activeStage === stage.key ? null : stage.key)}
-            >
-              <div className={`w-6 h-1 rounded-full mx-auto mb-2 ${STAGE_COLORS[stage.key]}`} />
-              <span className={`text-sm font-display font-bold ${STAGE_TEXT[stage.key]}`}>{stage.label}</span>
-              <span className="block text-xs font-mono text-muted-foreground mt-0.5">Stage {stage.number}</span>
+      {/* Diagram Grid - scrollable on mobile */}
+      <div className="bento-card overflow-x-auto">
+        <div className="min-w-[900px]">
+          {/* Stage Header Row */}
+          <div className="grid" style={{ gridTemplateColumns: "180px repeat(6, 1fr)" }}>
+            <div className="p-3 md:p-4 border-b border-r border-border bg-muted/30">
+              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Swimlanes</span>
             </div>
-          ))}
-        </div>
-
-        {/* Swimlane Rows */}
-        {SWIMLANES.map((lane, laneIdx) => {
-          const Icon = lane.icon;
-          return (
-            <div
-              key={lane.id}
-              className="grid"
-              style={{ gridTemplateColumns: "200px repeat(6, 1fr)" }}
-            >
-              {/* Lane Label */}
-              <div className={`p-4 border-r border-border flex items-start gap-3 ${laneIdx < SWIMLANES.length - 1 ? "border-b" : ""} bg-muted/15`}>
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Icon size={16} className="text-primary" />
-                </div>
-                <div>
-                  <span className="text-sm font-display font-bold text-foreground block leading-tight">{lane.label}</span>
-                  <span className="text-xs text-muted-foreground">{lane.sub}</span>
-                </div>
+            {STAGES.map((stage) => (
+              <div
+                key={stage.key}
+                className={`p-3 md:p-4 border-b border-r border-border last:border-r-0 text-center transition-all duration-300 cursor-pointer ${
+                  activeStage && activeStage !== stage.key ? "opacity-30" : ""
+                } ${STAGE_BG_LIGHT[stage.key]}`}
+                onClick={() => setActiveStage(activeStage === stage.key ? null : stage.key)}
+              >
+                <div className={`w-6 h-1 rounded-full mx-auto mb-2 ${STAGE_COLORS[stage.key]}`} />
+                <span className={`text-xs md:text-sm font-display font-bold ${STAGE_TEXT[stage.key]}`}>{stage.label}</span>
+                <span className="block text-xs font-mono text-muted-foreground mt-0.5">Stage {stage.number}</span>
               </div>
+            ))}
+          </div>
 
-              {/* Stage Cells */}
-              {STAGES.map((stage) => {
-                const cellKey = `${lane.id}-${stage.key}`;
-                const cellData = DATA[lane.id]?.[stage.key];
-                const isHovered = hoveredCell === cellKey;
-                const isDimmed = activeStage && activeStage !== stage.key;
-
-                return (
-                  <div
-                    key={cellKey}
-                    className={`p-3 border-r last:border-r-0 ${laneIdx < SWIMLANES.length - 1 ? "border-b" : ""} border-border transition-all duration-300 ${
-                      isDimmed ? "opacity-20" : ""
-                    } ${isHovered ? `${STAGE_BG_LIGHT[stage.key]}` : ""}`}
-                    onMouseEnter={() => setHoveredCell(cellKey)}
-                    onMouseLeave={() => setHoveredCell(null)}
-                  >
-                    <div className="space-y-1.5">
-                      {cellData?.items.map((item, idx) => {
-                        const ItemIcon = item.icon;
-                        return (
-                          <div
-                            key={idx}
-                            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs transition-all duration-200 ${
-                              item.accent
-                                ? `${STAGE_BG_LIGHT[stage.key]} ${STAGE_TEXT[stage.key]} font-semibold border ${STAGE_BORDER[stage.key]}`
-                                : "text-foreground/80 hover:bg-muted/50"
-                            }`}
-                          >
-                            <ItemIcon size={12} className={item.accent ? STAGE_TEXT[stage.key] : "text-muted-foreground"} />
-                            <span className="leading-tight">{item.label}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
+          {/* Swimlane Rows */}
+          {SWIMLANES.map((lane, laneIdx) => {
+            const Icon = lane.icon;
+            return (
+              <div
+                key={lane.id}
+                className="grid"
+                style={{ gridTemplateColumns: "180px repeat(6, 1fr)" }}
+              >
+                <div className={`p-3 md:p-4 border-r border-border flex items-start gap-2 md:gap-3 ${laneIdx < SWIMLANES.length - 1 ? "border-b" : ""} bg-muted/15`}>
+                  <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon size={14} className="text-primary" />
                   </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                  <div>
+                    <span className="text-xs md:text-sm font-display font-bold text-foreground block leading-tight">{lane.label}</span>
+                    <span className="text-xs text-muted-foreground hidden md:block">{lane.sub}</span>
+                  </div>
+                </div>
+
+                {STAGES.map((stage) => {
+                  const cellKey = `${lane.id}-${stage.key}`;
+                  const cellData = DATA[lane.id]?.[stage.key];
+                  const isHovered = hoveredCell === cellKey;
+                  const isDimmed = activeStage && activeStage !== stage.key;
+
+                  return (
+                    <div
+                      key={cellKey}
+                      className={`p-2 md:p-3 border-r last:border-r-0 ${laneIdx < SWIMLANES.length - 1 ? "border-b" : ""} border-border transition-all duration-300 ${
+                        isDimmed ? "opacity-20" : ""
+                      } ${isHovered ? `${STAGE_BG_LIGHT[stage.key]}` : ""}`}
+                      onMouseEnter={() => setHoveredCell(cellKey)}
+                      onMouseLeave={() => setHoveredCell(null)}
+                    >
+                      <div className="space-y-1 md:space-y-1.5">
+                        {cellData?.items.map((item, idx) => {
+                          const ItemIcon = item.icon;
+                          return (
+                            <div
+                              key={idx}
+                              className={`flex items-center gap-1.5 md:gap-2 px-2 py-1 md:px-2.5 md:py-1.5 rounded-lg text-xs transition-all duration-200 ${
+                                item.accent
+                                  ? `${STAGE_BG_LIGHT[stage.key]} ${STAGE_TEXT[stage.key]} font-semibold border ${STAGE_BORDER[stage.key]}`
+                                  : "text-foreground/80 hover:bg-muted/50"
+                              }`}
+                            >
+                              <ItemIcon size={11} className={item.accent ? STAGE_TEXT[stage.key] : "text-muted-foreground"} />
+                              <span className="leading-tight">{item.label}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Feedback Loops */}
-      <div className="grid grid-cols-12 gap-5">
-        <div className="col-span-8 bento-card p-8">
-          <h3 className="text-lg font-display font-black text-foreground tracking-tight mb-5">Feedback Loops</h3>
-          <div className="flex items-center gap-3 flex-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+        <div className="md:col-span-8 bento-card p-6 md:p-8">
+          <h3 className="text-base md:text-lg font-display font-black text-foreground tracking-tight mb-4 md:mb-5">Feedback Loops</h3>
+          <div className="flex items-center gap-2 md:gap-3 flex-wrap">
             {[
               { from: "participation", to: "conversion", fromLabel: "Participation", toLabel: "Conversion" },
               { from: "conversion", to: "earnings", fromLabel: "Conversion", toLabel: "Earnings" },
               { from: "earnings", to: "network", fromLabel: "Earnings", toLabel: "Recruitment" },
               { from: "network", to: "discovery", fromLabel: "Network", toLabel: "Discovery" },
             ].map((loop, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <span className={`px-3 py-1.5 rounded-full text-xs font-bold text-white ${STAGE_COLORS[loop.from as StageKey]}`}>
+              <div key={i} className="flex items-center gap-1.5 md:gap-2">
+                <span className={`px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs font-bold text-white ${STAGE_COLORS[loop.from as StageKey]}`}>
                   {loop.fromLabel}
                 </span>
-                <ArrowRight size={14} className="text-muted-foreground" />
-                <span className={`px-3 py-1.5 rounded-full text-xs font-bold text-white ${STAGE_COLORS[loop.to as StageKey]}`}>
+                <ArrowRight size={12} className="text-muted-foreground" />
+                <span className={`px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs font-bold text-white ${STAGE_COLORS[loop.to as StageKey]}`}>
                   {loop.toLabel}
                 </span>
-                {i < 3 && <div className="w-px h-6 bg-border mx-2" />}
+                {i < 3 && <div className="w-px h-4 md:h-6 bg-border mx-1 md:mx-2 hidden sm:block" />}
               </div>
             ))}
           </div>
         </div>
-        <div className="col-span-4 bento-card-accent p-8 flex flex-col justify-between relative overflow-hidden">
-          <RotateCcw size={80} className="absolute top-4 right-4 text-primary-foreground/10" />
+        <div className="md:col-span-4 bento-card-accent p-6 md:p-8 flex flex-col justify-between relative overflow-hidden min-h-[140px]">
+          <RotateCcw size={60} className="absolute top-4 right-4 text-primary-foreground/10" />
           <span className="text-xs font-mono text-primary-foreground/40">COMPOUNDING EFFECT</span>
           <div>
-            <h3 className="text-2xl font-display font-black text-primary-foreground tracking-tight">Growth Loop</h3>
-            <p className="text-sm text-primary-foreground/60 mt-1">Each recruited user repeats the full journey, creating exponential network effects.</p>
+            <h3 className="text-xl md:text-2xl font-display font-black text-primary-foreground tracking-tight">Growth Loop</h3>
+            <p className="text-xs md:text-sm text-primary-foreground/60 mt-1">Each recruited user repeats the full journey, creating exponential network effects.</p>
           </div>
         </div>
       </div>
 
       {/* Legend */}
-      <div className="bento-card p-6 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className="bento-card p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3 md:gap-4 flex-wrap">
           <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">Legend</span>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 md:gap-6 flex-wrap">
             {STAGES.map((s) => (
               <div key={s.key} className="flex items-center gap-1.5">
                 <div className={`w-3 h-3 rounded-full ${STAGE_COLORS[s.key]}`} />
@@ -373,9 +373,9 @@ const UserJourneyDiagram = () => {
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <div className="flex items-center gap-1.5">
-            <div className="w-6 h-5 rounded border border-dashed border-primary/30 bg-primary/5" />
+            <div className="w-5 h-4 md:w-6 md:h-5 rounded border border-dashed border-primary/30 bg-primary/5" />
             <span className="text-xs text-muted-foreground">Key action</span>
           </div>
           <div className="flex items-center gap-1.5">
