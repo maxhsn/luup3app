@@ -87,28 +87,75 @@ const MVPSection = () => {
         </div>
       </div>
 
-      {/* Feature Grid */}
+      {/* Feature Grid - Categorized */}
       <BoardSection title="Product Stack" number="01" tag="Features">
-        <div className="grid grid-cols-5 gap-4">
-          {features.map((f, i) => (
-            <div
-              key={f.n}
-              onMouseEnter={() => setHoveredFeature(i)}
-              onMouseLeave={() => setHoveredFeature(null)}
-              className={`${f.accent ? "bento-card-accent" : "bento-card"} p-6 flex flex-col gap-3 cursor-default transition-all duration-300 ${
-                hoveredFeature === i ? "shadow-lg scale-[1.02]" : ""
-              } relative overflow-hidden`}
-            >
-              {f.accent && <DotGrid rows={3} cols={3} pattern="full" color="hsl(var(--primary-foreground))" size={3} gap={10} className="absolute top-4 right-4 opacity-20" />}
-              <div className="flex items-center justify-between">
-                <span className={`text-2xl font-display font-black tracking-tighter ${f.accent ? 'text-primary-foreground/30' : 'text-primary/20'}`}>{f.n}</span>
-                <span className={`text-[10px] font-mono uppercase tracking-wider ${f.accent ? 'text-primary-foreground/40' : 'text-muted-foreground/60'}`}>{f.category}</span>
+        {[
+          {
+            group: "Merchant Tools",
+            icon: "🏢",
+            indices: [0, 12, 13, 19],
+          },
+          {
+            group: "Customer & Creator",
+            icon: "👥",
+            indices: [3, 14, 5],
+          },
+          {
+            group: "Storefronts & Commerce",
+            icon: "🛍️",
+            indices: [4, 9, 11, 10],
+          },
+          {
+            group: "Social & Content",
+            icon: "📱",
+            indices: [1, 6, 8],
+          },
+          {
+            group: "Engagement",
+            icon: "🎯",
+            indices: [7, 17, 16],
+          },
+          {
+            group: "Discovery & AI",
+            icon: "🔍",
+            indices: [2, 18, 15],
+          },
+        ].map((group) => {
+          const groupFeatures = group.indices.map(idx => features[idx]).filter(Boolean);
+          return (
+            <div key={group.group} className="mb-6 last:mb-0">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-lg">{group.icon}</span>
+                <h3 className="text-base font-display font-extrabold tracking-tight text-foreground uppercase">{group.group}</h3>
+                <div className="flex-1 h-px bg-border" />
+                <span className="text-xs font-mono text-muted-foreground">{groupFeatures.length} features</span>
               </div>
-              <h4 className={`text-sm font-display font-bold tracking-tight leading-snug ${f.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{f.title}</h4>
-              <p className={`text-xs leading-relaxed ${f.accent ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>{f.desc}</p>
+              <div className="grid grid-cols-4 gap-4">
+                {groupFeatures.map((f, i) => {
+                  const globalIdx = group.indices[i];
+                  return (
+                    <div
+                      key={f.n}
+                      onMouseEnter={() => setHoveredFeature(globalIdx)}
+                      onMouseLeave={() => setHoveredFeature(null)}
+                      className={`${f.accent ? "bento-card-accent" : "bento-card"} p-6 flex flex-col gap-3 cursor-default transition-all duration-300 ${
+                        hoveredFeature === globalIdx ? "shadow-lg scale-[1.02]" : ""
+                      } relative overflow-hidden`}
+                    >
+                      {f.accent && <DotGrid rows={3} cols={3} pattern="full" color="hsl(var(--primary-foreground))" size={3} gap={10} className="absolute top-4 right-4 opacity-20" />}
+                      <div className="flex items-center justify-between">
+                        <span className={`text-2xl font-display font-black tracking-tighter ${f.accent ? 'text-primary-foreground/30' : 'text-primary/20'}`}>{f.n}</span>
+                        <span className={`text-[10px] font-mono uppercase tracking-wider ${f.accent ? 'text-primary-foreground/40' : 'text-muted-foreground/60'}`}>{f.category}</span>
+                      </div>
+                      <h4 className={`text-sm font-display font-bold tracking-tight leading-snug ${f.accent ? 'text-primary-foreground' : 'text-foreground'}`}>{f.title}</h4>
+                      <p className={`text-xs leading-relaxed ${f.accent ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>{f.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </BoardSection>
 
       {/* Feature Deep Dives - Interactive */}
