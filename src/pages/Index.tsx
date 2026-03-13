@@ -1,10 +1,12 @@
 import { useState, useRef, useCallback } from "react";
 import BoardToolbar from "@/components/board/BoardToolbar";
 import StrategySection from "@/components/board/StrategySection";
+import ArchitectureSection from "@/components/board/ArchitectureSection";
 import MVPSection from "@/components/board/MVPSection";
 import UserJourneySection from "@/components/board/UserJourneySection";
+import CommercialSection from "@/components/board/CommercialSection";
 
-const SECTIONS = ["Strategy", "MVP Features", "User Journey"];
+const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial"];
 
 const Index = () => {
   const [zoom, setZoom] = useState(0.8);
@@ -44,8 +46,10 @@ const Index = () => {
         >
           <div className="max-w-[1800px] mx-auto">
             {activeSection === "Strategy" && <StrategySection />}
-            {activeSection === "MVP Features" && <MVPSection />}
-            {activeSection === "User Journey" && <UserJourneySection />}
+            {activeSection === "Architecture" && <ArchitectureSection />}
+            {activeSection === "Product" && <MVPSection />}
+            {activeSection === "Growth" && <UserJourneySection />}
+            {activeSection === "Commercial" && <CommercialSection />}
           </div>
         </div>
       </div>
