@@ -31,7 +31,7 @@ const CommercialSection = () => {
       </div>
 
       {/* Pricing Tiers */}
-      <BoardSection title="Pricing Ladder" number="14" tag="Pricing">
+      <BoardSection title="Pricing Ladder" number="01" tag="Pricing" subtitle="Progressive tiers for brands of all sizes.">
         <div className="grid grid-cols-12 gap-5">
           {[
             {
