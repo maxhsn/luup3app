@@ -169,7 +169,7 @@ const StrategySection = () => {
               <DotGrid rows={3} cols={4} pattern="full" color="hsl(var(--primary-foreground))" size={5} gap={16} className="absolute top-6 right-6 opacity-25" />
               <span className="text-xs font-mono text-primary-foreground/50">THE APPROACH</span>
               <h3 className="text-xl font-display font-bold text-primary-foreground leading-snug mt-4">
-                Foundation proven.<br />MVP by 1 March.<br />Then scale.
+                Foundation proven.<br />MVP by 1 April.<br />Then scale.
               </h3>
             </div>
             <div className="bg-foreground rounded-[1.25rem] p-8 flex-1 flex flex-col justify-between">
