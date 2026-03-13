@@ -240,7 +240,7 @@ const MVPSection = () => {
       </BoardSection>
 
       {/* Product Ecosystem Chart */}
-      <BoardSection title="Product Ecosystem" number="03" tag="Map">
+      <BoardSection title="Product Ecosystem" number="03" tag="Map" subtitle="How the four deliverables connect.">
         <div className="bento-card p-10 relative overflow-hidden">
           <DotGrid rows={8} cols={12} pattern="scatter" color="hsl(var(--primary))" size={3} gap={18} className="absolute inset-0 opacity-5" />
           <ProductEcosystemChart />
