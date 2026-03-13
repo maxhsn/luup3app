@@ -93,7 +93,7 @@ const MVPSection = () => {
           {
             group: "Merchant Tools",
             icon: "🏢",
-            indices: [0, 12, 23, 19], // 01, 13, 14, 20 (mapped below)
+            indices: [0, 12, 13, 19],
           },
           {
             group: "Customer & Creator",
