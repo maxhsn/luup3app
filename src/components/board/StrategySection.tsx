@@ -153,6 +153,7 @@ const StrategySection = () => {
             <div className="grid grid-cols-2 gap-3 mt-4">
               {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (MVP)", "Missions engine (MVP)", "Merchant dashboard (MVP)", "Ecosystems (post-MVP)"].map((item) => {
                 const isLive = item.includes("(live)");
+                const isMVP = item.includes("(MVP)");
                 return (
                   <div key={item} className={`flex items-center gap-3 p-3 rounded-xl ${isLive ? "bg-primary/5 border border-primary/10" : "bg-muted/50"}`}>
                     <div className={`w-2 h-2 rounded-full flex-shrink-0 ${isLive ? "bg-green-500" : "bg-muted-foreground/30"}`} />
