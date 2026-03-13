@@ -153,7 +153,7 @@ const CommercialSection = () => {
       </BoardSection>
 
       {/* Final Strategic Model */}
-      <BoardSection title="Final Strategic Model" number="19" tag="Summary">
+      <BoardSection title="Final Strategic Model" number="04" tag="Summary" subtitle="The complete LUUP 3.0 strategic model.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-3 bento-card-accent p-8 min-h-[300px] flex flex-col justify-between">
             <span className="text-xs font-mono text-primary-foreground/50">CONSUMER SIDE</span>
