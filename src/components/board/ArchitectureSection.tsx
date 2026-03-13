@@ -91,7 +91,7 @@ const ArchitectureSection = () => {
       </div>
 
       {/* Platform Architecture - Interactive */}
-      <BoardSection title="Platform Architecture" number="04" tag="Layers">
+      <BoardSection title="Platform Architecture" number="01" tag="Layers" subtitle="Three interconnected layers powering one experience.">
         <div className="grid grid-cols-12 gap-5">
           <div className="col-span-4 flex flex-col gap-3">
             {archLayers.map((layer) => (
