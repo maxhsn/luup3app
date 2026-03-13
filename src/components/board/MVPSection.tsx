@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BoardSection from "./BoardSection";
 import DotGrid from "./DotGrid";
-import PhoneMockup, { WireBlock, WireList } from "./PhoneMockup";
+import ProductEcosystemChart from "./ProductEcosystemChart";
 
 const featureGroups = [
   {
