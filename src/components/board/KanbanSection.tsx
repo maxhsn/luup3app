@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BoardSection from "./BoardSection";
+import InteractivityFlow from "./InteractivityFlow";
 
 type Phase = "MVP" | "Phase 1" | "Phase 2" | "Phase 3";
 type Priority = "critical" | "high" | "medium" | "nice";
