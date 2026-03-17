@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BoardSection from "./BoardSection";
+import InteractivityFlow from "./InteractivityFlow";
 
 type Phase = "MVP" | "Phase 1" | "Phase 2" | "Phase 3";
 type Priority = "critical" | "high" | "medium" | "nice";
@@ -245,6 +246,16 @@ const KanbanSection = () => {
             })}
           </div>
         </div>
+      </BoardSection>
+
+      {/* Interactivity Flow */}
+      <BoardSection
+        title="UX Interactivity Flow"
+        subtitle="How every screen, layer, and AI agent connects into seamless user journeys"
+        tag="UX ARCHITECTURE"
+        number="07"
+      >
+        <InteractivityFlow />
       </BoardSection>
     </div>
   );
