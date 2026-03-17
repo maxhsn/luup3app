@@ -66,7 +66,7 @@ const Index = () => {
             {activeSection === "Product" && <MVPSection />}
             {activeSection === "Growth" && <UserJourneySection />}
             {activeSection === "Commercial" && <CommercialSection />}
-            {activeSection === "Kanban" && <KanbanSection />}
+            {activeSection === "Deliverables" && <KanbanSection />}
           </div>
         </div>
       </div>

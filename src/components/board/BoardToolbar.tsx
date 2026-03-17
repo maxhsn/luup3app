@@ -16,7 +16,7 @@ const TAB_META: Record<string, { desc: string; icon: string }> = {
   Product: { desc: "Feature stack, deliverables & onboarding", icon: "📦" },
   Growth: { desc: "User journeys, referrals & go-to-market", icon: "🚀" },
   Commercial: { desc: "Pricing, messaging & positioning", icon: "💰" },
-  Kanban: { desc: "Feature roadmap across all product surfaces", icon: "📋" },
+  Deliverables: { desc: "Feature roadmap & UX interactivity flows", icon: "📋" },
 };
 
 const BoardToolbar = ({ zoom, onZoomIn, onZoomOut, onFit, activeSection, sections, onSectionChange }: BoardToolbarProps) => {
