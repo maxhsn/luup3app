@@ -247,6 +247,16 @@ const KanbanSection = () => {
           </div>
         </div>
       </BoardSection>
+
+      {/* Interactivity Flow */}
+      <BoardSection
+        title="UX Interactivity Flow"
+        subtitle="How every screen, layer, and AI agent connects into seamless user journeys"
+        tag="UX ARCHITECTURE"
+        number="07"
+      >
+        <InteractivityFlow />
+      </BoardSection>
     </div>
   );
 };
