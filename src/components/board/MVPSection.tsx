@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LayoutDashboard, Smartphone, Store, Brain } from "lucide-react";
+import { LayoutDashboard, Smartphone, Store, Brain, Search, Bot } from "lucide-react";
 import BoardSection from "./BoardSection";
 import DotGrid from "./DotGrid";
 import ProductEcosystemChart from "./ProductEcosystemChart";
@@ -40,14 +40,26 @@ const deliverableColumns = [
     ],
   },
   {
-    title: "Platform & AI", subtitle: "Ecosystem Engine", icon: Brain, color: "var(--stage-discovery)",
+    title: "Scout", subtitle: "Recruitment Engine", icon: Search, color: "var(--stage-earnings)",
     features: [
-      { title: "Ecosystem Categories", desc: "Category hubs as discovery and relevance layers" },
-      { title: "Multi-Vertical Tagging", desc: "Cross-category brand distribution" },
-      { title: "AI Matching", desc: "Automated creator–brand matching and recruitment", accent: true },
-      { title: "Growth Loops", desc: "Automated viral loops and network expansion" },
-      { title: "Brand Pages & Content", desc: "Hero, bio, feed, wall, leaderboard, missions" },
-      { title: "Creator Applications", desc: "Application flows for creators and influencers" },
+      { title: "75M+ Contact Database", desc: "Verified contacts searchable by niche, geography, audience" },
+      { title: "Prospect Search & Filter", desc: "Creator type, engagement, community relevance" },
+      { title: "Segmented List Building", desc: "Build targeted lists for affiliates, influencers, creators" },
+      { title: "Multi-Channel Outreach", desc: "DM, email, SMS, WhatsApp campaigns" },
+      { title: "Recruitment CRM", desc: "Pipeline stages: contacted → interested → onboarded → active" },
+      { title: "Agent AI Integration", desc: "Let AI operate Scout autonomously 24/7", accent: true },
+    ],
+  },
+  {
+    title: "Agent AI", subtitle: "Intelligence Layer", icon: Bot, color: "var(--stage-discovery)",
+    features: [
+      { title: "Store Agent", desc: "Product Q&A, guided selling, recommendations" },
+      { title: "Support Agent", desc: "Policy, returns, sizing — reduce support friction" },
+      { title: "Ambassador Agent", desc: "Smart programme invitations at high-value moments" },
+      { title: "Onboarding Agent", desc: "Step-by-step sign-up and first-action guidance" },
+      { title: "Recruit Agent", desc: "Scout-powered prospect finding and prioritisation" },
+      { title: "Outreach Agent", desc: "Campaign writing, sending, and follow-up" },
+      { title: "Growth Agent", desc: "Performance analysis and next-best actions", accent: true },
     ],
   },
 ];
@@ -73,6 +85,10 @@ const featureDetails = [
     title: "Wallet",
     items: ["Direct earnings", "Tier earnings", "Mission rewards", "Bonuses", "Withdrawals", "Community performance", "Brand-by-brand income", "Ecosystem performance"],
   },
+  {
+    title: "Agent AI Roles",
+    items: ["Store Agent — guided selling & product Q&A", "Support Agent — policies, returns, FAQs", "Ambassador Agent — smart programme invites", "Onboarding Agent — sign-up guidance", "Recruit Agent — Scout-powered finding", "Outreach Agent — campaign follow-up", "Growth Agent — next-best actions & analysis"],
+  },
 ];
 
 const MVPSection = () => {
@@ -92,16 +108,16 @@ const MVPSection = () => {
             <h2 className="text-[2rem] md:text-[3.2rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
               {totalFeatures} Core<br />Features.
             </h2>
-            <p className="text-sm md:text-base text-muted-foreground mt-3 md:mt-4 max-w-[300px]">The complete MVP product stack powering LUUP 3.0 — unified into one coherent platform.</p>
+            <p className="text-sm md:text-base text-muted-foreground mt-3 md:mt-4 max-w-[300px]">The complete product stack — now with Scout recruitment and Agent AI intelligence built in.</p>
           </div>
         </div>
         <div className="md:col-span-4 bento-card-accent p-8 md:p-10 min-h-[200px] md:min-h-[340px] flex flex-col justify-between relative overflow-hidden">
           <DotGrid rows={10} cols={10} pattern="scatter" color="hsl(var(--primary-foreground))" size={4} gap={14} className="absolute inset-0 m-auto opacity-20" />
           <div className="relative z-10">
             <h3 className="text-[2rem] md:text-[2.5rem] font-display font-black text-primary-foreground tracking-tight leading-[1.05]">
-              4 Core<br />Deliverables
+              6 Core<br />Deliverables
             </h3>
-            <p className="text-sm text-primary-foreground/60 mt-3">Dashboard · App · Storefronts · AI Platform</p>
+            <p className="text-sm text-primary-foreground/60 mt-3">Dashboard · App · Storefronts · Scout · Agent AI · Ecosystems</p>
           </div>
         </div>
         <div className="md:col-span-3 bg-foreground rounded-[1.25rem] p-6 md:p-8 min-h-[180px] md:min-h-[340px] flex flex-col justify-between relative overflow-hidden">
@@ -110,14 +126,14 @@ const MVPSection = () => {
             <span className="text-background font-bold">∞</span>
           </div>
           <p className="text-sm text-background/80 leading-relaxed mt-4 md:mt-0">
-            Building transparent, permissionless infrastructure for the next generation of community commerce.
+            Recruitment + activation + affiliate network + autonomous AI growth infrastructure — all in one platform.
           </p>
         </div>
       </div>
 
       {/* Visual Feature Map */}
-      <BoardSection title="Product Stack" number="01" tag="Feature Map" subtitle="The complete MVP feature set across four deliverables.">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+      <BoardSection title="Product Stack" number="01" tag="Feature Map" subtitle="The complete feature set across six deliverables.">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
           {deliverableColumns.map((col, ci) => {
             const Icon = col.icon;
             return (
@@ -223,7 +239,7 @@ const MVPSection = () => {
       </BoardSection>
 
       {/* Product Ecosystem Chart */}
-      <BoardSection title="Product Ecosystem" number="03" tag="Map" subtitle="How the four deliverables connect.">
+      <BoardSection title="Product Ecosystem" number="03" tag="Map" subtitle="How the six deliverables connect.">
         <div className="bento-card p-6 md:p-10 relative overflow-hidden overflow-x-auto">
           <DotGrid rows={8} cols={12} pattern="scatter" color="hsl(var(--primary))" size={3} gap={18} className="absolute inset-0 opacity-5" />
           <ProductEcosystemChart />
@@ -231,7 +247,7 @@ const MVPSection = () => {
       </BoardSection>
 
       {/* Merchant Onboarding */}
-      <BoardSection title="Merchant Onboarding" subtitle="10 steps from demo to live." number="04" tag="Flow">
+      <BoardSection title="Merchant Onboarding" subtitle="From demo to live — now with Scout activation." number="04" tag="Flow">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-12 gap-3 md:gap-5">
           {[
             { n: "01", t: "Book demo", phase: "Discover", cols: "lg:col-span-2 md:col-span-2" },
@@ -240,10 +256,11 @@ const MVPSection = () => {
             { n: "04", t: "Build core profile", phase: "Setup", cols: "lg:col-span-3 md:col-span-3", detail: "Logo, bio, channels, products, category & ecosystem tags" },
             { n: "05", t: "Select program type", phase: "Config", cols: "lg:col-span-3 md:col-span-3", detail: "Customer ambassador, affiliate, influencer, creator, hybrid" },
             { n: "06", t: "Set commission logic", phase: "Config", cols: "lg:col-span-3 md:col-span-3", detail: "Direct commissions, mission rewards, 4-tier structure, code terms" },
-            { n: "07", t: "Create join pages", phase: "Build", cols: "lg:col-span-3 md:col-span-3", detail: "Customer join page + creator join page" },
+            { n: "07", t: "Create join pages", phase: "Build", cols: "lg:col-span-3 md:col-span-3", detail: "Customer, affiliate, creator, influencer, ambassador pages" },
             { n: "08", t: "Launch first missions", phase: "Build", cols: "lg:col-span-2 md:col-span-2" },
-            { n: "09", t: "Begin recruitment", phase: "Launch", cols: "lg:col-span-2 md:col-span-2" },
-            { n: "10", t: "Go live in LUUP", phase: "Launch", cols: "lg:col-span-2 md:col-span-2", accent: true },
+            { n: "09", t: "Activate Scout recruitment", phase: "Launch", cols: "lg:col-span-2 md:col-span-2" },
+            { n: "10", t: "Configure Agent AI", phase: "Launch", cols: "lg:col-span-2 md:col-span-2" },
+            { n: "11", t: "Go live in LUUP", phase: "Launch", cols: "lg:col-span-2 md:col-span-2", accent: true },
           ].map((step) => (
             <div key={step.n} className={`${step.cols} ${step.accent ? "bento-card-accent" : "bento-card"} p-4 md:p-5 flex flex-col gap-2`}>
               <div className="flex items-center justify-between">
@@ -259,7 +276,7 @@ const MVPSection = () => {
         </div>
 
         <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4 mt-4 md:mt-6">
-          {["Fast to launch", "Low friction", "Brand-safe", "Measurable", "Social", "Scalable"].map((promise, i) => (
+          {["Fast to launch", "Low friction", "Brand-safe", "Scout-powered", "AI-activated", "Scalable"].map((promise, i) => (
             <div key={promise} className={`${i === 3 ? "bento-card-accent" : "bento-card"} p-3 md:p-5 text-center`}>
               <span className={`text-xs md:text-sm font-display font-bold ${i === 3 ? "text-primary-foreground" : "text-foreground"}`}>{promise}</span>
             </div>

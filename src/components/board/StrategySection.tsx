@@ -9,14 +9,15 @@ const StrategySection = () => {
     "Too many app decisions",
     "Split user journeys",
     "Fragmented network effects",
+    "No recruitment infrastructure",
+    "No AI automation layer",
     "Unclear merchant onboarding",
-    "Confusing brand messaging",
   ];
 
   const phases = [
     {
       id: 0, label: "Phase 1", name: "MVP Launch", status: "1 APRIL 2026", timeline: "Q1 2026", accent: true,
-      desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, and merchant dashboard. Hard deadline: 1st April 2026.",
+      desc: "The full community commerce platform — mobile app, storefronts, missions, referral engine, merchant dashboard, and Scout recruitment infrastructure. Hard deadline: 1st April 2026.",
       deliverables: [
         { item: "Web storefronts", status: "live" },
         { item: "Personal referral codes", status: "live" },
@@ -26,34 +27,37 @@ const StrategySection = () => {
         { item: "Missions engine", status: "building" },
         { item: "4-tier referral engine", status: "building" },
         { item: "Merchant dashboard (LUUP Activate)", status: "building" },
+        { item: "Scout recruitment engine (v1)", status: "building" },
       ],
-      kpis: ["MVP live by 1 April 2026", "Fighter sales tracked", "Storefront conversion rates"],
+      kpis: ["MVP live by 1 April 2026", "Fighter sales tracked", "Storefront conversion rates", "Scout recruitment pipeline active"],
     },
     {
-      id: 1, label: "Phase 2", name: "Community Engine", status: "1 MAY 2026", timeline: "Q2 2026",
-      desc: "Social layer, gamification, and deeper community tools — turning the MVP into a sticky, engaged platform.",
+      id: 1, label: "Phase 2", name: "Community + AI Engine", status: "1 MAY 2026", timeline: "Q2 2026",
+      desc: "Social layer, gamification, Agent AI store conversion and recruitment automation, and deeper community tools.",
       deliverables: [
         { item: "Wall feed & social layer", status: "planned" },
         { item: "Leaderboards & gamification", status: "planned" },
         { item: "Brand community pages", status: "planned" },
         { item: "Advanced mission types", status: "planned" },
         { item: "UGC engine & content tools", status: "planned" },
-        { item: "Notifications & alerts", status: "planned" },
+        { item: "Agent AI — store conversion layer", status: "planned" },
+        { item: "Agent AI — ambassador activation", status: "planned" },
+        { item: "Scout CRM & outreach automation", status: "planned" },
       ],
-      kpis: ["Community engagement depth", "Mission completion rates", "Referral network depth"],
+      kpis: ["Community engagement depth", "Mission completion rates", "Agent AI conversion lift", "Scout-to-activation rate"],
     },
     {
-      id: 2, label: "Phase 3", name: "Scale & Ecosystems", status: "POST-LAUNCH", timeline: "Q3 2026+",
-      desc: "AI matching, multi-vertical ecosystems, and creator tools — scaling beyond combat sports into new verticals.",
+      id: 2, label: "Phase 3", name: "Scale & Automation", status: "POST-LAUNCH", timeline: "Q3 2026+",
+      desc: "Multi-vertical ecosystems, autonomous Agent AI operating Scout 24/7, affiliate network layer, and full AI-driven growth infrastructure.",
       deliverables: [
         { item: "Ecosystem hubs (FanDraft, PetSpace, etc.)", status: "planned" },
-        { item: "AI creator-brand matching", status: "planned" },
         { item: "Multi-ecosystem brand tagging", status: "planned" },
-        { item: "Creator collections & advanced storefronts", status: "planned" },
-        { item: "Automated growth loops", status: "planned" },
+        { item: "Affiliate Network solution", status: "planned" },
+        { item: "Agent AI — autonomous Scout operator", status: "planned" },
+        { item: "Agent AI — growth & intent engine", status: "planned" },
         { item: "Enterprise / white-label (LUUP Bespoke)", status: "planned" },
       ],
-      kpis: ["Ecosystems launched", "Cross-vertical brand distribution", "Network-driven revenue %"],
+      kpis: ["Ecosystems launched", "Autonomous recruitment volume", "Agent AI GMV contribution", "Network-driven revenue %"],
     },
   ];
 
@@ -68,7 +72,7 @@ const StrategySection = () => {
           </div>
           <div className="relative z-10 mt-6 md:mt-0">
             <h1 className="text-[2rem] md:text-[3.2rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
-              The operating<br />system for<br />community<br />commerce.
+              Recruitment.<br />Activation.<br />Autonomous<br />Growth.
             </h1>
           </div>
         </div>
@@ -80,7 +84,7 @@ const StrategySection = () => {
           </p>
           <div className="relative z-10 mt-4 md:mt-0">
             <p className="text-sm text-primary-foreground/60 leading-relaxed">
-              LUUP is the platform where <strong className="text-primary-foreground">brands, customers, affiliates, influencers, creators, and communities</strong> come together.
+              LUUP is the operating system for <strong className="text-primary-foreground">community commerce</strong> — combining recruitment, activation, affiliate infrastructure, ecosystem discovery, and <strong className="text-primary-foreground">AI-powered growth automation</strong>.
             </p>
             <span className="tag !bg-primary-foreground/20 !text-primary-foreground mt-4 inline-block">Platform v3.0</span>
           </div>
@@ -97,7 +101,7 @@ const StrategySection = () => {
               MVP deadline:<br />1 April 2026.
             </h3>
             <p className="text-sm text-background/50 mt-3">
-              Storefronts live. Fighters onboarded. Now building the full community commerce platform.
+              Storefronts live. Fighters onboarded. Scout + Agent AI in pipeline.
             </p>
           </div>
           <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
@@ -113,9 +117,9 @@ const StrategySection = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
         {[
           { value: "Live", label: "Storefronts", sub: "Web commerce layer — proven" },
-          { value: "1 Apr", label: "MVP Deadline", sub: "Full platform launch" },
+          { value: "75M+", label: "Scout Database", sub: "Verified contacts for recruitment" },
           { value: "4", label: "Referral Tiers", sub: "Key differentiator" },
-          { value: "🥊", label: "Starting Market", sub: "Combat Sports / Fighters" },
+          { value: "7", label: "Agent AI Roles", sub: "Store · Support · Ambassador · Scout" },
         ].map((m) => (
           <div key={m.label} className="bento-card p-5 md:p-8 group hover:shadow-lg transition-shadow duration-300">
             <span className="text-xs md:text-sm text-muted-foreground font-medium">{m.label}</span>
@@ -128,18 +132,18 @@ const StrategySection = () => {
       </div>
 
       {/* Section 1: Executive Summary */}
-      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="One platform, built in phases — not all at once.">
+      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="One platform — recruitment, activation, and autonomous AI growth.">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
           <div className="md:col-span-8 bento-card p-8 md:p-12 flex flex-col gap-4 md:gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
             <h3 className="text-xl md:text-[2.4rem] font-display font-black tracking-[-0.04em] leading-[1.05] text-foreground max-w-[600px]">
-              MVP by 1 April.<br />No bloat. Ship what matters.
+              MVP by 1 April.<br />Scout finds the people.<br />Agent AI activates them.
             </h3>
             <p className="text-sm md:text-lg text-muted-foreground leading-relaxed max-w-[520px]">
-              Phase 1 is proven — storefronts are live, fighters are onboarding. Now we're building the MVP: mobile app, missions, referral engine, and merchant dashboard. Everything else comes after launch.
+              LUUP 3.0 combines recruitment infrastructure (Scout), activation engine (Activate), affiliate network logic, ecosystem discovery, and AI-powered growth automation (Agent AI) — all in one platform.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 md:mt-4">
-              {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (MVP)", "Missions engine (MVP)", "Merchant dashboard (MVP)", "Ecosystems (post-MVP)"].map((item) => {
+              {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (MVP)", "Missions engine (MVP)", "Scout recruitment (MVP)", "Agent AI (Phase 2)"].map((item) => {
                 const isLive = item.includes("(live)");
                 const isMVP = item.includes("(MVP)");
                 return (
@@ -154,19 +158,19 @@ const StrategySection = () => {
           <div className="md:col-span-4 flex flex-col gap-4 md:gap-5">
             <div className="bento-card-accent p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
               <DotGrid rows={3} cols={4} pattern="full" color="hsl(var(--primary-foreground))" size={5} gap={16} className="absolute top-6 right-6 opacity-25" />
-              <span className="text-xs font-mono text-primary-foreground/50">THE APPROACH</span>
+              <span className="text-xs font-mono text-primary-foreground/50">THE SHIFT</span>
               <h3 className="text-lg md:text-xl font-display font-bold text-primary-foreground leading-snug mt-4">
-                Foundation proven.<br />MVP by 1 April.<br />Then scale.
+                Beyond community commerce.<br />Recruitment + Activation +<br />Autonomous AI Growth.
               </h3>
             </div>
             <div className="bg-foreground rounded-[1.25rem] p-6 md:p-8 flex-1 flex flex-col justify-between">
               <span className="text-xs font-mono text-background/40">POSITIONING</span>
               <div>
                 <h3 className="text-lg md:text-xl font-display font-bold text-background leading-snug">
-                  "LUUP turns communities into commerce"
+                  "Scout finds the people. Agent AI runs the machine."
                 </h3>
                 <p className="text-sm text-background/50 mt-2">
-                  Every person can become part of commerce — not just by buying.
+                  Most platforms help brands manage ambassadors. LUUP helps brands find, recruit, activate, and grow them automatically.
                 </p>
               </div>
             </div>
@@ -175,19 +179,19 @@ const StrategySection = () => {
       </BoardSection>
 
       {/* Section 2: The Core Strategic Shift */}
-      <BoardSection title="The Core Strategic Shift" number="02" tag="Strategy" subtitle="From fragmented products to one unified platform.">
+      <BoardSection title="The Core Strategic Shift" number="02" tag="Strategy" subtitle="From passive platform to active growth engine.">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
           <div className="md:col-span-5 bento-card p-8 md:p-10 min-h-[280px] md:min-h-[320px] flex flex-col gap-6 md:gap-8">
             <div>
               <span className="text-xs font-mono text-muted-foreground mb-2 block">FROM</span>
               <p className="text-base md:text-lg font-display font-bold text-foreground/60 italic">
-                "A set of separate products and ecosystem ideas"
+                "A set of separate products — no recruitment, no AI, fragmented growth"
               </p>
             </div>
             <div className="border-l-4 border-primary pl-4 md:pl-6">
               <span className="text-xs font-mono text-primary mb-2 block">TO</span>
               <p className="text-lg md:text-xl font-display font-black text-foreground">
-                "One lean platform, proven with fighters first, then scaled with community tools."
+                "One platform: recruitment infrastructure + activation engine + autonomous AI growth operator."
               </p>
             </div>
             <div className="mt-auto">
@@ -203,8 +207,8 @@ const StrategySection = () => {
           <div className="md:col-span-7 flex flex-col gap-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { label: "LUUP is the front door", desc: "The only app users download — but only when Phase 2 is ready", active: true },
-                { label: "Storefronts are the proving ground", desc: "Web-first commerce, live now, validating the model", active: false },
+                { label: "Scout — Recruitment Engine", desc: "75M+ verified contacts, search & filter, outreach CRM, segmented lists — brands finally answer 'where do we find the right people?'" },
+                { label: "Agent AI — Growth Operator", desc: "Store conversion, ambassador activation, autonomous Scout recruitment, intent detection — all running 24/7" },
               ].map((item, i) => (
                 <div key={i} className={`bento-card p-6 md:p-8 flex flex-col gap-3 ${i === 1 ? 'border-2 border-primary' : ''}`}>
                   <h4 className="text-base md:text-lg font-display font-black text-foreground tracking-tight">{item.label}</h4>
@@ -213,10 +217,10 @@ const StrategySection = () => {
               ))}
             </div>
             <div className="bento-card-accent p-6 md:p-8 flex-1">
-              <h4 className="text-base md:text-lg font-display font-black text-primary-foreground tracking-tight mb-3 md:mb-4">Build progressively, not all at once</h4>
-              <p className="text-sm text-primary-foreground/70 mb-4 md:mb-6">Each phase unlocks the next. Don't build the community engine until storefronts prove conversion. Don't build ecosystems until communities prove engagement.</p>
+              <h4 className="text-base md:text-lg font-display font-black text-primary-foreground tracking-tight mb-3 md:mb-4">Three engines working as one</h4>
+              <p className="text-sm text-primary-foreground/70 mb-4 md:mb-6">Scout provides recruitment infrastructure. Affiliate Network provides scalable performance distribution. Agent AI operates recruitment, activation, and optimisation automatically.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
-                {["Storefronts → Conversion proof", "Community → Engagement proof", "Missions → Retention proof", "Referrals → Network proof", "Ecosystems → Scale proof", "AI → Efficiency proof"].map((s) => (
+                {["Scout → Find the people", "Activate → Onboard & engage", "Agent AI → Automate growth", "Affiliate → Scale distribution", "Ecosystems → Deepen relevance", "Storefronts → Drive commerce"].map((s) => (
                   <div key={s} className="flex items-center gap-2 p-2 md:p-2.5 rounded-xl bg-primary-foreground/10">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground flex-shrink-0" />
                     <span className="text-xs font-medium text-primary-foreground">{s}</span>
@@ -351,14 +355,14 @@ const StrategySection = () => {
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/15 border-2 border-primary flex items-center justify-center">
                   <span className="text-xs font-bold text-primary">P2</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-1 md:mt-2">Community · 1 May</span>
+                <span className="text-xs text-muted-foreground mt-1 md:mt-2">AI Engine · 1 May</span>
               </div>
               <div className="h-0.5 flex-1 bg-border rounded-full" />
               <div className="flex flex-col items-center">
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-muted border-2 border-border flex items-center justify-center">
                   <span className="text-xs font-bold text-muted-foreground">P3</span>
                 </div>
-                <span className="text-xs text-muted-foreground mt-1 md:mt-2">Scale · Q3+</span>
+                <span className="text-xs text-muted-foreground mt-1 md:mt-2">Automation · Q3+</span>
               </div>
             </div>
           </div>
@@ -366,14 +370,14 @@ const StrategySection = () => {
       </BoardSection>
 
       {/* Section 4: Vision */}
-      <BoardSection title="The LUUP 3.0 Vision" number="04" tag="Vision" subtitle="Every person becomes part of commerce.">
+      <BoardSection title="The LUUP 3.0 Vision" number="04" tag="Vision" subtitle="From passive platform to active growth engine.">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
           <div className="md:col-span-6 bento-card p-8 md:p-12 min-h-[240px] md:min-h-[340px] flex flex-col justify-between relative overflow-hidden">
             <DotGrid rows={6} cols={10} pattern="wave" color="hsl(var(--primary))" size={4} gap={14} className="absolute top-8 right-8 opacity-30" />
             <span className="tag-accent w-fit">Big Idea</span>
             <div className="mt-4 md:mt-0">
               <h3 className="text-lg md:text-[1.8rem] font-display font-black text-foreground tracking-tight leading-snug max-w-[500px]">
-                Every person can become part of commerce, not just by buying, but by sharing, creating, recruiting, and growing communities.
+                LUUP doesn't just help brands manage communities. It helps brands find the right people, recruit them, activate them, and grow them into revenue-generating networks — automatically.
               </h3>
             </div>
           </div>
@@ -383,8 +387,8 @@ const StrategySection = () => {
               { label: "Fighters → Advocates", icon: "🥊" },
               { label: "Customers → Sellers", icon: "🛒" },
               { label: "Creators → Earners", icon: "🎨" },
-              { label: "Affiliates → Network Builders", icon: "🔗" },
-              { label: "Influencers → Team Leaders", icon: "⭐" },
+              { label: "Scout → Recruitment Engine", icon: "🔍" },
+              { label: "Agent AI → Growth Operator", icon: "🤖" },
               { label: "Ecosystems → Demand Engines", icon: "🌍" },
             ].map((item) => (
               <div key={item.label} className="bento-card p-4 md:p-6 flex items-center gap-3 md:gap-4 hover:shadow-lg transition-all duration-300">
@@ -398,8 +402,8 @@ const StrategySection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5 mt-4 md:mt-5">
           {[
             { title: "Community Commerce", desc: "Where customers become active participants in brand growth" },
-            { title: "Customer-Led Commerce", desc: "Powered by authentic advocacy and personal networks" },
-            { title: "Affiliate 3.0 at Platform Scale", desc: "Beyond one-off promo codes — structured growth loops" },
+            { title: "Recruitment + Activation", desc: "Scout finds the people. Agent AI activates and scales them automatically." },
+            { title: "Autonomous AI Growth", desc: "Agent AI operates Scout, converts visitors, recruits ambassadors, and optimises growth 24/7" },
           ].map((item, i) => (
             <div key={item.title} className={`${i === 2 ? "bg-foreground rounded-[1.25rem]" : i === 1 ? "bento-card-accent" : "bento-card"} p-6 md:p-8 min-h-[120px] md:min-h-[160px] flex flex-col justify-between`}>
               <h4 className={`text-lg md:text-xl font-display font-black tracking-tight ${i === 2 ? "text-background" : i === 1 ? "text-primary-foreground" : "text-foreground"}`}>{item.title}</h4>
