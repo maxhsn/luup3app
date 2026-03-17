@@ -7,7 +7,7 @@ import UserJourneySection from "@/components/board/UserJourneySection";
 import CommercialSection from "@/components/board/CommercialSection";
 import KanbanSection from "@/components/board/KanbanSection";
 
-const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial", "Kanban"];
+const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial", "Deliverables"];
 
 const Index = () => {
   const [zoom, setZoom] = useState(1);
