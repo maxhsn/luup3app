@@ -5,8 +5,9 @@ import ArchitectureSection from "@/components/board/ArchitectureSection";
 import MVPSection from "@/components/board/MVPSection";
 import UserJourneySection from "@/components/board/UserJourneySection";
 import CommercialSection from "@/components/board/CommercialSection";
+import KanbanSection from "@/components/board/KanbanSection";
 
-const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial"];
+const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial", "Kanban"];
 
 const Index = () => {
   const [zoom, setZoom] = useState(1);
@@ -65,6 +66,7 @@ const Index = () => {
             {activeSection === "Product" && <MVPSection />}
             {activeSection === "Growth" && <UserJourneySection />}
             {activeSection === "Commercial" && <CommercialSection />}
+            {activeSection === "Kanban" && <KanbanSection />}
           </div>
         </div>
       </div>
