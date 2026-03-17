@@ -248,14 +248,14 @@ const KanbanSection = () => {
         </div>
       </BoardSection>
 
-      {/* Interactivity Flow */}
+      {/* Interaction Map */}
       <BoardSection
-        title="UX Interactivity Flow"
-        subtitle="How every screen, layer, and AI agent connects into seamless user journeys"
-        tag="UX ARCHITECTURE"
+        title="Interaction Map"
+        subtitle="Every screen, button, state change, conditional path, and micro-interaction — fully specified"
+        tag="UX SPECIFICATION"
         number="07"
       >
-        <InteractivityFlow />
+        <InteractionMap />
       </BoardSection>
     </div>
   );
