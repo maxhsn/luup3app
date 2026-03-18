@@ -155,11 +155,21 @@ const KanbanSection = () => {
 
   return (
     <div className="space-y-6 md:space-y-10">
+      {/* Interaction Map */}
+      <BoardSection
+        title="Interaction Map"
+        subtitle="Every screen, button, state change, conditional path, and micro-interaction — fully specified"
+        tag="UX SPECIFICATION"
+        number="06"
+      >
+        <InteractionMap />
+      </BoardSection>
+
       <BoardSection
         title="Feature Kanban"
         subtitle={`${totalFeatures} features across ${COLUMNS.length} product surfaces — filtered by build phase`}
         tag="ROADMAP"
-        number="06"
+        number="07"
       >
         {/* Filter bar */}
         <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-6 md:mb-8">
@@ -246,16 +256,6 @@ const KanbanSection = () => {
             })}
           </div>
         </div>
-      </BoardSection>
-
-      {/* Interaction Map */}
-      <BoardSection
-        title="Interaction Map"
-        subtitle="Every screen, button, state change, conditional path, and micro-interaction — fully specified"
-        tag="UX SPECIFICATION"
-        number="07"
-      >
-        <InteractionMap />
       </BoardSection>
     </div>
   );
