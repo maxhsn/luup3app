@@ -131,8 +131,8 @@ const StrategySection = () => {
         ))}
       </div>
 
-      {/* Section 1: Executive Summary */}
-      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="One platform — recruitment, activation, and autonomous AI growth.">
+      {/* Section 2: Executive Summary */}
+      <BoardSection title="Executive Summary" number="02" tag="Overview" subtitle="One platform — recruitment, activation, and autonomous AI growth.">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
           <div className="md:col-span-8 bento-card p-8 md:p-12 flex flex-col gap-4 md:gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
