@@ -116,7 +116,7 @@ const StrategySection = () => {
           </div>
           <div className="relative z-10 mt-6 md:mt-0">
             <h1 className="text-[2rem] md:text-[3.2rem] font-display font-black tracking-[-0.04em] leading-[1] text-foreground">
-              Recruitment.<br />Activation.<br />Autonomous<br />Growth.
+              Find People.<br />Convert<br />Customers.<br />Scale Revenue.
             </h1>
           </div>
         </div>
