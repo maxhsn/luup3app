@@ -223,7 +223,7 @@ const StrategySection = () => {
       </div>
 
       {/* Section 2: The Core Strategic Shift */}
-      <BoardSection title="The Core Strategic Shift" number="02" tag="Strategy" subtitle="From passive platform to active growth engine.">
+      <BoardSection title="The Core Strategic Shift" number="03" tag="Strategy" subtitle="From passive platform to active growth engine.">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
           <div className="md:col-span-5 bento-card p-8 md:p-10 min-h-[280px] md:min-h-[320px] flex flex-col gap-6 md:gap-8">
             <div>
