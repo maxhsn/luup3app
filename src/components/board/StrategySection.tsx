@@ -232,8 +232,8 @@ const StrategySection = () => {
         </div>
       </BoardSection>
 
-      {/* Section 3: Phased Build Strategy */}
-      <BoardSection title="Phased Build Strategy" number="03" tag="Roadmap" subtitle="Three phases — each one proves the next.">
+      {/* Section 4: Phased Build Strategy */}
+      <BoardSection title="Phased Build Strategy" number="04" tag="Roadmap" subtitle="Three phases — each one proves the next.">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5 mb-6 md:mb-8">
           {phases.map((phase, i) => (
             <button
