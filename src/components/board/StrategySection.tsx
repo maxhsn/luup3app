@@ -63,6 +63,53 @@ const StrategySection = () => {
 
   return (
     <div className="space-y-6 md:space-y-10">
+      {/* Section 1: Executive Summary */}
+      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="One platform — recruitment, activation, and autonomous AI growth.">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          <div className="md:col-span-8 bento-card p-8 md:p-12 flex flex-col gap-4 md:gap-6 relative overflow-hidden">
+            <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
+            <h3 className="text-xl md:text-[2.4rem] font-display font-black tracking-[-0.04em] leading-[1.05] text-foreground max-w-[600px]">
+              MVP by 1 April.<br />Scout finds the people.<br />Agent AI activates them.
+            </h3>
+            <p className="text-sm md:text-lg text-muted-foreground leading-relaxed max-w-[520px]">
+              LUUP 3.0 combines recruitment infrastructure (Scout), activation engine (Activate), affiliate network logic, ecosystem discovery, and AI-powered growth automation (Agent AI) — all in one platform.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 md:mt-4">
+              {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (MVP)", "Missions engine (MVP)", "Scout recruitment (MVP)", "Agent AI (Phase 2)"].map((item) => {
+                const isLive = item.includes("(live)");
+                const isMVP = item.includes("(MVP)");
+                return (
+                  <div key={item} className={`flex items-center gap-3 p-2.5 md:p-3 rounded-xl ${isLive ? "bg-primary/5 border border-primary/10" : isMVP ? "bg-amber-500/5 border border-amber-500/10" : "bg-muted/50"}`}>
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${isLive ? "bg-green-500" : isMVP ? "bg-amber-500" : "bg-muted-foreground/30"}`} />
+                    <span className={`text-xs md:text-sm font-medium ${isLive ? "text-foreground" : isMVP ? "text-foreground" : "text-muted-foreground"}`}>{item}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="md:col-span-4 flex flex-col gap-4 md:gap-5">
+            <div className="bento-card-accent p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
+              <DotGrid rows={3} cols={4} pattern="full" color="hsl(var(--primary-foreground))" size={5} gap={16} className="absolute top-6 right-6 opacity-25" />
+              <span className="text-xs font-mono text-primary-foreground/50">THE SHIFT</span>
+              <h3 className="text-lg md:text-xl font-display font-bold text-primary-foreground leading-snug mt-4">
+                Beyond community commerce.<br />Recruitment + Activation +<br />Autonomous AI Growth.
+              </h3>
+            </div>
+            <div className="bg-foreground rounded-[1.25rem] p-6 md:p-8 flex-1 flex flex-col justify-between">
+              <span className="text-xs font-mono text-background/40">POSITIONING</span>
+              <div>
+                <h3 className="text-lg md:text-xl font-display font-bold text-background leading-snug">
+                  "Scout finds the people. Agent AI runs the machine."
+                </h3>
+                <p className="text-sm text-background/50 mt-2">
+                  Most platforms help brands manage ambassadors. LUUP helps brands find, recruit, activate, and grow them automatically.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BoardSection>
+
       {/* Hero Row */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
         <div className="md:col-span-5 bento-card p-8 md:p-12 flex flex-col justify-between min-h-[280px] md:min-h-[400px] relative overflow-hidden">
@@ -130,53 +177,6 @@ const StrategySection = () => {
           </div>
         ))}
       </div>
-
-      {/* Section 1: Executive Summary */}
-      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="One platform — recruitment, activation, and autonomous AI growth.">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
-          <div className="md:col-span-8 bento-card p-8 md:p-12 flex flex-col gap-4 md:gap-6 relative overflow-hidden">
-            <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
-            <h3 className="text-xl md:text-[2.4rem] font-display font-black tracking-[-0.04em] leading-[1.05] text-foreground max-w-[600px]">
-              MVP by 1 April.<br />Scout finds the people.<br />Agent AI activates them.
-            </h3>
-            <p className="text-sm md:text-lg text-muted-foreground leading-relaxed max-w-[520px]">
-              LUUP 3.0 combines recruitment infrastructure (Scout), activation engine (Activate), affiliate network logic, ecosystem discovery, and AI-powered growth automation (Agent AI) — all in one platform.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 md:mt-4">
-              {["Web storefronts (live)", "Referral codes (live)", "Fighter onboarding (live)", "Brand profiles (live)", "Mobile app (MVP)", "Missions engine (MVP)", "Scout recruitment (MVP)", "Agent AI (Phase 2)"].map((item) => {
-                const isLive = item.includes("(live)");
-                const isMVP = item.includes("(MVP)");
-                return (
-                  <div key={item} className={`flex items-center gap-3 p-2.5 md:p-3 rounded-xl ${isLive ? "bg-primary/5 border border-primary/10" : isMVP ? "bg-amber-500/5 border border-amber-500/10" : "bg-muted/50"}`}>
-                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${isLive ? "bg-green-500" : isMVP ? "bg-amber-500" : "bg-muted-foreground/30"}`} />
-                    <span className={`text-xs md:text-sm font-medium ${isLive ? "text-foreground" : isMVP ? "text-foreground" : "text-muted-foreground"}`}>{item}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="md:col-span-4 flex flex-col gap-4 md:gap-5">
-            <div className="bento-card-accent p-6 md:p-8 flex-1 flex flex-col justify-between relative overflow-hidden">
-              <DotGrid rows={3} cols={4} pattern="full" color="hsl(var(--primary-foreground))" size={5} gap={16} className="absolute top-6 right-6 opacity-25" />
-              <span className="text-xs font-mono text-primary-foreground/50">THE SHIFT</span>
-              <h3 className="text-lg md:text-xl font-display font-bold text-primary-foreground leading-snug mt-4">
-                Beyond community commerce.<br />Recruitment + Activation +<br />Autonomous AI Growth.
-              </h3>
-            </div>
-            <div className="bg-foreground rounded-[1.25rem] p-6 md:p-8 flex-1 flex flex-col justify-between">
-              <span className="text-xs font-mono text-background/40">POSITIONING</span>
-              <div>
-                <h3 className="text-lg md:text-xl font-display font-bold text-background leading-snug">
-                  "Scout finds the people. Agent AI runs the machine."
-                </h3>
-                <p className="text-sm text-background/50 mt-2">
-                  Most platforms help brands manage ambassadors. LUUP helps brands find, recruit, activate, and grow them automatically.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </BoardSection>
 
       {/* Section 2: The Core Strategic Shift */}
       <BoardSection title="The Core Strategic Shift" number="02" tag="Strategy" subtitle="From passive platform to active growth engine.">
