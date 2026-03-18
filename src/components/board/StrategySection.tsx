@@ -63,8 +63,52 @@ const StrategySection = () => {
 
   return (
     <div className="space-y-6 md:space-y-10">
-      {/* Section 1: Executive Summary */}
-      <BoardSection title="Executive Summary" number="01" tag="Overview" subtitle="One platform — recruitment, activation, and autonomous AI growth.">
+      {/* Section 1: The LUUP 3.0 Vision */}
+      <BoardSection title="The LUUP 3.0 Vision" number="01" tag="Vision" subtitle="From passive platform to active growth engine.">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
+          <div className="md:col-span-6 bento-card p-8 md:p-12 min-h-[240px] md:min-h-[340px] flex flex-col justify-between relative overflow-hidden">
+            <DotGrid rows={6} cols={10} pattern="wave" color="hsl(var(--primary))" size={4} gap={14} className="absolute top-8 right-8 opacity-30" />
+            <span className="tag-accent w-fit">Big Idea</span>
+            <div className="mt-4 md:mt-0">
+              <h3 className="text-lg md:text-[1.8rem] font-display font-black text-foreground tracking-tight leading-snug max-w-[500px]">
+                LUUP doesn't just help brands manage communities. It helps brands find the right people, recruit them, activate them, and grow them into revenue-generating networks — automatically.
+              </h3>
+            </div>
+          </div>
+
+          <div className="md:col-span-6 grid grid-cols-2 gap-3 md:gap-5">
+            {[
+              { label: "Fighters → Advocates", icon: "🥊" },
+              { label: "Customers → Sellers", icon: "🛒" },
+              { label: "Creators → Earners", icon: "🎨" },
+              { label: "Scout → Recruitment Engine", icon: "🔍" },
+              { label: "Agent AI → Growth Operator", icon: "🤖" },
+              { label: "Ecosystems → Demand Engines", icon: "🌍" },
+            ].map((item) => (
+              <div key={item.label} className="bento-card p-4 md:p-6 flex items-center gap-3 md:gap-4 hover:shadow-lg transition-all duration-300">
+                <span className="text-xl md:text-2xl">{item.icon}</span>
+                <span className="text-xs md:text-sm font-display font-bold text-foreground tracking-tight">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5 mt-4 md:mt-5">
+          {[
+            { title: "Community Commerce", desc: "Where customers become active participants in brand growth" },
+            { title: "Recruitment + Activation", desc: "Scout finds the people. Agent AI activates and scales them automatically." },
+            { title: "Autonomous AI Growth", desc: "Agent AI operates Scout, converts visitors, recruits ambassadors, and optimises growth 24/7" },
+          ].map((item, i) => (
+            <div key={item.title} className={`${i === 2 ? "bg-foreground rounded-[1.25rem]" : i === 1 ? "bento-card-accent" : "bento-card"} p-6 md:p-8 min-h-[120px] md:min-h-[160px] flex flex-col justify-between`}>
+              <h4 className={`text-lg md:text-xl font-display font-black tracking-tight ${i === 2 ? "text-background" : i === 1 ? "text-primary-foreground" : "text-foreground"}`}>{item.title}</h4>
+              <p className={`text-sm mt-2 md:mt-3 ${i === 2 ? "text-background/50" : i === 1 ? "text-primary-foreground/60" : "text-muted-foreground"}`}>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </BoardSection>
+
+      {/* Section 2: Executive Summary */}
+      <BoardSection title="Executive Summary" number="02" tag="Overview" subtitle="One platform — recruitment, activation, and autonomous AI growth.">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5">
           <div className="md:col-span-8 bento-card p-8 md:p-12 flex flex-col gap-4 md:gap-6 relative overflow-hidden">
             <DotGrid rows={4} cols={20} pattern="wave" color="hsl(var(--primary))" size={3} gap={10} className="opacity-15" />
