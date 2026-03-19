@@ -852,112 +852,82 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
   </div>
 );
 
-/* ═══════ CHECKOUT ═══════ */
+/* ═══════ AFFILIATE REDIRECT ═══════ */
 export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
-  const [usePoints, setUsePoints] = useState(false);
-  const [showSummary, setShowSummary] = useState(false);
+  const [copied, setCopied] = useState(false);
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center gap-3">
         <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-foreground" />
         </button>
-        <p className="font-display font-bold text-lg text-foreground">Checkout</p>
+        <p className="font-display font-bold text-lg text-foreground">Buy via Brand</p>
       </div>
 
-      {/* Cart Item */}
+      {/* Product Summary */}
       <div className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
         <div className="w-16 h-16 rounded-xl bg-muted flex-shrink-0" />
         <div className="flex-1">
           <p className="text-xs font-bold text-foreground">Venum Challenger 3.0</p>
           <p className="text-[10px] text-muted-foreground">14oz · Black/Gold</p>
-          <p className="text-sm font-bold text-primary mt-1">$79.99</p>
+          <p className="text-sm font-bold text-foreground mt-1">$79.99 on venum.com</p>
         </div>
-        <div className="flex items-center gap-2 border border-border rounded-lg px-2 py-1">
-          <span className="text-xs text-muted-foreground">-</span>
-          <span className="text-xs font-bold text-foreground px-1">1</span>
-          <span className="text-xs text-muted-foreground">+</span>
+      </div>
+
+      {/* Affiliate Link Info */}
+      <div className="rounded-2xl bg-primary/5 border border-primary/20 p-4 space-y-3">
+        <div className="flex items-center gap-2">
+          <Share2 className="w-5 h-5 text-primary" />
+          <p className="text-sm font-bold text-foreground">Your Affiliate Link</p>
         </div>
+        <div className="rounded-xl bg-muted px-3 py-2.5 flex items-center justify-between">
+          <span className="text-[10px] text-muted-foreground font-mono truncate mr-2">venum.com/gloves?ref=luup_alexr</span>
+          <button onClick={() => setCopied(true)} className="text-[10px] font-bold text-primary flex-shrink-0">
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+        <p className="text-[10px] text-muted-foreground leading-relaxed">
+          When anyone buys through your link, you earn commission. The link is tracked for 30 days.
+        </p>
       </div>
 
       {/* Referral Attribution */}
       <div className="rounded-xl bg-stage-participation/5 border border-stage-participation/20 p-3 flex items-center gap-2">
         <Check className="w-4 h-4 text-stage-participation" />
         <div>
-          <p className="text-xs font-bold text-foreground">Via Jake Shields</p>
-          <p className="text-[10px] text-muted-foreground">Referral code auto-applied</p>
+          <p className="text-xs font-bold text-foreground">Referred by Jake Shields</p>
+          <p className="text-[10px] text-muted-foreground">Jake earns commission if you buy</p>
         </div>
       </div>
 
-      {/* Delivery Address */}
-      <button className="w-full rounded-xl border border-border p-3 flex items-center gap-3 text-left">
-        <MapPin className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-        <div className="flex-1">
-          <p className="text-xs font-bold text-foreground">123 Main St, Apt 4B</p>
-          <p className="text-[10px] text-muted-foreground">New York, NY 10001</p>
-        </div>
-        <ChevronRight className="w-4 h-4 text-muted-foreground" />
-      </button>
+      {/* Earnings Breakdown */}
+      <div className="rounded-xl border border-border p-3 space-y-2">
+        <p className="text-xs font-bold text-foreground">Commission Breakdown</p>
+        <div className="flex justify-between text-xs"><span className="text-muted-foreground">Product Price</span><span className="text-foreground">$79.99</span></div>
+        <div className="flex justify-between text-xs"><span className="text-muted-foreground">Commission Rate</span><span className="text-primary font-medium">10%</span></div>
+        <div className="flex justify-between text-xs font-bold pt-1 border-t border-border"><span className="text-foreground">You Earn</span><span className="text-primary">$8.00</span></div>
+        <p className="text-[10px] text-muted-foreground">Per sale through your affiliate link</p>
+      </div>
 
-      {/* Delivery Options */}
+      {/* Share Options */}
       <div className="space-y-2">
-        <p className="text-xs font-bold text-foreground">Delivery</p>
-        {[
-          { label: "Standard (5-7 days)", price: "Free", selected: true },
-          { label: "Express (2-3 days)", price: "$9.99", selected: false },
-        ].map((d) => (
-          <div key={d.label} className={`rounded-xl border p-3 flex items-center justify-between ${d.selected ? "border-primary bg-primary/5" : "border-border"}`}>
-            <div className="flex items-center gap-2">
-              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${d.selected ? "border-primary" : "border-muted-foreground/30"}`}>
-                {d.selected && <div className="w-2 h-2 rounded-full bg-primary" />}
-              </div>
-              <span className="text-xs text-foreground">{d.label}</span>
-            </div>
-            <span className={`text-xs font-bold ${d.price === "Free" ? "text-stage-participation" : "text-foreground"}`}>{d.price}</span>
-          </div>
-        ))}
+        <p className="text-xs font-bold text-foreground">Share Your Link</p>
+        <div className="grid grid-cols-4 gap-2">
+          {["Instagram", "TikTok", "WhatsApp", "More"].map((p) => (
+            <button key={p} className="rounded-xl border border-border p-2.5 text-center">
+              <div className="w-8 h-8 rounded-full bg-muted mx-auto mb-1" />
+              <span className="text-[9px] text-muted-foreground">{p}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Apply Points */}
-      <div className="rounded-xl border border-border p-3 flex items-center justify-between">
-        <div>
-          <p className="text-xs font-bold text-foreground">Apply Points</p>
-          <p className="text-[10px] text-muted-foreground">3,250 pts = $32.50 discount</p>
-        </div>
-        <button onClick={() => setUsePoints(!usePoints)} className={`w-10 h-6 rounded-full transition-all ${usePoints ? "bg-primary" : "bg-muted"}`}>
-          <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform ${usePoints ? "translate-x-5" : "translate-x-1"}`} />
-        </button>
-      </div>
-
-      {/* Discount Code */}
-      <div className="flex gap-2">
-        <div className="flex-1 rounded-xl border border-border bg-muted px-3 py-2.5">
-          <span className="text-xs text-muted-foreground">Discount code</span>
-        </div>
-        <button className="px-4 rounded-xl border border-border text-xs font-semibold text-foreground">Apply</button>
-      </div>
-
-      {/* Order Summary */}
-      <button onClick={() => setShowSummary(!showSummary)} className="w-full rounded-xl border border-border p-3 text-left">
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-bold text-foreground">Order Summary</p>
-          <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${showSummary ? "rotate-180" : ""}`} />
-        </div>
-        {showSummary && (
-          <div className="mt-2 space-y-1.5 pt-2 border-t border-border">
-            <div className="flex justify-between text-xs"><span className="text-muted-foreground">Subtotal</span><span className="text-foreground">$79.99</span></div>
-            <div className="flex justify-between text-xs"><span className="text-muted-foreground">Shipping</span><span className="text-stage-participation font-medium">Free</span></div>
-            {usePoints && <div className="flex justify-between text-xs"><span className="text-muted-foreground">Points Discount</span><span className="text-primary font-medium">-$32.50</span></div>}
-            <div className="flex justify-between text-sm font-bold pt-1 border-t border-border"><span className="text-foreground">Total</span><span className="text-primary">{usePoints ? "$47.49" : "$79.99"}</span></div>
-          </div>
-        )}
-      </button>
-
-      {/* Pay Button */}
+      {/* Go to Brand Site CTA */}
       <button onClick={() => onNavigate("order-confirm")} className="w-full bg-primary text-primary-foreground rounded-xl py-3.5 font-bold text-sm flex items-center justify-center gap-2">
-        <CreditCard className="w-4 h-4" />
-        Pay {usePoints ? "$47.49" : "$79.99"}
+        <ShoppingBag className="w-4 h-4" />
+        Go to venum.com
       </button>
+      <p className="text-[10px] text-muted-foreground text-center">You'll complete your purchase on the brand's website</p>
     </div>
   );
 };
