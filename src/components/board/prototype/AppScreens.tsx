@@ -82,10 +82,10 @@ export const HomeScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) 
       </div>
     </div>
 
-    {/* Trending Storefronts */}
+    {/* Trending Offers */}
     <div>
       <div className="flex items-center justify-between mb-2">
-        <p className="font-display font-bold text-sm text-foreground">Trending Storefronts</p>
+        <p className="font-display font-bold text-sm text-foreground">Trending Offers</p>
         <button onClick={() => onNavigate("explore")} className="text-xs text-primary font-semibold">Explore</button>
       </div>
       <div className="flex gap-3 overflow-x-auto no-scrollbar">
