@@ -68,6 +68,7 @@ const Index = () => {
             {activeSection === "Growth" && <UserJourneySection />}
             {activeSection === "Commercial" && <CommercialSection />}
             {activeSection === "Deliverables" && <KanbanSection />}
+            {activeSection === "Prototype" && <PrototypeSection />}
           </div>
         </div>
       </div>
