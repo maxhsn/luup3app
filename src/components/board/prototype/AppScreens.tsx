@@ -932,21 +932,21 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
   );
 };
 
-/* ═══════ ORDER CONFIRMATION ═══════ */
+/* ═══════ LINK SHARED CONFIRMATION ═══════ */
 export const OrderConfirmScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
   <div className="px-5 py-8 space-y-5 text-center">
     {/* Success Animation */}
     <div className="flex justify-center">
-      <div className="w-20 h-20 rounded-full bg-stage-participation/10 flex items-center justify-center">
-        <div className="w-14 h-14 rounded-full bg-stage-participation/20 flex items-center justify-center">
-          <Check className="w-8 h-8 text-stage-participation" />
+      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+        <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center">
+          <Share2 className="w-8 h-8 text-primary" />
         </div>
       </div>
     </div>
 
     <div>
-      <p className="font-display font-bold text-xl text-foreground">Order Confirmed!</p>
-      <p className="text-sm text-muted-foreground mt-1">Order #LUP-28491</p>
+      <p className="font-display font-bold text-xl text-foreground">Redirecting to Brand</p>
+      <p className="text-sm text-muted-foreground mt-1">Your affiliate link is active</p>
     </div>
 
     <div className="rounded-2xl border border-border bg-card p-4 text-left">
@@ -954,17 +954,25 @@ export const OrderConfirmScreen = ({ onNavigate }: { onNavigate: (s: Screen) => 
         <div className="w-14 h-14 rounded-xl bg-muted" />
         <div>
           <p className="text-xs font-bold text-foreground">Venum Challenger 3.0</p>
-          <p className="text-[10px] text-muted-foreground">14oz · Est. delivery: Mar 25</p>
-          <p className="text-sm font-bold text-primary mt-1">$79.99</p>
+          <p className="text-[10px] text-muted-foreground">Shopping on venum.com</p>
+          <p className="text-sm font-bold text-primary mt-1">$8.00 potential commission</p>
         </div>
       </div>
     </div>
 
-    {/* Commission Earned */}
-    <div className="rounded-2xl bg-primary/5 border border-primary/20 p-4">
-      <p className="text-xs text-muted-foreground">Jake Shields earns</p>
-      <p className="font-display font-bold text-lg text-primary">$8.00 commission</p>
-      <p className="text-[10px] text-muted-foreground mt-1">from your purchase</p>
+    {/* How It Works */}
+    <div className="rounded-2xl bg-muted/50 border border-border p-4 text-left space-y-3">
+      <p className="text-xs font-bold text-foreground">How You Earn</p>
+      {[
+        { step: "1", text: "Complete your purchase on the brand site" },
+        { step: "2", text: "Your affiliate link tracks the sale (30-day cookie)" },
+        { step: "3", text: "Commission is added to your LUUP wallet" },
+      ].map((s) => (
+        <div key={s.step} className="flex items-start gap-2.5">
+          <div className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center flex-shrink-0">{s.step}</div>
+          <p className="text-[11px] text-muted-foreground">{s.text}</p>
+        </div>
+      ))}
     </div>
 
     {/* Share & Earn CTA */}
@@ -972,22 +980,22 @@ export const OrderConfirmScreen = ({ onNavigate }: { onNavigate: (s: Screen) => 
       <div className="flex items-center gap-3">
         <Share2 className="w-6 h-6" />
         <div>
-          <p className="font-bold text-sm">Share & Earn $8.00</p>
-          <p className="text-xs opacity-80">Get commission when friends buy through your link</p>
+          <p className="font-bold text-sm">Share & Earn More</p>
+          <p className="text-xs opacity-80">Earn $8.00 every time someone buys through your link</p>
         </div>
       </div>
     </button>
 
     {/* Actions */}
     <div className="space-y-2">
-      <button className="w-full rounded-xl border border-border py-3 text-xs font-bold text-foreground flex items-center justify-center gap-2">
-        <Package className="w-4 h-4" /> Track Order
+      <button onClick={() => onNavigate("wallet")} className="w-full rounded-xl border border-border py-3 text-xs font-bold text-foreground flex items-center justify-center gap-2">
+        <Wallet className="w-4 h-4" /> View Earnings
       </button>
       <button onClick={() => onNavigate("missions")} className="w-full rounded-xl border border-primary/20 bg-primary/5 py-3 text-xs font-bold text-primary flex items-center justify-center gap-2">
         <Flame className="w-4 h-4" /> Start a Mission — Earn More
       </button>
       <button onClick={() => onNavigate("home")} className="w-full py-3 text-xs font-medium text-muted-foreground">
-        Continue Shopping
+        Back to Home
       </button>
     </div>
   </div>
