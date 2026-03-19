@@ -131,7 +131,7 @@ const PrototypeSection = () => {
                   <TabBtn icon={<Home />} label="Home" active={screen === "home"} onClick={() => navigate("home")} />
                   <TabBtn icon={<Search />} label="Explore" active={screen === "explore"} onClick={() => navigate("explore")} />
                   <TabBtn icon={<Flame />} label="Missions" active={screen === "missions"} onClick={() => navigate("missions")} />
-                  <TabBtn icon={<ShoppingBag />} label="Shop" active={screen === "store"} onClick={() => navigate("store")} />
+                  <TabBtn icon={<ShoppingBag />} label="Brands" active={screen === "store"} onClick={() => navigate("store")} />
                   <TabBtn icon={<User />} label="Profile" active={screen === "profile"} onClick={() => navigate("profile")} />
                 </div>
               </div>
@@ -156,8 +156,8 @@ const PrototypeSection = () => {
           />
           <FeatureCallout
             icon={<ShoppingBag className="w-5 h-5" />}
-            title="Storefront & Shop"
-            desc="Personalised storefronts with affiliate attribution and AI nudges."
+            title="Brands & Royalties"
+            desc="Browse brand partners, view royalty rates, and add products to your storefront."
             active={screen === "storefront" || screen === "store"}
             onClick={() => navigate("store")}
             interactions={7}
@@ -198,7 +198,7 @@ const PrototypeSection = () => {
           { label: "Wallet", s: "wallet" },
           { label: "Leaderboard", s: "leaderboard" },
           { label: "Social", s: "social" },
-          { label: "Shop", s: "store" },
+          { label: "Brands", s: "store" },
           { label: "Brand", s: "brand" },
           { label: "Checkout", s: "checkout" },
           { label: "Profile", s: "profile" },
