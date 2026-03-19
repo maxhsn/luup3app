@@ -767,13 +767,14 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           </div>
         </div>
 
-        {/* Sticky Buy Bar */}
+        {/* Sticky Affiliate Bar */}
         <div className="flex gap-2 pt-2 sticky bottom-0 bg-card py-3 -mx-5 px-5 border-t border-border">
-          <button onClick={() => onNavigate("checkout")} className="flex-1 bg-primary text-primary-foreground rounded-xl py-3 font-bold text-sm">
-            Add to Cart
+          <button onClick={() => onNavigate("checkout")} className="flex-1 bg-primary text-primary-foreground rounded-xl py-3 font-bold text-sm flex items-center justify-center gap-2">
+            <Share2 className="w-4 h-4" />
+            Buy on Brand Site
           </button>
           <button className="w-12 h-12 rounded-xl border border-border flex items-center justify-center">
-            <Share2 className="w-5 h-5 text-muted-foreground" />
+            <Heart className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
       </div>
