@@ -6,8 +6,9 @@ import MVPSection from "@/components/board/MVPSection";
 import UserJourneySection from "@/components/board/UserJourneySection";
 import CommercialSection from "@/components/board/CommercialSection";
 import KanbanSection from "@/components/board/KanbanSection";
+import PrototypeSection from "@/components/board/PrototypeSection";
 
-const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial", "Deliverables"];
+const SECTIONS = ["Strategy", "Architecture", "Product", "Growth", "Commercial", "Deliverables", "Prototype"];
 
 const Index = () => {
   const [zoom, setZoom] = useState(1);
