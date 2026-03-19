@@ -90,15 +90,15 @@ export const HomeScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) 
       </div>
       <div className="flex gap-3 overflow-x-auto no-scrollbar">
         {[
-          { name: "Jake Shields", tag: "MMA Legend", sales: "2.4k" },
-          { name: "Angela Hill", tag: "UFC Fighter", sales: "1.8k" },
-          { name: "Sage North.", tag: "BJJ Pro", sales: "960" },
-        ].map((f) => (
-          <button key={f.name} onClick={() => onNavigate("storefront")} className="flex-shrink-0 w-[130px] rounded-2xl border border-border bg-card p-3 text-left hover:shadow-md transition-shadow">
-            <div className="w-10 h-10 rounded-full bg-muted mb-2" />
-            <p className="font-bold text-xs text-foreground truncate">{f.name}</p>
-            <p className="text-[10px] text-muted-foreground">{f.tag}</p>
-            <p className="text-[10px] text-primary font-semibold mt-1">{f.sales} sales</p>
+          { name: "Hayabusa T3 Gloves", brand: "Hayabusa", royalty: "12%", price: "$89" },
+          { name: "Venum Rashguard", brand: "Venum", royalty: "10%", price: "$54" },
+          { name: "CBD Recovery Balm", brand: "Eagle Energy", royalty: "15%", price: "$39" },
+        ].map((p) => (
+          <button key={p.name} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[130px] rounded-2xl border border-border bg-card p-3 text-left hover:shadow-md transition-shadow">
+            <div className="w-full h-16 rounded-lg bg-muted mb-2" />
+            <p className="font-bold text-xs text-foreground truncate">{p.name}</p>
+            <p className="text-[10px] text-muted-foreground">{p.brand} · {p.price}</p>
+            <p className="text-[10px] text-primary font-semibold mt-1">Earn {p.royalty}</p>
           </button>
         ))}
       </div>
