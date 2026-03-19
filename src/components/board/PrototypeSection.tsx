@@ -156,8 +156,8 @@ const PrototypeSection = () => {
           />
           <FeatureCallout
             icon={<ShoppingBag className="w-5 h-5" />}
-            title="Storefront & Shop"
-            desc="Personalised storefronts with affiliate attribution and AI nudges."
+            title="Brands & Royalties"
+            desc="Browse brand partners, view royalty rates, and add products to your storefront."
             active={screen === "storefront" || screen === "store"}
             onClick={() => navigate("store")}
             interactions={7}
