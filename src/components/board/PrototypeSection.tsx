@@ -180,8 +180,8 @@ const PrototypeSection = () => {
           />
           <FeatureCallout
             icon={<Bot className="w-5 h-5" />}
-            title="Checkout & AI"
-            desc="Full checkout flow with points, referral attribution, and Agent AI."
+            title="Affiliate & AI"
+            desc="Affiliate link generation, brand redirect, commission tracking, and Agent AI."
             active={screen === "checkout" || screen === "order-confirm"}
             onClick={() => navigate("checkout")}
             interactions={6}
