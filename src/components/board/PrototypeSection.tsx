@@ -198,7 +198,7 @@ const PrototypeSection = () => {
           { label: "Wallet", s: "wallet" },
           { label: "Leaderboard", s: "leaderboard" },
           { label: "Social", s: "social" },
-          { label: "Shop", s: "store" },
+          { label: "Brands", s: "store" },
           { label: "Brand", s: "brand" },
           { label: "Checkout", s: "checkout" },
           { label: "Profile", s: "profile" },

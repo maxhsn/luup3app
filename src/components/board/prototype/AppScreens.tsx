@@ -598,80 +598,129 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
   );
 };
 
-/* ═══════ STORE ═══════ */
-export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
-  <div className="px-5 py-4 space-y-4">
-    <div className="flex items-center justify-between">
-      <p className="font-display font-bold text-lg text-foreground">Shop</p>
-      <div className="flex items-center gap-2 bg-muted rounded-lg px-2.5 py-1.5">
-        <Search className="w-3.5 h-3.5 text-muted-foreground" />
-        <span className="text-[10px] text-muted-foreground">Search products</span>
-      </div>
-    </div>
-    <div className="flex gap-2 overflow-x-auto no-scrollbar">
-      {["For You", "New Drops", "Top Sellers", "Brands"].map((c, i) => (
-        <div key={c} className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap ${i === 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
-          {c}
+/* ═══════ BRANDS ═══════ */
+export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
+  const [addedProducts, setAddedProducts] = useState<string[]>([]);
+
+  const toggleProduct = (name: string) => {
+    setAddedProducts((prev) =>
+      prev.includes(name) ? prev.filter((p) => p !== name) : [...prev, name]
+    );
+  };
+
+  return (
+    <div className="px-5 py-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="font-display font-bold text-lg text-foreground">Brands</p>
+        <div className="flex items-center gap-2 bg-muted rounded-lg px-2.5 py-1.5">
+          <Search className="w-3.5 h-3.5 text-muted-foreground" />
+          <span className="text-[10px] text-muted-foreground">Search brands</span>
         </div>
-      ))}
-    </div>
+      </div>
 
-    {/* Collection Tabs */}
-    <div className="flex gap-2 overflow-x-auto no-scrollbar">
-      {["🥊 Gloves", "👕 Apparel", "🛡️ Protection", "🎒 Bags"].map((c, i) => (
-        <span key={c} className={`px-3 py-1.5 rounded-lg text-[10px] font-semibold whitespace-nowrap border ${i === 0 ? "border-primary/30 bg-primary/5 text-primary" : "border-border text-muted-foreground"}`}>
-          {c}
-        </span>
-      ))}
-    </div>
-
-    {/* Featured Product */}
-    <button onClick={() => onNavigate("product")} className="w-full rounded-2xl border border-border bg-card overflow-hidden text-left hover:shadow-md transition-shadow">
-      <div className="h-36 bg-muted" />
-      <div className="p-3">
-        <span className="text-[10px] font-semibold text-primary">🔥 Trending</span>
-        <p className="font-bold text-sm text-foreground mt-0.5">Venum Challenger 3.0 Gloves</p>
-        <div className="flex items-center justify-between mt-2">
-          <p className="font-bold text-base text-primary">$79.99</p>
-          <div className="flex items-center gap-1">
-            <Star className="w-3 h-3 text-stage-earnings fill-stage-earnings" />
-            <span className="text-xs text-muted-foreground">4.8 (2.1k)</span>
+      {/* Category Filters */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar">
+        {["All Brands", "Combat", "Fitness", "Nutrition", "Apparel"].map((c, i) => (
+          <div key={c} className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap ${i === 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+            {c}
           </div>
+        ))}
+      </div>
+
+      {/* Featured Partner */}
+      <button onClick={() => onNavigate("brand")} className="w-full rounded-2xl bg-primary/5 border border-primary/15 p-4 text-left">
+        <span className="tag-accent text-[10px] mb-2 inline-block">⭐ Featured Partner</span>
+        <div className="flex items-center gap-3">
+          <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center">
+            <span className="font-display font-black text-primary text-lg">V</span>
+          </div>
+          <div className="flex-1">
+            <p className="font-bold text-sm text-foreground">Venum</p>
+            <p className="text-xs text-muted-foreground">Official combat sports gear</p>
+            <div className="flex items-center gap-3 mt-1">
+              <span className="text-[10px] text-primary font-bold">8–12% royalties</span>
+              <span className="text-[10px] text-muted-foreground">847 products</span>
+            </div>
+          </div>
+          <ChevronRight className="w-4 h-4 text-muted-foreground" />
         </div>
-        <p className="text-[10px] text-stage-participation font-semibold mt-1">Earn $8.00 commission</p>
-      </div>
-    </button>
+      </button>
 
-    {/* Product List */}
-    <div className="space-y-2">
-      {[
-        { name: "Hayabusa T3 Boxing Gloves", price: "$159.99", commission: "$16.00" },
-        { name: "Sanabul Essential Rash Guard", price: "$24.99", commission: "$2.50" },
-        { name: "Venum Kontact Shin Guards", price: "$49.99", commission: "$5.00" },
-      ].map((p) => (
-        <button key={p.name} onClick={() => onNavigate("product")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-border bg-card hover:shadow-sm transition-shadow text-left">
-          <div className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-xs text-foreground truncate">{p.name}</p>
-            <p className="text-xs font-bold text-primary">{p.price}</p>
-            <p className="text-[10px] text-stage-participation font-medium">+{p.commission}</p>
-          </div>
-          <Heart className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-        </button>
-      ))}
-    </div>
-
-    {/* AI Nudge */}
-    <div className="rounded-xl bg-primary/5 border border-primary/15 p-3 flex items-center gap-3">
-      <Bot className="w-5 h-5 text-primary" />
-      <div className="flex-1">
-        <p className="text-xs font-bold text-foreground">Need help choosing?</p>
-        <p className="text-[10px] text-muted-foreground">Our AI can recommend the perfect gear</p>
+      {/* Brand List with Royalty Rates */}
+      <div className="space-y-2">
+        {[
+          { name: "Hayabusa", category: "Combat Gear", royalty: "10–15%", products: 312, logo: "H" },
+          { name: "Sanabul", category: "Training Equipment", royalty: "8–10%", products: 189, logo: "S" },
+          { name: "Everlast", category: "Boxing & MMA", royalty: "6–9%", products: 524, logo: "E" },
+          { name: "RDX Sports", category: "Fitness & Combat", royalty: "7–11%", products: 436, logo: "R" },
+        ].map((b) => (
+          <button key={b.name} onClick={() => onNavigate("brand")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-border bg-card hover:shadow-sm transition-shadow text-left">
+            <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+              <span className="font-display font-bold text-foreground">{b.logo}</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-xs text-foreground">{b.name}</p>
+              <p className="text-[10px] text-muted-foreground">{b.category}</p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-[10px] text-primary font-bold">{b.royalty} royalties</span>
+                <span className="text-[10px] text-muted-foreground">· {b.products} products</span>
+              </div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+          </button>
+        ))}
       </div>
-      <ChevronRight className="w-4 h-4 text-primary" />
+
+      {/* Top Products to Add to Storefront */}
+      <div>
+        <p className="font-display font-bold text-sm text-foreground mb-1">Top Products to Add</p>
+        <p className="text-[10px] text-muted-foreground mb-3">Add products to your storefront and earn royalties on every sale</p>
+        <div className="space-y-2">
+          {[
+            { name: "Venum Challenger 3.0 Gloves", brand: "Venum", price: "$79.99", royalty: "$8.00" },
+            { name: "Hayabusa T3 Boxing Gloves", brand: "Hayabusa", price: "$159.99", royalty: "$24.00" },
+            { name: "Sanabul Essential Rash Guard", brand: "Sanabul", price: "$24.99", royalty: "$2.50" },
+          ].map((p) => (
+            <div key={p.name} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
+              <button onClick={() => onNavigate("product")} className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
+              <button onClick={() => onNavigate("product")} className="flex-1 min-w-0 text-left">
+                <p className="font-bold text-xs text-foreground truncate">{p.name}</p>
+                <p className="text-[10px] text-muted-foreground">{p.brand} · {p.price}</p>
+                <p className="text-[10px] text-primary font-bold mt-0.5">Earn {p.royalty} per sale</p>
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); toggleProduct(p.name); }}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+                  addedProducts.includes(p.name)
+                    ? "bg-primary/10 text-primary border border-primary/30"
+                    : "bg-primary text-primary-foreground"
+                }`}
+              >
+                {addedProducts.includes(p.name) ? (
+                  <span className="flex items-center gap-1"><Check className="w-3 h-3" /> Added</span>
+                ) : (
+                  <span className="flex items-center gap-1"><Plus className="w-3 h-3" /> Add</span>
+                )}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Your Storefront CTA */}
+      <button onClick={() => onNavigate("storefront")} className="w-full rounded-xl border border-primary/20 bg-primary/5 p-3 flex items-center gap-3 text-left">
+        <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
+          <ShoppingBag className="w-4 h-4 text-primary" />
+        </div>
+        <div className="flex-1">
+          <p className="text-xs font-bold text-foreground">Your Storefront</p>
+          <p className="text-[10px] text-muted-foreground">{addedProducts.length > 0 ? `${addedProducts.length} products added` : "Start curating your picks"}</p>
+        </div>
+        <ChevronRight className="w-4 h-4 text-primary" />
+      </button>
     </div>
-  </div>
-);
+  );
+};
 
 /* ═══════ PRODUCT DETAIL ═══════ */
 export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (s: Screen) => void }) => {
