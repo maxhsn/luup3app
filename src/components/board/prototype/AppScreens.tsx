@@ -216,13 +216,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         </button>
       </div>
 
-              <span className="text-green-200">{ecosystem.walletGrowth}</span>
-            </div>
-          </div>
 
-          {/* Balance */}
-          <p className="font-display font-black text-[34px] leading-none tracking-tight mt-2">{ecosystem.walletBalance}</p>
-          <p className="text-[10px] opacity-40 mt-1 font-medium">Total earned this month</p>
 
           {/* Sparkline area chart */}
           <div className="mt-4 h-10 -mx-1">
