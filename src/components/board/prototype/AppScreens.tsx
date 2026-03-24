@@ -1323,6 +1323,8 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
 export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [activeTab, setActiveTab] = useState<"products" | "missions" | "social" | "community">("products");
   const [following, setFollowing] = useState(false);
+  const [addedProducts, setAddedProducts] = useState<string[]>([]);
+  const toggleProduct = (name: string) => setAddedProducts((prev) => prev.includes(name) ? prev.filter((p) => p !== name) : [...prev, name]);
   return (
     <div className="space-y-0">
       <div className="relative h-36 bg-gradient-to-br from-primary/30 to-primary/5">
@@ -1377,11 +1379,21 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
               { name: "Kontact Shin Guards", price: "$49.99" },
               { name: "Challenger Headgear", price: "$54.99" },
             ].map((p) => (
-              <button key={p.name} onClick={() => onNavigate("product")} className="rounded-2xl border border-border bg-card p-2.5 text-left">
-                <div className="aspect-square rounded-xl bg-muted mb-2" />
-                <p className="font-bold text-[11px] text-foreground truncate">{p.name}</p>
-                <p className="text-xs font-bold text-primary mt-0.5">{p.price}</p>
-              </button>
+              <div key={p.name} className="rounded-2xl border border-border bg-card p-2.5 text-left">
+                <button onClick={() => onNavigate("product")} className="w-full">
+                  <div className="aspect-square rounded-xl bg-muted mb-2" />
+                  <p className="font-bold text-[11px] text-foreground truncate text-left">{p.name}</p>
+                  <p className="text-xs font-bold text-primary mt-0.5 text-left">{p.price}</p>
+                </button>
+                <button
+                  onClick={() => toggleProduct(p.name)}
+                  className={`w-full mt-2 py-1.5 rounded-lg text-[9px] font-bold flex items-center justify-center gap-1 transition-all active:scale-[0.97] ${
+                    addedProducts.includes(p.name) ? "bg-primary/10 text-primary border border-primary/30" : "bg-foreground text-background"
+                  }`}
+                >
+                  {addedProducts.includes(p.name) ? <><Check className="w-3 h-3" /> In Storefront</> : <><Plus className="w-3 h-3" /> Add to Storefront</>}
+                </button>
+              </div>
             ))}
           </div>
         )}
@@ -1545,6 +1557,7 @@ export const StoreScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen)
 export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (s: Screen) => void }) => {
   const [selectedSize, setSelectedSize] = useState(1);
   const [liked, setLiked] = useState(false);
+  const [addedToStorefront, setAddedToStorefront] = useState(false);
   return (
     <div className="space-y-0">
       <div className="relative">
@@ -1630,6 +1643,28 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
             ))}
           </div>
         </div>
+
+        {/* Add to Storefront */}
+        <button
+          onClick={() => setAddedToStorefront(!addedToStorefront)}
+          className={`w-full rounded-xl p-3 flex items-center justify-center gap-2 font-bold text-xs transition-all active:scale-[0.98] ${
+            addedToStorefront
+              ? "bg-primary/10 border border-primary/30 text-primary"
+              : "bg-foreground text-background"
+          }`}
+        >
+          {addedToStorefront ? (
+            <><Check className="w-4 h-4" /> Added to Your Storefront</>
+          ) : (
+            <><Plus className="w-4 h-4" /> Add to My Storefront</>
+          )}
+        </button>
+        {addedToStorefront && (
+          <div className="rounded-xl bg-primary/5 border border-primary/15 px-3 py-2 flex items-center gap-2">
+            <ShoppingBag className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <p className="text-[10px] text-foreground/70">This product is now on your <span className="font-bold text-primary">storefront</span>. You'll earn <span className="font-bold text-primary">$8.00</span> per sale.</p>
+          </div>
+        )}
 
         <div className="flex gap-2 pt-2 sticky bottom-0 bg-card py-3 -mx-5 px-5 border-t border-border">
           <button onClick={() => onNavigate("checkout")} className="flex-1 bg-primary text-primary-foreground rounded-xl py-3 font-bold text-sm flex items-center justify-center gap-2">
