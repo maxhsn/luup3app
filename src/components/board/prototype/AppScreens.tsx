@@ -1715,14 +1715,14 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
       )}
 
       {/* Social handles */}
-      <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+      <div className="flex flex-wrap gap-1.5">
         {[
           { platform: "IG", handle: "@alex_fights", emoji: "📸" },
           { platform: "TikTok", handle: "@alexmma", emoji: "🎵" },
           { platform: "YT", handle: "AlexRiveraMMA", emoji: "📹" },
           { platform: "X", handle: "@alexfights", emoji: "𝕏" },
         ].map((s) => (
-          <button key={s.platform} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-muted border border-border flex-shrink-0 active:scale-[0.98] transition-transform">
+          <button key={s.platform} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-muted border border-border active:scale-[0.98] transition-transform">
             <span className="text-[10px]">{s.emoji}</span>
             <span className="text-[9px] font-bold text-foreground">{s.handle}</span>
           </button>
