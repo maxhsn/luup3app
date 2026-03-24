@@ -132,7 +132,7 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
   onComplete: () => void;
 }) => {
   const [step, setStep] = useState(1);
-  const totalSteps = 4;
+  const totalSteps = 3;
 
   const categoryOptions: Record<string, string[]> = {
     combat: ["MMA", "Boxing", "Kickboxing", "Muay Thai", "BJJ", "Wrestling", "Karate", "Judo"],
