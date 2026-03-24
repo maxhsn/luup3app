@@ -1355,8 +1355,10 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         </div>
 
         <div className="flex gap-2">
-          <button className="flex-1 bg-primary text-primary-foreground rounded-xl py-2.5 font-bold text-xs">Follow Brand</button>
-          <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground">Join Community</button>
+          <button onClick={() => setFollowing(!following)} className={`flex-1 rounded-xl py-2.5 font-bold text-xs transition-all ${following ? "border border-border text-foreground" : "bg-primary text-primary-foreground"}`}>
+            {following ? "Following ✓" : "Follow Brand"}
+          </button>
+          <button onClick={() => onNavigate("explore")} className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground">Join Community</button>
         </div>
 
         <div className="flex border-b border-border">
