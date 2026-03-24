@@ -839,7 +839,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
             { name: "MMA Training Tips", members: "1.8k", unread: 3, role: "Member", lastActive: "15m ago" },
             { name: "My Gear Corner", members: "47", unread: 0, role: "Admin", lastActive: "1h ago" },
           ].map((g) => (
-            <button key={g.name} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
+            <button key={g.name} onClick={() => onNavigate("social")} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <Users className="w-4 h-4 text-primary" />
@@ -906,7 +906,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
             { name: "Fight Camp Diaries", members: "742", posts: "95/wk", icon: <BookOpen className="w-4 h-4 text-primary" />, category: "Lifestyle" },
             { name: "Brand Ambassador Hub", members: "1.2k", posts: "210/wk", icon: <Award className="w-4 h-4 text-primary" />, category: "Earning" },
           ].map((c) => (
-            <button key={c.name} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
+            <button key={c.name} onClick={() => onNavigate("social")} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">{c.icon}</div>
                 <div className="flex-1 min-w-0">
@@ -1071,10 +1071,10 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
       </div>
       <p className="font-display font-black text-4xl mt-1">{ecosystem.walletBalance}</p>
       <div className="flex gap-3 mt-4">
-        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center">
+        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center active:scale-95 transition-transform active:bg-primary-foreground/30">
           Withdraw
         </button>
-        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center">
+        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center active:scale-95 transition-transform active:bg-primary-foreground/30">
           Redeem
         </button>
       </div>
@@ -1322,6 +1322,7 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
 /* ═══════ BRAND PAGE ═══════ */
 export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [activeTab, setActiveTab] = useState<"products" | "missions" | "social" | "community">("products");
+  const [following, setFollowing] = useState(false);
   return (
     <div className="space-y-0">
       <div className="relative h-36 bg-gradient-to-br from-primary/30 to-primary/5">
@@ -1354,8 +1355,10 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         </div>
 
         <div className="flex gap-2">
-          <button className="flex-1 bg-primary text-primary-foreground rounded-xl py-2.5 font-bold text-xs">Follow Brand</button>
-          <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground">Join Community</button>
+          <button onClick={() => setFollowing(!following)} className={`flex-1 rounded-xl py-2.5 font-bold text-xs transition-all ${following ? "border border-border text-foreground" : "bg-primary text-primary-foreground"}`}>
+            {following ? "Following ✓" : "Follow Brand"}
+          </button>
+          <button onClick={() => onNavigate("explore")} className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground">Join Community</button>
         </div>
 
         <div className="flex border-b border-border">
@@ -1541,6 +1544,7 @@ export const StoreScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen)
 /* ═══════ PRODUCT DETAIL ═══════ */
 export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (s: Screen) => void }) => {
   const [selectedSize, setSelectedSize] = useState(1);
+  const [liked, setLiked] = useState(false);
   return (
     <div className="space-y-0">
       <div className="relative">
@@ -1553,8 +1557,8 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
         <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-foreground" />
         </button>
-        <button className="absolute top-3 right-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
-          <Heart className="w-4 h-4 text-muted-foreground" />
+        <button onClick={() => setLiked(!liked)} className="absolute top-3 right-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+          <Heart className={`w-4 h-4 ${liked ? "text-destructive fill-destructive" : "text-muted-foreground"}`} />
         </button>
       </div>
       <div className="px-5 py-4 space-y-3">
@@ -1619,10 +1623,10 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           <p className="text-xs font-bold text-foreground mb-2">You might also like</p>
           <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
             {["Hayabusa T3", "Sanabul Gloves", "Venum Elite"].map((n) => (
-              <div key={n} className="flex-shrink-0 w-[100px] rounded-xl border border-border bg-card p-2">
+              <button key={n} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[100px] rounded-xl border border-border bg-card p-2 text-left active:scale-[0.97] transition-transform">
                 <div className="aspect-square rounded-lg bg-muted mb-1.5" />
                 <p className="text-[10px] font-bold text-foreground truncate">{n}</p>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -1632,8 +1636,8 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
             <Share2 className="w-4 h-4" />
             Buy on Brand Site
           </button>
-          <button className="w-12 h-12 rounded-xl border border-border flex items-center justify-center">
-            <Heart className="w-5 h-5 text-muted-foreground" />
+          <button onClick={() => setLiked(!liked)} className="w-12 h-12 rounded-xl border border-border flex items-center justify-center active:scale-95 transition-transform">
+            <Heart className={`w-5 h-5 ${liked ? "text-destructive fill-destructive" : "text-muted-foreground"}`} />
           </button>
         </div>
       </div>
