@@ -1397,22 +1397,31 @@ const EarningsRow = ({ label, amount }: { label: string; amount: string }) => (
   </div>
 );
 
-const SocialPost = ({ author, time, content, likes, comments, hasImage, productTag, onProductClick, isBrand }: {
-  author: string; time: string; content: string; likes: number; comments: number; hasImage?: boolean; productTag?: string; onProductClick?: () => void; isBrand?: boolean;
+const SocialPost = ({ author, time, content, likes, comments, reposts, hasImage, productTag, onProductClick, isBrand, verified, badge }: {
+  author: string; time: string; content: string; likes: number; comments: number; reposts?: number; hasImage?: boolean; productTag?: string; onProductClick?: () => void; isBrand?: boolean; verified?: boolean; badge?: string;
 }) => (
   <div className="rounded-2xl border border-border bg-card p-3.5 space-y-2.5">
     <div className="flex items-center gap-2.5">
       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isBrand ? "bg-primary/10" : "bg-muted"}`}>
-        {isBrand && <Zap className="w-3.5 h-3.5 text-primary" />}
+        {isBrand ? <Zap className="w-3.5 h-3.5 text-primary" /> : <span className="text-[10px] font-bold text-foreground">{author.charAt(0)}</span>}
       </div>
-      <div className="flex-1">
-        <p className="text-xs font-bold text-foreground">{author} {isBrand && <Check className="inline w-3 h-3 text-primary" />}</p>
-        <p className="text-[10px] text-muted-foreground">{time}</p>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1">
+          <p className="text-xs font-bold text-foreground truncate">{author}</p>
+          {(isBrand || verified) && <Check className="w-3 h-3 text-primary flex-shrink-0" />}
+        </div>
+        <div className="flex items-center gap-1.5">
+          <p className="text-[10px] text-muted-foreground">{time}</p>
+          {badge && (
+            <span className="px-1.5 py-0 rounded-full bg-stage-earnings/10 text-stage-earnings text-[8px] font-bold">{badge}</span>
+          )}
+        </div>
       </div>
     </div>
     <p className="text-xs text-foreground leading-relaxed">{content}</p>
     {hasImage && (
-      <div className="h-32 rounded-xl bg-muted relative">
+      <div className="h-36 rounded-xl bg-muted relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/5 to-transparent" />
         {productTag && (
           <button onClick={onProductClick} className="absolute bottom-2 left-2 px-2.5 py-1 rounded-lg bg-card/90 backdrop-blur text-[10px] font-bold text-foreground border border-border flex items-center gap-1">
             <ShoppingBag className="w-3 h-3" /> {productTag}
@@ -1420,7 +1429,7 @@ const SocialPost = ({ author, time, content, likes, comments, hasImage, productT
         )}
       </div>
     )}
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-3">
       <button className="flex items-center gap-1 text-muted-foreground hover:text-destructive transition-colors">
         <Heart className="w-3.5 h-3.5" />
         <span className="text-[10px] font-medium">{likes}</span>
@@ -1429,9 +1438,20 @@ const SocialPost = ({ author, time, content, likes, comments, hasImage, productT
         <MessageCircle className="w-3.5 h-3.5" />
         <span className="text-[10px] font-medium">{comments}</span>
       </button>
-      <button className="flex items-center gap-1 text-muted-foreground ml-auto">
-        <Share2 className="w-3.5 h-3.5" />
-      </button>
+      {reposts !== undefined && (
+        <button className="flex items-center gap-1 text-muted-foreground">
+          <Repeat2 className="w-3.5 h-3.5" />
+          <span className="text-[10px] font-medium">{reposts}</span>
+        </button>
+      )}
+      <div className="flex items-center gap-2 ml-auto">
+        <button className="text-muted-foreground hover:text-foreground transition-colors">
+          <Bookmark className="w-3.5 h-3.5" />
+        </button>
+        <button className="text-muted-foreground hover:text-foreground transition-colors">
+          <Share2 className="w-3.5 h-3.5" />
+        </button>
+      </div>
     </div>
   </div>
 );
