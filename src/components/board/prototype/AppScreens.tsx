@@ -1572,6 +1572,17 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
   const sc = statusConfig(currentStatus);
   const slotsPercent = Math.round((mission.slots.taken / mission.slots.total) * 100);
 
+  // Generate a deterministic gradient based on mission title
+  const gradients = [
+    "from-primary/20 via-primary/10 to-muted",
+    "from-stage-participation/20 via-stage-participation/10 to-muted",
+    "from-stage-conversion/20 via-stage-conversion/10 to-muted",
+    "from-stage-earnings/20 via-stage-earnings/10 to-muted",
+    "from-stage-discovery/20 via-stage-discovery/10 to-muted",
+    "from-stage-network/20 via-stage-network/10 to-muted",
+  ];
+  const gradientIdx = mission.title.length % gradients.length;
+
   return (
     <div className={`rounded-2xl border bg-card overflow-hidden transition-all ${
       mission.locked ? "opacity-40 border-border" :
@@ -1579,48 +1590,65 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
       currentStatus === "joined" ? "border-primary/30" :
       "border-border"
     }`}>
-      <button onClick={onToggle} className="w-full p-3.5 text-left">
-        <div className="flex items-start gap-3">
-          {/* Submission type icon */}
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
-            currentStatus === "approved" ? "bg-stage-participation/10 text-stage-participation" :
-            currentStatus === "joined" ? "bg-primary/10 text-primary" :
-            "bg-muted text-muted-foreground"
-          }`}>
-            {mission.locked ? <Lock className="w-4 h-4" /> : submissionTypeIcon(mission.submissionType)}
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
-              <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
-                mission.difficulty === "Easy" ? "bg-stage-participation/10 text-stage-participation" :
-                mission.difficulty === "Medium" ? "bg-stage-conversion/10 text-stage-conversion" :
-                "bg-stage-network/10 text-stage-network"
-              }`}>{mission.difficulty}</span>
-              <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">{mission.type}</span>
-            </div>
-            <p className="text-[13px] font-bold text-foreground leading-tight">{mission.title}</p>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="text-[10px] text-muted-foreground">by {mission.brand}</span>
-              {mission.deadline && <span className="text-[9px] text-stage-conversion font-medium flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" />{mission.deadline}</span>}
+      <button onClick={onToggle} className="w-full text-left">
+        {/* Cover Photo */}
+        <div className={`w-full h-20 bg-gradient-to-br ${gradients[gradientIdx]} relative`}>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center backdrop-blur-sm ${
+              currentStatus === "approved" ? "bg-stage-participation/20 text-stage-participation" :
+              currentStatus === "joined" ? "bg-primary/20 text-primary" :
+              "bg-background/40 text-muted-foreground"
+            }`}>
+              {mission.locked ? <Lock className="w-5 h-5" /> : submissionTypeIcon(mission.submissionType)}
             </div>
           </div>
-          <div className="flex flex-col items-end gap-1 flex-shrink-0">
-            <span className="text-sm font-black text-primary">{mission.reward}</span>
-            {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
+          {/* Brand pill overlay */}
+          <div className="absolute bottom-2 left-2.5">
+            <span className="px-2 py-0.5 rounded-md bg-background/70 backdrop-blur-sm text-[9px] font-bold text-foreground">{mission.brand}</span>
           </div>
+          {/* Reward badge overlay */}
+          <div className="absolute top-2 right-2.5">
+            <span className="px-2 py-0.5 rounded-md bg-foreground/80 text-background text-[9px] font-black">{mission.reward}</span>
+          </div>
+          {/* Status indicator */}
+          {currentStatus !== "open" && !mission.locked && (
+            <div className="absolute top-2 left-2.5">
+              <span className={`px-1.5 py-0.5 rounded-md text-[8px] font-bold ${sc.className}`}>{sc.label}</span>
+            </div>
+          )}
         </div>
 
-        {/* Slots bar (always visible) */}
-        {!mission.locked && (
-          <div className="mt-2.5 flex items-center gap-2">
-            <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
-              <div className={`h-full rounded-full transition-all ${slotsPercent > 80 ? "bg-destructive" : "bg-primary/40"}`} style={{ width: `${slotsPercent}%` }} />
+        <div className="p-3">
+          <div className="flex items-start gap-2">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+                <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
+                  mission.difficulty === "Easy" ? "bg-stage-participation/10 text-stage-participation" :
+                  mission.difficulty === "Medium" ? "bg-stage-conversion/10 text-stage-conversion" :
+                  "bg-stage-network/10 text-stage-network"
+                }`}>{mission.difficulty}</span>
+                <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">{mission.type}</span>
+                {mission.deadline && <span className="text-[9px] text-stage-conversion font-medium flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" />{mission.deadline}</span>}
+              </div>
+              <p className="text-[13px] font-bold text-foreground leading-tight">{mission.title}</p>
             </div>
-            <span className={`text-[9px] font-semibold ${slotsPercent > 80 ? "text-destructive" : "text-muted-foreground"}`}>
-              {mission.slots.taken}/{mission.slots.total} slots
-            </span>
+            <div className="flex-shrink-0 mt-1">
+              {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
+            </div>
           </div>
-        )}
+
+          {/* Slots bar */}
+          {!mission.locked && (
+            <div className="mt-2 flex items-center gap-2">
+              <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+                <div className={`h-full rounded-full transition-all ${slotsPercent > 80 ? "bg-destructive" : "bg-primary/40"}`} style={{ width: `${slotsPercent}%` }} />
+              </div>
+              <span className={`text-[9px] font-semibold ${slotsPercent > 80 ? "text-destructive" : "text-muted-foreground"}`}>
+                {mission.slots.taken}/{mission.slots.total} slots
+              </span>
+            </div>
+          )}
+        </div>
       </button>
 
       {/* Expanded detail */}
