@@ -12,8 +12,8 @@ import {
 } from "./prototype/AppScreens";
 
 const PrototypeSection = () => {
-  const [screen, setScreen] = useState<Screen>("home");
-  const [history, setHistory] = useState<Screen[]>(["home"]);
+  const [screen, setScreen] = useState<Screen>("start");
+  const [history, setHistory] = useState<Screen[]>(["start"]);
 
   const navigate = (to: Screen) => {
     setHistory((h) => [...h, to]);
