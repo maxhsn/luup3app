@@ -307,7 +307,7 @@ export const ecosystems: EcosystemData[] = [
       },
       {
         id: "b6", title: "Attend a beauty masterclass", brand: "Fenty", reward: "$45",
-        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", locked: true,
+        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", status: "open", locked: true,
         slots: { taken: 0, total: 10 },
         description: "Attend a verified beauty masterclass or brand event.",
         requirements: ["GPS check-in", "Event photo", "Verified event"],
