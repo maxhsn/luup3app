@@ -14,7 +14,7 @@ export type Screen =
   | "login" | "start" | "ecosystem-setup" | "home" | "explore" | "missions" | "store" | "profile"
   | "product" | "storefront" | "wallet" | "leaderboard"
   | "social" | "brand" | "checkout" | "notifications"
-  | "order-confirm" | "edit-profile" | "saved-items" | "referral-code";
+  | "order-confirm" | "edit-profile" | "saved-items" | "referral-code" | "share-storefront";
 
 /* ═══════ LOGIN / SIGNUP ═══════ */
 export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
