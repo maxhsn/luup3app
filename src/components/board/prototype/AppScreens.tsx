@@ -3,7 +3,7 @@ import {
   Search, Home, ShoppingBag, Trophy, User, Heart, Star, MapPin,
   ChevronRight, Bell, MessageCircle, Flame, Gift, TrendingUp,
   Share2, Plus, Check, ArrowLeft, Wallet, Send, ThumbsUp,
-  Camera, Image, CreditCard, Package, Shield, ChevronDown,
+  Camera, Image, CreditCard, Package, Shield, ChevronDown, ChevronLeft,
   Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot,
   Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video,
   Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot
@@ -14,7 +14,7 @@ export type Screen =
   | "login" | "start" | "ecosystem-setup" | "home" | "explore" | "missions" | "store" | "profile"
   | "product" | "storefront" | "wallet" | "leaderboard"
   | "social" | "brand" | "checkout" | "notifications"
-  | "order-confirm";
+  | "order-confirm" | "edit-profile" | "saved-items" | "referral-code";
 
 /* ═══════ LOGIN / SIGNUP ═══════ */
 export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
@@ -2148,9 +2148,9 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
     <div className="space-y-0.5">
       {[
         { label: "My Communities", screen: "explore" as Screen },
-        { label: "Saved Items", screen: "store" as Screen },
-        { label: "Edit Profile", screen: "home" as Screen },
-        { label: "Referral Code", screen: "home" as Screen },
+        { label: "Saved Items", screen: "saved-items" as Screen },
+        { label: "Edit Profile", screen: "edit-profile" as Screen },
+        { label: "Referral Code", screen: "referral-code" as Screen },
       ].map((item) => (
         <button key={item.label} onClick={() => onNavigate(item.screen)} className="w-full flex items-center justify-between py-2.5 px-1 border-b border-border last:border-0 text-left">
           <span className="text-[11px] text-foreground font-medium">{item.label}</span>
@@ -2161,6 +2161,140 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
   </div>
   );
 };
+
+/* ═══════ EDIT PROFILE ═══════ */
+export const EditProfileScreen = ({ onBack }: { onBack: () => void }) => {
+  return (
+    <div className="px-5 py-4 space-y-4">
+      <div className="flex items-center gap-3">
+        <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center"><ChevronLeft className="w-4 h-4" /></button>
+        <p className="font-display font-bold text-base text-foreground">Edit Profile</p>
+      </div>
+      <div className="flex flex-col items-center gap-2 py-2">
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-primary-foreground font-bold text-xl">A</div>
+        <button className="text-[11px] text-primary font-semibold">Change Photo</button>
+      </div>
+      <div className="space-y-3">
+        {[
+          { label: "Display Name", value: "Alex", placeholder: "Your name" },
+          { label: "Username", value: "@alex_mma", placeholder: "@username" },
+          { label: "Bio", value: "Combat sports enthusiast 🥊", placeholder: "Tell us about yourself" },
+          { label: "Instagram", value: "@alex.trains", placeholder: "@handle" },
+          { label: "TikTok", value: "@alexmma", placeholder: "@handle" },
+        ].map((field) => (
+          <div key={field.label}>
+            <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1 block">{field.label}</label>
+            <div className="w-full rounded-xl border border-border bg-card px-3 py-2.5">
+              <span className="text-[11px] text-foreground">{field.value}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button className="w-full py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold active:scale-[0.98] transition-transform">Save Changes</button>
+    </div>
+  );
+};
+
+/* ═══════ SAVED ITEMS ═══════ */
+export const SavedItemsScreen = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (s: Screen) => void }) => {
+  const savedItems = [
+    { name: "Hayabusa T3 Gloves", brand: "Hayabusa", price: "$89", royalty: "12%" },
+    { name: "Venum Elite Shorts", brand: "Venum", price: "$54", royalty: "10%" },
+    { name: "RDX Shin Guards", brand: "RDX Sports", price: "$42", royalty: "9%" },
+    { name: "Everlast Hand Wraps", brand: "Everlast", price: "$18", royalty: "8%" },
+  ];
+  return (
+    <div className="px-5 py-4 space-y-4">
+      <div className="flex items-center gap-3">
+        <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center"><ChevronLeft className="w-4 h-4" /></button>
+        <p className="font-display font-bold text-base text-foreground">Saved Items</p>
+        <span className="ml-auto text-[10px] text-muted-foreground font-medium">{savedItems.length} items</span>
+      </div>
+      <div className="space-y-2">
+        {savedItems.map((item) => (
+          <button key={item.name} onClick={() => onNavigate("product")}
+            className="w-full flex items-center gap-3 p-3 rounded-2xl border border-border bg-card text-left active:scale-[0.98] transition-transform">
+            <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+              <ShoppingBag className="w-4 h-4 text-muted-foreground" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] font-bold text-foreground truncate">{item.name}</p>
+              <p className="text-[9px] text-muted-foreground">{item.brand} · {item.price}</p>
+            </div>
+            <div className="flex flex-col items-end gap-1 flex-shrink-0">
+              <span className="px-1.5 py-0.5 rounded-md bg-primary/10 text-primary text-[8px] font-bold">{item.royalty}</span>
+              <Heart className="w-3 h-3 text-destructive fill-destructive" />
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/* ═══════ REFERRAL CODE ═══════ */
+export const ReferralCodeScreen = ({ onBack }: { onBack: () => void }) => {
+  const [copied, setCopied] = useState(false);
+  const code = "ALEX-MMA-2024";
+  return (
+    <div className="px-5 py-4 space-y-5">
+      <div className="flex items-center gap-3">
+        <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center"><ChevronLeft className="w-4 h-4" /></button>
+        <p className="font-display font-bold text-base text-foreground">Referral Code</p>
+      </div>
+      {/* Referral card */}
+      <div className="rounded-2xl bg-gradient-to-br from-primary/15 to-stage-earnings/10 border border-primary/20 p-5 text-center space-y-3">
+        <div className="w-12 h-12 rounded-2xl bg-primary/15 flex items-center justify-center mx-auto">
+          <Share2 className="w-5 h-5 text-primary" />
+        </div>
+        <p className="text-sm font-bold text-foreground">Share & Earn 10%</p>
+        <p className="text-[10px] text-muted-foreground leading-relaxed">Earn 10% commission on every purchase your referrals make. No limits.</p>
+        <div className="bg-card border border-border rounded-xl px-4 py-3 flex items-center justify-between">
+          <span className="text-sm font-mono font-bold text-foreground tracking-wider">{code}</span>
+          <button onClick={() => setCopied(true)} className="text-[10px] font-bold text-primary">
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+      </div>
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-2">
+        {[
+          { label: "Referrals", value: "14" },
+          { label: "Earnings", value: "$318" },
+          { label: "Rate", value: "10%" },
+        ].map((s) => (
+          <div key={s.label} className="rounded-xl bg-card border border-border p-3 text-center">
+            <p className="font-display font-black text-lg text-foreground">{s.value}</p>
+            <p className="text-[9px] text-muted-foreground font-medium">{s.label}</p>
+          </div>
+        ))}
+      </div>
+      {/* Recent referrals */}
+      <div>
+        <p className="text-xs font-bold text-foreground mb-2">Recent Referrals</p>
+        <div className="space-y-1.5">
+          {[
+            { name: "@mike_trains", earned: "$24.50", time: "2d ago" },
+            { name: "@sarah_bjj", earned: "$18.20", time: "5d ago" },
+            { name: "@jake_box", earned: "$31.00", time: "1w ago" },
+          ].map((r) => (
+            <div key={r.name} className="flex items-center gap-2.5 p-2.5 rounded-xl border border-border bg-card">
+              <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
+                <User className="w-3 h-3 text-primary" />
+              </div>
+              <div className="flex-1">
+                <p className="text-[10px] font-bold text-foreground">{r.name}</p>
+                <p className="text-[8px] text-muted-foreground">{r.time}</p>
+              </div>
+              <span className="text-[10px] font-bold text-primary">{r.earned}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const submissionTypeIcon = (type: MissionSubmissionType) => {
   switch (type) {
     case "link": return <Link className="w-3.5 h-3.5" />;
