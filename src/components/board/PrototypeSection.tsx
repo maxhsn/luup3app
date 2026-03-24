@@ -109,6 +109,7 @@ const PrototypeSection = () => {
 
             {/* Screen Content */}
             <div className="min-h-[620px] max-h-[620px] overflow-y-auto no-scrollbar">
+              {screen === "start" && <StartScreen onNavigate={navigate} />}
               {screen === "home" && <HomeScreen onNavigate={navigate} />}
               {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
               {screen === "missions" && <MissionsScreen onNavigate={navigate} />}

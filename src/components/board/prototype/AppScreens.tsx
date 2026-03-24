@@ -8,10 +8,53 @@ import {
 } from "lucide-react";
 
 export type Screen =
-  | "home" | "explore" | "missions" | "store" | "profile"
+  | "start" | "home" | "explore" | "missions" | "store" | "profile"
   | "product" | "storefront" | "wallet" | "leaderboard"
   | "social" | "brand" | "checkout" | "notifications"
   | "order-confirm";
+
+/* ═══════ START / ECOSYSTEM SELECT ═══════ */
+const ecosystems = [
+  { id: "combat", label: "Combat Sports", emoji: "🥊", desc: "MMA, Boxing, BJJ gear & training", color: "bg-destructive/10 text-destructive" },
+  { id: "fitness", label: "Fitness & Wellness", emoji: "💪", desc: "Gym, supplements, wearables", color: "bg-primary/10 text-primary" },
+  { id: "outdoor", label: "Outdoor & Adventure", emoji: "🏔️", desc: "Hiking, camping, trail running", color: "bg-emerald-500/10 text-emerald-600" },
+  { id: "beauty", label: "Beauty & Skincare", emoji: "✨", desc: "Cosmetics, skincare, grooming", color: "bg-pink-500/10 text-pink-600" },
+  { id: "gaming", label: "Gaming & Esports", emoji: "🎮", desc: "Peripherals, merch, streaming", color: "bg-violet-500/10 text-violet-600" },
+  { id: "food", label: "Food & Beverage", emoji: "🍜", desc: "Specialty foods, drinks, recipes", color: "bg-amber-500/10 text-amber-600" },
+];
+
+export const StartScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
+  <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col">
+    <div className="text-center space-y-2 pt-4">
+      <div className="w-14 h-14 rounded-2xl bg-primary mx-auto flex items-center justify-center">
+        <span className="text-2xl font-display font-black text-primary-foreground">L</span>
+      </div>
+      <p className="font-display font-black text-xl text-foreground">Welcome to LUUP</p>
+      <p className="text-xs text-muted-foreground leading-relaxed">Choose your ecosystem to get started</p>
+    </div>
+
+    <div className="flex-1 space-y-2.5">
+      {ecosystems.map((eco) => (
+        <button
+          key={eco.id}
+          onClick={() => onNavigate("home")}
+          className="w-full flex items-center gap-3 p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-md transition-all text-left group"
+        >
+          <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${eco.color}`}>
+            {eco.emoji}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-display font-bold text-sm text-foreground">{eco.label}</p>
+            <p className="text-[11px] text-muted-foreground">{eco.desc}</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+        </button>
+      ))}
+    </div>
+
+    <p className="text-[10px] text-muted-foreground text-center pb-2">More ecosystems coming soon</p>
+  </div>
+);
 
 /* ═══════ HOME ═══════ */
 export const HomeScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
