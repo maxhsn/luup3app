@@ -1632,6 +1632,28 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           </div>
         </div>
 
+        {/* Add to Storefront */}
+        <button
+          onClick={() => setAddedToStorefront(!addedToStorefront)}
+          className={`w-full rounded-xl p-3 flex items-center justify-center gap-2 font-bold text-xs transition-all active:scale-[0.98] ${
+            addedToStorefront
+              ? "bg-primary/10 border border-primary/30 text-primary"
+              : "bg-foreground text-background"
+          }`}
+        >
+          {addedToStorefront ? (
+            <><Check className="w-4 h-4" /> Added to Your Storefront</>
+          ) : (
+            <><Plus className="w-4 h-4" /> Add to My Storefront</>
+          )}
+        </button>
+        {addedToStorefront && (
+          <div className="rounded-xl bg-primary/5 border border-primary/15 px-3 py-2 flex items-center gap-2">
+            <ShoppingBag className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <p className="text-[10px] text-foreground/70">This product is now on your <span className="font-bold text-primary">storefront</span>. You'll earn <span className="font-bold text-primary">$8.00</span> per sale.</p>
+          </div>
+        )}
+
         <div className="flex gap-2 pt-2 sticky bottom-0 bg-card py-3 -mx-5 px-5 border-t border-border">
           <button onClick={() => onNavigate("checkout")} className="flex-1 bg-primary text-primary-foreground rounded-xl py-3 font-bold text-sm flex items-center justify-center gap-2">
             <Share2 className="w-4 h-4" />
