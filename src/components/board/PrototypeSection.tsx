@@ -1,7 +1,8 @@
 import { useState } from "react";
 import {
   Search, Home, ShoppingBag, Trophy, User, Flame, Gift,
-  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen, Users
+  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen, Users,
+  Monitor, Building2, Shield
 } from "lucide-react";
 import {
   type Screen,
@@ -11,6 +12,9 @@ import {
   OrderConfirmScreen, NotificationsScreen, EditProfileScreen, SavedItemsScreen, ReferralCodeScreen, ShareStorefrontScreen
 } from "./prototype/AppScreens";
 import { getEcosystem } from "./prototype/ecosystemData";
+import { WebAppPrototype } from "./prototype/WebAppScreens";
+import { MerchantPrototype } from "./prototype/MerchantScreens";
+import { AdminPrototype } from "./prototype/AdminScreens";
 
 const PrototypeSection = () => {
   const [screen, setScreen] = useState<Screen>("login");
@@ -164,6 +168,123 @@ const PrototypeSection = () => {
             <p className="text-[10px] text-muted-foreground">{s.desc}</p>
           </div>
         ))}
+      </div>
+
+      {/* ═══════ WEB APP PROTOTYPE ═══════ */}
+      <div className="mt-16">
+        <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-10">
+          <div className="h-px flex-1 bg-border" />
+          <span className="tag-accent">WEB PLATFORM</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        <div className="flex items-end gap-3 md:gap-6 mb-6 md:mb-8">
+          <span className="text-[3rem] md:text-[6rem] font-display font-black tracking-[-0.06em] leading-none text-border select-none">
+            WEB
+          </span>
+          <div className="pb-1 md:pb-3 border-l-4 border-primary pl-3 md:pl-5">
+            <h2 className="font-display text-xl md:text-3xl font-black text-foreground tracking-tight flex items-center gap-3">
+              <Monitor className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+              Consumer Web App
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground mt-1">10 screens · Full feature parity with mobile · Desktop-optimized layouts</p>
+          </div>
+        </div>
+
+        <WebAppPrototype />
+
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { label: "Screens", value: "10", desc: "desktop views" },
+            { label: "Sidebar Nav", value: "✓", desc: "persistent navigation" },
+            { label: "Data Density", value: "High", desc: "multi-column layouts" },
+            { label: "Feature Parity", value: "100%", desc: "all mobile features" },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl border border-border bg-card/50 p-3 text-center">
+              <p className="font-display font-black text-xl text-primary">{s.value}</p>
+              <p className="text-xs font-bold text-foreground">{s.label}</p>
+              <p className="text-[10px] text-muted-foreground">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══════ MERCHANT PLATFORM ═══════ */}
+      <div className="mt-16">
+        <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-10">
+          <div className="h-px flex-1 bg-border" />
+          <span className="tag-accent">MERCHANT PLATFORM</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        <div className="flex items-end gap-3 md:gap-6 mb-6 md:mb-8">
+          <span className="text-[3rem] md:text-[6rem] font-display font-black tracking-[-0.06em] leading-none text-border select-none">
+            ACTIVATE
+          </span>
+          <div className="pb-1 md:pb-3 border-l-4 border-primary pl-3 md:pl-5">
+            <h2 className="font-display text-xl md:text-3xl font-black text-foreground tracking-tight flex items-center gap-3">
+              <Building2 className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+              Merchant Platform (Activate)
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground mt-1">8 screens · Dashboard, Campaigns, Products, Ambassador Management</p>
+          </div>
+        </div>
+
+        <MerchantPrototype />
+
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { label: "Screens", value: "8", desc: "merchant views" },
+            { label: "Campaign Tools", value: "✓", desc: "create & manage missions" },
+            { label: "Analytics", value: "✓", desc: "ROI & performance" },
+            { label: "Ambassador CRM", value: "✓", desc: "tier & performance tracking" },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl border border-border bg-card/50 p-3 text-center">
+              <p className="font-display font-black text-xl text-primary">{s.value}</p>
+              <p className="text-xs font-bold text-foreground">{s.label}</p>
+              <p className="text-[10px] text-muted-foreground">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══════ ADMIN PANEL ═══════ */}
+      <div className="mt-16">
+        <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-10">
+          <div className="h-px flex-1 bg-border" />
+          <span className="tag-accent">ADMIN PANEL</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+
+        <div className="flex items-end gap-3 md:gap-6 mb-6 md:mb-8">
+          <span className="text-[3rem] md:text-[6rem] font-display font-black tracking-[-0.06em] leading-none text-border select-none">
+            ADMIN
+          </span>
+          <div className="pb-1 md:pb-3 border-l-4 border-primary pl-3 md:pl-5">
+            <h2 className="font-display text-xl md:text-3xl font-black text-foreground tracking-tight flex items-center gap-3">
+              <Shield className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+              LUUP Admin Panel
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground mt-1">8 screens · Platform overview, ecosystems, users, and financial management</p>
+          </div>
+        </div>
+
+        <AdminPrototype />
+
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { label: "Screens", value: "8", desc: "admin views" },
+            { label: "Ecosystem Mgmt", value: "✓", desc: "configure verticals" },
+            { label: "User & Roles", value: "✓", desc: "RBAC management" },
+            { label: "Financial", value: "✓", desc: "payouts & commissions" },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl border border-border bg-card/50 p-3 text-center">
+              <p className="font-display font-black text-xl text-primary">{s.value}</p>
+              <p className="text-xs font-bold text-foreground">{s.label}</p>
+              <p className="text-[10px] text-muted-foreground">{s.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
