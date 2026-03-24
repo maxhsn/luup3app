@@ -1651,7 +1651,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
   const [showShare, setShowShare] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   return (
-  <div className="space-y-0">
+  <div className="space-y-0 relative">
     {/* Hero Cover */}
     <div className="relative h-36 bg-gradient-to-br from-primary/40 via-primary/20 to-transparent overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--primary)/0.3),transparent_60%)]" />
