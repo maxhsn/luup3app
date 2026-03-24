@@ -129,7 +129,7 @@ const PrototypeSection = () => {
               <div className="border-t border-border bg-card px-2 pb-5 pt-2">
                 <div className="flex justify-around">
                   <TabBtn icon={<Home />} label="Home" active={screen === "home"} onClick={() => navigate("home")} />
-                  <TabBtn icon={<Search />} label="Explore" active={screen === "explore"} onClick={() => navigate("explore")} />
+                  <TabBtn icon={<MessageCircle />} label="Social" active={screen === "explore"} onClick={() => navigate("explore")} />
                   <TabBtn icon={<Flame />} label="Missions" active={screen === "missions"} onClick={() => navigate("missions")} />
                   <TabBtn icon={<ShoppingBag />} label="Brands" active={screen === "store"} onClick={() => navigate("store")} />
                   <TabBtn icon={<User />} label="Profile" active={screen === "profile"} onClick={() => navigate("profile")} />
@@ -147,12 +147,12 @@ const PrototypeSection = () => {
         {/* Right: Context info */}
         <div className="hidden lg:flex flex-col gap-3 pt-12">
           <FeatureCallout
-            icon={<Search className="w-5 h-5" />}
-            title="Search & Explore"
-            desc="Discover brands, trending hashtags, and products with live search."
+            icon={<MessageCircle className="w-5 h-5" />}
+            title="Social Wall"
+            desc="UGC feed with stories, product tags, likes, comments, and sharing."
             active={screen === "explore"}
             onClick={() => navigate("explore")}
-            interactions={6}
+            interactions={8}
           />
           <FeatureCallout
             icon={<ShoppingBag className="w-5 h-5" />}
@@ -193,7 +193,7 @@ const PrototypeSection = () => {
       <div className="flex lg:hidden gap-2 overflow-x-auto no-scrollbar mt-6 pb-2">
         {([
           { label: "Home", s: "home" },
-          { label: "Explore", s: "explore" },
+          { label: "Social", s: "explore" },
           { label: "Missions", s: "missions" },
           { label: "Wallet", s: "wallet" },
           { label: "Leaderboard", s: "leaderboard" },

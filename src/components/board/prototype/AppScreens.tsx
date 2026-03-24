@@ -136,67 +136,62 @@ export const HomeScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) 
   </div>
 );
 
-/* ═══════ EXPLORE ═══════ */
+/* ═══════ SOCIAL FEED (TAB) ═══════ */
 export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
   <div className="px-5 py-4 space-y-4">
-    <p className="font-display font-bold text-lg text-foreground">Explore</p>
-    <div className="flex items-center gap-2 bg-muted rounded-xl px-3 py-2.5">
-      <Search className="w-4 h-4 text-muted-foreground" />
-      <span className="text-sm text-muted-foreground">Search brands, products, communities...</span>
+    <div className="flex items-center justify-between">
+      <p className="font-display font-bold text-lg text-foreground">Social</p>
+      <button className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
+        <Plus className="w-4 h-4 text-primary-foreground" />
+      </button>
     </div>
-    {/* Recent Searches */}
-    <div className="flex flex-wrap gap-1.5">
-      {["Venum gloves", "BJJ gear", "fight shorts"].map((q) => (
-        <span key={q} className="text-[10px] px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-border">🕐 {q}</span>
-      ))}
-    </div>
-    <div className="flex gap-2 overflow-x-auto no-scrollbar">
-      {["All", "MMA", "BJJ", "Boxing", "Muay Thai", "Fitness"].map((c, i) => (
-        <div key={c} className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap ${i === 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
-          {c}
-        </div>
-      ))}
-    </div>
-    {/* Trending Hashtags */}
-    <div className="flex gap-2">
-      {["#VenumSquad", "#GloveReview", "#TrainHard"].map((t) => (
-        <button key={t} onClick={() => onNavigate("social")} className="px-3 py-1.5 rounded-full bg-primary/5 text-primary text-[10px] font-bold border border-primary/15">
-          {t}
-        </button>
-      ))}
-    </div>
-    {/* Featured Brand */}
-    <button onClick={() => onNavigate("brand")} className="w-full rounded-2xl bg-primary/5 border border-primary/10 p-4 text-left">
-      <div className="flex items-center gap-3">
-        <div className="w-14 h-14 rounded-2xl bg-muted" />
-        <div className="flex-1">
-          <span className="tag-accent text-[10px] mb-1 inline-block">Featured Brand</span>
-          <p className="font-bold text-sm text-foreground">Venum</p>
-          <p className="text-xs text-muted-foreground">Official combat sports gear</p>
-          <p className="text-[10px] text-primary font-semibold mt-0.5">12.4k community members</p>
-        </div>
-      </div>
-    </button>
-    {/* Product Grid */}
-    <div className="grid grid-cols-2 gap-2.5">
-      {[
-        { name: "Elite Rashguard", price: "$64.99", brand: "Venum" },
-        { name: "Pro Boxing Gloves", price: "$89.00", brand: "Hayabusa" },
-        { name: "Fight Shorts", price: "$42.00", brand: "Sanabul" },
-        { name: "Mouth Guard Pro", price: "$24.99", brand: "Venum" },
-      ].map((p) => (
-        <button key={p.name} onClick={() => onNavigate("product")} className="rounded-2xl border border-border bg-card p-3 text-left hover:shadow-md transition-shadow">
-          <div className="aspect-square rounded-xl bg-muted mb-2 relative">
-            <button className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-card/80 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-              <Heart className="w-3 h-3 text-muted-foreground" />
-            </button>
+
+    {/* Story-style row */}
+    <div className="flex gap-3 overflow-x-auto no-scrollbar">
+      {["Your Story", "Sarah M.", "Mike T.", "Jess K.", "LUUP"].map((name, i) => (
+        <div key={name} className="flex flex-col items-center gap-1 flex-shrink-0">
+          <div className={`w-14 h-14 rounded-full ${i === 0 ? "border-2 border-dashed border-muted-foreground/40" : "ring-2 ring-primary/60"} bg-muted flex items-center justify-center`}>
+            {i === 0 ? <Plus className="w-4 h-4 text-muted-foreground" /> : <div className="w-12 h-12 rounded-full bg-muted-foreground/10" />}
           </div>
-          <p className="font-bold text-xs text-foreground truncate">{p.name}</p>
-          <p className="text-[10px] text-muted-foreground">{p.brand}</p>
-          <p className="text-xs font-bold text-primary mt-1">{p.price}</p>
-        </button>
+          <span className="text-[10px] text-muted-foreground font-medium truncate w-14 text-center">{name}</span>
+        </div>
       ))}
     </div>
+
+    {/* Posts */}
+    <SocialPost
+      author="Sarah Martinez"
+      time="2h ago"
+      content="Just finished sparring with my new Venum Challenger 3.0 gloves! These are absolutely 🔥"
+      likes={42}
+      comments={8}
+      hasImage
+      productTag="Venum Challenger 3.0"
+      onProductClick={() => onNavigate("product")}
+    />
+    <SocialPost
+      author="Mike Torres"
+      time="5h ago"
+      content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made 💪"
+      likes={89}
+      comments={15}
+      hasImage
+    />
+    <SocialPost
+      author="LUUP Official"
+      time="1d ago"
+      content="🎉 New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started."
+      likes={234}
+      comments={47}
+      isBrand
+    />
+    <SocialPost
+      author="Jess Kim"
+      time="2d ago"
+      content="Just hit Gold tier on LUUP!! 🏆 The rewards just keep getting better. If you haven't joined yet, use my code: JESS-LUUP"
+      likes={156}
+      comments={23}
+    />
   </div>
 );
 
