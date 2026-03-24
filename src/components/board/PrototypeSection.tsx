@@ -13,8 +13,8 @@ import {
 import { getEcosystem } from "./prototype/ecosystemData";
 
 const PrototypeSection = () => {
-  const [screen, setScreen] = useState<Screen>("start");
-  const [history, setHistory] = useState<Screen[]>(["start"]);
+  const [screen, setScreen] = useState<Screen>("login");
+  const [history, setHistory] = useState<Screen[]>(["login"]);
   const [ecosystemId, setEcosystemId] = useState("combat");
 
   const eco = getEcosystem(ecosystemId);
