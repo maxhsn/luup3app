@@ -30,6 +30,7 @@ const PrototypeSection = () => {
 
   // Tab bar screens
   const isTabScreen = (s: Screen) => ["home", "explore", "missions", "store", "profile"].includes(s);
+  const isStartScreen = screen === "start";
 
   return (
     <div className="animate-fade-in">
