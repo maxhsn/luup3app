@@ -443,18 +443,18 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         {/* Breakdown row */}
         <div className="relative z-10 flex items-center gap-4 mt-3 pt-3 border-t border-background/[0.08]">
           <div className="flex-1">
-            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Referrals</p>
-            <p className="text-sm font-bold text-background/90">{ecosystem.referralEarnings}</p>
-          </div>
-          <div className="w-px h-6 bg-background/[0.1]" />
-          <div className="flex-1">
             <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Missions</p>
             <p className="text-sm font-bold text-background/90">{ecosystem.missionEarnings}</p>
           </div>
           <div className="w-px h-6 bg-background/[0.1]" />
           <div className="flex-1">
-            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Cashback</p>
-            <p className="text-sm font-bold text-background/90">$48</p>
+            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Referrals</p>
+            <p className="text-sm font-bold text-background/90">{ecosystem.referralEarnings}</p>
+          </div>
+          <div className="w-px h-6 bg-background/[0.1]" />
+          <div className="flex-1">
+            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Points</p>
+            <p className="text-sm font-bold text-background/90">{ecosystem.pointsBalance}</p>
           </div>
         </div>
         {/* Wallet Button */}
@@ -1401,9 +1401,9 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         {activeTab === "missions" && (
           <div className="space-y-2">
             {[
-              { id: "bm1", title: "Share Venum gear photo", brand: "Venum", reward: "$15", type: "Social", submissionType: "link" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 20, total: 30 }, description: "Post a photo with Venum gear.", requirements: ["Tag @venum", "Public post"] },
-              { id: "bm2", title: "Review any Venum product", brand: "Venum", reward: "$10", type: "Review", submissionType: "review" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 8, total: 15 }, description: "Write a detailed product review.", requirements: ["200+ words", "Include photos"] },
-              { id: "bm3", title: "Create a training video", brand: "Venum", reward: "$25", type: "Content", submissionType: "upload" as MissionSubmissionType, difficulty: "Medium" as const, status: "open" as MissionStatus, slots: { taken: 3, total: 10 }, description: "Film a training session with Venum gear.", requirements: ["30-60 seconds", "Gear visible"] },
+              { id: "bm1", title: "Share Venum gear photo", brand: "Venum", reward: "$15", pointsReward: 150, rewardType: "mixed" as const, type: "Social", submissionType: "link" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 20, total: 30 }, description: "Post a photo with Venum gear.", requirements: ["Tag @venum", "Public post"] },
+              { id: "bm2", title: "Review any Venum product", brand: "Venum", reward: "$10", rewardType: "cash" as const, type: "Review", submissionType: "review" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 8, total: 15 }, description: "Write a detailed product review.", requirements: ["200+ words", "Include photos"] },
+              { id: "bm3", title: "Create a training video", brand: "Venum", reward: "$25", pointsReward: 300, rewardType: "mixed" as const, type: "Content", submissionType: "upload" as MissionSubmissionType, difficulty: "Medium" as const, status: "open" as MissionStatus, slots: { taken: 3, total: 10 }, description: "Film a training session with Venum gear.", requirements: ["30-60 seconds", "Gear visible"] },
             ].map(m => (
               <MissionCardV2 key={m.id} mission={m} currentStatus={m.status} expanded={false} onToggle={() => {}} onJoin={() => {}} onSubmit={() => {}} />
             ))}
@@ -2252,8 +2252,9 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
             <span className="px-2 py-0.5 rounded-md bg-background/70 backdrop-blur-sm text-[9px] font-bold text-foreground">{mission.brand}</span>
           </div>
           {/* Reward badge overlay */}
-          <div className="absolute top-2 right-2.5">
-            <span className="px-2 py-0.5 rounded-md bg-foreground/80 text-background text-[9px] font-black">{mission.reward}</span>
+          <div className="absolute top-2 right-2.5 flex gap-1">
+            {mission.reward && <span className="px-2 py-0.5 rounded-md bg-foreground/80 text-background text-[9px] font-black">{mission.reward}</span>}
+            {mission.pointsReward && <span className="px-2 py-0.5 rounded-md bg-primary/90 text-primary-foreground text-[9px] font-black">{mission.pointsReward}pts</span>}
           </div>
           {/* Status indicator */}
           {currentStatus !== "open" && !mission.locked && (
@@ -2356,7 +2357,7 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
             )}
             {currentStatus === "approved" && (
               <div className="flex-1 py-2.5 rounded-xl bg-stage-participation/10 text-stage-participation text-xs font-bold text-center flex items-center justify-center gap-1.5">
-                <Check className="w-3.5 h-3.5" /> Approved · {mission.reward} Earned
+                <Check className="w-3.5 h-3.5" /> Approved · {mission.reward}{mission.pointsReward ? ` + ${mission.pointsReward}pts` : ""} Earned
               </div>
             )}
             {currentStatus === "rejected" && (
