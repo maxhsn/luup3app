@@ -405,23 +405,22 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       )}
 
       {/* ── Hero Earnings Card ── */}
-      <button onClick={() => onNavigate("wallet")}
-        className="w-full rounded-[20px] bg-foreground p-4 text-background relative overflow-hidden active:scale-[0.98] transition-transform group">
+      <div className="w-full rounded-[20px] bg-foreground p-4 text-background relative overflow-hidden">
         {/* Decorative circles */}
         <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-background/[0.04]" />
         <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-background/[0.03]" />
         <div className="relative z-10 flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-2xl bg-background/[0.08] flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 rounded-2xl bg-background/10 flex items-center justify-center flex-shrink-0">
             <Wallet className="w-4.5 h-4.5 text-primary" />
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-[9px] font-semibold opacity-50 uppercase tracking-widest mb-1">Total Earnings</p>
-            <p className="font-display font-black text-[26px] leading-none tracking-tight">{ecosystem.walletBalance}</p>
+            <p className="text-[9px] font-bold text-background/60 uppercase tracking-widest mb-1">Total Earnings</p>
+            <p className="font-display font-black text-[28px] leading-none tracking-tight text-background">{ecosystem.walletBalance}</p>
             <div className="flex items-center gap-2 mt-1.5">
-              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-stage-participation/20 text-stage-participation text-[9px] font-bold">
+              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-stage-participation/25 text-stage-participation text-[9px] font-bold">
                 <TrendingUp className="w-2.5 h-2.5" />{ecosystem.walletGrowth}
               </span>
-              <span className="text-[9px] opacity-30">this month</span>
+              <span className="text-[9px] text-background/40">this month</span>
             </div>
           </div>
           {/* Mini sparkline chart */}
@@ -440,26 +439,30 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
               <circle cx="60" cy="3" r="2.5" fill="hsl(var(--primary))" />
             </svg>
           </div>
-          <ChevronRight className="w-4 h-4 opacity-20 flex-shrink-0" />
         </div>
         {/* Breakdown row */}
-        <div className="relative z-10 flex items-center gap-4 mt-3 pt-3 border-t border-background/[0.06]">
+        <div className="relative z-10 flex items-center gap-4 mt-3 pt-3 border-t border-background/[0.08]">
           <div className="flex-1">
-            <p className="text-[8px] uppercase tracking-wider opacity-30">Referrals</p>
-            <p className="text-xs font-bold opacity-80">{ecosystem.referralEarnings}</p>
+            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Referrals</p>
+            <p className="text-sm font-bold text-background/90">{ecosystem.referralEarnings}</p>
           </div>
-          <div className="w-px h-6 bg-background/[0.08]" />
+          <div className="w-px h-6 bg-background/[0.1]" />
           <div className="flex-1">
-            <p className="text-[8px] uppercase tracking-wider opacity-30">Missions</p>
-            <p className="text-xs font-bold opacity-80">{ecosystem.missionEarnings}</p>
+            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Missions</p>
+            <p className="text-sm font-bold text-background/90">{ecosystem.missionEarnings}</p>
           </div>
-          <div className="w-px h-6 bg-background/[0.08]" />
+          <div className="w-px h-6 bg-background/[0.1]" />
           <div className="flex-1">
-            <p className="text-[8px] uppercase tracking-wider opacity-30">Cashback</p>
-            <p className="text-xs font-bold opacity-80">$48</p>
+            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Cashback</p>
+            <p className="text-sm font-bold text-background/90">$48</p>
           </div>
         </div>
-      </button>
+        {/* Wallet Button */}
+        <button onClick={() => onNavigate("wallet")} className="relative z-10 w-full mt-3 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+          <Wallet className="w-3.5 h-3.5" />
+          Open Wallet
+        </button>
+      </div>
 
       {/* ── Stats Bento Grid ── */}
       <div className="grid grid-cols-3 gap-2">
