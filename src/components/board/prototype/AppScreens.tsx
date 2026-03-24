@@ -215,11 +215,8 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="text-[9px] text-muted-foreground mt-1">On every referral sale</p>
         </button>
       </div>
-        
-        <div className="relative z-10">
-          {/* Header row */}
-          <div className="flex items-center justify-between">
-            <p className="text-[10px] opacity-60 font-semibold tracking-[0.12em] uppercase">{ecosystem.emoji} {ecosystem.label}</p>
+
+
             <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/10 text-[9px] font-bold backdrop-blur-sm">
               <TrendingUp className="w-2.5 h-2.5 text-green-300" />
               <span className="text-green-200">{ecosystem.walletGrowth}</span>
