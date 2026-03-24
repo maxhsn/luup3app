@@ -193,7 +193,7 @@ const PrototypeSection = () => {
       <div className="flex lg:hidden gap-2 overflow-x-auto no-scrollbar mt-6 pb-2">
         {([
           { label: "Home", s: "home" },
-          { label: "Explore", s: "explore" },
+          { label: "Social", s: "explore" },
           { label: "Missions", s: "missions" },
           { label: "Wallet", s: "wallet" },
           { label: "Leaderboard", s: "leaderboard" },
