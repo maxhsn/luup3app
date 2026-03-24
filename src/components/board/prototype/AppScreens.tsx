@@ -6,7 +6,7 @@ import {
   Camera, Image, CreditCard, Package, Shield, ChevronDown, ChevronLeft,
   Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot,
   Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video,
-  Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot
+  Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot, Copy, QrCode, ExternalLink, Download
 } from "lucide-react";
 import { type EcosystemData, type MissionData, type MissionSubmissionType, type MissionStatus, ecosystems } from "./ecosystemData";
 
