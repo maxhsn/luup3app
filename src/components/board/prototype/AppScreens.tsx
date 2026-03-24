@@ -1457,75 +1457,180 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
   );
 };
 
-/* ═══════ STOREFRONT ═══════ */
-export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => (
+/* ═══════ STOREFRONT (Public Linktree replacement) ═══════ */
+export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
+  const [sfTab, setSfTab] = useState<"products" | "links" | "about">("products");
+  return (
   <div className="space-y-0">
-    <div className="relative h-24 bg-gradient-to-br from-primary/20 to-primary/5">
-      <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+    {/* Hero Banner */}
+    <div className="relative h-28 bg-gradient-to-br from-primary/30 via-primary/15 to-primary/5">
+      <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center z-10">
         <ArrowLeft className="w-4 h-4 text-foreground" />
       </button>
+      <button className="absolute top-3 right-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center z-10">
+        <Share2 className="w-4 h-4 text-foreground" />
+      </button>
     </div>
-    <div className="px-5 -mt-8 space-y-4">
+
+    <div className="px-5 -mt-10 space-y-4">
+      {/* Profile Card */}
       <div className="flex items-end gap-3">
-        <div className="w-16 h-16 rounded-2xl bg-card border-2 border-card shadow-md flex items-center justify-center">
-          <span className="font-display font-bold text-primary text-lg">JS</span>
+        <div className="w-20 h-20 rounded-2xl bg-card border-3 border-card shadow-lg flex items-center justify-center">
+          <span className="font-display font-bold text-primary text-2xl">AR</span>
         </div>
-        <div className="pb-1">
+        <div className="pb-1 flex-1">
           <div className="flex items-center gap-1.5">
-            <p className="font-display font-bold text-base text-foreground">Jake Shields</p>
+            <p className="font-display font-bold text-base text-foreground">Alex Rivera</p>
             <Check className="w-3.5 h-3.5 text-primary" />
           </div>
-          <p className="text-xs text-muted-foreground">MMA Legend · 2.4k sales</p>
+          <p className="text-[10px] text-muted-foreground">@alexrivera · MMA · Los Angeles</p>
         </div>
       </div>
 
-      <p className="text-xs text-muted-foreground leading-relaxed">
-        Welcome to my store. These are the products I personally use and recommend for training and competition.
-      </p>
+      {/* Bio */}
+      <p className="text-[11px] text-foreground/80 leading-relaxed">MMA fighter & gear enthusiast 🥊 Sharing honest reviews and earning royalties on the brands I love. Silver Scout Ambassador on LUUP.</p>
 
+      {/* Social Links Row */}
       <div className="flex gap-2">
-        <button className="flex-1 bg-primary text-primary-foreground rounded-xl py-2.5 font-bold text-xs flex items-center justify-center gap-1.5">
-          <Plus className="w-3.5 h-3.5" /> Follow
-        </button>
-        <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground">
-          Share Store
-        </button>
+        {[
+          { platform: "Instagram", handle: "@alex_fights" },
+          { platform: "TikTok", handle: "@alexmma" },
+          { platform: "YouTube", handle: "AlexRiveraMMA" },
+          { platform: "X", handle: "@alexfights" },
+        ].map((s) => (
+          <button key={s.platform} className="flex-1 py-2 rounded-xl bg-muted border border-border text-center active:scale-[0.98] transition-transform">
+            <p className="text-[9px] font-bold text-foreground">{s.platform}</p>
+            <p className="text-[8px] text-muted-foreground truncate px-1">{s.handle}</p>
+          </button>
+        ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      {/* Stats Bar */}
+      <div className="grid grid-cols-4 gap-1.5">
         {[
-          { label: "Sales", value: "2.4k" },
-          { label: "Followers", value: "8.2k" },
+          { label: "Products", value: "12" },
+          { label: "Sales", value: "89" },
+          { label: "Followers", value: "2.1k" },
           { label: "Rating", value: "4.9⭐" },
         ].map((s) => (
           <div key={s.label} className="rounded-xl bg-muted p-2 text-center">
-            <p className="font-bold text-sm text-foreground">{s.value}</p>
-            <p className="text-[9px] text-muted-foreground">{s.label}</p>
+            <p className="font-display font-black text-sm text-foreground">{s.value}</p>
+            <p className="text-[8px] text-muted-foreground font-medium">{s.label}</p>
           </div>
         ))}
       </div>
 
-      <div>
-        <p className="font-display font-bold text-sm text-foreground mb-2">Jake's Picks</p>
-        <div className="grid grid-cols-2 gap-2.5">
+      {/* Follow + Referral */}
+      <div className="flex gap-2">
+        <button className="flex-1 bg-primary text-primary-foreground rounded-xl py-2.5 font-bold text-xs flex items-center justify-center gap-1.5">
+          <UserPlus className="w-3.5 h-3.5" /> Follow
+        </button>
+        <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground flex items-center justify-center gap-1.5">
+          <Gift className="w-3.5 h-3.5" /> Use Code: ALEX-LUUP
+        </button>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-1 bg-muted rounded-xl p-1">
+        {(["products", "links", "about"] as const).map((t) => (
+          <button key={t} onClick={() => setSfTab(t)} className={`flex-1 py-1.5 rounded-lg text-[11px] font-semibold capitalize transition-all ${sfTab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            {t === "products" ? "My Picks" : t === "links" ? "Links" : "About"}
+          </button>
+        ))}
+      </div>
+
+      {/* Products Tab */}
+      {sfTab === "products" && (
+        <div className="space-y-3">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Alex's Top Picks</p>
           {[
-            { name: "Venum Challenger 3.0", price: "$79.99" },
-            { name: "Hayabusa T3 Gloves", price: "$159.99" },
-            { name: "Sanabul Rash Guard", price: "$24.99" },
-            { name: "Venum Shin Guards", price: "$49.99" },
+            { name: "Venum Challenger 3.0", price: "$79.99", royalty: "12%", review: "My daily sparring gloves. Unreal wrist support.", brand: "Venum" },
+            { name: "Hayabusa T3 Gloves", price: "$159.99", royalty: "10%", review: "Premium quality. Worth every penny for competition.", brand: "Hayabusa" },
+            { name: "Sanabul Essential MMA", price: "$24.99", royalty: "8%", review: "Best budget option for beginners. Great value.", brand: "Sanabul" },
+            { name: "Venum Shin Guards Pro", price: "$49.99", royalty: "12%", review: "Lightweight but protective. Perfect for Muay Thai.", brand: "Venum" },
           ].map((p) => (
-            <button key={p.name} onClick={() => onNavigate("product")} className="rounded-2xl border border-border bg-card p-2.5 text-left hover:shadow-md transition-shadow">
-              <div className="aspect-square rounded-xl bg-muted mb-2" />
-              <p className="font-bold text-[11px] text-foreground truncate">{p.name}</p>
-              <p className="text-xs font-bold text-primary mt-0.5">{p.price}</p>
+            <button key={p.name} onClick={() => onNavigate("product")} className="w-full flex items-center gap-3 p-3 rounded-2xl border border-border bg-card text-left active:scale-[0.98] transition-transform">
+              <div className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[11px] font-bold text-foreground truncate">{p.name}</p>
+                <p className="text-[9px] text-muted-foreground">{p.brand} · {p.royalty} royalty</p>
+                <p className="text-[10px] text-foreground/70 mt-0.5 leading-snug line-clamp-1">"{p.review}"</p>
+                <p className="text-xs font-bold text-primary mt-1">{p.price}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             </button>
           ))}
         </div>
+      )}
+
+      {/* Links Tab (Linktree-style) */}
+      {sfTab === "links" && (
+        <div className="space-y-2.5">
+          {[
+            { label: "🥊 My Training Program", desc: "8-week MMA fundamentals course" },
+            { label: "📹 Latest YouTube Video", desc: "Venum vs Hayabusa — honest comparison" },
+            { label: "📸 Follow me on Instagram", desc: "@alex_fights · 12k followers" },
+            { label: "🎵 TikTok", desc: "@alexmma · Training clips & gear reviews" },
+            { label: "💬 Join My Community", desc: "MMA Training Tips on LUUP" },
+            { label: "📧 Business Enquiries", desc: "alex@alexrivera.com" },
+          ].map((link) => (
+            <button key={link.label} className="w-full rounded-2xl border border-border bg-card p-3.5 text-left active:scale-[0.98] transition-transform flex items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-foreground">{link.label}</p>
+                <p className="text-[10px] text-muted-foreground">{link.desc}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* About Tab */}
+      {sfTab === "about" && (
+        <div className="space-y-3">
+          <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
+            <p className="text-xs font-bold text-foreground">About Alex</p>
+            <p className="text-[11px] text-foreground/80 leading-relaxed">Professional MMA fighter based in Los Angeles with 5+ years of competition experience. I review gear I actually use in training and fights — no sponsored BS. Silver Scout Ambassador on LUUP, working my way to Gold.</p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[11px] text-foreground">Los Angeles, California</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Flame className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[11px] text-foreground">MMA · Boxing · Muay Thai</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Crown className="w-3.5 h-3.5 text-stage-earnings" />
+                <span className="text-[11px] text-foreground">Silver Scout Ambassador · Level 12</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[11px] text-foreground">47 referrals · 182 in network</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Badges */}
+          <div>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Badges</p>
+            <div className="flex gap-2 flex-wrap">
+              {["🔥 30-Day Streak", "🥊 Gear Expert", "⭐ Top Reviewer", "💰 $1k Earned", "👥 Community Leader"].map((b) => (
+                <span key={b} className="px-2.5 py-1 rounded-full bg-primary/10 text-[9px] font-bold text-primary">{b}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Powered by LUUP footer */}
+      <div className="text-center py-4">
+        <p className="text-[9px] text-muted-foreground">Powered by <span className="font-bold text-primary">LUUP</span></p>
       </div>
     </div>
   </div>
-);
-
+  );
+};
 /* ═══════ AFFILIATE REDIRECT ═══════ */
 export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [copied, setCopied] = useState(false);
@@ -1692,52 +1797,59 @@ export const NotificationsScreen = ({ onNavigate, onBack }: { onNavigate: (s: Sc
 
 /* ═══════ PROFILE ═══════ */
 export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
-  const [profileTab, setProfileTab] = useState<"storefront" | "stats" | "activity">("storefront");
+  const [profileTab, setProfileTab] = useState<"earnings" | "activity">("earnings");
   return (
   <div className="px-5 py-4 space-y-4">
     {/* Header */}
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="w-14 h-14 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
-          <span className="font-display font-bold text-lg text-primary">AR</span>
+        <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+          <span className="font-display font-bold text-base text-primary">AR</span>
         </div>
         <div>
           <p className="font-display font-bold text-base text-foreground">Alex Rivera</p>
-          <p className="text-[10px] text-muted-foreground">@alexrivera</p>
-          <div className="flex items-center gap-2 mt-0.5">
-            <span className="px-1.5 py-0.5 rounded bg-primary/10 text-[8px] font-bold text-primary">Silver Scout</span>
-            <span className="text-[10px] text-muted-foreground flex items-center gap-0.5"><Star className="w-3 h-3 text-stage-earnings fill-stage-earnings" />Lvl 12</span>
-          </div>
+          <p className="text-[10px] text-muted-foreground">@alexrivera · Silver Scout</p>
         </div>
       </div>
-      <div className="flex gap-1.5">
-        <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-          <Share2 className="w-3.5 h-3.5 text-muted-foreground" />
-        </button>
-        <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-          <Settings className="w-3.5 h-3.5 text-muted-foreground" />
-        </button>
-      </div>
+      <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+        <Settings className="w-3.5 h-3.5 text-muted-foreground" />
+      </button>
     </div>
 
-    {/* Bio & Socials */}
-    <div className="space-y-2">
-      <p className="text-[11px] text-foreground/80 leading-relaxed">MMA fighter & gear enthusiast 🥊 Sharing honest reviews and earning royalties on the brands I love.</p>
-      <div className="flex items-center gap-3">
-        <span className="text-[10px] text-muted-foreground flex items-center gap-1">📍 Los Angeles, CA</span>
-        <span className="text-[10px] text-muted-foreground">·</span>
-        <span className="text-[10px] text-primary font-semibold">MMA</span>
+    {/* ═══ BIG STOREFRONT WIDGET ═══ */}
+    <button onClick={() => onNavigate("storefront")} className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-primary/70 p-4 text-left text-primary-foreground active:scale-[0.98] transition-transform shadow-lg relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-primary-foreground/5 -translate-y-6 translate-x-6" />
+      <div className="absolute bottom-0 left-0 w-16 h-16 rounded-full bg-primary-foreground/5 translate-y-4 -translate-x-4" />
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <ShoppingBag className="w-5 h-5" />
+            <p className="font-display font-bold text-sm">My Storefront</p>
+          </div>
+          <ChevronRight className="w-5 h-5 opacity-60" />
+        </div>
+        <p className="text-[11px] opacity-80 mb-3">Your public page · Linktree replacement · Share everywhere</p>
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          <div className="rounded-xl bg-primary-foreground/10 p-2 text-center backdrop-blur-sm">
+            <p className="font-display font-black text-sm">12</p>
+            <p className="text-[8px] opacity-70">Products</p>
+          </div>
+          <div className="rounded-xl bg-primary-foreground/10 p-2 text-center backdrop-blur-sm">
+            <p className="font-display font-black text-sm">89</p>
+            <p className="text-[8px] opacity-70">Sales</p>
+          </div>
+          <div className="rounded-xl bg-primary-foreground/10 p-2 text-center backdrop-blur-sm">
+            <p className="font-display font-black text-sm">$542</p>
+            <p className="text-[8px] opacity-70">Royalties</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 rounded-xl bg-primary-foreground/10 px-3 py-2 backdrop-blur-sm">
+          <Link className="w-3.5 h-3.5 opacity-70" />
+          <span className="font-mono text-[10px] opacity-80 flex-1 truncate">luup.co/s/alexrivera</span>
+          <span className="text-[9px] font-bold opacity-90">Copy</span>
+        </div>
       </div>
-      <div className="flex gap-2">
-        {[
-          { handle: "@alex_fights", platform: "IG" },
-          { handle: "@alexmma", platform: "TT" },
-          { handle: "AlexRiveraMMA", platform: "YT" },
-        ].map((s) => (
-          <span key={s.platform} className="px-2 py-1 rounded-lg bg-muted text-[9px] font-semibold text-muted-foreground">{s.platform}: {s.handle}</span>
-        ))}
-      </div>
-    </div>
+    </button>
 
     {/* Quick Stats */}
     <div className="grid grid-cols-4 gap-1.5">
@@ -1767,121 +1879,34 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       <ChevronRight className="w-4 h-4 text-muted-foreground" />
     </button>
 
-    {/* Profile Tabs */}
+    {/* Tabs: Earnings / Activity */}
     <div className="flex gap-1 bg-muted rounded-xl p-1">
-      {(["storefront", "stats", "activity"] as const).map((t) => (
+      {(["earnings", "activity"] as const).map((t) => (
         <button key={t} onClick={() => setProfileTab(t)} className={`flex-1 py-1.5 rounded-lg text-[11px] font-semibold capitalize transition-all ${profileTab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-          {t === "storefront" ? "My Storefront" : t === "stats" ? "Earnings" : "Activity"}
+          {t === "earnings" ? "Earnings" : "Activity"}
         </button>
       ))}
     </div>
 
-    {/* Storefront Tab */}
-    {profileTab === "storefront" && (
-      <div className="space-y-3">
-        {/* Storefront Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs font-bold text-foreground">Alex's Picks</p>
-            <p className="text-[9px] text-muted-foreground">12 products · 89 sales this month</p>
-          </div>
-          <button onClick={() => onNavigate("storefront")} className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">Manage</button>
-        </div>
-
-        {/* Storefront Stats */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="rounded-xl border border-border bg-card p-2 text-center">
-            <p className="font-display font-black text-sm text-primary">$542</p>
-            <p className="text-[8px] text-muted-foreground">Royalties</p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-2 text-center">
-            <p className="font-display font-black text-sm text-foreground">4.2%</p>
-            <p className="text-[8px] text-muted-foreground">Conv. Rate</p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-2 text-center">
-            <p className="font-display font-black text-sm text-foreground">1.2k</p>
-            <p className="text-[8px] text-muted-foreground">Visitors</p>
-          </div>
-        </div>
-
-        {/* Top Products */}
-        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Top Sellers</p>
-        {[
-          { name: "Venum Challenger 3.0", brand: "Venum", royalty: "12%", sales: 34, earned: "$163" },
-          { name: "Hayabusa T3 Gloves", brand: "Hayabusa", royalty: "10%", sales: 28, earned: "$224" },
-          { name: "Sanabul Essential MMA", brand: "Sanabul", royalty: "8%", sales: 27, earned: "$155" },
-        ].map((p) => (
-          <button key={p.name} onClick={() => onNavigate("product")} className="w-full flex items-center gap-3 p-2.5 rounded-xl border border-border bg-card text-left active:scale-[0.98] transition-transform">
-            <div className="w-12 h-12 rounded-lg bg-muted flex-shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-bold text-foreground truncate">{p.name}</p>
-              <p className="text-[9px] text-muted-foreground">{p.brand} · {p.royalty} royalty</p>
-              <p className="text-[9px] text-primary font-semibold mt-0.5">{p.sales} sales · {p.earned} earned</p>
-            </div>
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-          </button>
-        ))}
-
-        {/* Add Product CTA */}
-        <button onClick={() => onNavigate("store")} className="w-full rounded-xl border-2 border-dashed border-border p-3 flex items-center justify-center gap-2 text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors">
-          <Plus className="w-4 h-4" />
-          <span className="text-[10px] font-bold">Add Products to Storefront</span>
-        </button>
-
-        {/* Share Storefront */}
-        <div className="rounded-xl border border-primary/20 bg-primary/5 p-3">
-          <p className="text-[10px] font-bold text-foreground mb-1.5">Share Your Storefront</p>
-          <div className="flex items-center gap-2">
-            <div className="flex-1 bg-card rounded-lg px-2.5 py-1.5 border border-border">
-              <p className="font-mono text-[10px] text-foreground truncate">luup.co/s/alexrivera</p>
-            </div>
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-              <Link className="w-3.5 h-3.5 text-primary-foreground" />
-            </div>
-          </div>
-          <div className="flex gap-1.5 mt-2">
-            {["WhatsApp", "Instagram", "TikTok", "Copy"].map((p) => (
-              <button key={p} className="flex-1 py-1.5 rounded-lg bg-muted text-[9px] font-semibold text-foreground border border-border">{p}</button>
-            ))}
-          </div>
-        </div>
-      </div>
-    )}
-
     {/* Earnings Tab */}
-    {profileTab === "stats" && (
+    {profileTab === "earnings" && (
       <div className="space-y-3">
         <div className="rounded-xl border border-border bg-card p-3">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs font-bold text-foreground">This Month</p>
             <span className="text-xs font-bold text-primary">$1,247.80</span>
           </div>
-          <div className="h-16 rounded-lg bg-muted flex items-end gap-1 px-2 pb-1.5">
+          <div className="h-14 rounded-lg bg-muted flex items-end gap-1 px-2 pb-1.5">
             {[30, 45, 35, 60, 55, 70, 80, 65, 90, 75, 85, 95].map((h, i) => (
               <div key={i} className="flex-1 rounded-t bg-primary/60" style={{ height: `${h}%` }} />
             ))}
           </div>
         </div>
-        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Breakdown</p>
         <div className="space-y-1.5">
           <EarningsRow label="Storefront Royalties" amount="$542.00" />
           <EarningsRow label="Referral Commissions" amount="$318.40" />
           <EarningsRow label="Network Earnings (Tier 2-4)" amount="$247.40" />
           <EarningsRow label="Mission Rewards" amount="$140.00" />
-        </div>
-
-        {/* Referral Code */}
-        <div className="rounded-xl border border-border bg-card p-3">
-          <p className="text-[10px] font-bold text-foreground mb-1.5">Referral Code</p>
-          <div className="flex items-center gap-2">
-            <div className="flex-1 bg-muted rounded-lg px-2.5 py-1.5">
-              <p className="font-mono text-[10px] text-foreground">ALEX-LUUP-2024</p>
-            </div>
-            <button className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Share2 className="w-3.5 h-3.5 text-primary-foreground" />
-            </button>
-          </div>
-          <p className="text-[9px] text-muted-foreground mt-1.5">24 shares · 8 conversions</p>
         </div>
       </div>
     )}
@@ -1896,7 +1921,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
           { text: "Moved to #12 on Combat leaderboard", time: "1d ago", icon: <TrendingUp className="w-3 h-3 text-primary" /> },
           { text: "Added Hayabusa T3 to storefront", time: "2d ago", icon: <ShoppingBag className="w-3 h-3 text-primary" /> },
           { text: "Joined community: Royalty Earners Club", time: "3d ago", icon: <Users className="w-3 h-3 text-primary" /> },
-          { text: "Earned Gold badge: 30-day streak", time: "4d ago", icon: <Award className="w-3 h-3 text-primary" /> },
         ].map((a, i) => (
           <div key={i} className="flex items-start gap-2.5 py-2 border-b border-border last:border-0">
             <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">{a.icon}</div>
@@ -1910,12 +1934,12 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
     )}
 
     {/* Quick Links */}
-    <div className="space-y-0.5 pt-1">
+    <div className="space-y-0.5">
       {[
         { label: "My Communities", screen: "explore" as Screen },
         { label: "Saved Items", screen: "store" as Screen },
-        { label: "Order History", screen: "home" as Screen },
         { label: "Edit Profile", screen: "home" as Screen },
+        { label: "Referral Code", screen: "home" as Screen },
       ].map((item) => (
         <button key={item.label} onClick={() => onNavigate(item.screen)} className="w-full flex items-center justify-between py-2.5 px-1 border-b border-border last:border-0 text-left">
           <span className="text-[11px] text-foreground font-medium">{item.label}</span>
@@ -1926,23 +1950,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
   </div>
   );
 };
-/* ═══════════════════════════════════════════════════ */
-/* ═══════ SHARED COMPONENTS ═══════ */
-/* ═══════════════════════════════════════════════════ */
-
-export const MissionRow = ({ emoji, title, reward, progress }: { emoji: string; title: string; reward: string; progress: number }) => (
-  <div className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
-    <div className="w-8 h-8 rounded-lg bg-muted flex-shrink-0" />
-    <div className="flex-1 min-w-0">
-      <p className="text-xs font-bold text-foreground truncate">{title}</p>
-      <div className="h-1.5 rounded-full bg-muted mt-1.5">
-        <div className="h-full rounded-full bg-primary" style={{ width: `${progress}%` }} />
-      </div>
-    </div>
-    <span className="text-xs font-bold text-primary flex-shrink-0">{reward}</span>
-  </div>
-);
-
 const submissionTypeIcon = (type: MissionSubmissionType) => {
   switch (type) {
     case "link": return <Link className="w-3.5 h-3.5" />;
