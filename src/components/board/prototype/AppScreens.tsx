@@ -2148,9 +2148,9 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
     <div className="space-y-0.5">
       {[
         { label: "My Communities", screen: "explore" as Screen },
-        { label: "Saved Items", screen: "store" as Screen },
-        { label: "Edit Profile", screen: "home" as Screen },
-        { label: "Referral Code", screen: "home" as Screen },
+        { label: "Saved Items", screen: "saved-items" as Screen },
+        { label: "Edit Profile", screen: "edit-profile" as Screen },
+        { label: "Referral Code", screen: "referral-code" as Screen },
       ].map((item) => (
         <button key={item.label} onClick={() => onNavigate(item.screen)} className="w-full flex items-center justify-between py-2.5 px-1 border-b border-border last:border-0 text-left">
           <span className="text-[11px] text-foreground font-medium">{item.label}</span>
