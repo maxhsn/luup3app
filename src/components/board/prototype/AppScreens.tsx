@@ -142,13 +142,6 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
   };
   const categories = categoryOptions[ecosystem.id] || ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"];
 
-  const interestOptions: Record<string, string[]> = {
-    combat: ["Training Gear", "Supplements", "Recovery", "Fight News", "Coaching", "Nutrition", "Apparel", "Events"],
-    fitness: ["Weight Training", "Nutrition", "Supplements", "Wearables", "Recovery", "Home Gym", "Apparel", "Coaching"],
-    beauty: ["Clean Beauty", "K-Beauty", "Anti-Aging", "SPF", "Tutorials", "Reviews", "Dupes", "Luxury"],
-    gaming: ["Esports", "Streaming", "Hardware", "Merch", "Reviews", "Mods", "Indie Dev", "Retro"],
-  };
-  const interests = interestOptions[ecosystem.id] || ["Topic 1", "Topic 2", "Topic 3", "Topic 4", "Topic 5", "Topic 6"];
 
   return (
     <div className="px-5 py-6 space-y-4 min-h-[620px] flex flex-col">
