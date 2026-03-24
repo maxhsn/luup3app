@@ -273,6 +273,7 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
               Back
             </button>
             <button onClick={() => setStep(3)} className="flex-[2] h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform">
+
               Continue
             </button>
           </div>
