@@ -963,6 +963,106 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
     </div>
   );
 };
+/* ═══════ MISSIONS ═══════ */
+export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen) => void; ecosystem: EcosystemData }) => {
+  const [filter, setFilter] = useState<"all" | "active" | "available" | "completed">("all");
+  const [expandedMission, setExpandedMission] = useState<string | null>(null);
+  const [missionStates, setMissionStates] = useState<Record<string, MissionStatus>>(() => {
+    const states: Record<string, MissionStatus> = {};
+    ecosystem.missions.forEach(m => { states[m.id] = m.status; });
+    return states;
+  });
+
+  const handleJoin = (id: string) => setMissionStates(s => ({ ...s, [id]: "joined" }));
+  const handleSubmit = (id: string) => setMissionStates(s => ({ ...s, [id]: "submitted" }));
+
+  const getStatus = (m: MissionData) => missionStates[m.id] || m.status;
+
+  const filtered = ecosystem.missions.filter(m => {
+    const status = getStatus(m);
+    if (filter === "active") return ["joined", "submitted", "in-review"].includes(status);
+    if (filter === "available") return status === "open" && !m.locked;
+    if (filter === "completed") return ["approved", "rejected"].includes(status);
+    return true;
+  });
+
+  const activeCount = ecosystem.missions.filter(m => ["joined", "submitted", "in-review"].includes(getStatus(m))).length;
+  const completedCount = ecosystem.missions.filter(m => getStatus(m) === "approved").length;
+
+  return (
+    <div className="px-5 py-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-display font-bold text-lg text-foreground">Missions</p>
+          <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
+        </div>
+        <div className="flex gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold">{activeCount} Active</span>
+          <span className="px-2.5 py-1 rounded-full bg-stage-participation/10 text-stage-participation text-[10px] font-bold">{completedCount} Done</span>
+        </div>
+      </div>
+
+      {/* Mission Pipeline Summary */}
+      <div className="grid grid-cols-4 gap-1.5">
+        {[
+          { label: "Open", count: ecosystem.missions.filter(m => getStatus(m) === "open" && !m.locked).length, color: "bg-muted text-muted-foreground" },
+          { label: "Joined", count: ecosystem.missions.filter(m => getStatus(m) === "joined").length, color: "bg-primary/10 text-primary" },
+          { label: "In Review", count: ecosystem.missions.filter(m => ["submitted", "in-review"].includes(getStatus(m))).length, color: "bg-stage-conversion/10 text-stage-conversion" },
+          { label: "Approved", count: completedCount, color: "bg-stage-participation/10 text-stage-participation" },
+        ].map(p => (
+          <div key={p.label} className={`rounded-xl p-2 text-center ${p.color}`}>
+            <p className="font-display font-black text-lg leading-none">{p.count}</p>
+            <p className="text-[9px] font-semibold mt-0.5">{p.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Weekly Challenge */}
+      <div className="rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-4 text-primary-foreground">
+        <div className="flex items-center gap-2 mb-2">
+          <Trophy className="w-4 h-4" />
+          <span className="text-[10px] font-bold opacity-90 uppercase tracking-wider">Weekly Challenge</span>
+        </div>
+        <p className="font-display font-bold text-base">Complete 5 missions this week</p>
+        <p className="text-xs opacity-80 mt-1">Earn a $50 bonus reward</p>
+        <div className="mt-3 h-2 rounded-full bg-primary-foreground/20">
+          <div className="h-full rounded-full bg-primary-foreground w-[60%] transition-all" />
+        </div>
+        <p className="text-[10px] mt-1 opacity-70">3 of 5 completed · 🔥 7 day streak</p>
+      </div>
+
+      {/* Filter Tabs */}
+      <div className="flex gap-1 bg-muted rounded-xl p-1">
+        {(["all", "available", "active", "completed"] as const).map((f) => (
+          <button key={f} onClick={() => setFilter(f)} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold capitalize transition-all ${filter === f ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            {f}
+          </button>
+        ))}
+      </div>
+
+      {/* Mission List */}
+      <div className="space-y-2.5">
+        {filtered.length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-sm text-muted-foreground">No missions in this category</p>
+          </div>
+        )}
+        {filtered.map((m) => (
+          <MissionCardV2
+            key={m.id}
+            mission={m}
+            currentStatus={getStatus(m)}
+            expanded={expandedMission === m.id}
+            onToggle={() => setExpandedMission(expandedMission === m.id ? null : m.id)}
+            onJoin={() => handleJoin(m.id)}
+            onSubmit={() => handleSubmit(m.id)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 /* ═══════ WALLET & REWARDS ═══════ */
 export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s: Screen) => void; onBack: () => void; ecosystem: EcosystemData }) => (
   <div className="px-5 py-4 space-y-4">
