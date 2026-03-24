@@ -120,23 +120,23 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         </div>
       )}
 
-      {/* ── Hero Earnings Card with Activity Ring ── */}
+      {/* ── Hero Earnings Card ── */}
       <button onClick={() => onNavigate("wallet")}
         className="w-full rounded-[20px] bg-foreground p-4 text-background relative overflow-hidden active:scale-[0.98] transition-transform group">
         {/* Decorative circles */}
-        <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-background/[0.03]" />
-        <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-background/[0.03]" />
+        <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-background/[0.04]" />
+        <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-background/[0.03]" />
         <div className="relative z-10 flex items-center gap-3.5">
-          {/* Activity ring as visual anchor */}
+          {/* Activity ring */}
           <div className="relative flex-shrink-0">
-            <ActivityRing progress={72} size={56} stroke={5} color="hsl(var(--primary))" bgColor="hsla(0,0%,100%,0.1)" />
+            <ActivityRing progress={72} size={56} stroke={5} color="hsl(var(--primary))" bgColor="hsla(0,0%,100%,0.08)" />
             <div className="absolute inset-0 flex items-center justify-center">
               <Wallet className="w-4 h-4 text-primary" />
             </div>
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-[10px] font-medium opacity-40 uppercase tracking-wider">Total Earnings</p>
-            <p className="font-display font-black text-[28px] leading-none tracking-tight">{ecosystem.walletBalance}</p>
+            <p className="text-[9px] font-semibold opacity-50 uppercase tracking-widest mb-1">Total Earnings</p>
+            <p className="font-display font-black text-[26px] leading-none tracking-tight">{ecosystem.walletBalance}</p>
             <div className="flex items-center gap-2 mt-1.5">
               <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-stage-participation/20 text-stage-participation text-[9px] font-bold">
                 <TrendingUp className="w-2.5 h-2.5" />{ecosystem.walletGrowth}
@@ -144,7 +144,40 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
               <span className="text-[9px] opacity-30">this month</span>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 opacity-20 group-hover:opacity-40 transition-opacity flex-shrink-0" />
+          {/* Mini sparkline chart */}
+          <div className="w-[60px] h-[32px] flex-shrink-0 mr-1">
+            <svg viewBox="0 0 60 32" className="w-full h-full" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0,28 C4,26 8,24 12,22 C16,20 20,25 24,21 C28,17 32,19 36,15 C40,11 44,13 48,9 C52,5 56,7 60,3"
+                fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" />
+              <path d="M0,28 C4,26 8,24 12,22 C16,20 20,25 24,21 C28,17 32,19 36,15 C40,11 44,13 48,9 C52,5 56,7 60,3 L60,32 L0,32 Z"
+                fill="url(#sparkGrad)" />
+              <circle cx="60" cy="3" r="2.5" fill="hsl(var(--primary))" />
+            </svg>
+          </div>
+          <ChevronRight className="w-4 h-4 opacity-20 flex-shrink-0" />
+        </div>
+        {/* Breakdown row */}
+        <div className="relative z-10 flex items-center gap-4 mt-3 pt-3 border-t border-background/[0.06]">
+          <div className="flex-1">
+            <p className="text-[8px] uppercase tracking-wider opacity-30">Referrals</p>
+            <p className="text-xs font-bold opacity-80">{ecosystem.referralEarnings}</p>
+          </div>
+          <div className="w-px h-6 bg-background/[0.08]" />
+          <div className="flex-1">
+            <p className="text-[8px] uppercase tracking-wider opacity-30">Missions</p>
+            <p className="text-xs font-bold opacity-80">{ecosystem.missionEarnings}</p>
+          </div>
+          <div className="w-px h-6 bg-background/[0.08]" />
+          <div className="flex-1">
+            <p className="text-[8px] uppercase tracking-wider opacity-30">Cashback</p>
+            <p className="text-xs font-bold opacity-80">$48</p>
+          </div>
         </div>
       </button>
 
@@ -152,52 +185,72 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       <div className="grid grid-cols-3 gap-2">
         <button onClick={() => onNavigate("missions")}
           className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
-          <div className="w-7 h-7 rounded-xl bg-primary/10 flex items-center justify-center mb-2">
-            <Flame className="w-3.5 h-3.5 text-primary" />
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-7 h-7 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Flame className="w-3.5 h-3.5 text-primary" />
+            </div>
+            <div className="w-8 h-5">
+              <svg viewBox="0 0 32 20" className="w-full h-full">
+                <polyline points="0,16 8,12 16,14 24,8 32,4" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </div>
           </div>
           <p className="font-display font-black text-lg leading-none text-foreground">{missionsComplete}</p>
-          <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Missions</p>
+          <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Completed</p>
         </button>
         <button onClick={() => onNavigate("leaderboard")}
           className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
-          <div className="w-7 h-7 rounded-xl bg-stage-earnings/10 flex items-center justify-center mb-2">
-            <Trophy className="w-3.5 h-3.5 text-stage-earnings" />
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-7 h-7 rounded-xl bg-stage-earnings/10 flex items-center justify-center">
+              <Trophy className="w-3.5 h-3.5 text-stage-earnings" />
+            </div>
+            <span className="text-[9px] font-bold text-stage-participation">↑3</span>
           </div>
           <p className="font-display font-black text-lg leading-none text-foreground">#12</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Rank</p>
         </button>
         <button onClick={() => onNavigate("profile")}
           className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
-          <div className="w-7 h-7 rounded-xl bg-stage-participation/10 flex items-center justify-center mb-2">
-            <Users className="w-3.5 h-3.5 text-stage-participation" />
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-7 h-7 rounded-xl bg-stage-participation/10 flex items-center justify-center">
+              <Users className="w-3.5 h-3.5 text-stage-participation" />
+            </div>
+            <div className="w-8 h-5">
+              <svg viewBox="0 0 32 20" className="w-full h-full">
+                <polyline points="0,18 8,14 16,16 24,10 32,6" fill="none" stroke="hsl(var(--stage-participation))" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </div>
           </div>
           <p className="font-display font-black text-lg leading-none text-foreground">14</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Referrals</p>
         </button>
       </div>
 
-      {/* ── Progress Widget (double-wide) ── */}
+      {/* ── Weekly Progress Widget ── */}
       <div className="grid grid-cols-5 gap-2">
         <button onClick={() => onNavigate("missions")}
-          className="col-span-3 rounded-2xl bg-gradient-to-br from-primary/8 to-primary/3 border border-primary/15 p-3.5 text-left active:scale-[0.98] transition-transform">
-          <div className="flex items-center justify-between mb-2">
-            <p className="text-[10px] font-bold text-foreground">Weekly Progress</p>
-            <span className="text-[9px] font-bold text-primary">{missionProgress}%</span>
+          className="col-span-3 rounded-2xl bg-card border border-border p-3.5 text-left active:scale-[0.98] transition-transform">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-bold text-foreground">Weekly Progress</p>
+            <span className="text-[10px] font-black text-primary">{missionProgress}%</span>
           </div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <div className="relative flex-shrink-0">
-              <ActivityRing progress={missionProgress} size={40} stroke={4} color="hsl(var(--primary))" bgColor="hsl(var(--border))" />
+              <ActivityRing progress={missionProgress} size={48} stroke={5} color="hsl(var(--primary))" bgColor="hsl(var(--border))" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[8px] font-black text-foreground">{missionsComplete}/{missionsTotal}</span>
+                <span className="text-[9px] font-black text-foreground">{missionsComplete}/{missionsTotal}</span>
               </div>
             </div>
-            <div className="flex-1 min-w-0 space-y-1">
+            <div className="flex-1 min-w-0 space-y-1.5">
               {ecosystem.activeMissions.slice(0, 2).map((m) => (
-                <div key={m.title} className="flex items-center gap-1.5">
-                  <div className="w-full h-1.5 rounded-full bg-border">
+                <div key={m.title}>
+                  <div className="flex items-center justify-between mb-0.5">
+                    <span className="text-[8px] font-medium text-muted-foreground truncate max-w-[60px]">{m.title.split(" ").slice(0, 2).join(" ")}</span>
+                    <span className="text-[8px] font-bold text-foreground">{m.progress}%</span>
+                  </div>
+                  <div className="w-full h-[5px] rounded-full bg-muted">
                     <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${m.progress}%` }} />
                   </div>
-                  <span className="text-[8px] font-bold text-muted-foreground flex-shrink-0">{m.progress}%</span>
                 </div>
               ))}
             </div>
