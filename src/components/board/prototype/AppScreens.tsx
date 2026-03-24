@@ -1457,75 +1457,180 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
   );
 };
 
-/* ═══════ STOREFRONT ═══════ */
-export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => (
+/* ═══════ STOREFRONT (Public Linktree replacement) ═══════ */
+export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
+  const [sfTab, setSfTab] = useState<"products" | "links" | "about">("products");
+  return (
   <div className="space-y-0">
-    <div className="relative h-24 bg-gradient-to-br from-primary/20 to-primary/5">
-      <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+    {/* Hero Banner */}
+    <div className="relative h-28 bg-gradient-to-br from-primary/30 via-primary/15 to-primary/5">
+      <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center z-10">
         <ArrowLeft className="w-4 h-4 text-foreground" />
       </button>
+      <button className="absolute top-3 right-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center z-10">
+        <Share2 className="w-4 h-4 text-foreground" />
+      </button>
     </div>
-    <div className="px-5 -mt-8 space-y-4">
+
+    <div className="px-5 -mt-10 space-y-4">
+      {/* Profile Card */}
       <div className="flex items-end gap-3">
-        <div className="w-16 h-16 rounded-2xl bg-card border-2 border-card shadow-md flex items-center justify-center">
-          <span className="font-display font-bold text-primary text-lg">JS</span>
+        <div className="w-20 h-20 rounded-2xl bg-card border-3 border-card shadow-lg flex items-center justify-center">
+          <span className="font-display font-bold text-primary text-2xl">AR</span>
         </div>
-        <div className="pb-1">
+        <div className="pb-1 flex-1">
           <div className="flex items-center gap-1.5">
-            <p className="font-display font-bold text-base text-foreground">Jake Shields</p>
+            <p className="font-display font-bold text-base text-foreground">Alex Rivera</p>
             <Check className="w-3.5 h-3.5 text-primary" />
           </div>
-          <p className="text-xs text-muted-foreground">MMA Legend · 2.4k sales</p>
+          <p className="text-[10px] text-muted-foreground">@alexrivera · MMA · Los Angeles</p>
         </div>
       </div>
 
-      <p className="text-xs text-muted-foreground leading-relaxed">
-        Welcome to my store. These are the products I personally use and recommend for training and competition.
-      </p>
+      {/* Bio */}
+      <p className="text-[11px] text-foreground/80 leading-relaxed">MMA fighter & gear enthusiast 🥊 Sharing honest reviews and earning royalties on the brands I love. Silver Scout Ambassador on LUUP.</p>
 
+      {/* Social Links Row */}
       <div className="flex gap-2">
-        <button className="flex-1 bg-primary text-primary-foreground rounded-xl py-2.5 font-bold text-xs flex items-center justify-center gap-1.5">
-          <Plus className="w-3.5 h-3.5" /> Follow
-        </button>
-        <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground">
-          Share Store
-        </button>
+        {[
+          { platform: "Instagram", handle: "@alex_fights" },
+          { platform: "TikTok", handle: "@alexmma" },
+          { platform: "YouTube", handle: "AlexRiveraMMA" },
+          { platform: "X", handle: "@alexfights" },
+        ].map((s) => (
+          <button key={s.platform} className="flex-1 py-2 rounded-xl bg-muted border border-border text-center active:scale-[0.98] transition-transform">
+            <p className="text-[9px] font-bold text-foreground">{s.platform}</p>
+            <p className="text-[8px] text-muted-foreground truncate px-1">{s.handle}</p>
+          </button>
+        ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-2">
+      {/* Stats Bar */}
+      <div className="grid grid-cols-4 gap-1.5">
         {[
-          { label: "Sales", value: "2.4k" },
-          { label: "Followers", value: "8.2k" },
+          { label: "Products", value: "12" },
+          { label: "Sales", value: "89" },
+          { label: "Followers", value: "2.1k" },
           { label: "Rating", value: "4.9⭐" },
         ].map((s) => (
           <div key={s.label} className="rounded-xl bg-muted p-2 text-center">
-            <p className="font-bold text-sm text-foreground">{s.value}</p>
-            <p className="text-[9px] text-muted-foreground">{s.label}</p>
+            <p className="font-display font-black text-sm text-foreground">{s.value}</p>
+            <p className="text-[8px] text-muted-foreground font-medium">{s.label}</p>
           </div>
         ))}
       </div>
 
-      <div>
-        <p className="font-display font-bold text-sm text-foreground mb-2">Jake's Picks</p>
-        <div className="grid grid-cols-2 gap-2.5">
+      {/* Follow + Referral */}
+      <div className="flex gap-2">
+        <button className="flex-1 bg-primary text-primary-foreground rounded-xl py-2.5 font-bold text-xs flex items-center justify-center gap-1.5">
+          <UserPlus className="w-3.5 h-3.5" /> Follow
+        </button>
+        <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground flex items-center justify-center gap-1.5">
+          <Gift className="w-3.5 h-3.5" /> Use Code: ALEX-LUUP
+        </button>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-1 bg-muted rounded-xl p-1">
+        {(["products", "links", "about"] as const).map((t) => (
+          <button key={t} onClick={() => setSfTab(t)} className={`flex-1 py-1.5 rounded-lg text-[11px] font-semibold capitalize transition-all ${sfTab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            {t === "products" ? "My Picks" : t === "links" ? "Links" : "About"}
+          </button>
+        ))}
+      </div>
+
+      {/* Products Tab */}
+      {sfTab === "products" && (
+        <div className="space-y-3">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Alex's Top Picks</p>
           {[
-            { name: "Venum Challenger 3.0", price: "$79.99" },
-            { name: "Hayabusa T3 Gloves", price: "$159.99" },
-            { name: "Sanabul Rash Guard", price: "$24.99" },
-            { name: "Venum Shin Guards", price: "$49.99" },
+            { name: "Venum Challenger 3.0", price: "$79.99", royalty: "12%", review: "My daily sparring gloves. Unreal wrist support.", brand: "Venum" },
+            { name: "Hayabusa T3 Gloves", price: "$159.99", royalty: "10%", review: "Premium quality. Worth every penny for competition.", brand: "Hayabusa" },
+            { name: "Sanabul Essential MMA", price: "$24.99", royalty: "8%", review: "Best budget option for beginners. Great value.", brand: "Sanabul" },
+            { name: "Venum Shin Guards Pro", price: "$49.99", royalty: "12%", review: "Lightweight but protective. Perfect for Muay Thai.", brand: "Venum" },
           ].map((p) => (
-            <button key={p.name} onClick={() => onNavigate("product")} className="rounded-2xl border border-border bg-card p-2.5 text-left hover:shadow-md transition-shadow">
-              <div className="aspect-square rounded-xl bg-muted mb-2" />
-              <p className="font-bold text-[11px] text-foreground truncate">{p.name}</p>
-              <p className="text-xs font-bold text-primary mt-0.5">{p.price}</p>
+            <button key={p.name} onClick={() => onNavigate("product")} className="w-full flex items-center gap-3 p-3 rounded-2xl border border-border bg-card text-left active:scale-[0.98] transition-transform">
+              <div className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-[11px] font-bold text-foreground truncate">{p.name}</p>
+                <p className="text-[9px] text-muted-foreground">{p.brand} · {p.royalty} royalty</p>
+                <p className="text-[10px] text-foreground/70 mt-0.5 leading-snug line-clamp-1">"{p.review}"</p>
+                <p className="text-xs font-bold text-primary mt-1">{p.price}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             </button>
           ))}
         </div>
+      )}
+
+      {/* Links Tab (Linktree-style) */}
+      {sfTab === "links" && (
+        <div className="space-y-2.5">
+          {[
+            { label: "🥊 My Training Program", desc: "8-week MMA fundamentals course" },
+            { label: "📹 Latest YouTube Video", desc: "Venum vs Hayabusa — honest comparison" },
+            { label: "📸 Follow me on Instagram", desc: "@alex_fights · 12k followers" },
+            { label: "🎵 TikTok", desc: "@alexmma · Training clips & gear reviews" },
+            { label: "💬 Join My Community", desc: "MMA Training Tips on LUUP" },
+            { label: "📧 Business Enquiries", desc: "alex@alexrivera.com" },
+          ].map((link) => (
+            <button key={link.label} className="w-full rounded-2xl border border-border bg-card p-3.5 text-left active:scale-[0.98] transition-transform flex items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-foreground">{link.label}</p>
+                <p className="text-[10px] text-muted-foreground">{link.desc}</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* About Tab */}
+      {sfTab === "about" && (
+        <div className="space-y-3">
+          <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
+            <p className="text-xs font-bold text-foreground">About Alex</p>
+            <p className="text-[11px] text-foreground/80 leading-relaxed">Professional MMA fighter based in Los Angeles with 5+ years of competition experience. I review gear I actually use in training and fights — no sponsored BS. Silver Scout Ambassador on LUUP, working my way to Gold.</p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[11px] text-foreground">Los Angeles, California</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Flame className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[11px] text-foreground">MMA · Boxing · Muay Thai</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Crown className="w-3.5 h-3.5 text-stage-earnings" />
+                <span className="text-[11px] text-foreground">Silver Scout Ambassador · Level 12</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[11px] text-foreground">47 referrals · 182 in network</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Badges */}
+          <div>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Badges</p>
+            <div className="flex gap-2 flex-wrap">
+              {["🔥 30-Day Streak", "🥊 Gear Expert", "⭐ Top Reviewer", "💰 $1k Earned", "👥 Community Leader"].map((b) => (
+                <span key={b} className="px-2.5 py-1 rounded-full bg-primary/10 text-[9px] font-bold text-primary">{b}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Powered by LUUP footer */}
+      <div className="text-center py-4">
+        <p className="text-[9px] text-muted-foreground">Powered by <span className="font-bold text-primary">LUUP</span></p>
       </div>
     </div>
   </div>
-);
-
+  );
+};
 /* ═══════ AFFILIATE REDIRECT ═══════ */
 export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [copied, setCopied] = useState(false);
