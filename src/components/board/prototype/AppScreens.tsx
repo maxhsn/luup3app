@@ -160,7 +160,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           View Wallet
           <ChevronRight className="w-3 h-3 opacity-60" />
         </button>
-      </button>
+      </div>
 
       {/* Active Mission Banner */}
       <button onClick={() => onNavigate("missions")} className="w-full rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 p-3 flex items-center gap-3 text-left">
