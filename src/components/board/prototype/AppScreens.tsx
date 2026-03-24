@@ -1379,7 +1379,7 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
               { name: "Kontact Shin Guards", price: "$49.99" },
               { name: "Challenger Headgear", price: "$54.99" },
             ].map((p) => (
-              <div className="rounded-2xl border border-border bg-card p-2.5 text-left">
+              <div key={p.name} className="rounded-2xl border border-border bg-card p-2.5 text-left">
                 <button onClick={() => onNavigate("product")} className="w-full">
                   <div className="aspect-square rounded-xl bg-muted mb-2" />
                   <p className="font-bold text-[11px] text-foreground truncate text-left">{p.name}</p>
