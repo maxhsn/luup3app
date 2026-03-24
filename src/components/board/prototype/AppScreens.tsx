@@ -104,12 +104,117 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       )}
 
 
-      {/* Earnings Infographic */}
-      <div className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary/95 to-primary/75 p-5 text-primary-foreground relative overflow-hidden shadow-lg">
-        {/* Decorative glows */}
-        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary-foreground/[0.04]" />
-        <div className="absolute top-1/2 -left-8 w-24 h-24 rounded-full bg-primary-foreground/[0.03]" />
-        <div className="absolute bottom-0 right-1/3 w-16 h-16 rounded-full bg-primary-foreground/[0.03]" />
+      {/* ── Compact Earnings Widget ── */}
+      <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary/95 to-primary/80 p-3.5 text-primary-foreground relative overflow-hidden active:scale-[0.98] transition-transform">
+        <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-primary-foreground/[0.04]" />
+        <div className="relative z-10 flex items-center gap-3">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-0.5">
+              <p className="font-display font-black text-2xl leading-none tracking-tight">{ecosystem.walletBalance}</p>
+              <span className="px-1.5 py-0.5 rounded-full bg-primary-foreground/15 text-[8px] font-bold flex items-center gap-0.5">
+                <TrendingUp className="w-2 h-2" />{ecosystem.walletGrowth}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 mt-1">
+              <span className="text-[9px] opacity-50">Referrals <span className="opacity-100 font-bold">{ecosystem.referralEarnings}</span></span>
+              <span className="text-[9px] opacity-30">·</span>
+              <span className="text-[9px] opacity-50">Missions <span className="opacity-100 font-bold">{ecosystem.missionEarnings}</span></span>
+            </div>
+          </div>
+          <div className="w-16 h-8 flex-shrink-0">
+            <svg viewBox="0 0 64 32" className="w-full h-full" preserveAspectRatio="none">
+              <path d="M0,24 C8,22 14,20 20,18 C28,15 34,17 40,13 C48,8 54,6 64,4" fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.5" strokeLinecap="round" />
+              <circle cx="64" cy="4" r="2" fill="white" fillOpacity="0.8" />
+            </svg>
+          </div>
+          <ChevronRight className="w-4 h-4 opacity-40 flex-shrink-0" />
+        </div>
+      </button>
+
+      {/* ── Quick Actions Grid ── */}
+      <div className="grid grid-cols-4 gap-2">
+        {[
+          { icon: <Flame className="w-4 h-4" />, label: "Missions", count: ecosystem.activeMissions.length, screen: "missions" as Screen, accent: "bg-primary/10 text-primary" },
+          { icon: <ShoppingBag className="w-4 h-4" />, label: "Brands", screen: "store" as Screen, accent: "bg-stage-conversion/10 text-stage-conversion" },
+          { icon: <Share2 className="w-4 h-4" />, label: "Invite", screen: "profile" as Screen, accent: "bg-stage-participation/10 text-stage-participation" },
+          { icon: <Trophy className="w-4 h-4" />, label: "Rank", screen: "leaderboard" as Screen, accent: "bg-stage-earnings/10 text-stage-earnings" },
+        ].map(a => (
+          <button key={a.label} onClick={() => onNavigate(a.screen)} className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-card border border-border hover:shadow-sm transition-all active:scale-95 relative">
+            <div className={`w-9 h-9 rounded-xl ${a.accent} flex items-center justify-center`}>
+              {a.icon}
+            </div>
+            <span className="text-[10px] font-semibold text-foreground">{a.label}</span>
+            {a.count && <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-primary text-[8px] font-bold text-primary-foreground flex items-center justify-center">{a.count}</span>}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Active Missions ── */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="font-display font-bold text-sm text-foreground">Your Missions</p>
+          <button onClick={() => onNavigate("missions")} className="text-[10px] text-primary font-bold">View all →</button>
+        </div>
+        <div className="space-y-1.5">
+          {ecosystem.activeMissions.slice(0, 2).map((m) => (
+            <button key={m.title} onClick={() => onNavigate("missions")} className="w-full flex items-center gap-3 p-2.5 rounded-xl bg-card border border-border text-left active:scale-[0.98] transition-transform">
+              <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Flame className="w-4 h-4 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[11px] font-bold text-foreground truncate">{m.title}</p>
+                <p className="text-[10px] text-primary font-semibold">{m.reward}</p>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span className="text-[9px] font-bold text-muted-foreground">{m.progress}%</span>
+                <div className="w-12 h-1.5 rounded-full bg-muted">
+                  <div className="h-full rounded-full bg-primary" style={{ width: `${m.progress}%` }} />
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Trending Offers ── */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="font-display font-bold text-sm text-foreground">Trending Offers</p>
+          <button onClick={() => onNavigate("explore")} className="text-[10px] text-primary font-bold">Explore →</button>
+        </div>
+        <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
+          {ecosystem.trendingOffers.map((p) => (
+            <button key={p.name} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[120px] rounded-xl border border-border bg-card p-2.5 text-left active:scale-[0.97] transition-transform">
+              <div className="w-full h-14 rounded-lg bg-muted mb-2" />
+              <p className="font-bold text-[11px] text-foreground truncate">{p.name}</p>
+              <p className="text-[9px] text-muted-foreground truncate">{p.brand} · {p.price}</p>
+              <div className="mt-1.5 px-2 py-0.5 rounded-md bg-primary/10 inline-block">
+                <p className="text-[9px] text-primary font-bold">Earn {p.royalty}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Dual Tile Row ── */}
+      <div className="grid grid-cols-2 gap-2.5">
+        <button onClick={() => onNavigate("leaderboard")} className="rounded-xl border border-border bg-card p-3 text-left active:scale-[0.97] transition-transform">
+          <div className="flex items-center gap-1.5 mb-2">
+            <Trophy className="w-3.5 h-3.5 text-stage-earnings" />
+            <p className="font-bold text-[10px] text-foreground">Leaderboard</p>
+          </div>
+          <p className="font-display font-black text-xl text-foreground leading-none">#12</p>
+          <p className="text-[9px] text-stage-participation font-semibold mt-1">↑ 3 spots this week</p>
+        </button>
+        <button onClick={() => onNavigate("profile")} className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-left active:scale-[0.97] transition-transform">
+          <div className="flex items-center gap-1.5 mb-2">
+            <Share2 className="w-3.5 h-3.5 text-primary" />
+            <p className="font-bold text-[10px] text-foreground">Invite & Earn</p>
+          </div>
+          <p className="font-display font-black text-xl text-primary leading-none">10%</p>
+          <p className="text-[9px] text-muted-foreground mt-1">On every referral sale</p>
+        </button>
+      </div>
         
         <div className="relative z-10">
           {/* Header row */}
