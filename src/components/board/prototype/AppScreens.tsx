@@ -1651,7 +1651,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
   const [showShare, setShowShare] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
   return (
-  <div className="space-y-0">
+  <div className="space-y-0 relative">
     {/* Hero Cover */}
     <div className="relative h-36 bg-gradient-to-br from-primary/40 via-primary/20 to-transparent overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--primary)/0.3),transparent_60%)]" />
@@ -1710,9 +1710,9 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
 
       {/* Share Popup */}
       {showShare && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={() => { setShowShare(false); setLinkCopied(false); }}>
-          <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" />
-          <div className="relative w-full max-w-[320px] bg-card rounded-t-3xl border border-border p-5 space-y-4 animate-scale-in mb-0" onClick={(e) => e.stopPropagation()}>
+        <div className="absolute inset-0 z-50 flex items-end justify-center" onClick={() => { setShowShare(false); setLinkCopied(false); }}>
+          <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm rounded-[2rem]" />
+          <div className="relative w-full bg-card rounded-t-3xl border border-border p-5 space-y-4 animate-scale-in" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <p className="font-display font-bold text-base text-foreground">Share Storefront</p>
               <button onClick={() => { setShowShare(false); setLinkCopied(false); }} className="w-7 h-7 rounded-full bg-muted flex items-center justify-center">
@@ -1721,8 +1721,8 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
             </div>
 
             {/* QR Code */}
-            <div className="flex justify-center py-2">
-              <div className="w-40 h-40 bg-card border-2 border-border rounded-2xl p-3 flex items-center justify-center">
+            <div className="flex justify-center py-1">
+              <div className="w-28 h-28 bg-card border-2 border-border rounded-2xl p-2 flex items-center justify-center">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   {/* Simplified QR pattern */}
                   <rect x="0" y="0" width="100" height="100" fill="white" rx="4"/>
