@@ -110,7 +110,7 @@ const PrototypeSection = () => {
               <div className="border-t border-border bg-card px-2 pb-5 pt-2">
                 <div className="flex justify-around">
                   <TabBtn icon={<Home />} label="Home" active={screen === "home"} onClick={() => navigate("home")} />
-                  <TabBtn icon={<MessageCircle />} label="Social" active={screen === "explore"} onClick={() => navigate("explore")} />
+                  <TabBtn icon={<Users />} label="Community" active={screen === "explore"} onClick={() => navigate("explore")} />
                   <TabBtn icon={<Flame />} label="Missions" active={screen === "missions"} onClick={() => navigate("missions")} />
                   <TabBtn icon={<ShoppingBag />} label="Brands" active={screen === "store"} onClick={() => navigate("store")} />
                   <TabBtn icon={<User />} label="Profile" active={screen === "profile"} onClick={() => navigate("profile")} />
