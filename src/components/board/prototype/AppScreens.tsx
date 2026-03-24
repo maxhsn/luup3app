@@ -50,6 +50,23 @@ export const StartScreen = ({ onSelectEcosystem }: { onSelectEcosystem: (id: str
   </div>
 );
 
+/* ═══════ ACTIVITY RING SVG ═══════ */
+const ActivityRing = ({ progress, size = 52, stroke = 5, color = "hsl(var(--primary))", bgColor = "hsl(var(--muted))" }: {
+  progress: number; size?: number; stroke?: number; color?: string; bgColor?: string;
+}) => {
+  const radius = (size - stroke) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (progress / 100) * circumference;
+  return (
+    <svg width={size} height={size} className="transform -rotate-90">
+      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={bgColor} strokeWidth={stroke} />
+      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={color} strokeWidth={stroke}
+        strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round"
+        className="transition-all duration-700 ease-out" />
+    </svg>
+  );
+};
+
 /* ═══════ HOME ═══════ */
 export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
   onNavigate: (s: Screen) => void;
@@ -57,163 +74,198 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
   onSwitchEcosystem: (id: string) => void;
 }) => {
   const [showSwitcher, setShowSwitcher] = useState(false);
+  const totalEarnings = parseFloat(ecosystem.walletBalance.replace(/[$,]/g, ""));
+  const missionsComplete = ecosystem.missions.filter(m => m.status === "approved").length;
+  const missionsTotal = ecosystem.missions.length;
+  const missionProgress = Math.round((missionsComplete / missionsTotal) * 100);
+
   return (
-    <div className="px-5 py-4 space-y-4">
+    <div className="px-4 py-3 space-y-3">
+      {/* ── Header ── */}
       <div className="flex items-center justify-between">
-        <div>
-          <button
-            onClick={() => setShowSwitcher(!showSwitcher)}
-            className="flex items-center gap-1.5 mb-0.5"
-          >
-            <span className="text-sm">{ecosystem.emoji}</span>
-            <span className="text-[10px] font-bold text-primary">{ecosystem.label}</span>
-            <ChevronDown className={`w-3 h-3 text-primary transition-transform ${showSwitcher ? "rotate-180" : ""}`} />
+        <div className="flex items-center gap-2.5">
+          <button onClick={() => onNavigate("profile")} className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-md">
+            <span className="text-sm font-black text-primary-foreground">AR</span>
           </button>
-          <p className="font-display font-bold text-lg text-foreground">Alex Rivera</p>
-        </div>
-        <div className="flex gap-2">
-          <button onClick={() => onNavigate("notifications")} className="w-9 h-9 rounded-full bg-muted flex items-center justify-center relative">
-            <Bell className="w-4 h-4 text-muted-foreground" />
-            <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-destructive text-[9px] text-destructive-foreground font-bold flex items-center justify-center">3</span>
-          </button>
-          <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-            <MessageCircle className="w-4 h-4 text-primary" />
+          <div>
+            <p className="text-[10px] text-muted-foreground font-medium">Good afternoon</p>
+            <p className="font-display font-bold text-sm text-foreground leading-tight">Alex Rivera</p>
           </div>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <button onClick={() => setShowSwitcher(!showSwitcher)}
+            className="h-8 px-2.5 rounded-full bg-card border border-border flex items-center gap-1.5 active:scale-95 transition-transform">
+            <span className="text-xs">{ecosystem.emoji}</span>
+            <span className="text-[10px] font-bold text-foreground">{ecosystem.label.split(" ")[0]}</span>
+            <ChevronDown className={`w-3 h-3 text-muted-foreground transition-transform ${showSwitcher ? "rotate-180" : ""}`} />
+          </button>
+          <button onClick={() => onNavigate("notifications")} className="w-8 h-8 rounded-full bg-card border border-border flex items-center justify-center relative">
+            <Bell className="w-3.5 h-3.5 text-muted-foreground" />
+            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-destructive text-[7px] font-bold text-destructive-foreground flex items-center justify-center">3</span>
+          </button>
         </div>
       </div>
 
-      {/* Ecosystem Switcher Dropdown */}
+      {/* Ecosystem Switcher */}
       {showSwitcher && (
-        <div className="rounded-xl border border-border bg-card shadow-lg p-2 space-y-1 animate-fade-in">
+        <div className="rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-xl p-2 space-y-0.5 animate-scale-in">
           {ecosystems.map((eco) => (
-            <button
-              key={eco.id}
-              onClick={() => { onSwitchEcosystem(eco.id); setShowSwitcher(false); }}
-              className={`w-full flex items-center gap-2.5 p-2 rounded-lg text-left transition-all ${
-                eco.id === ecosystem.id ? "bg-primary/10 border border-primary/20" : "hover:bg-muted"
-              }`}
-            >
+            <button key={eco.id} onClick={() => { onSwitchEcosystem(eco.id); setShowSwitcher(false); }}
+              className={`w-full flex items-center gap-2.5 p-2.5 rounded-xl text-left transition-all ${eco.id === ecosystem.id ? "bg-primary/10" : "hover:bg-muted"}`}>
               <span className="text-base">{eco.emoji}</span>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-foreground">{eco.label}</p>
-              </div>
+              <p className="text-xs font-bold text-foreground flex-1">{eco.label}</p>
               {eco.id === ecosystem.id && <Check className="w-3.5 h-3.5 text-primary" />}
             </button>
           ))}
         </div>
       )}
 
-
-      {/* ── Compact Earnings Widget ── */}
-      <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary/95 to-primary/80 p-3.5 text-primary-foreground relative overflow-hidden active:scale-[0.98] transition-transform">
-        <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-primary-foreground/[0.04]" />
-        <div className="relative z-10 flex items-center gap-3">
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-0.5">
-              <p className="font-display font-black text-2xl leading-none tracking-tight">{ecosystem.walletBalance}</p>
-              <span className="px-1.5 py-0.5 rounded-full bg-primary-foreground/15 text-[8px] font-bold flex items-center gap-0.5">
-                <TrendingUp className="w-2 h-2" />{ecosystem.walletGrowth}
+      {/* ── Hero Earnings Card with Activity Ring ── */}
+      <button onClick={() => onNavigate("wallet")}
+        className="w-full rounded-[20px] bg-foreground p-4 text-background relative overflow-hidden active:scale-[0.98] transition-transform group">
+        {/* Decorative circles */}
+        <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-background/[0.03]" />
+        <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-background/[0.03]" />
+        <div className="relative z-10 flex items-center gap-3.5">
+          {/* Activity ring as visual anchor */}
+          <div className="relative flex-shrink-0">
+            <ActivityRing progress={72} size={56} stroke={5} color="hsl(var(--primary))" bgColor="hsla(0,0%,100%,0.1)" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Wallet className="w-4 h-4 text-primary" />
+            </div>
+          </div>
+          <div className="flex-1 min-w-0 text-left">
+            <p className="text-[10px] font-medium opacity-40 uppercase tracking-wider">Total Earnings</p>
+            <p className="font-display font-black text-[28px] leading-none tracking-tight">{ecosystem.walletBalance}</p>
+            <div className="flex items-center gap-2 mt-1.5">
+              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-stage-participation/20 text-stage-participation text-[9px] font-bold">
+                <TrendingUp className="w-2.5 h-2.5" />{ecosystem.walletGrowth}
               </span>
-            </div>
-            <div className="flex items-center gap-3 mt-1">
-              <span className="text-[9px] opacity-50">Referrals <span className="opacity-100 font-bold">{ecosystem.referralEarnings}</span></span>
-              <span className="text-[9px] opacity-30">·</span>
-              <span className="text-[9px] opacity-50">Missions <span className="opacity-100 font-bold">{ecosystem.missionEarnings}</span></span>
+              <span className="text-[9px] opacity-30">this month</span>
             </div>
           </div>
-          <div className="w-16 h-8 flex-shrink-0">
-            <svg viewBox="0 0 64 32" className="w-full h-full" preserveAspectRatio="none">
-              <path d="M0,24 C8,22 14,20 20,18 C28,15 34,17 40,13 C48,8 54,6 64,4" fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.5" strokeLinecap="round" />
-              <circle cx="64" cy="4" r="2" fill="white" fillOpacity="0.8" />
-            </svg>
-          </div>
-          <ChevronRight className="w-4 h-4 opacity-40 flex-shrink-0" />
+          <ChevronRight className="w-4 h-4 opacity-20 group-hover:opacity-40 transition-opacity flex-shrink-0" />
         </div>
       </button>
 
-      {/* ── Quick Actions Grid ── */}
-      <div className="grid grid-cols-4 gap-2">
-        {[
-          { icon: <Flame className="w-4 h-4" />, label: "Missions", count: ecosystem.activeMissions.length, screen: "missions" as Screen, accent: "bg-primary/10 text-primary" },
-          { icon: <ShoppingBag className="w-4 h-4" />, label: "Brands", screen: "store" as Screen, accent: "bg-stage-conversion/10 text-stage-conversion" },
-          { icon: <Share2 className="w-4 h-4" />, label: "Invite", screen: "profile" as Screen, accent: "bg-stage-participation/10 text-stage-participation" },
-          { icon: <Trophy className="w-4 h-4" />, label: "Rank", screen: "leaderboard" as Screen, accent: "bg-stage-earnings/10 text-stage-earnings" },
-        ].map(a => (
-          <button key={a.label} onClick={() => onNavigate(a.screen)} className="flex flex-col items-center gap-1.5 py-3 rounded-xl bg-card border border-border hover:shadow-sm transition-all active:scale-95 relative">
-            <div className={`w-9 h-9 rounded-xl ${a.accent} flex items-center justify-center`}>
-              {a.icon}
+      {/* ── Stats Bento Grid ── */}
+      <div className="grid grid-cols-3 gap-2">
+        <button onClick={() => onNavigate("missions")}
+          className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
+          <div className="w-7 h-7 rounded-xl bg-primary/10 flex items-center justify-center mb-2">
+            <Flame className="w-3.5 h-3.5 text-primary" />
+          </div>
+          <p className="font-display font-black text-lg leading-none text-foreground">{missionsComplete}</p>
+          <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Missions</p>
+        </button>
+        <button onClick={() => onNavigate("leaderboard")}
+          className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
+          <div className="w-7 h-7 rounded-xl bg-stage-earnings/10 flex items-center justify-center mb-2">
+            <Trophy className="w-3.5 h-3.5 text-stage-earnings" />
+          </div>
+          <p className="font-display font-black text-lg leading-none text-foreground">#12</p>
+          <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Rank</p>
+        </button>
+        <button onClick={() => onNavigate("profile")}
+          className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
+          <div className="w-7 h-7 rounded-xl bg-stage-participation/10 flex items-center justify-center mb-2">
+            <Users className="w-3.5 h-3.5 text-stage-participation" />
+          </div>
+          <p className="font-display font-black text-lg leading-none text-foreground">14</p>
+          <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Referrals</p>
+        </button>
+      </div>
+
+      {/* ── Progress Widget (double-wide) ── */}
+      <div className="grid grid-cols-5 gap-2">
+        <button onClick={() => onNavigate("missions")}
+          className="col-span-3 rounded-2xl bg-gradient-to-br from-primary/8 to-primary/3 border border-primary/15 p-3.5 text-left active:scale-[0.98] transition-transform">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-[10px] font-bold text-foreground">Weekly Progress</p>
+            <span className="text-[9px] font-bold text-primary">{missionProgress}%</span>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <div className="relative flex-shrink-0">
+              <ActivityRing progress={missionProgress} size={40} stroke={4} color="hsl(var(--primary))" bgColor="hsl(var(--border))" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-[8px] font-black text-foreground">{missionsComplete}/{missionsTotal}</span>
+              </div>
             </div>
-            <span className="text-[10px] font-semibold text-foreground">{a.label}</span>
-            {a.count && <span className="absolute top-1.5 right-2 w-4 h-4 rounded-full bg-primary text-[8px] font-bold text-primary-foreground flex items-center justify-center">{a.count}</span>}
-          </button>
-        ))}
+            <div className="flex-1 min-w-0 space-y-1">
+              {ecosystem.activeMissions.slice(0, 2).map((m) => (
+                <div key={m.title} className="flex items-center gap-1.5">
+                  <div className="w-full h-1.5 rounded-full bg-border">
+                    <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${m.progress}%` }} />
+                  </div>
+                  <span className="text-[8px] font-bold text-muted-foreground flex-shrink-0">{m.progress}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </button>
+
+        <button onClick={() => onNavigate("profile")}
+          className="col-span-2 rounded-2xl bg-gradient-to-br from-stage-conversion/8 to-stage-earnings/5 border border-stage-conversion/15 p-3.5 text-left active:scale-[0.98] transition-transform flex flex-col justify-between">
+          <div className="w-7 h-7 rounded-xl bg-stage-conversion/10 flex items-center justify-center">
+            <Share2 className="w-3.5 h-3.5 text-stage-conversion" />
+          </div>
+          <div className="mt-auto">
+            <p className="font-display font-black text-lg leading-none text-foreground">10%</p>
+            <p className="text-[9px] text-muted-foreground mt-0.5">Referral rate</p>
+          </div>
+        </button>
       </div>
 
       {/* ── Active Missions ── */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <p className="font-display font-bold text-sm text-foreground">Your Missions</p>
-          <button onClick={() => onNavigate("missions")} className="text-[10px] text-primary font-bold">View all →</button>
+          <p className="font-display font-bold text-[13px] text-foreground">Active Missions</p>
+          <button onClick={() => onNavigate("missions")} className="text-[10px] text-primary font-bold">See all</button>
         </div>
         <div className="space-y-1.5">
-          {ecosystem.activeMissions.slice(0, 2).map((m) => (
-            <button key={m.title} onClick={() => onNavigate("missions")} className="w-full flex items-center gap-3 p-2.5 rounded-xl bg-card border border-border text-left active:scale-[0.98] transition-transform">
-              <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Flame className="w-4 h-4 text-primary" />
+          {ecosystem.activeMissions.slice(0, 2).map((m, i) => (
+            <button key={m.title} onClick={() => onNavigate("missions")}
+              className="w-full flex items-center gap-3 p-2.5 rounded-2xl bg-card border border-border text-left active:scale-[0.98] transition-transform">
+              <div className="relative flex-shrink-0">
+                <ActivityRing progress={m.progress} size={36} stroke={3}
+                  color={i === 0 ? "hsl(var(--primary))" : "hsl(var(--stage-participation))"}
+                  bgColor="hsl(var(--border))" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Flame className="w-3 h-3 text-primary" />
+                </div>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[11px] font-bold text-foreground truncate">{m.title}</p>
-                <p className="text-[10px] text-primary font-semibold">{m.reward}</p>
+                <p className="text-[9px] text-primary font-semibold">{m.reward}</p>
               </div>
-              <div className="flex flex-col items-end gap-1">
-                <span className="text-[9px] font-bold text-muted-foreground">{m.progress}%</span>
-                <div className="w-12 h-1.5 rounded-full bg-muted">
-                  <div className="h-full rounded-full bg-primary" style={{ width: `${m.progress}%` }} />
-                </div>
-              </div>
+              <span className="text-[10px] font-black text-muted-foreground">{m.progress}%</span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* ── Trending Offers ── */}
+      {/* ── Trending Offers (horizontal scroll) ── */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <p className="font-display font-bold text-sm text-foreground">Trending Offers</p>
-          <button onClick={() => onNavigate("explore")} className="text-[10px] text-primary font-bold">Explore →</button>
+          <p className="font-display font-bold text-[13px] text-foreground">Hot Deals</p>
+          <button onClick={() => onNavigate("store")} className="text-[10px] text-primary font-bold">Browse</button>
         </div>
-        <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
+        <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4">
           {ecosystem.trendingOffers.map((p) => (
-            <button key={p.name} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[120px] rounded-xl border border-border bg-card p-2.5 text-left active:scale-[0.97] transition-transform">
-              <div className="w-full h-14 rounded-lg bg-muted mb-2" />
-              <p className="font-bold text-[11px] text-foreground truncate">{p.name}</p>
-              <p className="text-[9px] text-muted-foreground truncate">{p.brand} · {p.price}</p>
-              <div className="mt-1.5 px-2 py-0.5 rounded-md bg-primary/10 inline-block">
-                <p className="text-[9px] text-primary font-bold">Earn {p.royalty}</p>
+            <button key={p.name} onClick={() => onNavigate("product")}
+              className="flex-shrink-0 w-[130px] rounded-2xl border border-border bg-card overflow-hidden text-left active:scale-[0.97] transition-transform group">
+              <div className="w-full h-16 bg-gradient-to-br from-muted to-muted/60 relative">
+                <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded-md bg-foreground/80 text-background text-[8px] font-bold">
+                  {p.royalty}
+                </div>
+              </div>
+              <div className="p-2.5">
+                <p className="font-bold text-[10px] text-foreground truncate">{p.name}</p>
+                <p className="text-[9px] text-muted-foreground">{p.brand} · {p.price}</p>
               </div>
             </button>
           ))}
         </div>
-      </div>
-
-      {/* ── Dual Tile Row ── */}
-      <div className="grid grid-cols-2 gap-2.5">
-        <button onClick={() => onNavigate("leaderboard")} className="rounded-xl border border-border bg-card p-3 text-left active:scale-[0.97] transition-transform">
-          <div className="flex items-center gap-1.5 mb-2">
-            <Trophy className="w-3.5 h-3.5 text-stage-earnings" />
-            <p className="font-bold text-[10px] text-foreground">Leaderboard</p>
-          </div>
-          <p className="font-display font-black text-xl text-foreground leading-none">#12</p>
-          <p className="text-[9px] text-stage-participation font-semibold mt-1">↑ 3 spots this week</p>
-        </button>
-        <button onClick={() => onNavigate("profile")} className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-left active:scale-[0.97] transition-transform">
-          <div className="flex items-center gap-1.5 mb-2">
-            <Share2 className="w-3.5 h-3.5 text-primary" />
-            <p className="font-bold text-[10px] text-foreground">Invite & Earn</p>
-          </div>
-          <p className="font-display font-black text-xl text-primary leading-none">10%</p>
-          <p className="text-[9px] text-muted-foreground mt-1">On every referral sale</p>
-        </button>
       </div>
 
       <AgentPill />
