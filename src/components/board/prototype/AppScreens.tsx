@@ -1457,175 +1457,202 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
   );
 };
 
-/* ═══════ STOREFRONT (Public Linktree replacement) ═══════ */
+/* ═══════ STOREFRONT (Public brand page — Linktree replacement) ═══════ */
 export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
-  const [sfTab, setSfTab] = useState<"products" | "links" | "about">("products");
+  const [following, setFollowing] = useState(false);
   return (
   <div className="space-y-0">
-    {/* Hero Banner */}
-    <div className="relative h-28 bg-gradient-to-br from-primary/30 via-primary/15 to-primary/5">
+    {/* Hero Cover */}
+    <div className="relative h-36 bg-gradient-to-br from-primary/40 via-primary/20 to-transparent overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,hsl(var(--primary)/0.3),transparent_60%)]" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
       <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center z-10">
         <ArrowLeft className="w-4 h-4 text-foreground" />
       </button>
-      <button className="absolute top-3 right-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center z-10">
-        <Share2 className="w-4 h-4 text-foreground" />
-      </button>
+      <div className="absolute top-3 right-4 flex gap-1.5 z-10">
+        <button className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+          <Share2 className="w-3.5 h-3.5 text-foreground" />
+        </button>
+        <button className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+          <Bell className="w-3.5 h-3.5 text-foreground" />
+        </button>
+      </div>
     </div>
 
-    <div className="px-5 -mt-10 space-y-4">
-      {/* Profile Card */}
+    <div className="px-5 -mt-12 space-y-4 pb-4">
+      {/* Avatar + Name */}
       <div className="flex items-end gap-3">
-        <div className="w-20 h-20 rounded-2xl bg-card border-3 border-card shadow-lg flex items-center justify-center">
+        <div className="w-20 h-20 rounded-2xl bg-card border-[3px] border-background shadow-xl flex items-center justify-center relative">
           <span className="font-display font-bold text-primary text-2xl">AR</span>
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center border-2 border-background">
+            <Check className="w-3 h-3 text-primary-foreground" />
+          </div>
         </div>
         <div className="pb-1 flex-1">
-          <div className="flex items-center gap-1.5">
-            <p className="font-display font-bold text-base text-foreground">Alex Rivera</p>
-            <Check className="w-3.5 h-3.5 text-primary" />
+          <p className="font-display font-bold text-lg text-foreground leading-tight">Alex Rivera</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">@alexrivera · Los Angeles, CA</p>
+          <div className="flex items-center gap-1.5 mt-1">
+            <span className="px-1.5 py-0.5 rounded bg-primary/10 text-[8px] font-bold text-primary">Silver Scout</span>
+            <span className="px-1.5 py-0.5 rounded bg-muted text-[8px] font-bold text-muted-foreground">MMA</span>
           </div>
-          <p className="text-[10px] text-muted-foreground">@alexrivera · MMA · Los Angeles</p>
         </div>
       </div>
 
       {/* Bio */}
-      <p className="text-[11px] text-foreground/80 leading-relaxed">MMA fighter & gear enthusiast 🥊 Sharing honest reviews and earning royalties on the brands I love. Silver Scout Ambassador on LUUP.</p>
+      <p className="text-[11px] text-foreground/85 leading-relaxed">MMA fighter & gear enthusiast 🥊 I share honest reviews of the gear I actually use in training and fights. Silver Scout Ambassador — working my way to Gold. Follow me for new product drops and deals.</p>
 
-      {/* Social Links Row */}
+      {/* Follow + Share CTA */}
       <div className="flex gap-2">
+        <button 
+          onClick={() => setFollowing(!following)} 
+          className={`flex-1 rounded-xl py-2.5 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all ${
+            following 
+              ? "border border-border bg-card text-foreground" 
+              : "bg-primary text-primary-foreground"
+          }`}
+        >
+          {following ? <><Check className="w-3.5 h-3.5" /> Following</> : <><UserPlus className="w-3.5 h-3.5" /> Follow</>}
+        </button>
+        <button className="px-4 rounded-xl border border-border font-bold text-xs text-foreground flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
+          <Share2 className="w-3.5 h-3.5" /> Share
+        </button>
+      </div>
+
+      {/* Follow context */}
+      {following && (
+        <div className="rounded-xl bg-primary/5 border border-primary/15 px-3 py-2 flex items-center gap-2">
+          <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+          <p className="text-[10px] text-foreground/70">Alex's new products & updates will appear in your <span className="font-bold text-primary">Community feed</span></p>
+        </div>
+      )}
+
+      {/* Social handles */}
+      <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
         {[
-          { platform: "Instagram", handle: "@alex_fights" },
-          { platform: "TikTok", handle: "@alexmma" },
-          { platform: "YouTube", handle: "AlexRiveraMMA" },
-          { platform: "X", handle: "@alexfights" },
+          { platform: "IG", handle: "@alex_fights", emoji: "📸" },
+          { platform: "TikTok", handle: "@alexmma", emoji: "🎵" },
+          { platform: "YT", handle: "AlexRiveraMMA", emoji: "📹" },
+          { platform: "X", handle: "@alexfights", emoji: "𝕏" },
         ].map((s) => (
-          <button key={s.platform} className="flex-1 py-2 rounded-xl bg-muted border border-border text-center active:scale-[0.98] transition-transform">
-            <p className="text-[9px] font-bold text-foreground">{s.platform}</p>
-            <p className="text-[8px] text-muted-foreground truncate px-1">{s.handle}</p>
+          <button key={s.platform} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-muted border border-border flex-shrink-0 active:scale-[0.98] transition-transform">
+            <span className="text-[10px]">{s.emoji}</span>
+            <span className="text-[9px] font-bold text-foreground">{s.handle}</span>
           </button>
         ))}
       </div>
 
-      {/* Stats Bar */}
+      {/* Stats */}
       <div className="grid grid-cols-4 gap-1.5">
         {[
           { label: "Products", value: "12" },
-          { label: "Sales", value: "89" },
-          { label: "Followers", value: "2.1k" },
-          { label: "Rating", value: "4.9⭐" },
+          { label: "Sales", value: "2.4k" },
+          { label: "Followers", value: "8.2k" },
+          { label: "Rating", value: "4.9★" },
         ].map((s) => (
-          <div key={s.label} className="rounded-xl bg-muted p-2 text-center">
+          <div key={s.label} className="rounded-xl bg-muted/60 p-2 text-center">
             <p className="font-display font-black text-sm text-foreground">{s.value}</p>
             <p className="text-[8px] text-muted-foreground font-medium">{s.label}</p>
           </div>
         ))}
       </div>
 
-      {/* Follow + Referral */}
-      <div className="flex gap-2">
-        <button className="flex-1 bg-primary text-primary-foreground rounded-xl py-2.5 font-bold text-xs flex items-center justify-center gap-1.5">
-          <UserPlus className="w-3.5 h-3.5" /> Follow
-        </button>
-        <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground flex items-center justify-center gap-1.5">
-          <Gift className="w-3.5 h-3.5" /> Use Code: ALEX-LUUP
+      {/* Referral Code Banner */}
+      <div className="rounded-2xl bg-gradient-to-r from-primary/10 to-stage-earnings/10 border border-primary/15 p-3 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0">
+          <Gift className="w-5 h-5 text-primary" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[10px] font-bold text-foreground">Use my code for bonus rewards</p>
+          <p className="font-mono text-xs font-bold text-primary mt-0.5">ALEX-LUUP</p>
+        </div>
+        <button className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[9px] font-bold flex-shrink-0">Copy</button>
+      </div>
+
+      {/* ── FEATURED PRODUCT (Editorial hero) ── */}
+      <div>
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">⭐ Alex's Pick of the Month</p>
+        <button onClick={() => onNavigate("product")} className="w-full rounded-2xl border border-border bg-card overflow-hidden text-left active:scale-[0.98] transition-transform">
+          <div className="h-32 bg-gradient-to-br from-muted to-muted/50 relative">
+            <span className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-foreground/80 text-background text-[9px] font-black">FEATURED</span>
+          </div>
+          <div className="p-3.5 space-y-1.5">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-bold text-foreground">Venum Challenger 3.0</p>
+              <p className="text-sm font-bold text-primary">$79.99</p>
+            </div>
+            <p className="text-[10px] text-muted-foreground">Venum · 12% royalty</p>
+            <p className="text-[11px] text-foreground/75 leading-relaxed">"My daily sparring gloves. The wrist support is unreal — I've gone through 3 pairs and keep coming back."</p>
+            <div className="flex items-center gap-3 pt-1">
+              <span className="text-[9px] text-muted-foreground flex items-center gap-0.5"><Star className="w-3 h-3 text-stage-earnings fill-stage-earnings" />4.8 (124 reviews)</span>
+              <span className="text-[9px] text-muted-foreground">34 sold via Alex</span>
+            </div>
+          </div>
         </button>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 bg-muted rounded-xl p-1">
-        {(["products", "links", "about"] as const).map((t) => (
-          <button key={t} onClick={() => setSfTab(t)} className={`flex-1 py-1.5 rounded-lg text-[11px] font-semibold capitalize transition-all ${sfTab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-            {t === "products" ? "My Picks" : t === "links" ? "Links" : "About"}
-          </button>
-        ))}
-      </div>
-
-      {/* Products Tab */}
-      {sfTab === "products" && (
-        <div className="space-y-3">
-          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Alex's Top Picks</p>
+      {/* ── PRODUCT GRID ── */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">All Products</p>
+          <span className="text-[10px] text-primary font-semibold">12 items</span>
+        </div>
+        <div className="grid grid-cols-2 gap-2.5">
           {[
-            { name: "Venum Challenger 3.0", price: "$79.99", royalty: "12%", review: "My daily sparring gloves. Unreal wrist support.", brand: "Venum" },
-            { name: "Hayabusa T3 Gloves", price: "$159.99", royalty: "10%", review: "Premium quality. Worth every penny for competition.", brand: "Hayabusa" },
-            { name: "Sanabul Essential MMA", price: "$24.99", royalty: "8%", review: "Best budget option for beginners. Great value.", brand: "Sanabul" },
-            { name: "Venum Shin Guards Pro", price: "$49.99", royalty: "12%", review: "Lightweight but protective. Perfect for Muay Thai.", brand: "Venum" },
+            { name: "Hayabusa T3 Gloves", price: "$159.99", brand: "Hayabusa", review: "Premium competition quality", sold: 28 },
+            { name: "Sanabul Essential", price: "$24.99", brand: "Sanabul", review: "Best budget starter set", sold: 27 },
+            { name: "Venum Shin Guards", price: "$49.99", brand: "Venum", review: "Perfect for Muay Thai", sold: 18 },
+            { name: "RDX Hand Wraps", price: "$12.99", brand: "RDX", review: "Solid daily use wraps", sold: 14 },
           ].map((p) => (
-            <button key={p.name} onClick={() => onNavigate("product")} className="w-full flex items-center gap-3 p-3 rounded-2xl border border-border bg-card text-left active:scale-[0.98] transition-transform">
-              <div className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
-              <div className="flex-1 min-w-0">
-                <p className="text-[11px] font-bold text-foreground truncate">{p.name}</p>
-                <p className="text-[9px] text-muted-foreground">{p.brand} · {p.royalty} royalty</p>
-                <p className="text-[10px] text-foreground/70 mt-0.5 leading-snug line-clamp-1">"{p.review}"</p>
-                <p className="text-xs font-bold text-primary mt-1">{p.price}</p>
+            <button key={p.name} onClick={() => onNavigate("product")} className="rounded-2xl border border-border bg-card p-2.5 text-left active:scale-[0.98] transition-transform">
+              <div className="aspect-square rounded-xl bg-muted mb-2 relative">
+                <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-foreground/70 text-background text-[8px] font-bold">{p.brand}</span>
               </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <p className="font-bold text-[10px] text-foreground truncate">{p.name}</p>
+              <p className="text-[9px] text-foreground/60 truncate mt-0.5">"{p.review}"</p>
+              <div className="flex items-center justify-between mt-1.5">
+                <p className="text-xs font-bold text-primary">{p.price}</p>
+                <p className="text-[8px] text-muted-foreground">{p.sold} sold</p>
+              </div>
             </button>
           ))}
         </div>
-      )}
+      </div>
 
-      {/* Links Tab (Linktree-style) */}
-      {sfTab === "links" && (
-        <div className="space-y-2.5">
+      {/* ── LINKS (Linktree section) ── */}
+      <div>
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Links</p>
+        <div className="space-y-2">
           {[
-            { label: "🥊 My Training Program", desc: "8-week MMA fundamentals course" },
-            { label: "📹 Latest YouTube Video", desc: "Venum vs Hayabusa — honest comparison" },
-            { label: "📸 Follow me on Instagram", desc: "@alex_fights · 12k followers" },
-            { label: "🎵 TikTok", desc: "@alexmma · Training clips & gear reviews" },
+            { label: "🥊 My 8-Week Training Program", desc: "MMA fundamentals course" },
+            { label: "📹 Latest: Venum vs Hayabusa Review", desc: "YouTube · 12k views" },
             { label: "💬 Join My Community", desc: "MMA Training Tips on LUUP" },
             { label: "📧 Business Enquiries", desc: "alex@alexrivera.com" },
           ].map((link) => (
-            <button key={link.label} className="w-full rounded-2xl border border-border bg-card p-3.5 text-left active:scale-[0.98] transition-transform flex items-center gap-3">
+            <button key={link.label} className="w-full rounded-xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform flex items-center gap-3">
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-foreground">{link.label}</p>
-                <p className="text-[10px] text-muted-foreground">{link.desc}</p>
+                <p className="text-[11px] font-bold text-foreground">{link.label}</p>
+                <p className="text-[9px] text-muted-foreground">{link.desc}</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
             </button>
           ))}
         </div>
-      )}
+      </div>
 
-      {/* About Tab */}
-      {sfTab === "about" && (
-        <div className="space-y-3">
-          <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
-            <p className="text-xs font-bold text-foreground">About Alex</p>
-            <p className="text-[11px] text-foreground/80 leading-relaxed">Professional MMA fighter based in Los Angeles with 5+ years of competition experience. I review gear I actually use in training and fights — no sponsored BS. Silver Scout Ambassador on LUUP, working my way to Gold.</p>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-[11px] text-foreground">Los Angeles, California</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Flame className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-[11px] text-foreground">MMA · Boxing · Muay Thai</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Crown className="w-3.5 h-3.5 text-stage-earnings" />
-                <span className="text-[11px] text-foreground">Silver Scout Ambassador · Level 12</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-[11px] text-foreground">47 referrals · 182 in network</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Badges */}
-          <div>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Badges</p>
-            <div className="flex gap-2 flex-wrap">
-              {["🔥 30-Day Streak", "🥊 Gear Expert", "⭐ Top Reviewer", "💰 $1k Earned", "👥 Community Leader"].map((b) => (
-                <span key={b} className="px-2.5 py-1 rounded-full bg-primary/10 text-[9px] font-bold text-primary">{b}</span>
-              ))}
-            </div>
-          </div>
+      {/* ── ABOUT + BADGES ── */}
+      <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
+        <p className="text-xs font-bold text-foreground">About</p>
+        <p className="text-[10px] text-foreground/75 leading-relaxed">Professional MMA fighter with 5+ years competing. I review gear I actually use — no sponsored fluff. Based in Los Angeles, training out of Kings MMA.</p>
+        <div className="flex gap-2 flex-wrap">
+          {["🔥 30-Day Streak", "🥊 Gear Expert", "⭐ Top Reviewer", "💰 $1k Earned", "👥 Community Leader"].map((b) => (
+            <span key={b} className="px-2 py-0.5 rounded-full bg-primary/10 text-[8px] font-bold text-primary">{b}</span>
+          ))}
         </div>
-      )}
+      </div>
 
-      {/* Powered by LUUP footer */}
-      <div className="text-center py-4">
-        <p className="text-[9px] text-muted-foreground">Powered by <span className="font-bold text-primary">LUUP</span></p>
+      {/* Powered by */}
+      <div className="text-center pt-2 pb-4">
+        <p className="text-[9px] text-muted-foreground">Powered by <span className="font-bold text-primary">LUUP</span> · <span className="text-primary/70">Create your own storefront →</span></p>
       </div>
     </div>
   </div>
