@@ -8,7 +8,7 @@ import {
   LoginScreen, StartScreen, EcosystemSetupScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
-  OrderConfirmScreen, NotificationsScreen
+  OrderConfirmScreen, NotificationsScreen, EditProfileScreen, SavedItemsScreen, ReferralCodeScreen
 } from "./prototype/AppScreens";
 import { getEcosystem } from "./prototype/ecosystemData";
 
