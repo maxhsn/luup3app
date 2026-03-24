@@ -110,56 +110,65 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       </div>
 
       {/* Earnings Infographic */}
-      <div className="w-full rounded-2xl bg-primary p-4 text-primary-foreground">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs">{ecosystem.emoji}</span>
-            <p className="text-[10px] opacity-80 font-medium">{ecosystem.label} Earnings</p>
-          </div>
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-foreground/15 text-[9px] font-semibold">
-            <TrendingUp className="w-2.5 h-2.5" />
-            {ecosystem.walletGrowth}
-          </div>
-        </div>
-        <p className="font-display font-black text-3xl">{ecosystem.walletBalance}</p>
+      <div className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary to-primary/80 p-4 text-primary-foreground relative overflow-hidden">
+        {/* Decorative circles */}
+        <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-primary-foreground/5" />
+        <div className="absolute -bottom-8 -left-4 w-20 h-20 rounded-full bg-primary-foreground/5" />
         
-        {/* Mini bar chart infographic */}
-        <div className="flex gap-2 mt-3 items-end h-10">
-          {[35, 50, 40, 65, 55, 80, 70].map((h, i) => (
-            <div key={i} className="flex-1 rounded-sm bg-primary-foreground/20 relative" style={{ height: `${h}%` }}>
-              {i === 6 && <div className="absolute inset-0 rounded-sm bg-primary-foreground/40" />}
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-1">
+            <p className="text-[10px] opacity-70 font-medium tracking-wide uppercase">{ecosystem.emoji} {ecosystem.label}</p>
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-400/20 text-green-200 text-[9px] font-bold">
+              <TrendingUp className="w-2.5 h-2.5" />
+              {ecosystem.walletGrowth}
             </div>
-          ))}
-        </div>
-        <div className="flex justify-between mt-1">
-          <span className="text-[8px] opacity-50">Mon</span>
-          <span className="text-[8px] opacity-50">Today</span>
-        </div>
-
-        {/* Breakdown */}
-        <div className="flex gap-3 mt-3">
-          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5">
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground/60" />
-              <p className="text-[9px] opacity-70">Referrals</p>
-            </div>
-            <p className="font-bold text-sm">{ecosystem.referralEarnings}</p>
           </div>
-          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5">
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />
-              <p className="text-[9px] opacity-70">Missions</p>
-            </div>
-            <p className="font-bold text-sm">{ecosystem.missionEarnings}</p>
-          </div>
-        </div>
 
-        {/* View Wallet CTA */}
-        <button onClick={() => onNavigate("wallet")} className="w-full mt-3 py-2 rounded-xl bg-primary-foreground/20 backdrop-blur text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-primary-foreground/30 transition-colors">
-          <Wallet className="w-3.5 h-3.5" />
-          View Wallet
-          <ChevronRight className="w-3 h-3 opacity-60" />
-        </button>
+          {/* Balance */}
+          <p className="font-display font-black text-[32px] leading-tight tracking-tight">{ecosystem.walletBalance}</p>
+          <p className="text-[10px] opacity-50 mt-0.5">Total earned this month</p>
+
+          {/* Spark chart */}
+          <div className="mt-3 h-8">
+            <svg viewBox="0 0 200 32" className="w-full h-full" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="white" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="white" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0,24 L29,20 L57,22 L86,14 L114,16 L143,8 L171,10 L200,4" fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M0,24 L29,20 L57,22 L86,14 L114,16 L143,8 L171,10 L200,4 L200,32 L0,32 Z" fill="url(#sparkGrad)" />
+              <circle cx="200" cy="4" r="3" fill="white" fillOpacity="0.9" />
+            </svg>
+          </div>
+
+          {/* Breakdown row */}
+          <div className="flex gap-2 mt-3">
+            <div className="flex-1 rounded-xl bg-primary-foreground/10 border border-primary-foreground/10 p-2.5 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-[9px] opacity-60 font-medium">Referrals</p>
+                <Share2 className="w-3 h-3 opacity-40" />
+              </div>
+              <p className="font-bold text-base leading-none">{ecosystem.referralEarnings}</p>
+            </div>
+            <div className="flex-1 rounded-xl bg-primary-foreground/10 border border-primary-foreground/10 p-2.5 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-[9px] opacity-60 font-medium">Missions</p>
+                <Trophy className="w-3 h-3 opacity-40" />
+              </div>
+              <p className="font-bold text-base leading-none">{ecosystem.missionEarnings}</p>
+            </div>
+          </div>
+
+          {/* View Wallet */}
+          <button onClick={() => onNavigate("wallet")} className="w-full mt-3 py-2.5 rounded-xl bg-primary-foreground text-primary text-xs font-bold flex items-center justify-center gap-1.5 transition-all active:scale-[0.97]">
+            <Wallet className="w-3.5 h-3.5" />
+            View Wallet
+            <ChevronRight className="w-3 h-3" />
+          </button>
+        </div>
       </div>
 
       {/* Active Mission Banner */}
