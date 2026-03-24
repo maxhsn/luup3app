@@ -839,7 +839,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
             { name: "MMA Training Tips", members: "1.8k", unread: 3, role: "Member", lastActive: "15m ago" },
             { name: "My Gear Corner", members: "47", unread: 0, role: "Admin", lastActive: "1h ago" },
           ].map((g) => (
-            <button key={g.name} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
+            <button key={g.name} onClick={() => onNavigate("social")} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <Users className="w-4 h-4 text-primary" />
