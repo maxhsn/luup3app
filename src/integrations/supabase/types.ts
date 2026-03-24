@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ecosystem_memberships: {
+        Row: {
+          ecosystem_id: string
+          id: string
+          joined_at: string
+          rank: number | null
+          tier: string
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          ecosystem_id: string
+          id?: string
+          joined_at?: string
+          rank?: number | null
+          tier?: string
+          updated_at?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          ecosystem_id?: string
+          id?: string
+          joined_at?: string
+          rank?: number | null
+          tier?: string
+          updated_at?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
