@@ -94,7 +94,7 @@ export const ecosystems: EcosystemData[] = [
       },
       {
         id: "c6", title: "Attend local MMA event", brand: "UFC", reward: "$50",
-        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", locked: true,
+        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", status: "open", locked: true,
         slots: { taken: 0, total: 10 },
         description: "Attend a verified MMA event and check in via the app. Share a photo from the event.",
         requirements: ["GPS check-in required", "Photo from event", "Must be a verified event"],
