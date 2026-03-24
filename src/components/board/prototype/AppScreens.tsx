@@ -405,43 +405,35 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       )}
 
       {/* ── Hero Earnings Card ── */}
-      <div className="w-full rounded-[20px] bg-foreground p-4 text-background relative overflow-hidden">
+      <div className="w-full rounded-[20px] bg-foreground p-5 text-background relative overflow-hidden">
         {/* Decorative circles */}
         <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-background/[0.04]" />
         <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-background/[0.03]" />
-        <div className="relative z-10 flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-2xl bg-background/10 flex items-center justify-center flex-shrink-0">
-            <Wallet className="w-4.5 h-4.5 text-primary" />
-          </div>
-          <div className="flex-1 min-w-0 text-left">
-            <p className="text-[9px] font-bold text-background/60 uppercase tracking-widest mb-1">Total Earnings</p>
-            <p className="font-display font-black text-[28px] leading-none tracking-tight text-background">{ecosystem.walletBalance}</p>
-            <div className="flex items-center gap-2 mt-1.5">
-              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-stage-participation/25 text-stage-participation text-[9px] font-bold">
-                <TrendingUp className="w-2.5 h-2.5" />{ecosystem.walletGrowth}
-              </span>
-              <span className="text-[9px] text-background/40">this month</span>
-            </div>
-          </div>
-          {/* Mini sparkline chart */}
-          <div className="w-[60px] h-[32px] flex-shrink-0 mr-1">
-            <svg viewBox="0 0 60 32" className="w-full h-full" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path d="M0,28 C4,26 8,24 12,22 C16,20 20,25 24,21 C28,17 32,19 36,15 C40,11 44,13 48,9 C52,5 56,7 60,3"
-                fill="none" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" />
-              <path d="M0,28 C4,26 8,24 12,22 C16,20 20,25 24,21 C28,17 32,19 36,15 C40,11 44,13 48,9 C52,5 56,7 60,3 L60,32 L0,32 Z"
-                fill="url(#sparkGrad)" />
-              <circle cx="60" cy="3" r="2.5" fill="hsl(var(--primary))" />
-            </svg>
+
+        {/* Header */}
+        <div className="relative z-10 flex items-center justify-between mb-4">
+          <p className="text-[13px] font-bold text-background/90">This Month</p>
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-stage-participation/25 text-stage-participation text-[9px] font-bold">
+              <TrendingUp className="w-2.5 h-2.5" />{ecosystem.walletGrowth}
+            </span>
+            <p className="font-display font-black text-xl leading-none tracking-tight text-primary">{ecosystem.walletBalance}</p>
           </div>
         </div>
+
+        {/* Bar chart */}
+        <div className="relative z-10 flex items-end gap-[5px] h-[56px] mb-4">
+          {[28, 32, 24, 36, 40, 38, 48, 52, 50, 56, 54, 46].map((h, i) => (
+            <div key={i} className="flex-1 rounded-t-[3px] bg-primary/70 transition-all" style={{ height: `${h}%` }}>
+              {i === 11 && <div className="w-full h-full rounded-t-[3px] bg-primary" />}
+            </div>
+          ))}
+          {/* Subtle backdrop */}
+          <div className="absolute inset-x-0 bottom-0 h-[56px] rounded-xl bg-background/[0.06] -z-10" />
+        </div>
+
         {/* Breakdown row */}
-        <div className="relative z-10 flex items-center gap-4 mt-3 pt-3 border-t border-background/[0.08]">
+        <div className="relative z-10 flex items-center gap-4 pt-3 border-t border-background/[0.08]">
           <div className="flex-1">
             <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Missions</p>
             <p className="text-sm font-bold text-background/90">{ecosystem.missionEarnings}</p>
