@@ -1553,8 +1553,8 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
         <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-foreground" />
         </button>
-        <button className="absolute top-3 right-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
-          <Heart className="w-4 h-4 text-muted-foreground" />
+        <button onClick={() => setLiked(!liked)} className="absolute top-3 right-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+          <Heart className={`w-4 h-4 ${liked ? "text-destructive fill-destructive" : "text-muted-foreground"}`} />
         </button>
       </div>
       <div className="px-5 py-4 space-y-3">
