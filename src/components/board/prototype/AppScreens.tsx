@@ -550,31 +550,31 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="font-display font-bold text-[13px] text-foreground">🔥 Trending Missions</p>
           <button onClick={() => onNavigate("missions")} className="text-[10px] text-primary font-bold">Explore</button>
         </div>
-        <div className="space-y-2">
-          {ecosystem.missions.filter(m => m.status === "open").slice(0, 3).map((m, i) => (
-            <button key={m.id} onClick={() => onNavigate("missions")}
-              className="w-full flex items-center gap-3 p-3 rounded-2xl border border-border bg-card active:scale-[0.98] transition-transform text-left">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                i === 0 ? "bg-primary/10" : i === 1 ? "bg-stage-participation/10" : "bg-stage-conversion/10"
-              }`}>
-                <Flame className={`w-4 h-4 ${
-                  i === 0 ? "text-primary" : i === 1 ? "text-stage-participation" : "text-stage-conversion"
-                }`} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[11px] font-bold text-foreground truncate">{m.title}</p>
-                <p className="text-[9px] text-muted-foreground mt-0.5">{m.brand} · {m.difficulty} · {m.slots.total - m.slots.taken} spots left</p>
-              </div>
-              <div className="flex flex-col items-end gap-0.5 flex-shrink-0">
-                {m.rewardType !== "points" && (
-                  <span className="px-1.5 py-0.5 rounded-md bg-foreground/85 text-background text-[8px] font-black">{m.reward}</span>
-                )}
-                {(m.rewardType === "points" || m.rewardType === "mixed") && m.pointsReward && (
-                  <span className="px-1.5 py-0.5 rounded-md bg-primary/15 text-primary text-[8px] font-black">{m.pointsReward}pts</span>
-                )}
-              </div>
-            </button>
-          ))}
+        <div className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-4 px-4">
+          {ecosystem.missions.filter(m => m.status === "open").slice(0, 3).map((m, i) => {
+            const gradients = ["from-primary/20 to-primary/5", "from-stage-participation/20 to-stage-participation/5", "from-stage-conversion/20 to-stage-conversion/5"];
+            const iconColors = ["text-primary/50", "text-stage-participation/50", "text-stage-conversion/50"];
+            return (
+              <button key={m.id} onClick={() => onNavigate("missions")}
+                className="flex-shrink-0 w-[150px] rounded-2xl border border-border bg-card overflow-hidden text-left active:scale-[0.97] transition-transform">
+                <div className={`w-full h-[70px] bg-gradient-to-br ${gradients[i % gradients.length]} relative flex items-center justify-center`}>
+                  <Flame className={`w-5 h-5 ${iconColors[i % iconColors.length]}`} />
+                  <div className="absolute top-1.5 right-1.5 flex flex-col items-end gap-0.5">
+                    {m.rewardType !== "points" && (
+                      <span className="px-1.5 py-0.5 rounded-md bg-foreground/85 text-background text-[8px] font-black">{m.reward}</span>
+                    )}
+                    {(m.rewardType === "points" || m.rewardType === "mixed") && m.pointsReward && (
+                      <span className="px-1.5 py-0.5 rounded-md bg-primary/15 text-primary text-[8px] font-black">{m.pointsReward}pts</span>
+                    )}
+                  </div>
+                </div>
+                <div className="p-2.5">
+                  <p className="text-[10px] font-bold text-foreground truncate leading-tight">{m.title}</p>
+                  <p className="text-[8px] text-muted-foreground mt-0.5">{m.brand} · {m.slots.total - m.slots.taken} spots</p>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
       {/* ── Trending Offers (horizontal scroll) ── */}
