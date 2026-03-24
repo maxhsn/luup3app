@@ -663,28 +663,95 @@ export const LeaderboardScreen = ({ onBack, ecosystem }: { onBack: () => void; e
   );
 };
 
-/* ═══════ SOCIAL WALL ═══════ */
-export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => (
-  <div className="px-5 py-4 space-y-4">
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-          <ArrowLeft className="w-4 h-4 text-foreground" />
-        </button>
-        <p className="font-display font-bold text-lg text-foreground">Community</p>
+/* ═══════ SOCIAL WALL / COMMUNITY ═══════ */
+export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
+  const [activeChannel, setActiveChannel] = useState("general");
+  return (
+    <div className="px-5 py-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+            <ArrowLeft className="w-4 h-4 text-foreground" />
+          </button>
+          <p className="font-display font-bold text-lg text-foreground">Community</p>
+        </div>
+        <div className="flex gap-2">
+          <button className="w-9 h-9 rounded-full bg-muted flex items-center justify-center">
+            <Search className="w-4 h-4 text-muted-foreground" />
+          </button>
+          <button className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
+            <Plus className="w-4 h-4 text-primary-foreground" />
+          </button>
+        </div>
       </div>
-      <button className="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
-        <Plus className="w-4 h-4 text-primary-foreground" />
-      </button>
+
+      {/* Channel Tabs */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar">
+        {[
+          { id: "general", label: "General", icon: <MessageCircle className="w-3 h-3" /> },
+          { id: "gear", label: "Gear Talk", icon: <ShoppingBag className="w-3 h-3" /> },
+          { id: "training", label: "Training", icon: <Flame className="w-3 h-3" /> },
+          { id: "wins", label: "Wins", icon: <Trophy className="w-3 h-3" /> },
+        ].map((ch) => (
+          <button
+            key={ch.id}
+            onClick={() => setActiveChannel(ch.id)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0 transition-all ${
+              activeChannel === ch.id ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+            }`}
+          >
+            {ch.icon} {ch.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Pinned Challenge */}
+      <div className="rounded-2xl border border-primary/20 bg-primary/5 p-3">
+        <div className="flex items-center gap-2 mb-2">
+          <Award className="w-4 h-4 text-primary" />
+          <p className="text-[10px] font-bold text-primary uppercase tracking-wide">Pinned Challenge</p>
+        </div>
+        <p className="text-xs font-bold text-foreground">Show us your training setup</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5">Share a photo of your home gym or training space. Best setup wins $100 store credit.</p>
+        <div className="flex items-center justify-between mt-2.5">
+          <div className="flex items-center gap-1.5">
+            <div className="flex -space-x-1.5">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="w-5 h-5 rounded-full bg-muted border border-card" />
+              ))}
+            </div>
+            <span className="text-[9px] text-muted-foreground">89 entries</span>
+          </div>
+          <button className="px-3 py-1 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">Enter</button>
+        </div>
+      </div>
+
+      {/* Trending in Community */}
+      <div>
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Trending Now</p>
+        <div className="flex gap-2 overflow-x-auto no-scrollbar">
+          {[
+            { tag: "#TrainHard", posts: "1.2k" },
+            { tag: "#GearReview", posts: "847" },
+            { tag: "#FightWeek", posts: "623" },
+            { tag: "#NewPR", posts: "412" },
+          ].map((t) => (
+            <div key={t.tag} className="flex-shrink-0 px-3 py-2 rounded-xl border border-border bg-card">
+              <p className="text-[10px] font-bold text-primary">{t.tag}</p>
+              <p className="text-[9px] text-muted-foreground">{t.posts} posts</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Posts */}
+      <SocialPost author="Sarah Martinez" time="2h ago" content="Just finished sparring with my new Venum Challenger 3.0 gloves! The padding is next level compared to the 2.0." likes={42} comments={8} reposts={6} hasImage productTag="Venum Challenger 3.0" onProductClick={() => onNavigate("product")} verified />
+      <SocialPost author="Mike Torres" time="5h ago" content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made." likes={89} comments={15} reposts={12} hasImage badge="Top Contributor" />
+      <SocialPost author="LUUP Official" time="1d ago" content="New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started." likes={234} comments={47} reposts={31} isBrand />
+      <SocialPost author="Jess Kim" time="2d ago" content="Just hit Gold tier on LUUP!! The rewards just keep getting better." likes={156} comments={23} reposts={8} badge="Gold Ambassador" />
     </div>
-
-    <SocialPost author="Sarah Martinez" time="2h ago" content="Just finished sparring with my new Venum Challenger 3.0 gloves! These are absolutely 🔥" likes={42} comments={8} hasImage productTag="Venum Challenger 3.0" onProductClick={() => onNavigate("product")} />
-    <SocialPost author="Mike Torres" time="5h ago" content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made 💪" likes={89} comments={15} hasImage />
-    <SocialPost author="LUUP Official" time="1d ago" content="🎉 New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started." likes={234} comments={47} isBrand />
-    <SocialPost author="Jess Kim" time="2d ago" content="Just hit Gold tier on LUUP!! 🏆 The rewards just keep getting better. If you haven't joined yet, use my code: JESS-LUUP" likes={156} comments={23} />
-  </div>
-);
-
+  );
+};
 /* ═══════ BRAND PAGE ═══════ */
 export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [activeTab, setActiveTab] = useState<"products" | "missions" | "social" | "community">("products");
