@@ -1715,7 +1715,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
       )}
 
       {/* Social handles */}
-      <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+      <div className="flex flex-wrap gap-1.5">
         {[
           { platform: "IG", handle: "@alex_fights", emoji: "📸" },
           { platform: "TikTok", handle: "@alexmma", emoji: "🎵" },
