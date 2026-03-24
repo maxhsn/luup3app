@@ -449,7 +449,7 @@ export const ecosystems: EcosystemData[] = [
       },
       {
         id: "fd6", title: "Attend a food festival booth", brand: "Liquid Death", reward: "$40",
-        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", locked: true,
+        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", status: "open", locked: true,
         slots: { taken: 0, total: 10 },
         description: "Visit a Liquid Death booth at a food festival and check in.",
         requirements: ["GPS check-in", "Booth photo", "Verified event"],
