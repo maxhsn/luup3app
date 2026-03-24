@@ -110,63 +110,75 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       </div>
 
       {/* Earnings Infographic */}
-      <div className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary to-primary/80 p-4 text-primary-foreground relative overflow-hidden">
-        {/* Decorative circles */}
-        <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-primary-foreground/5" />
-        <div className="absolute -bottom-8 -left-4 w-20 h-20 rounded-full bg-primary-foreground/5" />
+      <div className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary/95 to-primary/75 p-5 text-primary-foreground relative overflow-hidden shadow-lg">
+        {/* Decorative glows */}
+        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary-foreground/[0.04]" />
+        <div className="absolute top-1/2 -left-8 w-24 h-24 rounded-full bg-primary-foreground/[0.03]" />
+        <div className="absolute bottom-0 right-1/3 w-16 h-16 rounded-full bg-primary-foreground/[0.03]" />
         
         <div className="relative z-10">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-1">
-            <p className="text-[10px] opacity-70 font-medium tracking-wide uppercase">{ecosystem.emoji} {ecosystem.label}</p>
-            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-400/20 text-green-200 text-[9px] font-bold">
-              <TrendingUp className="w-2.5 h-2.5" />
-              {ecosystem.walletGrowth}
+          {/* Header row */}
+          <div className="flex items-center justify-between">
+            <p className="text-[10px] opacity-60 font-semibold tracking-[0.12em] uppercase">{ecosystem.emoji} {ecosystem.label}</p>
+            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/10 text-[9px] font-bold backdrop-blur-sm">
+              <TrendingUp className="w-2.5 h-2.5 text-green-300" />
+              <span className="text-green-200">{ecosystem.walletGrowth}</span>
             </div>
           </div>
 
           {/* Balance */}
-          <p className="font-display font-black text-[32px] leading-tight tracking-tight">{ecosystem.walletBalance}</p>
-          <p className="text-[10px] opacity-50 mt-0.5">Total earned this month</p>
+          <p className="font-display font-black text-[34px] leading-none tracking-tight mt-2">{ecosystem.walletBalance}</p>
+          <p className="text-[10px] opacity-40 mt-1 font-medium">Total earned this month</p>
 
-          {/* Spark chart */}
-          <div className="mt-3 h-8">
-            <svg viewBox="0 0 200 32" className="w-full h-full" preserveAspectRatio="none">
+          {/* Sparkline area chart */}
+          <div className="mt-4 h-10 -mx-1">
+            <svg viewBox="0 0 220 40" className="w-full h-full" preserveAspectRatio="none">
               <defs>
-                <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="white" stopOpacity="0.25" />
-                  <stop offset="100%" stopColor="white" stopOpacity="0" />
+                <linearGradient id="sparkAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="white" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="white" stopOpacity="0.02" />
                 </linearGradient>
               </defs>
-              <path d="M0,24 L29,20 L57,22 L86,14 L114,16 L143,8 L171,10 L200,4" fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M0,24 L29,20 L57,22 L86,14 L114,16 L143,8 L171,10 L200,4 L200,32 L0,32 Z" fill="url(#sparkGrad)" />
-              <circle cx="200" cy="4" r="3" fill="white" fillOpacity="0.9" />
+              {/* Grid lines */}
+              <line x1="0" y1="13" x2="220" y2="13" stroke="white" strokeOpacity="0.06" strokeDasharray="4 4" />
+              <line x1="0" y1="26" x2="220" y2="26" stroke="white" strokeOpacity="0.06" strokeDasharray="4 4" />
+              {/* Area fill */}
+              <path d="M0,30 C18,28 25,26 37,24 C50,22 60,25 75,22 C90,19 100,16 115,14 C130,12 140,15 155,12 C170,9 180,7 195,6 C205,5 215,4 220,3 L220,40 L0,40 Z" fill="url(#sparkAreaGrad)" />
+              {/* Line */}
+              <path d="M0,30 C18,28 25,26 37,24 C50,22 60,25 75,22 C90,19 100,16 115,14 C130,12 140,15 155,12 C170,9 180,7 195,6 C205,5 215,4 220,3" fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.7" strokeLinecap="round" />
+              {/* Endpoint glow */}
+              <circle cx="220" cy="3" r="4" fill="white" fillOpacity="0.15" />
+              <circle cx="220" cy="3" r="2.5" fill="white" fillOpacity="0.9" />
             </svg>
           </div>
 
-          {/* Breakdown row */}
-          <div className="flex gap-2 mt-3">
-            <div className="flex-1 rounded-xl bg-primary-foreground/10 border border-primary-foreground/10 p-2.5 backdrop-blur-sm">
-              <div className="flex items-center justify-between mb-1.5">
-                <p className="text-[9px] opacity-60 font-medium">Referrals</p>
-                <Share2 className="w-3 h-3 opacity-40" />
+          {/* Breakdown cards */}
+          <div className="flex gap-2.5 mt-4">
+            <div className="flex-1 rounded-xl bg-primary-foreground/[0.08] border border-primary-foreground/[0.08] p-3 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[9px] opacity-50 font-semibold tracking-wide">Referrals</p>
+                <div className="w-5 h-5 rounded-md bg-primary-foreground/10 flex items-center justify-center">
+                  <Share2 className="w-2.5 h-2.5 opacity-50" />
+                </div>
               </div>
-              <p className="font-bold text-base leading-none">{ecosystem.referralEarnings}</p>
+              <p className="font-bold text-lg leading-none">{ecosystem.referralEarnings}</p>
             </div>
-            <div className="flex-1 rounded-xl bg-primary-foreground/10 border border-primary-foreground/10 p-2.5 backdrop-blur-sm">
-              <div className="flex items-center justify-between mb-1.5">
-                <p className="text-[9px] opacity-60 font-medium">Missions</p>
-                <Trophy className="w-3 h-3 opacity-40" />
+            <div className="flex-1 rounded-xl bg-primary-foreground/[0.08] border border-primary-foreground/[0.08] p-3 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[9px] opacity-50 font-semibold tracking-wide">Missions</p>
+                <div className="w-5 h-5 rounded-md bg-primary-foreground/10 flex items-center justify-center">
+                  <Trophy className="w-2.5 h-2.5 opacity-50" />
+                </div>
               </div>
-              <p className="font-bold text-base leading-none">{ecosystem.missionEarnings}</p>
+              <p className="font-bold text-lg leading-none">{ecosystem.missionEarnings}</p>
             </div>
           </div>
 
-          {/* View Wallet */}
-          <button onClick={() => onNavigate("wallet")} className="w-full mt-3 py-2.5 rounded-xl bg-primary-foreground text-primary text-xs font-bold flex items-center justify-center gap-1.5 transition-all active:scale-[0.97]">
-            <Wallet className="w-3.5 h-3.5" />
+          {/* View Wallet CTA */}
+          <button onClick={() => onNavigate("wallet")} className="w-full mt-4 py-3 rounded-xl bg-primary-foreground text-primary text-[11px] font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.97] shadow-sm">
+            <Wallet className="w-4 h-4" />
             View Wallet
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-3.5 h-3.5 opacity-50" />
           </button>
         </div>
       </div>
