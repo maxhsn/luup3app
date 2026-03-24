@@ -5,7 +5,8 @@ import {
   Share2, Plus, Check, ArrowLeft, Wallet, Send, ThumbsUp,
   Camera, Image, CreditCard, Package, Shield, ChevronDown,
   Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot,
-  Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video
+  Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video,
+  Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot
 } from "lucide-react";
 import { type EcosystemData, ecosystems } from "./ecosystemData";
 
