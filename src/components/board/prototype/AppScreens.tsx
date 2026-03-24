@@ -443,18 +443,18 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         {/* Breakdown row */}
         <div className="relative z-10 flex items-center gap-4 mt-3 pt-3 border-t border-background/[0.08]">
           <div className="flex-1">
-            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Referrals</p>
-            <p className="text-sm font-bold text-background/90">{ecosystem.referralEarnings}</p>
-          </div>
-          <div className="w-px h-6 bg-background/[0.1]" />
-          <div className="flex-1">
             <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Missions</p>
             <p className="text-sm font-bold text-background/90">{ecosystem.missionEarnings}</p>
           </div>
           <div className="w-px h-6 bg-background/[0.1]" />
           <div className="flex-1">
-            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Cashback</p>
-            <p className="text-sm font-bold text-background/90">$48</p>
+            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Referrals</p>
+            <p className="text-sm font-bold text-background/90">{ecosystem.referralEarnings}</p>
+          </div>
+          <div className="w-px h-6 bg-background/[0.1]" />
+          <div className="flex-1">
+            <p className="text-[8px] uppercase tracking-wider text-background/40 font-semibold">Points</p>
+            <p className="text-sm font-bold text-background/90">{ecosystem.pointsBalance}</p>
           </div>
         </div>
         {/* Wallet Button */}
