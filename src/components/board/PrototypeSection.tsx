@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   Search, Home, ShoppingBag, Trophy, User, Flame, Gift,
-  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen
+  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen, Users
 } from "lucide-react";
 import {
   type Screen,
@@ -72,7 +72,7 @@ const PrototypeSection = () => {
           <FeatureCallout icon={<Flame className="w-5 h-5" />} title="Mission Engine" desc="Gamified tasks with streaks, daily rewards, and progress tracking." active={screen === "missions"} onClick={() => navigate("missions")} interactions={6} />
           <FeatureCallout icon={<Wallet className="w-5 h-5" />} title="Wallet & Rewards" desc="Points, tiers, cashback, redemptions, and transaction history." active={screen === "wallet"} onClick={() => navigate("wallet")} interactions={7} />
           <FeatureCallout icon={<Trophy className="w-5 h-5" />} title="Leaderboard" desc="Community rankings with podium, rivalry badges, and challenges." active={screen === "leaderboard"} onClick={() => navigate("leaderboard")} interactions={6} />
-          <FeatureCallout icon={<MessageCircle className="w-5 h-5" />} title="Social Wall" desc="UGC feed with product tags, likes, comments, and sharing." active={screen === "social"} onClick={() => navigate("social")} interactions={8} />
+          <FeatureCallout icon={<Users className="w-5 h-5" />} title="Community Hub" desc="Strava-style groups for best practices, royalty tips, and training." active={screen === "social"} onClick={() => navigate("social")} interactions={8} />
         </div>
 
         {/* Center: Phone */}
@@ -110,7 +110,7 @@ const PrototypeSection = () => {
               <div className="border-t border-border bg-card px-2 pb-5 pt-2">
                 <div className="flex justify-around">
                   <TabBtn icon={<Home />} label="Home" active={screen === "home"} onClick={() => navigate("home")} />
-                  <TabBtn icon={<MessageCircle />} label="Social" active={screen === "explore"} onClick={() => navigate("explore")} />
+                  <TabBtn icon={<Users />} label="Community" active={screen === "explore"} onClick={() => navigate("explore")} />
                   <TabBtn icon={<Flame />} label="Missions" active={screen === "missions"} onClick={() => navigate("missions")} />
                   <TabBtn icon={<ShoppingBag />} label="Brands" active={screen === "store"} onClick={() => navigate("store")} />
                   <TabBtn icon={<User />} label="Profile" active={screen === "profile"} onClick={() => navigate("profile")} />
@@ -126,7 +126,7 @@ const PrototypeSection = () => {
 
         {/* Right: Context info */}
         <div className="hidden lg:flex flex-col gap-3 pt-12">
-          <FeatureCallout icon={<MessageCircle className="w-5 h-5" />} title="Social Wall" desc="UGC feed with stories, product tags, likes, comments, and sharing." active={screen === "explore"} onClick={() => navigate("explore")} interactions={8} />
+          <FeatureCallout icon={<Users className="w-5 h-5" />} title="Community" desc="Create & join groups, share strategies, and discuss best practices." active={screen === "explore"} onClick={() => navigate("explore")} interactions={10} />
           <FeatureCallout icon={<ShoppingBag className="w-5 h-5" />} title="Brands & Royalties" desc="Browse brand partners, view royalty rates, and add products to your storefront." active={screen === "storefront" || screen === "store"} onClick={() => navigate("store")} interactions={7} />
           <FeatureCallout icon={<BookOpen className="w-5 h-5" />} title="Brand Pages" desc="Brand hubs with products, missions, social wall, and community." active={screen === "brand"} onClick={() => navigate("brand")} interactions={8} />
           <FeatureCallout icon={<User className="w-5 h-5" />} title="Profile & Ambassador" desc="Stats, referral tools, earnings, and ambassador tier progression." active={screen === "profile"} onClick={() => navigate("profile")} interactions={8} />
@@ -137,8 +137,8 @@ const PrototypeSection = () => {
       {/* Mobile screen pills */}
       <div className="flex lg:hidden gap-2 overflow-x-auto no-scrollbar mt-6 pb-2">
         {([
-          { label: "Home", s: "home" }, { label: "Social", s: "explore" }, { label: "Missions", s: "missions" },
-          { label: "Wallet", s: "wallet" }, { label: "Leaderboard", s: "leaderboard" }, { label: "Social", s: "social" },
+          { label: "Home", s: "home" }, { label: "Community", s: "explore" }, { label: "Missions", s: "missions" },
+          { label: "Wallet", s: "wallet" }, { label: "Leaderboard", s: "leaderboard" },
           { label: "Brands", s: "store" }, { label: "Brand", s: "brand" }, { label: "Checkout", s: "checkout" }, { label: "Profile", s: "profile" },
         ] as { label: string; s: Screen }[]).map((item) => (
           <button key={item.s} onClick={() => navigate(item.s)} className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${screen === item.s ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>

@@ -611,13 +611,13 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
   );
 };
 
-/* ═══════ SOCIAL FEED (TAB) ═══════ */
+/* ═══════ COMMUNITY (TAB) — Strava-style ═══════ */
 export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
-  const [feedTab, setFeedTab] = useState<"trending" | "following" | "challenges">("trending");
+  const [tab, setTab] = useState<"discover" | "my" | "feed">("discover");
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center justify-between">
-        <p className="font-display font-bold text-lg text-foreground">Social</p>
+        <p className="font-display font-bold text-lg text-foreground">Community</p>
         <div className="flex gap-2">
           <button className="w-9 h-9 rounded-full bg-muted flex items-center justify-center">
             <Search className="w-4 h-4 text-muted-foreground" />
@@ -628,193 +628,136 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
         </div>
       </div>
 
-      {/* Story-style row */}
-      <div className="flex gap-4 overflow-x-auto no-scrollbar py-1">
-        {[
-          { name: "Your Story", isYou: true },
-          { name: "Sarah M.", hasNew: true, live: false },
-          { name: "Mike T.", hasNew: true, live: true },
-          { name: "Jess K.", hasNew: false, live: false },
-          { name: "LUUP", hasNew: true, live: false, isBrand: true },
-          { name: "Jake S.", hasNew: true, live: false },
-        ].map((s) => (
-          <div key={s.name} className="flex flex-col items-center gap-1.5 flex-shrink-0 relative">
-            <div className={`w-16 h-16 rounded-full p-[3px] ${
-              s.isYou ? "" :
-              s.hasNew ? "bg-gradient-to-tr from-primary to-primary/60" : ""
-            }`}>
-              <div className={`w-full h-full rounded-full flex items-center justify-center ${
-                s.isYou ? "border-[2.5px] border-dashed border-muted-foreground/30 bg-muted" :
-                s.hasNew ? "bg-card ring-[2.5px] ring-card" : "bg-muted ring-2 ring-border"
-              }`}>
-                {s.isYou ? <Plus className="w-5 h-5 text-muted-foreground/50" /> :
-                 s.isBrand ? <Zap className="w-5 h-5 text-primary" /> :
-                 <div className="w-full h-full rounded-full bg-muted-foreground/10" />}
-              </div>
-            </div>
-            {s.live && (
-              <span className="absolute bottom-5 left-1/2 -translate-x-1/2 px-1.5 py-0 rounded-sm bg-destructive text-[7px] font-bold text-destructive-foreground uppercase tracking-wide z-10">Live</span>
-            )}
-            <span className="text-[10px] text-muted-foreground font-medium truncate w-16 text-center">{s.name}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Create Post Prompt */}
-      <button className="w-full flex items-center gap-3 p-3 rounded-2xl border border-border bg-card">
-        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-          <span className="text-xs font-bold text-primary">A</span>
-        </div>
-        <span className="text-xs text-muted-foreground flex-1 text-left">Share your latest gear, training, or win...</span>
-        <div className="flex gap-1.5">
-          <Camera className="w-4 h-4 text-muted-foreground" />
-          <Video className="w-4 h-4 text-muted-foreground" />
-        </div>
-      </button>
-
-      {/* Feed Tabs */}
+      {/* Tabs */}
       <div className="flex gap-1 bg-muted rounded-xl p-1">
-        {(["trending", "following", "challenges"] as const).map((t) => (
-          <button key={t} onClick={() => setFeedTab(t)} className={`flex-1 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${feedTab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-            {t}
+        {(["discover", "my", "feed"] as const).map((t) => (
+          <button key={t} onClick={() => setTab(t)} className={`flex-1 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${tab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+            {t === "my" ? "My Groups" : t === "feed" ? "Activity" : "Discover"}
           </button>
         ))}
       </div>
 
-      {/* Trending Topics Bar */}
-      {feedTab === "trending" && (
-        <div className="flex gap-2 overflow-x-auto no-scrollbar">
-          {["#GearReview", "#TrainHard", "#LUUPGold", "#FightWeek", "#NewDrop"].map((tag) => (
-            <span key={tag} className="flex-shrink-0 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold">{tag}</span>
+      {/* Discover Tab */}
+      {tab === "discover" && (
+        <div className="space-y-3">
+          {/* Featured Community */}
+          <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-1.5">
+                  <p className="text-sm font-bold text-foreground">Royalty Earners Club</p>
+                  <Star className="w-3 h-3 text-primary fill-primary" />
+                </div>
+                <p className="text-[10px] text-muted-foreground">Tips & strategies to maximise your royalties</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex -space-x-2">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="w-6 h-6 rounded-full bg-muted border-2 border-card" />
+                  ))}
+                </div>
+                <span className="text-[10px] text-muted-foreground">2.4k members</span>
+              </div>
+              <button className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">Join</button>
+            </div>
+          </div>
+
+          {/* Community Cards */}
+          {[
+            { name: "MMA Training Tips", members: "1.8k", posts: "340/wk", icon: <Flame className="w-4 h-4 text-primary" />, category: "Training" },
+            { name: "Affiliate Best Practices", members: "956", posts: "120/wk", icon: <TrendingUp className="w-4 h-4 text-primary" />, category: "Earning" },
+            { name: "Gear Reviews & Deals", members: "3.1k", posts: "580/wk", icon: <ShoppingBag className="w-4 h-4 text-primary" />, category: "Gear" },
+            { name: "Fight Camp Diaries", members: "742", posts: "95/wk", icon: <BookOpen className="w-4 h-4 text-primary" />, category: "Lifestyle" },
+            { name: "Brand Ambassador Hub", members: "1.2k", posts: "210/wk", icon: <Award className="w-4 h-4 text-primary" />, category: "Earning" },
+          ].map((c) => (
+            <button key={c.name} className="w-full rounded-2xl border border-border bg-card p-3.5 text-left active:scale-[0.98] transition-transform">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">{c.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-bold text-foreground truncate">{c.name}</p>
+                    <span className="px-2 py-0.5 rounded-full bg-muted text-[8px] font-bold text-muted-foreground flex-shrink-0">{c.category}</span>
+                  </div>
+                  <div className="flex items-center gap-3 mt-1">
+                    <span className="text-[10px] text-muted-foreground flex items-center gap-1"><Users className="w-3 h-3" />{c.members}</span>
+                    <span className="text-[10px] text-muted-foreground flex items-center gap-1"><MessageCircle className="w-3 h-3" />{c.posts}</span>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </div>
+            </button>
+          ))}
+
+          {/* Create Your Own */}
+          <button className="w-full rounded-2xl border-2 border-dashed border-border p-4 flex items-center justify-center gap-2 text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors">
+            <Plus className="w-4 h-4" />
+            <span className="text-xs font-bold">Start Your Own Community</span>
+          </button>
+        </div>
+      )}
+
+      {/* My Groups Tab */}
+      {tab === "my" && (
+        <div className="space-y-3">
+          {[
+            { name: "Royalty Earners Club", members: "2.4k", unread: 12, role: "Member", lastActive: "2m ago" },
+            { name: "MMA Training Tips", members: "1.8k", unread: 3, role: "Member", lastActive: "15m ago" },
+            { name: "My Gear Corner", members: "47", unread: 0, role: "Admin", lastActive: "1h ago" },
+          ].map((g) => (
+            <button key={g.name} className="w-full rounded-2xl border border-border bg-card p-3.5 text-left active:scale-[0.98] transition-transform">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Users className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs font-bold text-foreground truncate">{g.name}</p>
+                    {g.role === "Admin" && <span className="px-1.5 py-0.5 rounded bg-primary/10 text-[8px] font-bold text-primary">Admin</span>}
+                  </div>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-[10px] text-muted-foreground">{g.members} members</span>
+                    <span className="text-[10px] text-muted-foreground">· {g.lastActive}</span>
+                  </div>
+                </div>
+                {g.unread > 0 && (
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[9px] font-bold flex items-center justify-center flex-shrink-0">{g.unread}</span>
+                )}
+              </div>
+            </button>
           ))}
         </div>
       )}
 
-      {/* Posts */}
-      {feedTab === "trending" && (
-        <div className="space-y-3">
-          <SocialPost
-            author="Sarah Martinez"
-            time="2h ago"
-            content="Just finished sparring with my new Venum Challenger 3.0 gloves! The wrist support is unreal — 10/10 for heavy bag work."
-            likes={42}
-            comments={8}
-            reposts={6}
-            hasImage
-            productTag="Venum Challenger 3.0"
-            onProductClick={() => onNavigate("product")}
-            verified
-          />
-          <SocialPost
-            author="Mike Torres"
-            time="5h ago"
-            content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made. Who else is on this mission?"
-            likes={89}
-            comments={15}
-            reposts={12}
-            hasImage
-            badge="Top Contributor"
-          />
-
-          {/* Challenge Card */}
-          <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-4 space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-primary/15 flex items-center justify-center">
-                <Trophy className="w-4 h-4 text-primary" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs font-bold text-foreground">Community Challenge</p>
-                <p className="text-[10px] text-muted-foreground">Share your training setup</p>
-              </div>
-              <span className="px-2 py-0.5 rounded-full bg-stage-participation/10 text-stage-participation text-[9px] font-bold">3 days left</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="w-6 h-6 rounded-full bg-muted border-2 border-card" />
-                ))}
-              </div>
-              <span className="text-[10px] text-muted-foreground">247 participants</span>
-              <button className="ml-auto px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">Join</button>
-            </div>
-          </div>
-
-          <SocialPost
-            author="LUUP Official"
-            time="1d ago"
-            content="New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started."
-            likes={234}
-            comments={47}
-            reposts={31}
-            isBrand
-          />
-          <SocialPost
-            author="Jess Kim"
-            time="2d ago"
-            content="Just hit Gold tier on LUUP!! The rewards just keep getting better. If you haven't joined yet, use my code: JESS-LUUP"
-            likes={156}
-            comments={23}
-            reposts={8}
-            badge="Gold Ambassador"
-          />
-        </div>
-      )}
-
-      {feedTab === "following" && (
-        <div className="space-y-3">
-          <SocialPost
-            author="Jake Shields"
-            time="1h ago"
-            content="New product added to my storefront — the Sanabul Essential series. Great value for beginners and my recommended starter set."
-            likes={312}
-            comments={44}
-            reposts={28}
-            hasImage
-            productTag="Sanabul Essential"
-            onProductClick={() => onNavigate("product")}
-            verified
-          />
-          <SocialPost
-            author="Sarah Martinez"
-            time="4h ago"
-            content="Morning pad work done. Nothing beats starting the day with 6 rounds on the mitts."
-            likes={67}
-            comments={5}
-            reposts={2}
-            hasImage
-          />
-        </div>
-      )}
-
-      {feedTab === "challenges" && (
+      {/* Activity Feed Tab */}
+      {tab === "feed" && (
         <div className="space-y-3">
           {[
-            { title: "30-Day Training Streak", participants: 1247, reward: "$50", daysLeft: 18, progress: 40 },
-            { title: "Share Your Setup", participants: 247, reward: "$25", daysLeft: 3, progress: 0 },
-            { title: "Refer 5 Friends", participants: 892, reward: "$100", daysLeft: 12, progress: 60 },
-          ].map((c) => (
-            <div key={c.title} className="rounded-2xl border border-border bg-card p-4 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-bold text-foreground">{c.title}</p>
-                <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[9px] font-bold">{c.reward}</span>
-              </div>
-              <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                <Users className="w-3 h-3" />
-                <span>{c.participants.toLocaleString()} joined</span>
-                <span className="text-muted-foreground/40">·</span>
-                <span>{c.daysLeft} days left</span>
-              </div>
-              {c.progress > 0 && (
-                <div>
-                  <div className="h-1.5 rounded-full bg-muted">
-                    <div className="h-full rounded-full bg-primary" style={{ width: `${c.progress}%` }} />
-                  </div>
-                  <p className="text-[9px] text-muted-foreground mt-1">Your progress: {c.progress}%</p>
+            { author: "Sarah M.", group: "Royalty Earners Club", content: "Sharing my strategy: I focus on 3 brands max and create dedicated content per brand. My royalties went from $40 to $320/mo 🚀", time: "20m ago", likes: 89, replies: 23 },
+            { author: "Jake Shields", group: "MMA Training Tips", content: "Pro tip: film your product unboxings and post to the Social Wall. Brands notice and you get featured = more royalties.", time: "1h ago", likes: 156, replies: 41 },
+            { author: "Coach Ray", group: "Fight Camp Diaries", content: "Best way to structure your storefront — put best-sellers at the top and add personal review notes. Conversion goes way up.", time: "3h ago", likes: 67, replies: 12 },
+            { author: "LUUP Team", group: "Brand Ambassador Hub", content: "📢 New feature: You can now track which products earn you the highest royalties in your Wallet analytics!", time: "5h ago", likes: 312, replies: 87 },
+          ].map((post, i) => (
+            <div key={i} className="rounded-2xl border border-border bg-card p-3.5 space-y-2">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                  <span className="text-[10px] font-bold text-foreground">{post.author.charAt(0)}</span>
                 </div>
-              )}
-              <button className="w-full py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold">
-                {c.progress > 0 ? "Continue" : "Join Challenge"}
-              </button>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[11px] font-bold text-foreground">{post.author}</p>
+                  <p className="text-[9px] text-primary font-semibold">{post.group} · {post.time}</p>
+                </div>
+              </div>
+              <p className="text-[11px] text-foreground/90 leading-relaxed">{post.content}</p>
+              <div className="flex items-center gap-4 pt-1">
+                <span className="text-[10px] text-muted-foreground flex items-center gap-1"><Heart className="w-3 h-3" />{post.likes}</span>
+                <span className="text-[10px] text-muted-foreground flex items-center gap-1"><MessageCircle className="w-3 h-3" />{post.replies}</span>
+                <span className="text-[10px] text-muted-foreground flex items-center gap-1 ml-auto"><Share2 className="w-3 h-3" />Share</span>
+              </div>
             </div>
           ))}
         </div>
@@ -822,7 +765,6 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
     </div>
   );
 };
-
 /* ═══════ MISSIONS ═══════ */
 export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen) => void; ecosystem: EcosystemData }) => {
   const [filter, setFilter] = useState<"all" | "active" | "available" | "completed">("all");
