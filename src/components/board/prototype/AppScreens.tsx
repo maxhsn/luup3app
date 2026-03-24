@@ -8,7 +8,7 @@ import {
   Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video,
   Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot
 } from "lucide-react";
-import { type EcosystemData, ecosystems } from "./ecosystemData";
+import { type EcosystemData, type MissionData, type MissionSubmissionType, type MissionStatus, ecosystems } from "./ecosystemData";
 
 export type Screen =
   | "start" | "home" | "explore" | "missions" | "store" | "profile"
