@@ -4,7 +4,8 @@ import {
   ChevronRight, Bell, MessageCircle, Flame, Gift, TrendingUp,
   Share2, Plus, Check, ArrowLeft, Wallet, Send, ThumbsUp,
   Camera, Image, CreditCard, Package, Shield, ChevronDown,
-  Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot
+  Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot,
+  Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video
 } from "lucide-react";
 import { type EcosystemData, ecosystems } from "./ecosystemData";
 
