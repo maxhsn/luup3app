@@ -1710,9 +1710,9 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
 
       {/* Share Popup */}
       {showShare && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={() => { setShowShare(false); setLinkCopied(false); }}>
-          <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" />
-          <div className="relative w-full max-w-[320px] bg-card rounded-t-3xl border border-border p-5 space-y-4 animate-scale-in mb-0" onClick={(e) => e.stopPropagation()}>
+        <div className="absolute inset-0 z-50 flex items-end justify-center" onClick={() => { setShowShare(false); setLinkCopied(false); }}>
+          <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm rounded-[2rem]" />
+          <div className="relative w-full bg-card rounded-t-3xl border border-border p-5 space-y-4 animate-scale-in" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <p className="font-display font-bold text-base text-foreground">Share Storefront</p>
               <button onClick={() => { setShowShare(false); setLinkCopied(false); }} className="w-7 h-7 rounded-full bg-muted flex items-center justify-center">
