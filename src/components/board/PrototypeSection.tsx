@@ -137,8 +137,8 @@ const PrototypeSection = () => {
       {/* Mobile screen pills */}
       <div className="flex lg:hidden gap-2 overflow-x-auto no-scrollbar mt-6 pb-2">
         {([
-          { label: "Home", s: "home" }, { label: "Social", s: "explore" }, { label: "Missions", s: "missions" },
-          { label: "Wallet", s: "wallet" }, { label: "Leaderboard", s: "leaderboard" }, { label: "Social", s: "social" },
+          { label: "Home", s: "home" }, { label: "Community", s: "explore" }, { label: "Missions", s: "missions" },
+          { label: "Wallet", s: "wallet" }, { label: "Leaderboard", s: "leaderboard" },
           { label: "Brands", s: "store" }, { label: "Brand", s: "brand" }, { label: "Checkout", s: "checkout" }, { label: "Profile", s: "profile" },
         ] as { label: string; s: Screen }[]).map((item) => (
           <button key={item.s} onClick={() => navigate(item.s)} className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${screen === item.s ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
