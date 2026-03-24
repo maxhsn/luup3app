@@ -611,9 +611,9 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
   );
 };
 
-/* ═══════ COMMUNITY (TAB) — Strava-style ═══════ */
+/* ═══════ COMMUNITY (TAB) — Algorithm-first feed ═══════ */
 export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
-  const [tab, setTab] = useState<"discover" | "my" | "feed">("discover");
+  const [tab, setTab] = useState<"foryou" | "following" | "brands" | "groups" | "discover">("foryou");
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center justify-between">
@@ -628,19 +628,263 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 bg-muted rounded-xl p-1">
-        {(["discover", "my", "feed"] as const).map((t) => (
-          <button key={t} onClick={() => setTab(t)} className={`flex-1 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${tab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-            {t === "my" ? "My Groups" : t === "feed" ? "Activity" : "Discover"}
+      {/* Scrollable Tabs */}
+      <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+        {([
+          { id: "foryou" as const, label: "For You" },
+          { id: "following" as const, label: "Following" },
+          { id: "brands" as const, label: "Brands" },
+          { id: "groups" as const, label: "Groups" },
+          { id: "discover" as const, label: "Discover" },
+        ]).map((t) => (
+          <button key={t.id} onClick={() => setTab(t.id)} className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex-shrink-0 ${tab === t.id ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+            {t.label}
           </button>
         ))}
       </div>
 
-      {/* Discover Tab */}
+      {/* ── FOR YOU (Algorithm feed) ── */}
+      {tab === "foryou" && (
+        <div className="space-y-3">
+          {/* Story row */}
+          <div className="flex gap-3 overflow-x-auto no-scrollbar py-0.5">
+            {[
+              { name: "Your Story", isYou: true },
+              { name: "Sarah M.", hasNew: true },
+              { name: "Jake S.", hasNew: true, live: true },
+              { name: "Venum", hasNew: true, isBrand: true },
+              { name: "Mike T.", hasNew: false },
+              { name: "LUUP", hasNew: true, isBrand: true },
+            ].map((s) => (
+              <div key={s.name} className="flex flex-col items-center gap-1 flex-shrink-0 relative">
+                <div className={`w-14 h-14 rounded-full p-[2px] ${s.isYou ? "" : s.hasNew ? "bg-gradient-to-tr from-primary to-primary/60" : ""}`}>
+                  <div className={`w-full h-full rounded-full flex items-center justify-center ${
+                    s.isYou ? "border-2 border-dashed border-muted-foreground/30 bg-muted" :
+                    s.hasNew ? "bg-card ring-2 ring-card" : "bg-muted ring-2 ring-border"
+                  }`}>
+                    {s.isYou ? <Plus className="w-4 h-4 text-muted-foreground/50" /> :
+                     s.isBrand ? <Zap className="w-4 h-4 text-primary" /> :
+                     <div className="w-full h-full rounded-full bg-muted-foreground/10" />}
+                  </div>
+                </div>
+                {s.live && <span className="absolute bottom-4 left-1/2 -translate-x-1/2 px-1 rounded-sm bg-destructive text-[6px] font-bold text-destructive-foreground uppercase z-10">Live</span>}
+                <span className="text-[9px] text-muted-foreground font-medium truncate w-14 text-center">{s.name}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Create Post */}
+          <button className="w-full flex items-center gap-3 p-2.5 rounded-2xl border border-border bg-card">
+            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="text-[10px] font-bold text-primary">A</span>
+            </div>
+            <span className="text-[10px] text-muted-foreground flex-1 text-left">Share a tip, review, or win...</span>
+            <Camera className="w-4 h-4 text-muted-foreground" />
+            <Video className="w-4 h-4 text-muted-foreground" />
+          </button>
+
+          {/* Trending topics */}
+          <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
+            {["#GearReview", "#RoyaltyTips", "#TrainHard", "#FightWeek", "#NewDrop"].map((tag) => (
+              <span key={tag} className="flex-shrink-0 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-bold">{tag}</span>
+            ))}
+          </div>
+
+          {/* Algorithm-ranked posts */}
+          <SocialPost
+            author="Sarah Martinez"
+            time="2h ago"
+            content="Sharing my strategy: I focus on 3 brands max and create dedicated content for each. Royalties went from $40 to $320/mo 🚀 Here's the breakdown..."
+            likes={142}
+            comments={38}
+            reposts={24}
+            hasImage
+            verified
+            badge="Top Contributor"
+            productTag="Venum Challenger 3.0"
+            onProductClick={() => onNavigate("product")}
+          />
+
+          {/* Suggested Group Card (algorithm insert) */}
+          <div className="rounded-2xl border border-primary/15 bg-primary/5 p-3 space-y-2">
+            <p className="text-[9px] font-bold text-primary uppercase tracking-wider">Suggested for you</p>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-foreground">Affiliate Best Practices</p>
+                <p className="text-[10px] text-muted-foreground">956 members · 120 posts/wk</p>
+              </div>
+              <button className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[9px] font-bold">Join</button>
+            </div>
+          </div>
+
+          <SocialPost
+            author="Jake Shields"
+            time="4h ago"
+            content="Pro tip: film your product unboxings and post them here. Brands notice active ambassadors and you get featured = more royalties 💰"
+            likes={312}
+            comments={67}
+            reposts={41}
+            hasImage
+            verified
+          />
+
+          {/* Brand update (algorithm insert) */}
+          <div className="rounded-2xl border border-border bg-card p-3 space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center">
+                <Zap className="w-4 h-4 text-primary" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-1.5">
+                  <p className="text-[11px] font-bold text-foreground">Venum</p>
+                  <Check className="w-3 h-3 text-primary" />
+                </div>
+                <p className="text-[9px] text-primary font-semibold">Brand Update · Sponsored</p>
+              </div>
+            </div>
+            <p className="text-[11px] text-foreground/85 leading-relaxed">🆕 New product alert! Venum Elite boxing gloves just dropped. Ambassadors earn 14% royalty — our highest rate yet.</p>
+            <button onClick={() => onNavigate("product")} className="w-full py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-bold">View Product →</button>
+          </div>
+
+          <SocialPost
+            author="Coach Ray"
+            time="6h ago"
+            content="Best way to structure your storefront: put best-sellers at the top, add personal review notes. My conversion rate went from 2.1% to 5.8%."
+            likes={67}
+            comments={12}
+            reposts={8}
+          />
+        </div>
+      )}
+
+      {/* ── FOLLOWING ── */}
+      {tab === "following" && (
+        <div className="space-y-3">
+          <p className="text-[10px] text-muted-foreground">Posts from people & groups you follow</p>
+          <SocialPost
+            author="Jake Shields"
+            time="1h ago"
+            content="Added the new Sanabul Essential series to my storefront. Great value for beginners — highly recommended as a starter set."
+            likes={312}
+            comments={44}
+            reposts={28}
+            hasImage
+            productTag="Sanabul Essential"
+            onProductClick={() => onNavigate("product")}
+            verified
+          />
+          <SocialPost
+            author="Sarah Martinez"
+            time="3h ago"
+            content="Morning pad work done ✅ Nothing beats starting the day with 6 rounds on the mitts. Who else is training today?"
+            likes={67}
+            comments={15}
+            reposts={4}
+            hasImage
+          />
+          <SocialPost
+            author="My Gear Corner"
+            time="5h ago"
+            content="New review posted: Hayabusa T3 after 6 months of heavy use. Spoiler — still holding up amazingly."
+            likes={34}
+            comments={8}
+            reposts={6}
+            badge="Your Group"
+          />
+          <SocialPost
+            author="Jess Kim"
+            time="8h ago"
+            content="Just hit Gold tier!! 🥇 The rewards just keep getting better. My commission rate jumped to 15% across all brands."
+            likes={156}
+            comments={23}
+            reposts={12}
+            badge="Gold Ambassador"
+          />
+        </div>
+      )}
+
+      {/* ── BRAND UPDATES ── */}
+      {tab === "brands" && (
+        <div className="space-y-3">
+          <p className="text-[10px] text-muted-foreground">Official updates from partner brands</p>
+          {[
+            { brand: "Venum", time: "2h ago", content: "🆕 New drop: Venum Elite boxing gloves with enhanced wrist support. Ambassadors earn 14% — our highest royalty rate!", tag: "New Product", royalty: "14%" },
+            { brand: "Hayabusa", time: "6h ago", content: "Flash sale this weekend! All T3 products 20% off. Your followers get the deal, you earn full commission.", tag: "Sale", royalty: "10%" },
+            { brand: "Sanabul", time: "1d ago", content: "We've increased ambassador royalties from 6% to 8% on all Essential series products. Thank you for your support! 🙏", tag: "Royalty Increase", royalty: "8%" },
+            { brand: "RDX", time: "2d ago", content: "Mission alert: Share a training video wearing RDX gear and earn $30 bonus. Limited to first 100 ambassadors.", tag: "Mission", royalty: "7%" },
+          ].map((b, i) => (
+            <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden">
+              <div className="px-3.5 pt-3 pb-2 flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center">
+                  <Zap className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-xs font-bold text-foreground">{b.brand}</p>
+                    <Check className="w-3 h-3 text-primary" />
+                  </div>
+                  <p className="text-[9px] text-muted-foreground">{b.time}</p>
+                </div>
+                <span className="px-2 py-0.5 rounded-full bg-primary/10 text-[8px] font-bold text-primary">{b.tag}</span>
+              </div>
+              <div className="px-3.5 pb-3">
+                <p className="text-[11px] text-foreground/85 leading-relaxed">{b.content}</p>
+                <div className="flex items-center justify-between mt-2.5">
+                  <span className="text-[9px] text-muted-foreground">Royalty: <span className="font-bold text-primary">{b.royalty}</span></span>
+                  <button onClick={() => onNavigate("product")} className="px-3 py-1 rounded-lg bg-primary text-primary-foreground text-[9px] font-bold">View →</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ── GROUPS ── */}
+      {tab === "groups" && (
+        <div className="space-y-3">
+          {/* Your Groups */}
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Your Groups</p>
+          {[
+            { name: "Royalty Earners Club", members: "2.4k", unread: 12, role: "Member", lastActive: "2m ago" },
+            { name: "MMA Training Tips", members: "1.8k", unread: 3, role: "Member", lastActive: "15m ago" },
+            { name: "My Gear Corner", members: "47", unread: 0, role: "Admin", lastActive: "1h ago" },
+          ].map((g) => (
+            <button key={g.name} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Users className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs font-bold text-foreground truncate">{g.name}</p>
+                    {g.role === "Admin" && <span className="px-1.5 py-0.5 rounded bg-primary/10 text-[8px] font-bold text-primary">Admin</span>}
+                  </div>
+                  <p className="text-[10px] text-muted-foreground">{g.members} members · {g.lastActive}</p>
+                </div>
+                {g.unread > 0 ? (
+                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[9px] font-bold flex items-center justify-center flex-shrink-0">{g.unread}</span>
+                ) : (
+                  <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                )}
+              </div>
+            </button>
+          ))}
+
+          {/* Create */}
+          <button className="w-full rounded-2xl border-2 border-dashed border-border p-3.5 flex items-center justify-center gap-2 text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors">
+            <Plus className="w-4 h-4" />
+            <span className="text-xs font-bold">Start a Group</span>
+          </button>
+        </div>
+      )}
+
+      {/* ── DISCOVER ── */}
       {tab === "discover" && (
         <div className="space-y-3">
-          {/* Featured Community */}
+          {/* Featured */}
           <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-4 space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
@@ -651,7 +895,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
                   <p className="text-sm font-bold text-foreground">Royalty Earners Club</p>
                   <Star className="w-3 h-3 text-primary fill-primary" />
                 </div>
-                <p className="text-[10px] text-muted-foreground">Tips & strategies to maximise your royalties</p>
+                <p className="text-[10px] text-muted-foreground">Tips & strategies to maximise royalties</p>
               </div>
             </div>
             <div className="flex items-center justify-between">
@@ -667,15 +911,15 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
             </div>
           </div>
 
-          {/* Community Cards */}
+          {/* Trending Groups */}
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Trending</p>
           {[
-            { name: "MMA Training Tips", members: "1.8k", posts: "340/wk", icon: <Flame className="w-4 h-4 text-primary" />, category: "Training" },
-            { name: "Affiliate Best Practices", members: "956", posts: "120/wk", icon: <TrendingUp className="w-4 h-4 text-primary" />, category: "Earning" },
             { name: "Gear Reviews & Deals", members: "3.1k", posts: "580/wk", icon: <ShoppingBag className="w-4 h-4 text-primary" />, category: "Gear" },
+            { name: "Affiliate Best Practices", members: "956", posts: "120/wk", icon: <TrendingUp className="w-4 h-4 text-primary" />, category: "Earning" },
             { name: "Fight Camp Diaries", members: "742", posts: "95/wk", icon: <BookOpen className="w-4 h-4 text-primary" />, category: "Lifestyle" },
             { name: "Brand Ambassador Hub", members: "1.2k", posts: "210/wk", icon: <Award className="w-4 h-4 text-primary" />, category: "Earning" },
           ].map((c) => (
-            <button key={c.name} className="w-full rounded-2xl border border-border bg-card p-3.5 text-left active:scale-[0.98] transition-transform">
+            <button key={c.name} className="w-full rounded-2xl border border-border bg-card p-3 text-left active:scale-[0.98] transition-transform">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">{c.icon}</div>
                 <div className="flex-1 min-w-0">
@@ -693,71 +937,25 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
             </button>
           ))}
 
-          {/* Create Your Own */}
-          <button className="w-full rounded-2xl border-2 border-dashed border-border p-4 flex items-center justify-center gap-2 text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors">
-            <Plus className="w-4 h-4" />
-            <span className="text-xs font-bold">Start Your Own Community</span>
-          </button>
-        </div>
-      )}
-
-      {/* My Groups Tab */}
-      {tab === "my" && (
-        <div className="space-y-3">
+          {/* People to Follow */}
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">People to Follow</p>
           {[
-            { name: "Royalty Earners Club", members: "2.4k", unread: 12, role: "Member", lastActive: "2m ago" },
-            { name: "MMA Training Tips", members: "1.8k", unread: 3, role: "Member", lastActive: "15m ago" },
-            { name: "My Gear Corner", members: "47", unread: 0, role: "Admin", lastActive: "1h ago" },
-          ].map((g) => (
-            <button key={g.name} className="w-full rounded-2xl border border-border bg-card p-3.5 text-left active:scale-[0.98] transition-transform">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Users className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="text-xs font-bold text-foreground truncate">{g.name}</p>
-                    {g.role === "Admin" && <span className="px-1.5 py-0.5 rounded bg-primary/10 text-[8px] font-bold text-primary">Admin</span>}
-                  </div>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-[10px] text-muted-foreground">{g.members} members</span>
-                    <span className="text-[10px] text-muted-foreground">· {g.lastActive}</span>
-                  </div>
-                </div>
-                {g.unread > 0 && (
-                  <span className="w-5 h-5 rounded-full bg-primary text-primary-foreground text-[9px] font-bold flex items-center justify-center flex-shrink-0">{g.unread}</span>
-                )}
+            { name: "Jake Shields", handle: "@jakeshields", desc: "MMA Legend · 2.4k sales", verified: true },
+            { name: "Sarah Martinez", handle: "@sarahm", desc: "Top Contributor · Gold Ambassador", verified: true },
+            { name: "Coach Ray", handle: "@coachray", desc: "Boxing trainer · 800+ referrals", verified: false },
+          ].map((p) => (
+            <div key={p.name} className="flex items-center gap-3 p-2.5 rounded-xl border border-border bg-card">
+              <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
+                <span className="text-[10px] font-bold text-foreground">{p.name.charAt(0)}</span>
               </div>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Activity Feed Tab */}
-      {tab === "feed" && (
-        <div className="space-y-3">
-          {[
-            { author: "Sarah M.", group: "Royalty Earners Club", content: "Sharing my strategy: I focus on 3 brands max and create dedicated content per brand. My royalties went from $40 to $320/mo 🚀", time: "20m ago", likes: 89, replies: 23 },
-            { author: "Jake Shields", group: "MMA Training Tips", content: "Pro tip: film your product unboxings and post to the Social Wall. Brands notice and you get featured = more royalties.", time: "1h ago", likes: 156, replies: 41 },
-            { author: "Coach Ray", group: "Fight Camp Diaries", content: "Best way to structure your storefront — put best-sellers at the top and add personal review notes. Conversion goes way up.", time: "3h ago", likes: 67, replies: 12 },
-            { author: "LUUP Team", group: "Brand Ambassador Hub", content: "📢 New feature: You can now track which products earn you the highest royalties in your Wallet analytics!", time: "5h ago", likes: 312, replies: 87 },
-          ].map((post, i) => (
-            <div key={i} className="rounded-2xl border border-border bg-card p-3.5 space-y-2">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                  <span className="text-[10px] font-bold text-foreground">{post.author.charAt(0)}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1">
+                  <p className="text-xs font-bold text-foreground truncate">{p.name}</p>
+                  {p.verified && <Check className="w-3 h-3 text-primary" />}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] font-bold text-foreground">{post.author}</p>
-                  <p className="text-[9px] text-primary font-semibold">{post.group} · {post.time}</p>
-                </div>
+                <p className="text-[9px] text-muted-foreground">{p.desc}</p>
               </div>
-              <p className="text-[11px] text-foreground/90 leading-relaxed">{post.content}</p>
-              <div className="flex items-center gap-4 pt-1">
-                <span className="text-[10px] text-muted-foreground flex items-center gap-1"><Heart className="w-3 h-3" />{post.likes}</span>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-1"><MessageCircle className="w-3 h-3" />{post.replies}</span>
-                <span className="text-[10px] text-muted-foreground flex items-center gap-1 ml-auto"><Share2 className="w-3 h-3" />Share</span>
-              </div>
+              <button onClick={() => onNavigate("storefront")} className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[9px] font-bold flex-shrink-0">Follow</button>
             </div>
           ))}
         </div>
@@ -841,7 +1039,6 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
           </button>
         ))}
       </div>
-
 
       {/* Mission List */}
       <div className="space-y-2.5">
