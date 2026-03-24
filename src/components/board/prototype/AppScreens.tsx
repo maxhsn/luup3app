@@ -1701,7 +1701,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         >
           {following ? <><Check className="w-3.5 h-3.5" /> Following</> : <><UserPlus className="w-3.5 h-3.5" /> Follow</>}
         </button>
-        <button className="px-4 rounded-xl border border-border font-bold text-xs text-foreground flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
+        <button onClick={() => onNavigate("share-storefront")} className="px-4 rounded-xl border border-border font-bold text-xs text-foreground flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
           <Share2 className="w-3.5 h-3.5" /> Share
         </button>
       </div>
