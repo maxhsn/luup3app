@@ -165,7 +165,7 @@ export const ecosystems: EcosystemData[] = [
       },
       {
         id: "f6", title: "Compete in a CrossFit event", brand: "Rogue", reward: "$50",
-        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", locked: true,
+        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", status: "open", locked: true,
         slots: { taken: 0, total: 10 },
         description: "Register and compete in a local CrossFit competition. Check in via the app.",
         requirements: ["GPS check-in", "Proof of participation", "Verified event"],
