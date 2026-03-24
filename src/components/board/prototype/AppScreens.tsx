@@ -2035,7 +2035,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
           <p className="text-[10px] text-muted-foreground">@alexrivera · Silver Scout</p>
         </div>
       </div>
-      <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+      <button onClick={() => onNavigate("edit-profile")} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform">
         <Settings className="w-3.5 h-3.5 text-muted-foreground" />
       </button>
     </div>
