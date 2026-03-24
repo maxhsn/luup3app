@@ -1545,6 +1545,7 @@ export const StoreScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen)
 export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (s: Screen) => void }) => {
   const [selectedSize, setSelectedSize] = useState(1);
   const [liked, setLiked] = useState(false);
+  const [addedToStorefront, setAddedToStorefront] = useState(false);
   return (
     <div className="space-y-0">
       <div className="relative">
