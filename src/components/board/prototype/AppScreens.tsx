@@ -3,7 +3,7 @@ import {
   Search, Home, ShoppingBag, Trophy, User, Heart, Star, MapPin,
   ChevronRight, Bell, MessageCircle, Flame, Gift, TrendingUp,
   Share2, Plus, Check, ArrowLeft, Wallet, Send, ThumbsUp,
-  Camera, Image, CreditCard, Package, Shield, ChevronDown,
+  Camera, Image, CreditCard, Package, Shield, ChevronDown, ChevronLeft,
   Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot,
   Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video,
   Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot
