@@ -103,11 +103,6 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         </div>
       )}
 
-      {/* For You / Following Toggle */}
-      <div className="flex bg-muted rounded-xl p-1">
-        <div className="flex-1 text-center py-1.5 rounded-lg bg-card text-xs font-bold text-foreground shadow-sm">For You</div>
-        <div className="flex-1 text-center py-1.5 rounded-lg text-xs font-medium text-muted-foreground">Following</div>
-      </div>
 
       {/* Earnings Infographic */}
       <div className="w-full rounded-2xl bg-gradient-to-br from-primary via-primary/95 to-primary/75 p-5 text-primary-foreground relative overflow-hidden shadow-lg">
