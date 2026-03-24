@@ -72,7 +72,7 @@ const PrototypeSection = () => {
           <FeatureCallout icon={<Flame className="w-5 h-5" />} title="Mission Engine" desc="Gamified tasks with streaks, daily rewards, and progress tracking." active={screen === "missions"} onClick={() => navigate("missions")} interactions={6} />
           <FeatureCallout icon={<Wallet className="w-5 h-5" />} title="Wallet & Rewards" desc="Points, tiers, cashback, redemptions, and transaction history." active={screen === "wallet"} onClick={() => navigate("wallet")} interactions={7} />
           <FeatureCallout icon={<Trophy className="w-5 h-5" />} title="Leaderboard" desc="Community rankings with podium, rivalry badges, and challenges." active={screen === "leaderboard"} onClick={() => navigate("leaderboard")} interactions={6} />
-          <FeatureCallout icon={<MessageCircle className="w-5 h-5" />} title="Social Wall" desc="UGC feed with product tags, likes, comments, and sharing." active={screen === "social"} onClick={() => navigate("social")} interactions={8} />
+          <FeatureCallout icon={<Users className="w-5 h-5" />} title="Community Hub" desc="Strava-style groups for best practices, royalty tips, and training." active={screen === "social"} onClick={() => navigate("social")} interactions={8} />
         </div>
 
         {/* Center: Phone */}
