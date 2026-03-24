@@ -1,7 +1,8 @@
 import { useState } from "react";
 import {
   Search, Home, ShoppingBag, Trophy, User, Flame, Gift,
-  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen, Users
+  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen, Users,
+  Monitor, Building2, Shield
 } from "lucide-react";
 import {
   type Screen,
@@ -11,6 +12,9 @@ import {
   OrderConfirmScreen, NotificationsScreen, EditProfileScreen, SavedItemsScreen, ReferralCodeScreen, ShareStorefrontScreen
 } from "./prototype/AppScreens";
 import { getEcosystem } from "./prototype/ecosystemData";
+import { WebAppPrototype } from "./prototype/WebAppScreens";
+import { MerchantPrototype } from "./prototype/MerchantScreens";
+import { AdminPrototype } from "./prototype/AdminScreens";
 
 const PrototypeSection = () => {
   const [screen, setScreen] = useState<Screen>("login");
