@@ -5,9 +5,10 @@ import {
   Share2, Plus, Check, ArrowLeft, Wallet, Send, ThumbsUp,
   Camera, Image, CreditCard, Package, Shield, ChevronDown,
   Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot,
-  Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video
+  Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video,
+  Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot
 } from "lucide-react";
-import { type EcosystemData, ecosystems } from "./ecosystemData";
+import { type EcosystemData, type MissionData, type MissionSubmissionType, type MissionStatus, ecosystems } from "./ecosystemData";
 
 export type Screen =
   | "start" | "home" | "explore" | "missions" | "store" | "profile"
@@ -420,7 +421,30 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
 /* ═══════ MISSIONS ═══════ */
 export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen) => void; ecosystem: EcosystemData }) => {
-  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
+  const [filter, setFilter] = useState<"all" | "active" | "available" | "completed">("all");
+  const [expandedMission, setExpandedMission] = useState<string | null>(null);
+  const [missionStates, setMissionStates] = useState<Record<string, MissionStatus>>(() => {
+    const states: Record<string, MissionStatus> = {};
+    ecosystem.missions.forEach(m => { states[m.id] = m.status; });
+    return states;
+  });
+
+  const handleJoin = (id: string) => setMissionStates(s => ({ ...s, [id]: "joined" }));
+  const handleSubmit = (id: string) => setMissionStates(s => ({ ...s, [id]: "submitted" }));
+
+  const getStatus = (m: MissionData) => missionStates[m.id] || m.status;
+
+  const filtered = ecosystem.missions.filter(m => {
+    const status = getStatus(m);
+    if (filter === "active") return ["joined", "submitted", "in-review"].includes(status);
+    if (filter === "available") return status === "open" && !m.locked;
+    if (filter === "completed") return ["approved", "rejected"].includes(status);
+    return true;
+  });
+
+  const activeCount = ecosystem.missions.filter(m => ["joined", "submitted", "in-review"].includes(getStatus(m))).length;
+  const completedCount = ecosystem.missions.filter(m => getStatus(m) === "approved").length;
+
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center justify-between">
@@ -428,60 +452,84 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
           <p className="font-display font-bold text-lg text-foreground">Missions</p>
           <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
         </div>
-        <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">{ecosystem.activeMissions.length} Active</div>
+        <div className="flex gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold">{activeCount} Active</span>
+          <span className="px-2.5 py-1 rounded-full bg-stage-participation/10 text-stage-participation text-[10px] font-bold">{completedCount} Done</span>
+        </div>
       </div>
 
-      {/* Streak Counter */}
-      <div className="flex items-center gap-3 p-3 rounded-xl bg-muted border border-border">
-        <div className="flex items-center gap-1">
-          <Flame className="w-5 h-5 text-destructive" />
-          <span className="font-display font-black text-xl text-foreground">7</span>
-        </div>
-        <div>
-          <p className="text-xs font-bold text-foreground">Day Streak 🔥</p>
-          <p className="text-[10px] text-muted-foreground">Keep going! 3 more days for bonus</p>
-        </div>
+      {/* Mission Pipeline Summary */}
+      <div className="grid grid-cols-4 gap-1.5">
+        {[
+          { label: "Open", count: ecosystem.missions.filter(m => getStatus(m) === "open" && !m.locked).length, color: "bg-muted text-muted-foreground" },
+          { label: "Joined", count: ecosystem.missions.filter(m => getStatus(m) === "joined").length, color: "bg-primary/10 text-primary" },
+          { label: "In Review", count: ecosystem.missions.filter(m => ["submitted", "in-review"].includes(getStatus(m))).length, color: "bg-stage-conversion/10 text-stage-conversion" },
+          { label: "Approved", count: completedCount, color: "bg-stage-participation/10 text-stage-participation" },
+        ].map(p => (
+          <div key={p.label} className={`rounded-xl p-2 text-center ${p.color}`}>
+            <p className="font-display font-black text-lg leading-none">{p.count}</p>
+            <p className="text-[9px] font-semibold mt-0.5">{p.label}</p>
+          </div>
+        ))}
       </div>
 
       {/* Weekly Challenge */}
       <div className="rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-4 text-primary-foreground">
         <div className="flex items-center gap-2 mb-2">
           <Trophy className="w-4 h-4" />
-          <span className="text-xs font-bold opacity-90">WEEKLY CHALLENGE</span>
+          <span className="text-[10px] font-bold opacity-90 uppercase tracking-wider">Weekly Challenge</span>
         </div>
-        <p className="font-display font-bold text-base">Complete 5 missions</p>
+        <p className="font-display font-bold text-base">Complete 5 missions this week</p>
         <p className="text-xs opacity-80 mt-1">Earn a $50 bonus reward</p>
         <div className="mt-3 h-2 rounded-full bg-primary-foreground/20">
-          <div className="h-full rounded-full bg-primary-foreground w-[60%]" />
+          <div className="h-full rounded-full bg-primary-foreground w-[60%] transition-all" />
         </div>
-        <p className="text-[10px] mt-1 opacity-70">3 of 5 completed</p>
+        <p className="text-[10px] mt-1 opacity-70">3 of 5 completed · 🔥 7 day streak</p>
       </div>
 
       {/* Filter Tabs */}
       <div className="flex gap-1 bg-muted rounded-xl p-1">
-        {(["all", "active", "completed"] as const).map((f) => (
-          <button key={f} onClick={() => setFilter(f)} className={`flex-1 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${filter === f ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+        {(["all", "available", "active", "completed"] as const).map((f) => (
+          <button key={f} onClick={() => setFilter(f)} className={`flex-1 py-1.5 rounded-lg text-[10px] font-semibold capitalize transition-all ${filter === f ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
             {f}
           </button>
         ))}
       </div>
 
-      {/* Daily Reward */}
-      <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl border border-stage-earnings/30 bg-stage-earnings/5 p-3 flex items-center gap-3 text-left">
-        <div className="w-10 h-10 rounded-xl bg-stage-earnings/15 flex items-center justify-center">
-          <Gift className="w-5 h-5 text-stage-earnings" />
-        </div>
-        <div className="flex-1">
-          <p className="text-xs font-bold text-foreground">Daily Reward Ready!</p>
-          <p className="text-[10px] text-muted-foreground">Claim your 50 bonus points</p>
-        </div>
-        <span className="px-3 py-1.5 rounded-lg bg-stage-earnings text-white text-[10px] font-bold">Claim</span>
-      </button>
+      {/* Submission Type Legend */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar">
+        {([
+          { icon: <Link className="w-3 h-3" />, label: "Link" },
+          { icon: <Camera className="w-3 h-3" />, label: "Screenshot" },
+          { icon: <Upload className="w-3 h-3" />, label: "Upload" },
+          { icon: <UserPlus className="w-3 h-3" />, label: "Referral" },
+          { icon: <PenLine className="w-3 h-3" />, label: "Review" },
+          { icon: <MapPinIcon className="w-3 h-3" />, label: "Check-in" },
+        ]).map(t => (
+          <div key={t.label} className="flex items-center gap-1 px-2 py-1 rounded-full bg-muted text-[9px] text-muted-foreground font-medium flex-shrink-0">
+            {t.icon}
+            <span>{t.label}</span>
+          </div>
+        ))}
+      </div>
 
       {/* Mission List */}
       <div className="space-y-2.5">
-        {ecosystem.missions.map((m) => (
-          <MissionCard key={m.title} emoji="" title={m.title} brand={m.brand} reward={m.reward} type={m.type} difficulty={m.difficulty} action={m.action} locked={m.locked} />
+        {filtered.length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-sm text-muted-foreground">No missions in this category</p>
+          </div>
+        )}
+        {filtered.map((m) => (
+          <MissionCardV2
+            key={m.id}
+            mission={m}
+            currentStatus={getStatus(m)}
+            expanded={expandedMission === m.id}
+            onToggle={() => setExpandedMission(expandedMission === m.id ? null : m.id)}
+            onJoin={() => handleJoin(m.id)}
+            onSubmit={() => handleSubmit(m.id)}
+          />
         ))}
       </div>
     </div>
@@ -822,9 +870,13 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         )}
         {activeTab === "missions" && (
           <div className="space-y-2">
-            <MissionCard emoji="" title="Share Venum gear photo" brand="Venum" reward="$15" type="Social" difficulty="Easy" action="share" />
-            <MissionCard emoji="" title="Review any Venum product" brand="Venum" reward="$10" type="Review" difficulty="Easy" action="review" />
-            <MissionCard emoji="" title="Create a training video" brand="Venum" reward="$25" type="Content" difficulty="Medium" action="upload" />
+            {[
+              { id: "bm1", title: "Share Venum gear photo", brand: "Venum", reward: "$15", type: "Social", submissionType: "link" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 20, total: 30 }, description: "Post a photo with Venum gear.", requirements: ["Tag @venum", "Public post"] },
+              { id: "bm2", title: "Review any Venum product", brand: "Venum", reward: "$10", type: "Review", submissionType: "review" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 8, total: 15 }, description: "Write a detailed product review.", requirements: ["200+ words", "Include photos"] },
+              { id: "bm3", title: "Create a training video", brand: "Venum", reward: "$25", type: "Content", submissionType: "upload" as MissionSubmissionType, difficulty: "Medium" as const, status: "open" as MissionStatus, slots: { taken: 3, total: 10 }, description: "Film a training session with Venum gear.", requirements: ["30-60 seconds", "Gear visible"] },
+            ].map(m => (
+              <MissionCardV2 key={m.id} mission={m} currentStatus={m.status} expanded={false} onToggle={() => {}} onJoin={() => {}} onSubmit={() => {}} />
+            ))}
           </div>
         )}
         {activeTab === "social" && (
@@ -1430,37 +1482,188 @@ export const MissionRow = ({ emoji, title, reward, progress }: { emoji: string; 
   </div>
 );
 
-const MissionCard = ({ emoji, title, brand, reward, type, difficulty, locked, action, image }: {
-  emoji: string; title: string; brand: string; reward: string; type: string; difficulty: string; locked?: boolean; action?: string; image?: string;
-}) => (
-  <div className={`p-3.5 rounded-2xl border bg-card ${locked ? "opacity-50 border-border" : "border-border"}`}>
-    <div className="flex items-start gap-3">
-      <div className="w-12 h-12 rounded-xl bg-muted border border-border flex-shrink-0 flex items-center justify-center overflow-hidden">
-        <div className="w-full h-full bg-muted-foreground/10 rounded-xl" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-0.5">
-          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-            difficulty === "Easy" ? "bg-stage-participation/10 text-stage-participation" :
-            difficulty === "Medium" ? "bg-stage-conversion/10 text-stage-conversion" :
-            "bg-stage-network/10 text-stage-network"
-          }`}>{type}</span>
-          {locked && <span className="text-[10px] text-muted-foreground">🔒 Locked</span>}
+const submissionTypeIcon = (type: MissionSubmissionType) => {
+  switch (type) {
+    case "link": return <Link className="w-3.5 h-3.5" />;
+    case "screenshot": return <Camera className="w-3.5 h-3.5" />;
+    case "upload": return <Upload className="w-3.5 h-3.5" />;
+    case "referral": return <UserPlus className="w-3.5 h-3.5" />;
+    case "review": return <PenLine className="w-3.5 h-3.5" />;
+    case "checkin": return <MapPinIcon className="w-3.5 h-3.5" />;
+  }
+};
+
+const submissionTypeLabel = (type: MissionSubmissionType) => {
+  switch (type) {
+    case "link": return "Submit Link";
+    case "screenshot": return "Upload Screenshot";
+    case "upload": return "Upload Content";
+    case "referral": return "Share Referral";
+    case "review": return "Write Review";
+    case "checkin": return "Check In";
+  }
+};
+
+const statusConfig = (status: MissionStatus) => {
+  switch (status) {
+    case "open": return { label: "Join Mission", color: "bg-primary text-primary-foreground", canAct: true };
+    case "joined": return { label: "Submit", color: "bg-stage-conversion text-white", canAct: true };
+    case "submitted": return { label: "Submitted", color: "bg-stage-onboarding/15 text-stage-onboarding", canAct: false };
+    case "in-review": return { label: "In Review", color: "bg-stage-conversion/15 text-stage-conversion", canAct: false };
+    case "approved": return { label: "Approved ✓", color: "bg-stage-participation/15 text-stage-participation", canAct: false };
+    case "rejected": return { label: "Rejected", color: "bg-destructive/15 text-destructive", canAct: false };
+  }
+};
+
+const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onSubmit }: {
+  mission: MissionData; currentStatus: MissionStatus; expanded: boolean;
+  onToggle: () => void; onJoin: () => void; onSubmit: () => void;
+}) => {
+  const sc = statusConfig(currentStatus);
+  const slotsPercent = Math.round((mission.slots.taken / mission.slots.total) * 100);
+
+  return (
+    <div className={`rounded-2xl border bg-card overflow-hidden transition-all ${
+      mission.locked ? "opacity-40 border-border" :
+      currentStatus === "approved" ? "border-stage-participation/30" :
+      currentStatus === "joined" ? "border-primary/30" :
+      "border-border"
+    }`}>
+      <button onClick={onToggle} className="w-full p-3.5 text-left">
+        <div className="flex items-start gap-3">
+          {/* Submission type icon */}
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+            currentStatus === "approved" ? "bg-stage-participation/10 text-stage-participation" :
+            currentStatus === "joined" ? "bg-primary/10 text-primary" :
+            "bg-muted text-muted-foreground"
+          }`}>
+            {mission.locked ? <Lock className="w-4 h-4" /> : submissionTypeIcon(mission.submissionType)}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+              <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
+                mission.difficulty === "Easy" ? "bg-stage-participation/10 text-stage-participation" :
+                mission.difficulty === "Medium" ? "bg-stage-conversion/10 text-stage-conversion" :
+                "bg-stage-network/10 text-stage-network"
+              }`}>{mission.difficulty}</span>
+              <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">{mission.type}</span>
+            </div>
+            <p className="text-[13px] font-bold text-foreground leading-tight">{mission.title}</p>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-[10px] text-muted-foreground">by {mission.brand}</span>
+              {mission.deadline && <span className="text-[9px] text-stage-conversion font-medium flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" />{mission.deadline}</span>}
+            </div>
+          </div>
+          <div className="flex flex-col items-end gap-1 flex-shrink-0">
+            <span className="text-sm font-black text-primary">{mission.reward}</span>
+            {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
+          </div>
         </div>
-        <p className="text-sm font-bold text-foreground">{title}</p>
-        <p className="text-[10px] text-muted-foreground mt-0.5">by {brand}</p>
-        {!locked && action && (
-          <div className="mt-2 flex gap-2">
-            <button className="px-3 py-1 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">
-              {action === "share" ? "Share Now" : action === "review" ? "Write Review" : action === "upload" ? "Upload" : "Invite"}
-            </button>
+
+        {/* Slots bar (always visible) */}
+        {!mission.locked && (
+          <div className="mt-2.5 flex items-center gap-2">
+            <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+              <div className={`h-full rounded-full transition-all ${slotsPercent > 80 ? "bg-destructive" : "bg-primary/40"}`} style={{ width: `${slotsPercent}%` }} />
+            </div>
+            <span className={`text-[9px] font-semibold ${slotsPercent > 80 ? "text-destructive" : "text-muted-foreground"}`}>
+              {mission.slots.taken}/{mission.slots.total} slots
+            </span>
           </div>
         )}
-      </div>
-      <span className="text-sm font-bold text-primary flex-shrink-0">{reward}</span>
+      </button>
+
+      {/* Expanded detail */}
+      {expanded && !mission.locked && (
+        <div className="px-3.5 pb-3.5 space-y-3 border-t border-border pt-3">
+          <p className="text-[11px] text-muted-foreground leading-relaxed">{mission.description}</p>
+
+          {/* Requirements */}
+          <div>
+            <p className="text-[10px] font-bold text-foreground mb-1.5">Requirements</p>
+            <div className="space-y-1">
+              {mission.requirements.map((r, i) => (
+                <div key={i} className="flex items-start gap-1.5">
+                  <CircleDot className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-[10px] text-muted-foreground">{r}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Submission type indicator */}
+          <div className="flex items-center gap-2 p-2 rounded-xl bg-muted">
+            <div className="w-7 h-7 rounded-lg bg-card flex items-center justify-center text-foreground">
+              {submissionTypeIcon(mission.submissionType)}
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-foreground">{submissionTypeLabel(mission.submissionType)}</p>
+              <p className="text-[9px] text-muted-foreground">
+                {mission.submissionType === "link" && "Paste your post URL after publishing"}
+                {mission.submissionType === "screenshot" && "Upload a screenshot as proof"}
+                {mission.submissionType === "upload" && "Upload your content file directly"}
+                {mission.submissionType === "referral" && "Share your unique referral link"}
+                {mission.submissionType === "review" && "Write and submit your review in-app"}
+                {mission.submissionType === "checkin" && "Check in at the event location"}
+              </p>
+            </div>
+          </div>
+
+          {/* Status-aware CTA */}
+          <div className="flex gap-2">
+            {currentStatus === "open" && (
+              <button onClick={(e) => { e.stopPropagation(); onJoin(); }} className="flex-1 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold text-center transition-all active:scale-[0.97]">
+                Join Mission · Claim Slot
+              </button>
+            )}
+            {currentStatus === "joined" && (
+              <button onClick={(e) => { e.stopPropagation(); onSubmit(); }} className="flex-1 py-2.5 rounded-xl bg-stage-conversion text-white text-xs font-bold text-center transition-all active:scale-[0.97]">
+                {submissionTypeLabel(mission.submissionType)}
+              </button>
+            )}
+            {currentStatus === "submitted" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-stage-onboarding/10 text-stage-onboarding text-xs font-bold text-center">
+                Submitted · Awaiting Review
+              </div>
+            )}
+            {currentStatus === "in-review" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-stage-conversion/10 text-stage-conversion text-xs font-bold text-center flex items-center justify-center gap-1.5">
+                <Eye className="w-3.5 h-3.5" /> Under Review
+              </div>
+            )}
+            {currentStatus === "approved" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-stage-participation/10 text-stage-participation text-xs font-bold text-center flex items-center justify-center gap-1.5">
+                <Check className="w-3.5 h-3.5" /> Approved · {mission.reward} Earned
+              </div>
+            )}
+            {currentStatus === "rejected" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-destructive/10 text-destructive text-xs font-bold text-center">
+                Rejected · Resubmit allowed
+              </div>
+            )}
+          </div>
+
+          {/* Flow indicator */}
+          <div className="flex items-center justify-between">
+            {(["open", "joined", "submitted", "in-review", "approved"] as MissionStatus[]).map((step, i) => {
+              const stepLabels = ["Open", "Joined", "Submitted", "Review", "Approved"];
+              const isActive = (["open", "joined", "submitted", "in-review", "approved"] as MissionStatus[]).indexOf(currentStatus) >= i;
+              return (
+                <div key={step} className="flex items-center gap-0.5">
+                  {i > 0 && <div className={`w-3 h-[1.5px] ${isActive ? "bg-primary" : "bg-border"}`} />}
+                  <div className={`w-4 h-4 rounded-full flex items-center justify-center ${isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                    {isActive && i <= (["open", "joined", "submitted", "in-review", "approved"] as MissionStatus[]).indexOf(currentStatus) ? <Check className="w-2.5 h-2.5" /> : <span className="text-[7px] font-bold">{i + 1}</span>}
+                  </div>
+                  <span className={`text-[7px] font-semibold ml-0.5 ${isActive ? "text-foreground" : "text-muted-foreground"}`}>{stepLabels[i]}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 const EarningsRow = ({ label, amount }: { label: string; amount: string }) => (
   <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-muted/60 border border-border">
