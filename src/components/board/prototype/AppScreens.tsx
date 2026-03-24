@@ -280,37 +280,8 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
         </div>
       )}
 
-      {/* Step 3: Interests */}
+      {/* Step 3: Confirmation */}
       {step === 3 && (
-        <div className="flex-1 flex flex-col">
-          <div className="text-center space-y-1.5 pt-2 mb-5">
-            <p className="font-display font-black text-lg text-foreground">Your Interests</p>
-            <p className="text-[11px] text-muted-foreground">Step 3 of {totalSteps} · Personalise your feed</p>
-          </div>
-
-          <div className="flex flex-wrap gap-2 flex-1">
-            {interests.map((tag, i) => (
-              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
-                i < 3 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
-              }`}>
-                {tag}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex gap-2 mt-3">
-            <button onClick={() => setStep(2)} className="flex-1 h-11 rounded-xl border border-border text-sm font-bold text-foreground active:scale-[0.98] transition-transform">
-              Back
-            </button>
-            <button onClick={() => setStep(4)} className="flex-[2] h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform">
-              Continue
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Step 4: Confirmation */}
-      {step === 4 && (
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           <div className={`w-20 h-20 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-4 ${ecosystem.color}`}>
             {ecosystem.emoji}
