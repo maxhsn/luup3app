@@ -87,7 +87,9 @@ const PrototypeSection = () => {
             </div>
 
             <div className="min-h-[620px] max-h-[620px] overflow-y-auto no-scrollbar">
+              {screen === "login" && <LoginScreen onNavigate={navigate} />}
               {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
+              {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
               {screen === "home" && <HomeScreen onNavigate={navigate} ecosystem={eco} onSwitchEcosystem={handleSwitchEcosystem} />}
               {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
               {screen === "missions" && <MissionsScreen onNavigate={navigate} ecosystem={eco} />}
