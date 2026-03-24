@@ -1648,6 +1648,8 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
 /* ═══════ STOREFRONT (Public brand page — Linktree replacement) ═══════ */
 export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [following, setFollowing] = useState(false);
+  const [showShare, setShowShare] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   return (
   <div className="space-y-0">
     {/* Hero Cover */}
