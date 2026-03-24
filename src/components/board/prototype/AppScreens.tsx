@@ -1691,110 +1691,241 @@ export const NotificationsScreen = ({ onNavigate, onBack }: { onNavigate: (s: Sc
 );
 
 /* ═══════ PROFILE ═══════ */
-export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
+export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
+  const [profileTab, setProfileTab] = useState<"storefront" | "stats" | "activity">("storefront");
+  return (
   <div className="px-5 py-4 space-y-4">
+    {/* Header */}
     <div className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <div className="w-16 h-16 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+      <div className="flex items-center gap-3">
+        <div className="w-14 h-14 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
           <span className="font-display font-bold text-lg text-primary">AR</span>
         </div>
         <div>
-          <p className="font-display font-bold text-lg text-foreground">Alex Rivera</p>
-          <p className="text-xs text-muted-foreground">@alexrivera · Silver Scout</p>
-          <div className="flex items-center gap-1 mt-1">
-            <Star className="w-3 h-3 text-stage-earnings fill-stage-earnings" />
-            <span className="text-xs font-semibold text-foreground">Level 12</span>
+          <p className="font-display font-bold text-base text-foreground">Alex Rivera</p>
+          <p className="text-[10px] text-muted-foreground">@alexrivera</p>
+          <div className="flex items-center gap-2 mt-0.5">
+            <span className="px-1.5 py-0.5 rounded bg-primary/10 text-[8px] font-bold text-primary">Silver Scout</span>
+            <span className="text-[10px] text-muted-foreground flex items-center gap-0.5"><Star className="w-3 h-3 text-stage-earnings fill-stage-earnings" />Lvl 12</span>
           </div>
         </div>
       </div>
-      <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-        <Settings className="w-4 h-4 text-muted-foreground" />
-      </button>
+      <div className="flex gap-1.5">
+        <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+          <Share2 className="w-3.5 h-3.5 text-muted-foreground" />
+        </button>
+        <button className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+          <Settings className="w-3.5 h-3.5 text-muted-foreground" />
+        </button>
+      </div>
     </div>
 
-    <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-gradient-to-r from-stage-earnings/10 to-primary/10 border border-stage-earnings/20 p-3 flex items-center gap-3 text-left">
-      <Crown className="w-5 h-5 text-stage-earnings" />
-      <div className="flex-1">
-        <p className="text-xs font-bold text-foreground">Silver Scout Ambassador</p>
-        <p className="text-[10px] text-muted-foreground">1,750 XP to Gold · Unlock 15% commission</p>
+    {/* Bio & Socials */}
+    <div className="space-y-2">
+      <p className="text-[11px] text-foreground/80 leading-relaxed">MMA fighter & gear enthusiast 🥊 Sharing honest reviews and earning royalties on the brands I love.</p>
+      <div className="flex items-center gap-3">
+        <span className="text-[10px] text-muted-foreground flex items-center gap-1">📍 Los Angeles, CA</span>
+        <span className="text-[10px] text-muted-foreground">·</span>
+        <span className="text-[10px] text-primary font-semibold">MMA</span>
       </div>
-      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-    </button>
+      <div className="flex gap-2">
+        {[
+          { handle: "@alex_fights", platform: "IG" },
+          { handle: "@alexmma", platform: "TT" },
+          { handle: "AlexRiveraMMA", platform: "YT" },
+        ].map((s) => (
+          <span key={s.platform} className="px-2 py-1 rounded-lg bg-muted text-[9px] font-semibold text-muted-foreground">{s.platform}: {s.handle}</span>
+        ))}
+      </div>
+    </div>
 
-    <div className="grid grid-cols-3 gap-2">
+    {/* Quick Stats */}
+    <div className="grid grid-cols-4 gap-1.5">
       {[
+        { label: "Earned", value: "$1,247" },
         { label: "Referrals", value: "47" },
         { label: "Missions", value: "23" },
         { label: "Network", value: "182" },
       ].map((s) => (
-        <div key={s.label} className="rounded-xl bg-muted p-3 text-center">
-          <p className="font-display font-black text-xl text-foreground">{s.value}</p>
-          <p className="text-[10px] text-muted-foreground font-medium">{s.label}</p>
+        <div key={s.label} className="rounded-xl bg-muted p-2 text-center">
+          <p className="font-display font-black text-sm text-foreground">{s.value}</p>
+          <p className="text-[8px] text-muted-foreground font-medium">{s.label}</p>
         </div>
       ))}
     </div>
 
-    <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4">
-      <p className="font-bold text-sm text-foreground mb-1">Your Referral Code</p>
-      <div className="flex items-center gap-2">
-        <div className="flex-1 bg-card rounded-xl px-3 py-2 border border-border">
-          <p className="font-mono text-sm text-foreground">ALEX-LUUP-2024</p>
+    {/* Ambassador Tier */}
+    <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-gradient-to-r from-stage-earnings/10 to-primary/10 border border-stage-earnings/20 p-3 flex items-center gap-3 text-left active:scale-[0.98] transition-transform">
+      <Crown className="w-5 h-5 text-stage-earnings" />
+      <div className="flex-1">
+        <p className="text-[11px] font-bold text-foreground">Silver Scout → Gold</p>
+        <p className="text-[9px] text-muted-foreground">1,750 XP to Gold · Unlock 15% commission</p>
+        <div className="h-1.5 rounded-full bg-muted mt-1.5">
+          <div className="h-full rounded-full bg-stage-earnings" style={{ width: "65%" }} />
         </div>
-        <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-          <Share2 className="w-4 h-4 text-primary-foreground" />
-        </div>
       </div>
-      <p className="text-[10px] text-muted-foreground mt-2">Shared 24 times · 8 conversions</p>
-      <div className="flex gap-2 mt-3">
-        {["WhatsApp", "Instagram", "TikTok"].map((p) => (
-          <button key={p} className="flex-1 py-1.5 rounded-lg bg-muted text-[10px] font-semibold text-foreground border border-border">{p}</button>
-        ))}
-      </div>
-    </div>
+      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+    </button>
 
-    <div>
-      <p className="font-display font-bold text-sm text-foreground mb-2">Earnings Breakdown</p>
-      <div className="space-y-2">
-        <EarningsRow label="Direct Sales Commission" amount="$542.00" />
-        <EarningsRow label="Referral Earnings (Tier 1)" amount="$318.40" />
-        <EarningsRow label="Network Earnings (Tier 2-4)" amount="$247.40" />
-        <EarningsRow label="Mission Rewards" amount="$140.00" />
-      </div>
-    </div>
-
-    <div className="space-y-1">
-      {[
-        { label: "My Storefront", screen: "storefront" as Screen },
-        { label: "Saved Items", screen: "store" as Screen },
-        { label: "Order History", screen: "home" as Screen },
-        { label: "My Communities", screen: "social" as Screen },
-        { label: "Settings", screen: "home" as Screen },
-      ].map((item) => (
-        <button key={item.label} onClick={() => onNavigate(item.screen)} className="w-full flex items-center justify-between py-3 px-1 border-b border-border last:border-0 text-left">
-          <span className="text-sm text-foreground font-medium">{item.label}</span>
-          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+    {/* Profile Tabs */}
+    <div className="flex gap-1 bg-muted rounded-xl p-1">
+      {(["storefront", "stats", "activity"] as const).map((t) => (
+        <button key={t} onClick={() => setProfileTab(t)} className={`flex-1 py-1.5 rounded-lg text-[11px] font-semibold capitalize transition-all ${profileTab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
+          {t === "storefront" ? "My Storefront" : t === "stats" ? "Earnings" : "Activity"}
         </button>
       ))}
     </div>
 
-    <div className="rounded-xl border border-border p-3">
-      <p className="text-xs font-bold text-foreground mb-2">Recent Activity</p>
+    {/* Storefront Tab */}
+    {profileTab === "storefront" && (
+      <div className="space-y-3">
+        {/* Storefront Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs font-bold text-foreground">Alex's Picks</p>
+            <p className="text-[9px] text-muted-foreground">12 products · 89 sales this month</p>
+          </div>
+          <button onClick={() => onNavigate("storefront")} className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">Manage</button>
+        </div>
+
+        {/* Storefront Stats */}
+        <div className="grid grid-cols-3 gap-2">
+          <div className="rounded-xl border border-border bg-card p-2 text-center">
+            <p className="font-display font-black text-sm text-primary">$542</p>
+            <p className="text-[8px] text-muted-foreground">Royalties</p>
+          </div>
+          <div className="rounded-xl border border-border bg-card p-2 text-center">
+            <p className="font-display font-black text-sm text-foreground">4.2%</p>
+            <p className="text-[8px] text-muted-foreground">Conv. Rate</p>
+          </div>
+          <div className="rounded-xl border border-border bg-card p-2 text-center">
+            <p className="font-display font-black text-sm text-foreground">1.2k</p>
+            <p className="text-[8px] text-muted-foreground">Visitors</p>
+          </div>
+        </div>
+
+        {/* Top Products */}
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Top Sellers</p>
+        {[
+          { name: "Venum Challenger 3.0", brand: "Venum", royalty: "12%", sales: 34, earned: "$163" },
+          { name: "Hayabusa T3 Gloves", brand: "Hayabusa", royalty: "10%", sales: 28, earned: "$224" },
+          { name: "Sanabul Essential MMA", brand: "Sanabul", royalty: "8%", sales: 27, earned: "$155" },
+        ].map((p) => (
+          <button key={p.name} onClick={() => onNavigate("product")} className="w-full flex items-center gap-3 p-2.5 rounded-xl border border-border bg-card text-left active:scale-[0.98] transition-transform">
+            <div className="w-12 h-12 rounded-lg bg-muted flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] font-bold text-foreground truncate">{p.name}</p>
+              <p className="text-[9px] text-muted-foreground">{p.brand} · {p.royalty} royalty</p>
+              <p className="text-[9px] text-primary font-semibold mt-0.5">{p.sales} sales · {p.earned} earned</p>
+            </div>
+            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+          </button>
+        ))}
+
+        {/* Add Product CTA */}
+        <button onClick={() => onNavigate("store")} className="w-full rounded-xl border-2 border-dashed border-border p-3 flex items-center justify-center gap-2 text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors">
+          <Plus className="w-4 h-4" />
+          <span className="text-[10px] font-bold">Add Products to Storefront</span>
+        </button>
+
+        {/* Share Storefront */}
+        <div className="rounded-xl border border-primary/20 bg-primary/5 p-3">
+          <p className="text-[10px] font-bold text-foreground mb-1.5">Share Your Storefront</p>
+          <div className="flex items-center gap-2">
+            <div className="flex-1 bg-card rounded-lg px-2.5 py-1.5 border border-border">
+              <p className="font-mono text-[10px] text-foreground truncate">luup.co/s/alexrivera</p>
+            </div>
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+              <Link className="w-3.5 h-3.5 text-primary-foreground" />
+            </div>
+          </div>
+          <div className="flex gap-1.5 mt-2">
+            {["WhatsApp", "Instagram", "TikTok", "Copy"].map((p) => (
+              <button key={p} className="flex-1 py-1.5 rounded-lg bg-muted text-[9px] font-semibold text-foreground border border-border">{p}</button>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Earnings Tab */}
+    {profileTab === "stats" && (
+      <div className="space-y-3">
+        <div className="rounded-xl border border-border bg-card p-3">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs font-bold text-foreground">This Month</p>
+            <span className="text-xs font-bold text-primary">$1,247.80</span>
+          </div>
+          <div className="h-16 rounded-lg bg-muted flex items-end gap-1 px-2 pb-1.5">
+            {[30, 45, 35, 60, 55, 70, 80, 65, 90, 75, 85, 95].map((h, i) => (
+              <div key={i} className="flex-1 rounded-t bg-primary/60" style={{ height: `${h}%` }} />
+            ))}
+          </div>
+        </div>
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Breakdown</p>
+        <div className="space-y-1.5">
+          <EarningsRow label="Storefront Royalties" amount="$542.00" />
+          <EarningsRow label="Referral Commissions" amount="$318.40" />
+          <EarningsRow label="Network Earnings (Tier 2-4)" amount="$247.40" />
+          <EarningsRow label="Mission Rewards" amount="$140.00" />
+        </div>
+
+        {/* Referral Code */}
+        <div className="rounded-xl border border-border bg-card p-3">
+          <p className="text-[10px] font-bold text-foreground mb-1.5">Referral Code</p>
+          <div className="flex items-center gap-2">
+            <div className="flex-1 bg-muted rounded-lg px-2.5 py-1.5">
+              <p className="font-mono text-[10px] text-foreground">ALEX-LUUP-2024</p>
+            </div>
+            <button className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <Share2 className="w-3.5 h-3.5 text-primary-foreground" />
+            </button>
+          </div>
+          <p className="text-[9px] text-muted-foreground mt-1.5">24 shares · 8 conversions</p>
+        </div>
+      </div>
+    )}
+
+    {/* Activity Tab */}
+    {profileTab === "activity" && (
       <div className="space-y-2">
         {[
-          "Completed mission: Share Venum gear",
-          "Earned $24 referral commission",
-          "Moved to #12 on leaderboard",
-        ].map((a) => (
-          <div key={a} className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-            <p className="text-[10px] text-muted-foreground">{a}</p>
+          { text: "Earned $24 royalty from Venum gloves sale", time: "2h ago", icon: <Wallet className="w-3 h-3 text-primary" /> },
+          { text: "New referral signed up: @mike_trains", time: "5h ago", icon: <UserPlus className="w-3 h-3 text-primary" /> },
+          { text: "Completed mission: Share Venum gear review", time: "1d ago", icon: <Check className="w-3 h-3 text-primary" /> },
+          { text: "Moved to #12 on Combat leaderboard", time: "1d ago", icon: <TrendingUp className="w-3 h-3 text-primary" /> },
+          { text: "Added Hayabusa T3 to storefront", time: "2d ago", icon: <ShoppingBag className="w-3 h-3 text-primary" /> },
+          { text: "Joined community: Royalty Earners Club", time: "3d ago", icon: <Users className="w-3 h-3 text-primary" /> },
+          { text: "Earned Gold badge: 30-day streak", time: "4d ago", icon: <Award className="w-3 h-3 text-primary" /> },
+        ].map((a, i) => (
+          <div key={i} className="flex items-start gap-2.5 py-2 border-b border-border last:border-0">
+            <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">{a.icon}</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] text-foreground">{a.text}</p>
+              <p className="text-[9px] text-muted-foreground mt-0.5">{a.time}</p>
+            </div>
           </div>
         ))}
       </div>
+    )}
+
+    {/* Quick Links */}
+    <div className="space-y-0.5 pt-1">
+      {[
+        { label: "My Communities", screen: "explore" as Screen },
+        { label: "Saved Items", screen: "store" as Screen },
+        { label: "Order History", screen: "home" as Screen },
+        { label: "Edit Profile", screen: "home" as Screen },
+      ].map((item) => (
+        <button key={item.label} onClick={() => onNavigate(item.screen)} className="w-full flex items-center justify-between py-2.5 px-1 border-b border-border last:border-0 text-left">
+          <span className="text-[11px] text-foreground font-medium">{item.label}</span>
+          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+        </button>
+      ))}
     </div>
   </div>
-);
-
+  );
+};
 /* ═══════════════════════════════════════════════════ */
 /* ═══════ SHARED COMPONENTS ═══════ */
 /* ═══════════════════════════════════════════════════ */
