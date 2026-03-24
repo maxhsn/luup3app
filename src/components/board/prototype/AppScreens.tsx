@@ -2357,7 +2357,7 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
             )}
             {currentStatus === "approved" && (
               <div className="flex-1 py-2.5 rounded-xl bg-stage-participation/10 text-stage-participation text-xs font-bold text-center flex items-center justify-center gap-1.5">
-                <Check className="w-3.5 h-3.5" /> Approved · {mission.reward} Earned
+                <Check className="w-3.5 h-3.5" /> Approved · {mission.reward}{mission.pointsReward ? ` + ${mission.pointsReward}pts` : ""} Earned
               </div>
             )}
             {currentStatus === "rejected" && (
