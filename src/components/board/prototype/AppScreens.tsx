@@ -127,6 +127,9 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-background/[0.04]" />
         <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-background/[0.03]" />
         <div className="relative z-10 flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-2xl bg-background/[0.08] flex items-center justify-center flex-shrink-0">
+            <Wallet className="w-4.5 h-4.5 text-primary" />
+          </div>
           <div className="flex-1 min-w-0 text-left">
             <p className="text-[9px] font-semibold opacity-50 uppercase tracking-widest mb-1">Total Earnings</p>
             <p className="font-display font-black text-[26px] leading-none tracking-tight">{ecosystem.walletBalance}</p>
