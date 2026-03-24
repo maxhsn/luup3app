@@ -870,9 +870,13 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         )}
         {activeTab === "missions" && (
           <div className="space-y-2">
-            <MissionCard emoji="" title="Share Venum gear photo" brand="Venum" reward="$15" type="Social" difficulty="Easy" action="share" />
-            <MissionCard emoji="" title="Review any Venum product" brand="Venum" reward="$10" type="Review" difficulty="Easy" action="review" />
-            <MissionCard emoji="" title="Create a training video" brand="Venum" reward="$25" type="Content" difficulty="Medium" action="upload" />
+            {[
+              { id: "bm1", title: "Share Venum gear photo", brand: "Venum", reward: "$15", type: "Social", submissionType: "link" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 20, total: 30 }, description: "Post a photo with Venum gear.", requirements: ["Tag @venum", "Public post"] },
+              { id: "bm2", title: "Review any Venum product", brand: "Venum", reward: "$10", type: "Review", submissionType: "review" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 8, total: 15 }, description: "Write a detailed product review.", requirements: ["200+ words", "Include photos"] },
+              { id: "bm3", title: "Create a training video", brand: "Venum", reward: "$25", type: "Content", submissionType: "upload" as MissionSubmissionType, difficulty: "Medium" as const, status: "open" as MissionStatus, slots: { taken: 3, total: 10 }, description: "Film a training session with Venum gear.", requirements: ["30-60 seconds", "Gear visible"] },
+            ].map(m => (
+              <MissionCardV2 key={m.id} mission={m} currentStatus={m.status} expanded={false} onToggle={() => {}} onJoin={() => {}} onSubmit={() => {}} />
+            ))}
           </div>
         )}
         {activeTab === "social" && (
