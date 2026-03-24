@@ -1633,8 +1633,8 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
             <Share2 className="w-4 h-4" />
             Buy on Brand Site
           </button>
-          <button className="w-12 h-12 rounded-xl border border-border flex items-center justify-center">
-            <Heart className="w-5 h-5 text-muted-foreground" />
+          <button onClick={() => setLiked(!liked)} className="w-12 h-12 rounded-xl border border-border flex items-center justify-center active:scale-95 transition-transform">
+            <Heart className={`w-5 h-5 ${liked ? "text-destructive fill-destructive" : "text-muted-foreground"}`} />
           </button>
         </div>
       </div>
