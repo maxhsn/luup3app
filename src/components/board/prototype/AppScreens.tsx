@@ -2252,8 +2252,9 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
             <span className="px-2 py-0.5 rounded-md bg-background/70 backdrop-blur-sm text-[9px] font-bold text-foreground">{mission.brand}</span>
           </div>
           {/* Reward badge overlay */}
-          <div className="absolute top-2 right-2.5">
-            <span className="px-2 py-0.5 rounded-md bg-foreground/80 text-background text-[9px] font-black">{mission.reward}</span>
+          <div className="absolute top-2 right-2.5 flex gap-1">
+            {mission.reward && <span className="px-2 py-0.5 rounded-md bg-foreground/80 text-background text-[9px] font-black">{mission.reward}</span>}
+            {mission.pointsReward && <span className="px-2 py-0.5 rounded-md bg-primary/90 text-primary-foreground text-[9px] font-black">{mission.pointsReward}pts</span>}
           </div>
           {/* Status indicator */}
           {currentStatus !== "open" && !mission.locked && (
