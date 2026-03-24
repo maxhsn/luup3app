@@ -45,7 +45,7 @@ const PrototypeSection = () => {
     setEcosystemId(id);
   };
 
-  const isTabScreen = (s: Screen) => ["home", "explore", "missions", "store", "profile"].includes(s);
+  const hideNav = (s: Screen) => ["login", "start", "ecosystem-setup"].includes(s);
 
   return (
     <div className="animate-fade-in">
