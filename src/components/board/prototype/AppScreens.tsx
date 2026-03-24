@@ -1648,6 +1648,8 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
 /* ═══════ STOREFRONT (Public brand page — Linktree replacement) ═══════ */
 export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [following, setFollowing] = useState(false);
+  const [showShare, setShowShare] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   return (
   <div className="space-y-0">
     {/* Hero Cover */}
@@ -1701,10 +1703,101 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         >
           {following ? <><Check className="w-3.5 h-3.5" /> Following</> : <><UserPlus className="w-3.5 h-3.5" /> Follow</>}
         </button>
-        <button className="px-4 rounded-xl border border-border font-bold text-xs text-foreground flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
+        <button onClick={() => setShowShare(true)} className="px-4 rounded-xl border border-border font-bold text-xs text-foreground flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
           <Share2 className="w-3.5 h-3.5" /> Share
         </button>
       </div>
+
+      {/* Share Popup */}
+      {showShare && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={() => { setShowShare(false); setLinkCopied(false); }}>
+          <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" />
+          <div className="relative w-full max-w-[320px] bg-card rounded-t-3xl border border-border p-5 space-y-4 animate-scale-in mb-0" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <p className="font-display font-bold text-base text-foreground">Share Storefront</p>
+              <button onClick={() => { setShowShare(false); setLinkCopied(false); }} className="w-7 h-7 rounded-full bg-muted flex items-center justify-center">
+                <X className="w-3.5 h-3.5 text-muted-foreground" />
+              </button>
+            </div>
+
+            {/* QR Code */}
+            <div className="flex justify-center py-2">
+              <div className="w-40 h-40 bg-card border-2 border-border rounded-2xl p-3 flex items-center justify-center">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  {/* Simplified QR pattern */}
+                  <rect x="0" y="0" width="100" height="100" fill="white" rx="4"/>
+                  {/* Corner squares */}
+                  <rect x="5" y="5" width="25" height="25" rx="3" fill="hsl(var(--foreground))"/>
+                  <rect x="8" y="8" width="19" height="19" rx="2" fill="white"/>
+                  <rect x="11" y="11" width="13" height="13" rx="1.5" fill="hsl(var(--foreground))"/>
+                  <rect x="70" y="5" width="25" height="25" rx="3" fill="hsl(var(--foreground))"/>
+                  <rect x="73" y="8" width="19" height="19" rx="2" fill="white"/>
+                  <rect x="76" y="11" width="13" height="13" rx="1.5" fill="hsl(var(--foreground))"/>
+                  <rect x="5" y="70" width="25" height="25" rx="3" fill="hsl(var(--foreground))"/>
+                  <rect x="8" y="73" width="19" height="19" rx="2" fill="white"/>
+                  <rect x="11" y="76" width="13" height="13" rx="1.5" fill="hsl(var(--foreground))"/>
+                  {/* Data modules */}
+                  {[
+                    [35,5],[40,5],[50,5],[55,5],[60,5],
+                    [35,10],[45,10],[55,10],[65,10],
+                    [35,15],[40,15],[50,15],[60,15],
+                    [35,20],[45,20],[55,20],[65,20],
+                    [5,35],[10,35],[20,35],[35,35],[45,35],[55,35],[65,35],[75,35],[85,35],[90,35],
+                    [5,40],[15,40],[25,40],[40,40],[50,40],[60,40],[70,40],[80,40],[90,40],
+                    [5,45],[10,45],[20,45],[35,45],[45,45],[55,45],[65,45],[75,45],[85,45],
+                    [5,50],[15,50],[30,50],[40,50],[50,50],[65,50],[80,50],[90,50],
+                    [5,55],[10,55],[25,55],[35,55],[45,55],[55,55],[70,55],[85,55],[90,55],
+                    [5,60],[20,60],[30,60],[40,60],[55,60],[65,60],[75,60],[90,60],
+                    [35,70],[45,70],[55,70],[65,70],[75,70],[85,70],[90,70],
+                    [35,75],[40,75],[50,75],[60,75],[80,75],[90,75],
+                    [35,80],[45,80],[55,80],[70,80],[85,80],
+                    [35,85],[40,85],[50,85],[60,85],[75,85],[90,85],
+                    [35,90],[45,90],[55,90],[65,90],[80,90],[90,90],
+                  ].map(([x, y], i) => (
+                    <rect key={i} x={x} y={y} width="4" height="4" rx="0.5" fill="hsl(var(--foreground))"/>
+                  ))}
+                  {/* Center logo */}
+                  <rect x="38" y="38" width="24" height="24" rx="6" fill="hsl(var(--primary))"/>
+                  <text x="50" y="54" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">L</text>
+                </svg>
+              </div>
+            </div>
+
+            <p className="text-center text-[10px] text-muted-foreground">Scan to visit Alex's storefront</p>
+
+            {/* Copy Link */}
+            <div className="flex items-center gap-2 bg-muted rounded-xl p-2">
+              <div className="flex-1 px-2 truncate">
+                <span className="text-[10px] text-muted-foreground font-mono">luup.app/store/alex-mma</span>
+              </div>
+              <button
+                onClick={() => setLinkCopied(true)}
+                className={`px-3 py-1.5 rounded-lg text-[10px] font-bold flex-shrink-0 transition-all ${
+                  linkCopied ? "bg-stage-participation/15 text-stage-participation" : "bg-primary text-primary-foreground"
+                }`}
+              >
+                {linkCopied ? "Copied!" : "Copy"}
+              </button>
+            </div>
+
+            {/* Share options */}
+            <div className="flex justify-center gap-4 pt-1">
+              {[
+                { label: "Message", icon: <MessageCircle className="w-4 h-4" /> },
+                { label: "Story", icon: <Camera className="w-4 h-4" /> },
+                { label: "More", icon: <Share2 className="w-4 h-4" /> },
+              ].map((s) => (
+                <button key={s.label} className="flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-foreground">
+                    {s.icon}
+                  </div>
+                  <span className="text-[9px] font-medium text-muted-foreground">{s.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Follow context */}
       {following && (
