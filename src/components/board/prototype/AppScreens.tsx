@@ -11,10 +11,78 @@ import {
 import { type EcosystemData, type MissionData, type MissionSubmissionType, type MissionStatus, ecosystems } from "./ecosystemData";
 
 export type Screen =
-  | "start" | "home" | "explore" | "missions" | "store" | "profile"
+  | "login" | "start" | "ecosystem-setup" | "home" | "explore" | "missions" | "store" | "profile"
   | "product" | "storefront" | "wallet" | "leaderboard"
   | "social" | "brand" | "checkout" | "notifications"
   | "order-confirm";
+
+/* ═══════ LOGIN / SIGNUP ═══════ */
+export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
+  const [mode, setMode] = useState<"login" | "signup">("login");
+  return (
+    <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col justify-center">
+      {/* Logo */}
+      <div className="text-center space-y-3">
+        <div className="w-16 h-16 rounded-2xl bg-primary mx-auto flex items-center justify-center shadow-lg">
+          <span className="text-3xl font-display font-black text-primary-foreground">L</span>
+        </div>
+        <div>
+          <p className="font-display font-black text-2xl text-foreground">LUUP</p>
+          <p className="text-xs text-muted-foreground mt-1">Earn while you engage</p>
+        </div>
+      </div>
+
+      {/* Google button */}
+      <button className="w-full flex items-center justify-center gap-2.5 h-12 rounded-2xl border border-border bg-card text-sm font-semibold text-foreground active:scale-[0.98] transition-transform">
+        <svg className="w-4.5 h-4.5" viewBox="0 0 24 24">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+        </svg>
+        Continue with Google
+      </button>
+
+      <div className="flex items-center gap-3">
+        <div className="h-px flex-1 bg-border" />
+        <span className="text-[10px] text-muted-foreground">or</span>
+        <div className="h-px flex-1 bg-border" />
+      </div>
+
+      {/* Email form */}
+      <div className="space-y-2.5">
+        <div className="h-11 rounded-xl border border-border bg-card px-3 flex items-center">
+          <span className="text-xs text-muted-foreground">Email</span>
+        </div>
+        <div className="h-11 rounded-xl border border-border bg-card px-3 flex items-center">
+          <span className="text-xs text-muted-foreground">Password</span>
+        </div>
+        {mode === "signup" && (
+          <div className="h-11 rounded-xl border border-border bg-card px-3 flex items-center">
+            <span className="text-xs text-muted-foreground">Confirm Password</span>
+          </div>
+        )}
+        <button
+          onClick={() => onNavigate("start")}
+          className="w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform"
+        >
+          {mode === "signup" ? "Create Account" : "Sign In"}
+        </button>
+      </div>
+
+      {/* Toggle */}
+      <p className="text-center text-xs text-muted-foreground">
+        {mode === "login" ? (
+          <>Don't have an account? <button onClick={() => setMode("signup")} className="text-primary font-semibold">Sign up</button></>
+        ) : (
+          <>Already have an account? <button onClick={() => setMode("login")} className="text-primary font-semibold">Sign in</button></>
+        )}
+      </p>
+
+      <p className="text-[9px] text-muted-foreground/50 text-center">By continuing, you agree to our Terms & Privacy Policy</p>
+    </div>
+  );
+};
 
 /* ═══════ START / ECOSYSTEM SELECT ═══════ */
 export const StartScreen = ({ onSelectEcosystem }: { onSelectEcosystem: (id: string) => void }) => (
@@ -23,8 +91,8 @@ export const StartScreen = ({ onSelectEcosystem }: { onSelectEcosystem: (id: str
       <div className="w-14 h-14 rounded-2xl bg-primary mx-auto flex items-center justify-center">
         <span className="text-2xl font-display font-black text-primary-foreground">L</span>
       </div>
-      <p className="font-display font-black text-xl text-foreground">Welcome to LUUP</p>
-      <p className="text-xs text-muted-foreground leading-relaxed">Choose your ecosystem to get started</p>
+      <p className="font-display font-black text-xl text-foreground">Choose Your World</p>
+      <p className="text-xs text-muted-foreground leading-relaxed">Pick an ecosystem to start earning</p>
     </div>
 
     <div className="flex-1 space-y-2.5">
@@ -49,6 +117,148 @@ export const StartScreen = ({ onSelectEcosystem }: { onSelectEcosystem: (id: str
     <p className="text-[10px] text-muted-foreground text-center pb-2">More ecosystems coming soon</p>
   </div>
 );
+
+/* ═══════ ECOSYSTEM PROFILE SETUP ═══════ */
+export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
+  ecosystem: EcosystemData;
+  onComplete: () => void;
+}) => {
+  const [step, setStep] = useState(1);
+
+  return (
+    <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col">
+      {/* Progress bar */}
+      <div className="flex gap-1.5">
+        {[1, 2, 3].map(s => (
+          <div key={s} className={`h-1 flex-1 rounded-full transition-all ${s <= step ? "bg-primary" : "bg-muted"}`} />
+        ))}
+      </div>
+
+      {step === 1 && (
+        <div className="flex-1 flex flex-col">
+          <div className="text-center space-y-3 pt-4 mb-6">
+            <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center text-2xl ${ecosystem.color}`}>
+              {ecosystem.emoji}
+            </div>
+            <p className="font-display font-black text-xl text-foreground">Welcome to {ecosystem.label}</p>
+            <p className="text-xs text-muted-foreground leading-relaxed">Set up your profile for this ecosystem</p>
+          </div>
+
+          {/* Display name */}
+          <div className="space-y-4 flex-1">
+            <div>
+              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Display Name</p>
+              <div className="h-11 rounded-xl border border-border bg-card px-3 flex items-center">
+                <span className="text-xs text-foreground">Alex Rivera</span>
+              </div>
+            </div>
+
+            {/* Avatar */}
+            <div>
+              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Avatar</p>
+              <div className="flex items-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
+                  <span className="text-lg font-black text-primary-foreground">AR</span>
+                </div>
+                <button className="px-3 py-1.5 rounded-lg border border-border text-[10px] font-semibold text-foreground">
+                  Change photo
+                </button>
+              </div>
+            </div>
+
+            {/* Bio */}
+            <div>
+              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Bio</p>
+              <div className="h-20 rounded-xl border border-border bg-card px-3 pt-2.5">
+                <span className="text-xs text-muted-foreground">Tell the {ecosystem.label} community about you...</span>
+              </div>
+            </div>
+          </div>
+
+          <button onClick={() => setStep(2)} className="w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold mt-4 active:scale-[0.98] transition-transform">
+            Continue
+          </button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <div className="flex-1 flex flex-col">
+          <div className="text-center space-y-2 pt-2 mb-6">
+            <p className="font-display font-black text-xl text-foreground">Your Interests</p>
+            <p className="text-xs text-muted-foreground">Select topics you're interested in</p>
+          </div>
+
+          <div className="flex flex-wrap gap-2 flex-1">
+            {ecosystem.id === "combat" && ["Boxing", "MMA", "Muay Thai", "BJJ", "Wrestling", "Kickboxing", "Training Gear", "Supplements", "Recovery", "Fight News"].map((tag, i) => (
+              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
+                i < 4 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
+              }`}>
+                {tag}
+              </button>
+            ))}
+            {ecosystem.id === "fitness" && ["Weight Training", "HIIT", "Yoga", "Running", "Crossfit", "Nutrition", "Supplements", "Wearables", "Recovery", "Home Gym"].map((tag, i) => (
+              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
+                i < 3 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
+              }`}>
+                {tag}
+              </button>
+            ))}
+            {ecosystem.id !== "combat" && ecosystem.id !== "fitness" && ["Topic 1", "Topic 2", "Topic 3", "Topic 4", "Topic 5", "Topic 6"].map((tag, i) => (
+              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
+                i < 2 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
+              }`}>
+                {tag}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-2 mt-4">
+            <button onClick={() => setStep(1)} className="flex-1 h-11 rounded-xl border border-border text-sm font-bold text-foreground active:scale-[0.98] transition-transform">
+              Back
+            </button>
+            <button onClick={() => setStep(3)} className="flex-[2] h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform">
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="flex-1 flex flex-col items-center justify-center text-center">
+          <div className={`w-20 h-20 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-4 ${ecosystem.color}`}>
+            {ecosystem.emoji}
+          </div>
+          <p className="font-display font-black text-xl text-foreground">You're All Set!</p>
+          <p className="text-xs text-muted-foreground mt-2 max-w-[240px] leading-relaxed">
+            Your {ecosystem.label} profile is ready. Start exploring brands, completing missions, and earning rewards.
+          </p>
+
+          <div className="grid grid-cols-3 gap-3 mt-6 w-full">
+            <div className="rounded-xl bg-muted p-3 text-center">
+              <Flame className="w-4 h-4 text-primary mx-auto mb-1" />
+              <p className="text-[10px] font-bold text-foreground">{ecosystem.missions.length}</p>
+              <p className="text-[8px] text-muted-foreground">Missions</p>
+            </div>
+            <div className="rounded-xl bg-muted p-3 text-center">
+              <ShoppingBag className="w-4 h-4 text-stage-conversion mx-auto mb-1" />
+              <p className="text-[10px] font-bold text-foreground">{ecosystem.brands.length + 1}</p>
+              <p className="text-[8px] text-muted-foreground">Brands</p>
+            </div>
+            <div className="rounded-xl bg-muted p-3 text-center">
+              <Trophy className="w-4 h-4 text-stage-earnings mx-auto mb-1" />
+              <p className="text-[10px] font-bold text-foreground">Bronze</p>
+              <p className="text-[8px] text-muted-foreground">Tier</p>
+            </div>
+          </div>
+
+          <button onClick={onComplete} className="w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold mt-8 active:scale-[0.98] transition-transform">
+            Start Exploring
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 /* ═══════ ACTIVITY RING SVG ═══════ */
 const ActivityRing = ({ progress, size = 52, stroke = 5, color = "hsl(var(--primary))", bgColor = "hsl(var(--muted))" }: {
