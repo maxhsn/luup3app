@@ -126,7 +126,7 @@ const PrototypeSection = () => {
 
         {/* Right: Context info */}
         <div className="hidden lg:flex flex-col gap-3 pt-12">
-          <FeatureCallout icon={<MessageCircle className="w-5 h-5" />} title="Social Wall" desc="UGC feed with stories, product tags, likes, comments, and sharing." active={screen === "explore"} onClick={() => navigate("explore")} interactions={8} />
+          <FeatureCallout icon={<Users className="w-5 h-5" />} title="Community" desc="Create & join groups, share strategies, and discuss best practices." active={screen === "explore"} onClick={() => navigate("explore")} interactions={10} />
           <FeatureCallout icon={<ShoppingBag className="w-5 h-5" />} title="Brands & Royalties" desc="Browse brand partners, view royalty rates, and add products to your storefront." active={screen === "storefront" || screen === "store"} onClick={() => navigate("store")} interactions={7} />
           <FeatureCallout icon={<BookOpen className="w-5 h-5" />} title="Brand Pages" desc="Brand hubs with products, missions, social wall, and community." active={screen === "brand"} onClick={() => navigate("brand")} interactions={8} />
           <FeatureCallout icon={<User className="w-5 h-5" />} title="Profile & Ambassador" desc="Stats, referral tools, earnings, and ambassador tier progression." active={screen === "profile"} onClick={() => navigate("profile")} interactions={8} />
