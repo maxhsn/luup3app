@@ -6,6 +6,7 @@ import {
   Camera, Image, CreditCard, Package, Shield, ChevronDown,
   Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot
 } from "lucide-react";
+import { type EcosystemData, ecosystems } from "./ecosystemData";
 
 export type Screen =
   | "start" | "home" | "explore" | "missions" | "store" | "profile"
@@ -14,16 +15,7 @@ export type Screen =
   | "order-confirm";
 
 /* ═══════ START / ECOSYSTEM SELECT ═══════ */
-const ecosystems = [
-  { id: "combat", label: "Combat Sports", emoji: "🥊", desc: "MMA, Boxing, BJJ gear & training", color: "bg-destructive/10 text-destructive" },
-  { id: "fitness", label: "Fitness & Wellness", emoji: "💪", desc: "Gym, supplements, wearables", color: "bg-primary/10 text-primary" },
-  { id: "outdoor", label: "Outdoor & Adventure", emoji: "🏔️", desc: "Hiking, camping, trail running", color: "bg-emerald-500/10 text-emerald-600" },
-  { id: "beauty", label: "Beauty & Skincare", emoji: "✨", desc: "Cosmetics, skincare, grooming", color: "bg-pink-500/10 text-pink-600" },
-  { id: "gaming", label: "Gaming & Esports", emoji: "🎮", desc: "Peripherals, merch, streaming", color: "bg-violet-500/10 text-violet-600" },
-  { id: "food", label: "Food & Beverage", emoji: "🍜", desc: "Specialty foods, drinks, recipes", color: "bg-amber-500/10 text-amber-600" },
-];
-
-export const StartScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
+export const StartScreen = ({ onSelectEcosystem }: { onSelectEcosystem: (id: string) => void }) => (
   <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col">
     <div className="text-center space-y-2 pt-4">
       <div className="w-14 h-14 rounded-2xl bg-primary mx-auto flex items-center justify-center">
@@ -37,7 +29,7 @@ export const StartScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
       {ecosystems.map((eco) => (
         <button
           key={eco.id}
-          onClick={() => onNavigate("home")}
+          onClick={() => onSelectEcosystem(eco.id)}
           className="w-full flex items-center gap-3 p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-md transition-all text-left group"
         >
           <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${eco.color}`}>
@@ -45,7 +37,7 @@ export const StartScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-display font-bold text-sm text-foreground">{eco.label}</p>
-            <p className="text-[11px] text-muted-foreground">{eco.desc}</p>
+            <p className="text-[11px] text-muted-foreground">{eco.brands[0]?.name}, {eco.brands[1]?.name}, {eco.brands[2]?.name}...</p>
           </div>
           <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
         </button>
@@ -57,127 +49,161 @@ export const StartScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
 );
 
 /* ═══════ HOME ═══════ */
-export const HomeScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
-  <div className="px-5 py-4 space-y-4">
-    <div className="flex items-center justify-between">
-      <div>
-        <p className="text-xs text-muted-foreground">Good morning</p>
-        <p className="font-display font-bold text-lg text-foreground">Alex Rivera</p>
-      </div>
-      <div className="flex gap-2">
-        <button onClick={() => onNavigate("notifications")} className="w-9 h-9 rounded-full bg-muted flex items-center justify-center relative">
-          <Bell className="w-4 h-4 text-muted-foreground" />
-          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-destructive text-[9px] text-destructive-foreground font-bold flex items-center justify-center">3</span>
-        </button>
-        <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-          <MessageCircle className="w-4 h-4 text-primary" />
-        </div>
-      </div>
-    </div>
-
-    {/* For You / Following Toggle */}
-    <div className="flex bg-muted rounded-xl p-1">
-      <div className="flex-1 text-center py-1.5 rounded-lg bg-card text-xs font-bold text-foreground shadow-sm">For You</div>
-      <div className="flex-1 text-center py-1.5 rounded-lg text-xs font-medium text-muted-foreground">Following</div>
-    </div>
-
-    {/* Earnings Card */}
-    <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-primary p-4 text-primary-foreground text-left">
-      <p className="text-xs opacity-80 font-medium">Total Earnings</p>
-      <p className="font-display font-black text-3xl mt-1">$1,247.80</p>
-      <div className="flex items-center gap-2 mt-2">
-        <TrendingUp className="w-3.5 h-3.5" />
-        <span className="text-xs font-semibold">+23% this month</span>
-      </div>
-      <div className="flex gap-3 mt-3">
-        <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5 text-center">
-          <p className="text-[10px] opacity-80">Referrals</p>
-          <p className="font-bold text-sm">$842</p>
-        </div>
-        <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5 text-center">
-          <p className="text-[10px] opacity-80">Missions</p>
-          <p className="font-bold text-sm">$405</p>
-        </div>
-      </div>
-    </button>
-
-    {/* Active Mission Banner */}
-    <button onClick={() => onNavigate("missions")} className="w-full rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 p-3 flex items-center gap-3 text-left">
-      <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
-        <Flame className="w-5 h-5 text-primary" />
-      </div>
-      <div className="flex-1">
-        <p className="text-xs font-bold text-foreground">3 Active Missions</p>
-        <p className="text-[10px] text-muted-foreground">$50 in rewards available</p>
-      </div>
-      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-    </button>
-
-    {/* Active Missions */}
-    <div>
-      <div className="flex items-center justify-between mb-2">
-        <p className="font-display font-bold text-sm text-foreground">Active Missions</p>
-        <button onClick={() => onNavigate("missions")} className="text-xs text-primary font-semibold">See all</button>
-      </div>
-      <div className="space-y-2">
-        <MissionRow emoji="📸" title="Share Venum gear photo" reward="$15" progress={60} />
-        <MissionRow emoji="⭐" title="Review Hayabusa gloves" reward="$10" progress={30} />
-      </div>
-    </div>
-
-    {/* Trending Offers */}
-    <div>
-      <div className="flex items-center justify-between mb-2">
-        <p className="font-display font-bold text-sm text-foreground">Trending Offers</p>
-        <button onClick={() => onNavigate("explore")} className="text-xs text-primary font-semibold">Explore</button>
-      </div>
-      <div className="flex gap-3 overflow-x-auto no-scrollbar">
-        {[
-          { name: "Hayabusa T3 Gloves", brand: "Hayabusa", royalty: "12%", price: "$89" },
-          { name: "Venum Rashguard", brand: "Venum", royalty: "10%", price: "$54" },
-          { name: "CBD Recovery Balm", brand: "Eagle Energy", royalty: "15%", price: "$39" },
-        ].map((p) => (
-          <button key={p.name} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[130px] rounded-2xl border border-border bg-card p-3 text-left hover:shadow-md transition-shadow">
-            <div className="w-full h-16 rounded-lg bg-muted mb-2" />
-            <p className="font-bold text-xs text-foreground truncate">{p.name}</p>
-            <p className="text-[10px] text-muted-foreground">{p.brand} · {p.price}</p>
-            <p className="text-[10px] text-primary font-semibold mt-1">Earn {p.royalty}</p>
+export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
+  onNavigate: (s: Screen) => void;
+  ecosystem: EcosystemData;
+  onSwitchEcosystem: (id: string) => void;
+}) => {
+  const [showSwitcher, setShowSwitcher] = useState(false);
+  return (
+    <div className="px-5 py-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <button
+            onClick={() => setShowSwitcher(!showSwitcher)}
+            className="flex items-center gap-1.5 mb-0.5"
+          >
+            <span className="text-sm">{ecosystem.emoji}</span>
+            <span className="text-[10px] font-bold text-primary">{ecosystem.label}</span>
+            <ChevronDown className={`w-3 h-3 text-primary transition-transform ${showSwitcher ? "rotate-180" : ""}`} />
           </button>
-        ))}
+          <p className="font-display font-bold text-lg text-foreground">Alex Rivera</p>
+        </div>
+        <div className="flex gap-2">
+          <button onClick={() => onNavigate("notifications")} className="w-9 h-9 rounded-full bg-muted flex items-center justify-center relative">
+            <Bell className="w-4 h-4 text-muted-foreground" />
+            <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-destructive text-[9px] text-destructive-foreground font-bold flex items-center justify-center">3</span>
+          </button>
+          <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+            <MessageCircle className="w-4 h-4 text-primary" />
+          </div>
+        </div>
       </div>
-    </div>
 
-    {/* Leaderboard Preview */}
-    <button onClick={() => onNavigate("leaderboard")} className="w-full rounded-2xl border border-border bg-card p-3 text-left">
-      <div className="flex items-center gap-2 mb-2">
-        <Trophy className="w-4 h-4 text-stage-earnings" />
-        <p className="font-bold text-xs text-foreground">Community Leaderboard</p>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="text-xs text-muted-foreground">Your rank:</span>
-        <span className="text-xs font-bold text-primary">#12</span>
-        <span className="text-[10px] text-stage-participation">↑ 3 spots this week</span>
-      </div>
-    </button>
+      {/* Ecosystem Switcher Dropdown */}
+      {showSwitcher && (
+        <div className="rounded-xl border border-border bg-card shadow-lg p-2 space-y-1 animate-fade-in">
+          {ecosystems.map((eco) => (
+            <button
+              key={eco.id}
+              onClick={() => { onSwitchEcosystem(eco.id); setShowSwitcher(false); }}
+              className={`w-full flex items-center gap-2.5 p-2 rounded-lg text-left transition-all ${
+                eco.id === ecosystem.id ? "bg-primary/10 border border-primary/20" : "hover:bg-muted"
+              }`}
+            >
+              <span className="text-base">{eco.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-foreground">{eco.label}</p>
+              </div>
+              {eco.id === ecosystem.id && <Check className="w-3.5 h-3.5 text-primary" />}
+            </button>
+          ))}
+        </div>
+      )}
 
-    {/* Referral CTA */}
-    <button onClick={() => onNavigate("profile")} className="w-full rounded-2xl border border-primary/20 bg-primary/5 p-4 text-left">
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-          <Share2 className="w-5 h-5 text-primary" />
+      {/* For You / Following Toggle */}
+      <div className="flex bg-muted rounded-xl p-1">
+        <div className="flex-1 text-center py-1.5 rounded-lg bg-card text-xs font-bold text-foreground shadow-sm">For You</div>
+        <div className="flex-1 text-center py-1.5 rounded-lg text-xs font-medium text-muted-foreground">Following</div>
+      </div>
+
+      {/* Earnings Card */}
+      <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-primary p-4 text-primary-foreground text-left">
+        <div className="flex items-center gap-1.5 mb-1">
+          <span className="text-xs opacity-70">{ecosystem.emoji}</span>
+          <p className="text-[10px] opacity-70 font-medium">{ecosystem.label} Earnings</p>
+        </div>
+        <p className="font-display font-black text-3xl mt-1">{ecosystem.walletBalance}</p>
+        <div className="flex items-center gap-2 mt-2">
+          <TrendingUp className="w-3.5 h-3.5" />
+          <span className="text-xs font-semibold">{ecosystem.walletGrowth} this month</span>
+        </div>
+        <div className="flex gap-3 mt-3">
+          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5 text-center">
+            <p className="text-[10px] opacity-80">Referrals</p>
+            <p className="font-bold text-sm">{ecosystem.referralEarnings}</p>
+          </div>
+          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5 text-center">
+            <p className="text-[10px] opacity-80">Missions</p>
+            <p className="font-bold text-sm">{ecosystem.missionEarnings}</p>
+          </div>
+        </div>
+      </button>
+
+      {/* Active Mission Banner */}
+      <button onClick={() => onNavigate("missions")} className="w-full rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 p-3 flex items-center gap-3 text-left">
+        <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center">
+          <Flame className="w-5 h-5 text-primary" />
         </div>
         <div className="flex-1">
-          <p className="font-bold text-sm text-foreground">Invite & Earn</p>
-          <p className="text-xs text-muted-foreground">Earn 10% on every referral sale</p>
+          <p className="text-xs font-bold text-foreground">{ecosystem.activeMissions.length} Active Missions</p>
+          <p className="text-[10px] text-muted-foreground">Rewards available in {ecosystem.label}</p>
         </div>
         <ChevronRight className="w-4 h-4 text-muted-foreground" />
-      </div>
-    </button>
+      </button>
 
-    {/* Agent AI Floating Pill */}
-    <AgentPill />
-  </div>
-);
+      {/* Active Missions */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="font-display font-bold text-sm text-foreground">Active Missions</p>
+          <button onClick={() => onNavigate("missions")} className="text-xs text-primary font-semibold">See all</button>
+        </div>
+        <div className="space-y-2">
+          {ecosystem.activeMissions.map((m) => (
+            <MissionRow key={m.title} emoji="" title={m.title} reward={m.reward} progress={m.progress} />
+          ))}
+        </div>
+      </div>
+
+      {/* Trending Offers */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="font-display font-bold text-sm text-foreground">Trending Offers</p>
+          <button onClick={() => onNavigate("explore")} className="text-xs text-primary font-semibold">Explore</button>
+        </div>
+        <div className="flex gap-3 overflow-x-auto no-scrollbar">
+          {ecosystem.trendingOffers.map((p) => (
+            <button key={p.name} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[130px] rounded-2xl border border-border bg-card p-3 text-left hover:shadow-md transition-shadow">
+              <div className="w-full h-16 rounded-lg bg-muted mb-2" />
+              <p className="font-bold text-xs text-foreground truncate">{p.name}</p>
+              <p className="text-[10px] text-muted-foreground">{p.brand} · {p.price}</p>
+              <p className="text-[10px] text-primary font-semibold mt-1">Earn {p.royalty}</p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Leaderboard Preview */}
+      <button onClick={() => onNavigate("leaderboard")} className="w-full rounded-2xl border border-border bg-card p-3 text-left">
+        <div className="flex items-center gap-2 mb-2">
+          <Trophy className="w-4 h-4 text-stage-earnings" />
+          <p className="font-bold text-xs text-foreground">{ecosystem.leaderboardTitle}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground">Your rank:</span>
+          <span className="text-xs font-bold text-primary">#12</span>
+          <span className="text-[10px] text-stage-participation">↑ 3 spots this week</span>
+        </div>
+      </button>
+
+      {/* Referral CTA */}
+      <button onClick={() => onNavigate("profile")} className="w-full rounded-2xl border border-primary/20 bg-primary/5 p-4 text-left">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <Share2 className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex-1">
+            <p className="font-bold text-sm text-foreground">Invite & Earn</p>
+            <p className="text-xs text-muted-foreground">Earn 10% on every referral sale</p>
+          </div>
+          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+        </div>
+      </button>
+
+      <AgentPill />
+    </div>
+  );
+};
 
 /* ═══════ SOCIAL FEED (TAB) ═══════ */
 export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
@@ -239,13 +265,16 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 );
 
 /* ═══════ MISSIONS ═══════ */
-export const MissionsScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
+export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen) => void; ecosystem: EcosystemData }) => {
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center justify-between">
-        <p className="font-display font-bold text-lg text-foreground">Missions</p>
-        <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">3 Active</div>
+        <div>
+          <p className="font-display font-bold text-lg text-foreground">Missions</p>
+          <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
+        </div>
+        <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">{ecosystem.activeMissions.length} Active</div>
       </div>
 
       {/* Streak Counter */}
@@ -297,30 +326,34 @@ export const MissionsScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void
 
       {/* Mission List */}
       <div className="space-y-2.5">
-        <MissionCard emoji="📸" title="Share Venum gear on Instagram" brand="Venum" reward="$15" type="Social Share" difficulty="Easy" action="share" />
-        <MissionCard emoji="⭐" title="Write a review for Hayabusa T3" brand="Hayabusa" reward="$10" type="Review" difficulty="Easy" action="review" />
-        <MissionCard emoji="🎥" title="Post a training video with gear" brand="Sanabul" reward="$25" type="Content" difficulty="Medium" action="upload" />
-        <MissionCard emoji="👥" title="Refer 3 friends to LUUP" brand="LUUP" reward="$30" type="Referral" difficulty="Medium" action="refer" />
-        <MissionCard emoji="🏆" title="Attend local MMA event" brand="UFC" reward="$50" type="Event" difficulty="Hard" locked />
+        {ecosystem.missions.map((m) => (
+          <MissionCard key={m.title} emoji="" title={m.title} brand={m.brand} reward={m.reward} type={m.type} difficulty={m.difficulty} action={m.action} locked={m.locked} />
+        ))}
       </div>
     </div>
   );
 };
 
 /* ═══════ WALLET & REWARDS ═══════ */
-export const WalletScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => (
+export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s: Screen) => void; onBack: () => void; ecosystem: EcosystemData }) => (
   <div className="px-5 py-4 space-y-4">
     <div className="flex items-center gap-3">
       <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
         <ArrowLeft className="w-4 h-4 text-foreground" />
       </button>
-      <p className="font-display font-bold text-lg text-foreground">Wallet</p>
+      <div>
+        <p className="font-display font-bold text-lg text-foreground">Wallet</p>
+        <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
+      </div>
     </div>
 
     {/* Balance Card */}
     <div className="rounded-2xl bg-gradient-to-br from-primary via-primary to-primary/80 p-5 text-primary-foreground">
-      <p className="text-xs opacity-70 font-medium">Available Balance</p>
-      <p className="font-display font-black text-4xl mt-1">$1,247.80</p>
+      <div className="flex items-center gap-1.5 mb-1">
+        <span className="text-sm">{ecosystem.emoji}</span>
+        <p className="text-[10px] opacity-70 font-medium">{ecosystem.label} Balance</p>
+      </div>
+      <p className="font-display font-black text-4xl mt-1">{ecosystem.walletBalance}</p>
       <div className="flex gap-3 mt-4">
         <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center">
           Withdraw
@@ -370,7 +403,7 @@ export const WalletScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =
       <p className="font-bold text-sm text-foreground mb-2">Available Rewards</p>
       <div className="flex gap-3 overflow-x-auto no-scrollbar">
         {[
-          { title: "Free Venum Gloves", points: "2,500 pts", img: "🥊" },
+          { title: `Free ${ecosystem.featuredBrand.name} Gift`, points: "2,500 pts", img: ecosystem.emoji },
           { title: "20% Off Next Order", points: "1,000 pts", img: "🏷️" },
           { title: "$25 Store Credit", points: "2,000 pts", img: "💰" },
         ].map((r) => (
@@ -389,7 +422,7 @@ export const WalletScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =
       <div className="space-y-1">
         {[
           { label: "Referral Commission", amount: "+$24.00", time: "2h ago", positive: true },
-          { label: "Mission: Share Venum", amount: "+$15.00", time: "5h ago", positive: true },
+          { label: `Mission: ${ecosystem.activeMissions[0]?.title || "Completed"}`, amount: "+$15.00", time: "5h ago", positive: true },
           { label: "Reward Redeemed", amount: "-1,000 pts", time: "1d ago", positive: false },
           { label: "Sale Commission", amount: "+$8.00", time: "2d ago", positive: true },
         ].map((t) => (
@@ -407,7 +440,7 @@ export const WalletScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =
 );
 
 /* ═══════ LEADERBOARD ═══════ */
-export const LeaderboardScreen = ({ onBack }: { onBack: () => void }) => {
+export const LeaderboardScreen = ({ onBack, ecosystem }: { onBack: () => void; ecosystem: EcosystemData }) => {
   const [period, setPeriod] = useState<"week" | "month" | "all">("week");
   return (
     <div className="px-5 py-4 space-y-4">
@@ -415,7 +448,10 @@ export const LeaderboardScreen = ({ onBack }: { onBack: () => void }) => {
         <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-foreground" />
         </button>
-        <p className="font-display font-bold text-lg text-foreground">Leaderboard</p>
+        <div>
+          <p className="font-display font-bold text-lg text-foreground">Leaderboard</p>
+          <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
+        </div>
       </div>
 
       {/* Period Toggle */}
@@ -493,40 +529,10 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
       </button>
     </div>
 
-    {/* Posts */}
-    <SocialPost
-      author="Sarah Martinez"
-      time="2h ago"
-      content="Just finished sparring with my new Venum Challenger 3.0 gloves! These are absolutely 🔥"
-      likes={42}
-      comments={8}
-      hasImage
-      productTag="Venum Challenger 3.0"
-      onProductClick={() => onNavigate("product")}
-    />
-    <SocialPost
-      author="Mike Torres"
-      time="5h ago"
-      content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made 💪"
-      likes={89}
-      comments={15}
-      hasImage
-    />
-    <SocialPost
-      author="LUUP Official"
-      time="1d ago"
-      content="🎉 New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started."
-      likes={234}
-      comments={47}
-      isBrand
-    />
-    <SocialPost
-      author="Jess Kim"
-      time="2d ago"
-      content="Just hit Gold tier on LUUP!! 🏆 The rewards just keep getting better. If you haven't joined yet, use my code: JESS-LUUP"
-      likes={156}
-      comments={23}
-    />
+    <SocialPost author="Sarah Martinez" time="2h ago" content="Just finished sparring with my new Venum Challenger 3.0 gloves! These are absolutely 🔥" likes={42} comments={8} hasImage productTag="Venum Challenger 3.0" onProductClick={() => onNavigate("product")} />
+    <SocialPost author="Mike Torres" time="5h ago" content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made 💪" likes={89} comments={15} hasImage />
+    <SocialPost author="LUUP Official" time="1d ago" content="🎉 New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started." likes={234} comments={47} isBrand />
+    <SocialPost author="Jess Kim" time="2d ago" content="Just hit Gold tier on LUUP!! 🏆 The rewards just keep getting better. If you haven't joined yet, use my code: JESS-LUUP" likes={156} comments={23} />
   </div>
 );
 
@@ -535,7 +541,6 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
   const [activeTab, setActiveTab] = useState<"products" | "missions" | "social" | "community">("products");
   return (
     <div className="space-y-0">
-      {/* Hero with parallax hint */}
       <div className="relative h-36 bg-gradient-to-br from-primary/30 to-primary/5">
         <button onClick={onBack} className="absolute top-3 left-4 w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-foreground" />
@@ -570,14 +575,9 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
           <button className="flex-1 border border-border rounded-xl py-2.5 font-bold text-xs text-foreground">Join Community</button>
         </div>
 
-        {/* Content Tabs */}
         <div className="flex border-b border-border">
           {(["products", "missions", "social", "community"] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2.5 text-xs font-semibold capitalize transition-all border-b-2 ${activeTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}
-            >
+            <button key={tab} onClick={() => setActiveTab(tab)} className={`flex-1 py-2.5 text-xs font-semibold capitalize transition-all border-b-2 ${activeTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}>
               {tab}
             </button>
           ))}
@@ -601,9 +601,9 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         )}
         {activeTab === "missions" && (
           <div className="space-y-2">
-            <MissionCard emoji="📸" title="Share Venum gear photo" brand="Venum" reward="$15" type="Social" difficulty="Easy" action="share" />
-            <MissionCard emoji="⭐" title="Review any Venum product" brand="Venum" reward="$10" type="Review" difficulty="Easy" action="review" />
-            <MissionCard emoji="🎥" title="Create a training video" brand="Venum" reward="$25" type="Content" difficulty="Medium" action="upload" />
+            <MissionCard emoji="" title="Share Venum gear photo" brand="Venum" reward="$15" type="Social" difficulty="Easy" action="share" />
+            <MissionCard emoji="" title="Review any Venum product" brand="Venum" reward="$10" type="Review" difficulty="Easy" action="review" />
+            <MissionCard emoji="" title="Create a training video" brand="Venum" reward="$25" type="Content" difficulty="Medium" action="upload" />
           </div>
         )}
         {activeTab === "social" && (
@@ -629,7 +629,6 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
           </div>
         )}
 
-        {/* Agent AI Widget */}
         <AgentPill context="brand" />
       </div>
     </div>
@@ -637,7 +636,7 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
 };
 
 /* ═══════ BRANDS ═══════ */
-export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
+export const StoreScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen) => void; ecosystem: EcosystemData }) => {
   const [addedProducts, setAddedProducts] = useState<string[]>([]);
 
   const toggleProduct = (name: string) => {
@@ -649,7 +648,10 @@ export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center justify-between">
-        <p className="font-display font-bold text-lg text-foreground">Brands</p>
+        <div>
+          <p className="font-display font-bold text-lg text-foreground">Brands</p>
+          <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
+        </div>
         <div className="flex items-center gap-2 bg-muted rounded-lg px-2.5 py-1.5">
           <Search className="w-3.5 h-3.5 text-muted-foreground" />
           <span className="text-[10px] text-muted-foreground">Search brands</span>
@@ -658,7 +660,7 @@ export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
 
       {/* Category Filters */}
       <div className="flex gap-2 overflow-x-auto no-scrollbar">
-        {["All Brands", "Combat", "Fitness", "Nutrition", "Apparel"].map((c, i) => (
+        {["All Brands", ...ecosystem.brands.map(b => b.category.split(" ")[0])].slice(0, 5).map((c, i) => (
           <div key={c} className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap ${i === 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
             {c}
           </div>
@@ -670,28 +672,23 @@ export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
         <span className="tag-accent text-[10px] mb-2 inline-block">⭐ Featured Partner</span>
         <div className="flex items-center gap-3">
           <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center">
-            <span className="font-display font-black text-primary text-lg">V</span>
+            <span className="font-display font-black text-primary text-lg">{ecosystem.featuredBrand.logo}</span>
           </div>
           <div className="flex-1">
-            <p className="font-bold text-sm text-foreground">Venum</p>
-            <p className="text-xs text-muted-foreground">Official combat sports gear</p>
+            <p className="font-bold text-sm text-foreground">{ecosystem.featuredBrand.name}</p>
+            <p className="text-xs text-muted-foreground">{ecosystem.featuredBrand.desc}</p>
             <div className="flex items-center gap-3 mt-1">
-              <span className="text-[10px] text-primary font-bold">8–12% royalties</span>
-              <span className="text-[10px] text-muted-foreground">847 products</span>
+              <span className="text-[10px] text-primary font-bold">{ecosystem.featuredBrand.royalty} royalties</span>
+              <span className="text-[10px] text-muted-foreground">{ecosystem.featuredBrand.products} products</span>
             </div>
           </div>
           <ChevronRight className="w-4 h-4 text-muted-foreground" />
         </div>
       </button>
 
-      {/* Brand List with Royalty Rates */}
+      {/* Brand List */}
       <div className="space-y-2">
-        {[
-          { name: "Hayabusa", category: "Combat Gear", royalty: "10–15%", products: 312, logo: "H" },
-          { name: "Sanabul", category: "Training Equipment", royalty: "8–10%", products: 189, logo: "S" },
-          { name: "Everlast", category: "Boxing & MMA", royalty: "6–9%", products: 524, logo: "E" },
-          { name: "RDX Sports", category: "Fitness & Combat", royalty: "7–11%", products: 436, logo: "R" },
-        ].map((b) => (
+        {ecosystem.brands.map((b) => (
           <button key={b.name} onClick={() => onNavigate("brand")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-border bg-card hover:shadow-sm transition-shadow text-left">
             <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
               <span className="font-display font-bold text-foreground">{b.logo}</span>
@@ -709,16 +706,12 @@ export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
         ))}
       </div>
 
-      {/* Top Products to Add to Storefront */}
+      {/* Top Products to Add */}
       <div>
         <p className="font-display font-bold text-sm text-foreground mb-1">Top Products to Add</p>
         <p className="text-[10px] text-muted-foreground mb-3">Add products to your storefront and earn royalties on every sale</p>
         <div className="space-y-2">
-          {[
-            { name: "Venum Challenger 3.0 Gloves", brand: "Venum", price: "$79.99", royalty: "$8.00" },
-            { name: "Hayabusa T3 Boxing Gloves", brand: "Hayabusa", price: "$159.99", royalty: "$24.00" },
-            { name: "Sanabul Essential Rash Guard", brand: "Sanabul", price: "$24.99", royalty: "$2.50" },
-          ].map((p) => (
+          {ecosystem.trendingOffers.map((p) => (
             <div key={p.name} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
               <button onClick={() => onNavigate("product")} className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
               <button onClick={() => onNavigate("product")} className="flex-1 min-w-0 text-left">
@@ -729,9 +722,7 @@ export const StoreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
               <button
                 onClick={(e) => { e.stopPropagation(); toggleProduct(p.name); }}
                 className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
-                  addedProducts.includes(p.name)
-                    ? "bg-primary/10 text-primary border border-primary/30"
-                    : "bg-primary text-primary-foreground"
+                  addedProducts.includes(p.name) ? "bg-primary/10 text-primary border border-primary/30" : "bg-primary text-primary-foreground"
                 }`}
               >
                 {addedProducts.includes(p.name) ? (
@@ -767,7 +758,6 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
     <div className="space-y-0">
       <div className="relative">
         <div className="h-52 bg-muted" />
-        {/* Image carousel dots */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-primary w-4" : "bg-foreground/30"}`} />
@@ -808,7 +798,6 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           </div>
         </div>
 
-        {/* Fighter endorsement */}
         <div className="flex items-center gap-3 rounded-xl bg-muted p-3">
           <div className="w-8 h-8 rounded-full bg-primary/10" />
           <div className="flex-1">
@@ -817,7 +806,6 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           </div>
         </div>
 
-        {/* Reviews preview */}
         <div className="rounded-xl border border-border p-3">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs font-bold text-foreground">Reviews</p>
@@ -832,7 +820,6 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           </div>
         </div>
 
-        {/* Ask AI */}
         <button className="w-full rounded-xl border border-primary/20 bg-primary/5 p-3 flex items-center gap-3 text-left">
           <Bot className="w-5 h-5 text-primary" />
           <div className="flex-1">
@@ -841,7 +828,6 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           </div>
         </button>
 
-        {/* Related Products */}
         <div>
           <p className="text-xs font-bold text-foreground mb-2">You might also like</p>
           <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
@@ -854,7 +840,6 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
           </div>
         </div>
 
-        {/* Sticky Affiliate Bar */}
         <div className="flex gap-2 pt-2 sticky bottom-0 bg-card py-3 -mx-5 px-5 border-t border-border">
           <button onClick={() => onNavigate("checkout")} className="flex-1 bg-primary text-primary-foreground rounded-xl py-3 font-bold text-sm flex items-center justify-center gap-2">
             <Share2 className="w-4 h-4" />
@@ -904,7 +889,6 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         </button>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-3 gap-2">
         {[
           { label: "Sales", value: "2.4k" },
@@ -951,7 +935,6 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
         <p className="font-display font-bold text-lg text-foreground">Buy via Brand</p>
       </div>
 
-      {/* Product Summary */}
       <div className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
         <div className="w-16 h-16 rounded-xl bg-muted flex-shrink-0" />
         <div className="flex-1">
@@ -961,7 +944,6 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
         </div>
       </div>
 
-      {/* Affiliate Link Info */}
       <div className="rounded-2xl bg-primary/5 border border-primary/20 p-4 space-y-3">
         <div className="flex items-center gap-2">
           <Share2 className="w-5 h-5 text-primary" />
@@ -978,7 +960,6 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
         </p>
       </div>
 
-      {/* Referral Attribution */}
       <div className="rounded-xl bg-stage-participation/5 border border-stage-participation/20 p-3 flex items-center gap-2">
         <Check className="w-4 h-4 text-stage-participation" />
         <div>
@@ -987,7 +968,6 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
         </div>
       </div>
 
-      {/* Earnings Breakdown */}
       <div className="rounded-xl border border-border p-3 space-y-2">
         <p className="text-xs font-bold text-foreground">Commission Breakdown</p>
         <div className="flex justify-between text-xs"><span className="text-muted-foreground">Product Price</span><span className="text-foreground">$79.99</span></div>
@@ -996,7 +976,6 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
         <p className="text-[10px] text-muted-foreground">Per sale through your affiliate link</p>
       </div>
 
-      {/* Share Options */}
       <div className="space-y-2">
         <p className="text-xs font-bold text-foreground">Share Your Link</p>
         <div className="grid grid-cols-4 gap-2">
@@ -1009,7 +988,6 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
         </div>
       </div>
 
-      {/* Go to Brand Site CTA */}
       <button onClick={() => onNavigate("order-confirm")} className="w-full bg-primary text-primary-foreground rounded-xl py-3.5 font-bold text-sm flex items-center justify-center gap-2">
         <ShoppingBag className="w-4 h-4" />
         Go to venum.com
@@ -1022,7 +1000,6 @@ export const CheckoutScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen)
 /* ═══════ LINK SHARED CONFIRMATION ═══════ */
 export const OrderConfirmScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
   <div className="px-5 py-8 space-y-5 text-center">
-    {/* Success Animation */}
     <div className="flex justify-center">
       <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
         <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center">
@@ -1047,7 +1024,6 @@ export const OrderConfirmScreen = ({ onNavigate }: { onNavigate: (s: Screen) => 
       </div>
     </div>
 
-    {/* How It Works */}
     <div className="rounded-2xl bg-muted/50 border border-border p-4 text-left space-y-3">
       <p className="text-xs font-bold text-foreground">How You Earn</p>
       {[
@@ -1062,7 +1038,6 @@ export const OrderConfirmScreen = ({ onNavigate }: { onNavigate: (s: Screen) => 
       ))}
     </div>
 
-    {/* Share & Earn CTA */}
     <button onClick={() => onNavigate("profile")} className="w-full rounded-2xl bg-gradient-to-r from-primary to-primary/80 p-4 text-primary-foreground text-left">
       <div className="flex items-center gap-3">
         <Share2 className="w-6 h-6" />
@@ -1073,7 +1048,6 @@ export const OrderConfirmScreen = ({ onNavigate }: { onNavigate: (s: Screen) => 
       </div>
     </button>
 
-    {/* Actions */}
     <div className="space-y-2">
       <button onClick={() => onNavigate("wallet")} className="w-full rounded-xl border border-border py-3 text-xs font-bold text-foreground flex items-center justify-center gap-2">
         <Wallet className="w-4 h-4" /> View Earnings
@@ -1135,7 +1109,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       </button>
     </div>
 
-    {/* Ambassador Badge */}
     <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-gradient-to-r from-stage-earnings/10 to-primary/10 border border-stage-earnings/20 p-3 flex items-center gap-3 text-left">
       <Crown className="w-5 h-5 text-stage-earnings" />
       <div className="flex-1">
@@ -1145,7 +1118,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       <ChevronRight className="w-4 h-4 text-muted-foreground" />
     </button>
 
-    {/* Stats */}
     <div className="grid grid-cols-3 gap-2">
       {[
         { label: "Referrals", value: "47" },
@@ -1159,7 +1131,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       ))}
     </div>
 
-    {/* Referral Code */}
     <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4">
       <p className="font-bold text-sm text-foreground mb-1">Your Referral Code</p>
       <div className="flex items-center gap-2">
@@ -1171,7 +1142,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
         </div>
       </div>
       <p className="text-[10px] text-muted-foreground mt-2">Shared 24 times · 8 conversions</p>
-      {/* Share to platform buttons */}
       <div className="flex gap-2 mt-3">
         {["WhatsApp", "Instagram", "TikTok"].map((p) => (
           <button key={p} className="flex-1 py-1.5 rounded-lg bg-muted text-[10px] font-semibold text-foreground border border-border">{p}</button>
@@ -1179,7 +1149,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       </div>
     </div>
 
-    {/* Earnings Breakdown */}
     <div>
       <p className="font-display font-bold text-sm text-foreground mb-2">Earnings Breakdown</p>
       <div className="space-y-2">
@@ -1190,7 +1159,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       </div>
     </div>
 
-    {/* Menu Items */}
     <div className="space-y-1">
       {[
         { label: "My Storefront", screen: "storefront" as Screen },
@@ -1206,7 +1174,6 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       ))}
     </div>
 
-    {/* Activity Feed Preview */}
     <div className="rounded-xl border border-border p-3">
       <p className="text-xs font-bold text-foreground mb-2">Recent Activity</p>
       <div className="space-y-2">
@@ -1231,7 +1198,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
 export const MissionRow = ({ emoji, title, reward, progress }: { emoji: string; title: string; reward: string; progress: number }) => (
   <div className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
-    <span className="text-lg">{emoji}</span>
+    <div className="w-8 h-8 rounded-lg bg-muted flex-shrink-0" />
     <div className="flex-1 min-w-0">
       <p className="text-xs font-bold text-foreground truncate">{title}</p>
       <div className="h-1.5 rounded-full bg-muted mt-1.5">
