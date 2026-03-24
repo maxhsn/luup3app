@@ -216,9 +216,6 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         </button>
       </div>
 
-
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-foreground/10 border border-primary-foreground/10 text-[9px] font-bold backdrop-blur-sm">
-              <TrendingUp className="w-2.5 h-2.5 text-green-300" />
               <span className="text-green-200">{ecosystem.walletGrowth}</span>
             </div>
           </div>
