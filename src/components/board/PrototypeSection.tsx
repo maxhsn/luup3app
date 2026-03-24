@@ -8,7 +8,7 @@ import {
   LoginScreen, StartScreen, EcosystemSetupScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
-  OrderConfirmScreen, NotificationsScreen, EditProfileScreen, SavedItemsScreen, ReferralCodeScreen
+  OrderConfirmScreen, NotificationsScreen, EditProfileScreen, SavedItemsScreen, ReferralCodeScreen, ShareStorefrontScreen
 } from "./prototype/AppScreens";
 import { getEcosystem } from "./prototype/ecosystemData";
 
@@ -107,6 +107,7 @@ const PrototypeSection = () => {
               {screen === "edit-profile" && <EditProfileScreen onBack={goBack} />}
               {screen === "saved-items" && <SavedItemsScreen onBack={goBack} onNavigate={navigate} />}
               {screen === "referral-code" && <ReferralCodeScreen onBack={goBack} />}
+              {screen === "share-storefront" && <ShareStorefrontScreen onBack={goBack} />}
             </div>
 
             {!hideNav(screen) && (

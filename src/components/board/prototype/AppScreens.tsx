@@ -6,7 +6,7 @@ import {
   Camera, Image, CreditCard, Package, Shield, ChevronDown, ChevronLeft,
   Crown, Zap, Eye, BookOpen, Settings, LogOut, X, Bot,
   Bookmark, Repeat2, Award, Hash, TrendingDown, Users, Video,
-  Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot
+  Link, ImageIcon, Upload, UserPlus, PenLine, MapPinIcon, Clock, Lock, ChevronUp, CircleDot, Copy, QrCode, ExternalLink, Download
 } from "lucide-react";
 import { type EcosystemData, type MissionData, type MissionSubmissionType, type MissionStatus, ecosystems } from "./ecosystemData";
 
@@ -14,7 +14,7 @@ export type Screen =
   | "login" | "start" | "ecosystem-setup" | "home" | "explore" | "missions" | "store" | "profile"
   | "product" | "storefront" | "wallet" | "leaderboard"
   | "social" | "brand" | "checkout" | "notifications"
-  | "order-confirm" | "edit-profile" | "saved-items" | "referral-code";
+  | "order-confirm" | "edit-profile" | "saved-items" | "referral-code" | "share-storefront";
 
 /* ═══════ LOGIN / SIGNUP ═══════ */
 export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
@@ -1658,7 +1658,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         <ArrowLeft className="w-4 h-4 text-foreground" />
       </button>
       <div className="absolute top-3 right-4 flex gap-1.5 z-10">
-        <button className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+        <button onClick={() => onNavigate("share-storefront")} className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center active:scale-95 transition-transform">
           <Share2 className="w-3.5 h-3.5 text-foreground" />
         </button>
         <button className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
@@ -1701,7 +1701,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         >
           {following ? <><Check className="w-3.5 h-3.5" /> Following</> : <><UserPlus className="w-3.5 h-3.5" /> Follow</>}
         </button>
-        <button className="px-4 rounded-xl border border-border font-bold text-xs text-foreground flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
+        <button onClick={() => onNavigate("share-storefront")} className="px-4 rounded-xl border border-border font-bold text-xs text-foreground flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform">
           <Share2 className="w-3.5 h-3.5" /> Share
         </button>
       </div>
@@ -2627,3 +2627,103 @@ const AgentPill = ({ context }: { context?: string }) => (
     <ChevronRight className="w-4 h-4 text-primary" />
   </div>
 );
+
+/* ═══════ SHARE STOREFRONT ═══════ */
+export const ShareStorefrontScreen = ({ onBack }: { onBack: () => void }) => {
+  const [copied, setCopied] = useState(false);
+  const link = "luup.app/alexrivera";
+
+  const handleCopy = () => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="space-y-0">
+      {/* Header */}
+      <div className="flex items-center gap-3 px-5 pt-4 pb-3">
+        <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform">
+          <ChevronLeft className="w-4 h-4 text-foreground" />
+        </button>
+        <p className="font-display font-bold text-base text-foreground flex-1">Share Storefront</p>
+      </div>
+
+      <div className="px-5 space-y-5 pb-6">
+        {/* QR Code Card */}
+        <div className="rounded-2xl bg-card border border-border p-6 flex flex-col items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <QrCode className="w-5 h-5 text-primary" />
+          </div>
+          <p className="font-display font-bold text-sm text-foreground">Scan to visit my storefront</p>
+
+          {/* Simulated QR Code */}
+          <div className="w-44 h-44 bg-foreground rounded-2xl p-3 relative">
+            <div className="w-full h-full bg-background rounded-lg relative overflow-hidden">
+              {/* QR pattern simulation */}
+              <div className="absolute inset-2 grid grid-cols-9 grid-rows-9 gap-[2px]">
+                {Array.from({ length: 81 }).map((_, i) => {
+                  const row = Math.floor(i / 9);
+                  const col = i % 9;
+                  const isCorner = (row < 3 && col < 3) || (row < 3 && col > 5) || (row > 5 && col < 3);
+                  const isFilled = isCorner || Math.random() > 0.45;
+                  return (
+                    <div
+                      key={i}
+                      className={`rounded-[1px] ${isFilled ? "bg-foreground" : "bg-transparent"}`}
+                    />
+                  );
+                })}
+              </div>
+              {/* Center logo */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
+                  <span className="font-display font-black text-[10px] text-primary-foreground">L</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-[11px] text-muted-foreground">Anyone can scan this to see your storefront</p>
+        </div>
+
+        {/* Link Section */}
+        <div className="rounded-2xl bg-card border border-border p-4 space-y-3">
+          <p className="font-display font-bold text-xs text-foreground">Your Storefront Link</p>
+          <div className="flex items-center gap-2 bg-muted rounded-xl px-3 py-2.5">
+            <Link className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+            <span className="text-[12px] font-semibold text-foreground flex-1 truncate">{link}</span>
+            <button
+              onClick={handleCopy}
+              className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold flex items-center gap-1 active:scale-95 transition-transform"
+            >
+              {copied ? <><Check className="w-3 h-3" /> Copied!</> : <><Copy className="w-3 h-3" /> Copy</>}
+            </button>
+          </div>
+        </div>
+
+        {/* Share Options */}
+        <div className="rounded-2xl bg-card border border-border p-4 space-y-3">
+          <p className="font-display font-bold text-xs text-foreground">Share via</p>
+          <div className="grid grid-cols-4 gap-2">
+            {[
+              { label: "Instagram", emoji: "📸" },
+              { label: "TikTok", emoji: "🎵" },
+              { label: "WhatsApp", emoji: "💬" },
+              { label: "X / Twitter", emoji: "𝕏" },
+            ].map((s) => (
+              <button key={s.label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-muted border border-border active:scale-95 transition-transform">
+                <span className="text-lg">{s.emoji}</span>
+                <span className="text-[8px] font-bold text-muted-foreground">{s.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Download QR */}
+        <button className="w-full rounded-xl border border-border bg-card py-3 font-bold text-xs text-foreground flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+          <Download className="w-4 h-4 text-primary" /> Download QR Code
+        </button>
+      </div>
+    </div>
+  );
+};
