@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   Search, Home, ShoppingBag, Trophy, User, Flame, Gift,
-  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen
+  TrendingUp, Share2, Wallet, MessageCircle, Bell, Bot, BookOpen, Users
 } from "lucide-react";
 import {
   type Screen,
