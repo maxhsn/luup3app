@@ -1210,11 +1210,7 @@ const MissionCard = ({ emoji, title, brand, reward, type, difficulty, locked, ac
   <div className={`p-3.5 rounded-2xl border bg-card ${locked ? "opacity-50 border-border" : "border-border"}`}>
     <div className="flex items-start gap-3">
       <div className="w-12 h-12 rounded-xl bg-muted border border-border flex-shrink-0 flex items-center justify-center overflow-hidden">
-        {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover rounded-xl" />
-        ) : (
-          <span className="text-xl">{emoji}</span>
-        )}
+        <div className="w-full h-full bg-muted-foreground/10 rounded-xl" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-0.5">
