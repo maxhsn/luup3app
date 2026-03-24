@@ -104,6 +104,9 @@ const PrototypeSection = () => {
               {screen === "checkout" && <CheckoutScreen onNavigate={navigate} onBack={goBack} />}
               {screen === "order-confirm" && <OrderConfirmScreen onNavigate={navigate} />}
               {screen === "notifications" && <NotificationsScreen onNavigate={navigate} onBack={goBack} />}
+              {screen === "edit-profile" && <EditProfileScreen onBack={goBack} />}
+              {screen === "saved-items" && <SavedItemsScreen onBack={goBack} onNavigate={navigate} />}
+              {screen === "referral-code" && <ReferralCodeScreen onBack={goBack} />}
             </div>
 
             {!hideNav(screen) && (
