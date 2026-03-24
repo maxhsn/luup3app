@@ -1658,7 +1658,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         <ArrowLeft className="w-4 h-4 text-foreground" />
       </button>
       <div className="absolute top-3 right-4 flex gap-1.5 z-10">
-        <button className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
+        <button onClick={() => onNavigate("share-storefront")} className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center active:scale-95 transition-transform">
           <Share2 className="w-3.5 h-3.5 text-foreground" />
         </button>
         <button className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center">
