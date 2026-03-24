@@ -1721,8 +1721,8 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
             </div>
 
             {/* QR Code */}
-            <div className="flex justify-center py-2">
-              <div className="w-40 h-40 bg-card border-2 border-border rounded-2xl p-3 flex items-center justify-center">
+            <div className="flex justify-center py-1">
+              <div className="w-28 h-28 bg-card border-2 border-border rounded-2xl p-2 flex items-center justify-center">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   {/* Simplified QR pattern */}
                   <rect x="0" y="0" width="100" height="100" fill="white" rx="4"/>
