@@ -1618,7 +1618,7 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
           {/* Status indicator */}
           {currentStatus !== "open" && !mission.locked && (
             <div className="absolute top-2 left-2.5">
-              <span className={`px-1.5 py-0.5 rounded-md text-[8px] font-bold ${sc.className}`}>{sc.label}</span>
+              <span className={`px-1.5 py-0.5 rounded-md text-[8px] font-bold ${sc.color}`}>{sc.label}</span>
             </div>
           )}
         </div>
