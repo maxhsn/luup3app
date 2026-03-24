@@ -147,12 +147,12 @@ const PrototypeSection = () => {
         {/* Right: Context info */}
         <div className="hidden lg:flex flex-col gap-3 pt-12">
           <FeatureCallout
-            icon={<Search className="w-5 h-5" />}
-            title="Search & Explore"
-            desc="Discover brands, trending hashtags, and products with live search."
+            icon={<MessageCircle className="w-5 h-5" />}
+            title="Social Wall"
+            desc="UGC feed with stories, product tags, likes, comments, and sharing."
             active={screen === "explore"}
             onClick={() => navigate("explore")}
-            interactions={6}
+            interactions={8}
           />
           <FeatureCallout
             icon={<ShoppingBag className="w-5 h-5" />}
