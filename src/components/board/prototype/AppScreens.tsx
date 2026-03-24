@@ -1379,11 +1379,21 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
               { name: "Kontact Shin Guards", price: "$49.99" },
               { name: "Challenger Headgear", price: "$54.99" },
             ].map((p) => (
-              <button key={p.name} onClick={() => onNavigate("product")} className="rounded-2xl border border-border bg-card p-2.5 text-left">
-                <div className="aspect-square rounded-xl bg-muted mb-2" />
-                <p className="font-bold text-[11px] text-foreground truncate">{p.name}</p>
-                <p className="text-xs font-bold text-primary mt-0.5">{p.price}</p>
-              </button>
+              <div className="rounded-2xl border border-border bg-card p-2.5 text-left">
+                <button onClick={() => onNavigate("product")} className="w-full">
+                  <div className="aspect-square rounded-xl bg-muted mb-2" />
+                  <p className="font-bold text-[11px] text-foreground truncate text-left">{p.name}</p>
+                  <p className="text-xs font-bold text-primary mt-0.5 text-left">{p.price}</p>
+                </button>
+                <button
+                  onClick={() => toggleProduct(p.name)}
+                  className={`w-full mt-2 py-1.5 rounded-lg text-[9px] font-bold flex items-center justify-center gap-1 transition-all active:scale-[0.97] ${
+                    addedProducts.includes(p.name) ? "bg-primary/10 text-primary border border-primary/30" : "bg-foreground text-background"
+                  }`}
+                >
+                  {addedProducts.includes(p.name) ? <><Check className="w-3 h-3" /> In Storefront</> : <><Plus className="w-3 h-3" /> Add to Storefront</>}
+                </button>
+              </div>
             ))}
           </div>
         )}
