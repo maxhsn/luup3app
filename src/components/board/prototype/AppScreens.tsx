@@ -224,7 +224,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
       </div>
 
       {/* Story-style row */}
-      <div className="flex gap-3 overflow-x-auto no-scrollbar">
+      <div className="flex gap-4 overflow-x-auto no-scrollbar py-1">
         {[
           { name: "Your Story", isYou: true },
           { name: "Sarah M.", hasNew: true, live: false },
@@ -232,20 +232,25 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
           { name: "Jess K.", hasNew: false, live: false },
           { name: "LUUP", hasNew: true, live: false, isBrand: true },
           { name: "Jake S.", hasNew: true, live: false },
-        ].map((s, i) => (
-          <div key={s.name} className="flex flex-col items-center gap-1 flex-shrink-0 relative">
-            <div className={`w-14 h-14 rounded-full ${
-              s.isYou ? "border-2 border-dashed border-muted-foreground/40" :
-              s.hasNew ? "ring-2 ring-primary/60" : "ring-2 ring-border"
-            } bg-muted flex items-center justify-center`}>
-              {s.isYou ? <Plus className="w-4 h-4 text-muted-foreground" /> :
-               s.isBrand ? <Zap className="w-5 h-5 text-primary" /> :
-               <div className="w-12 h-12 rounded-full bg-muted-foreground/10" />}
+        ].map((s) => (
+          <div key={s.name} className="flex flex-col items-center gap-1.5 flex-shrink-0 relative">
+            <div className={`w-16 h-16 rounded-full p-[3px] ${
+              s.isYou ? "" :
+              s.hasNew ? "bg-gradient-to-tr from-primary to-primary/60" : ""
+            }`}>
+              <div className={`w-full h-full rounded-full flex items-center justify-center ${
+                s.isYou ? "border-[2.5px] border-dashed border-muted-foreground/30 bg-muted" :
+                s.hasNew ? "bg-card ring-[2.5px] ring-card" : "bg-muted ring-2 ring-border"
+              }`}>
+                {s.isYou ? <Plus className="w-5 h-5 text-muted-foreground/50" /> :
+                 s.isBrand ? <Zap className="w-5 h-5 text-primary" /> :
+                 <div className="w-full h-full rounded-full bg-muted-foreground/10" />}
+              </div>
             </div>
             {s.live && (
-              <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 px-1.5 py-0 rounded-full bg-destructive text-[7px] font-bold text-destructive-foreground uppercase tracking-wide">Live</span>
+              <span className="absolute bottom-5 left-1/2 -translate-x-1/2 px-1.5 py-0 rounded-sm bg-destructive text-[7px] font-bold text-destructive-foreground uppercase tracking-wide z-10">Live</span>
             )}
-            <span className="text-[10px] text-muted-foreground font-medium truncate w-14 text-center">{s.name}</span>
+            <span className="text-[10px] text-muted-foreground font-medium truncate w-16 text-center">{s.name}</span>
           </div>
         ))}
       </div>
