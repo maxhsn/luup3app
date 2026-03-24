@@ -509,48 +509,6 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         </button>
       </div>
 
-      {/* ── Weekly Progress Widget ── */}
-      <div className="grid grid-cols-5 gap-2">
-        <button onClick={() => onNavigate("missions")}
-          className="col-span-3 rounded-2xl bg-card border border-border p-3.5 text-left active:scale-[0.98] transition-transform">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-[11px] font-bold text-foreground">Weekly Progress</p>
-            <span className="text-[10px] font-black text-primary">{missionProgress}%</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="relative flex-shrink-0">
-              <ActivityRing progress={missionProgress} size={48} stroke={5} color="hsl(var(--primary))" bgColor="hsl(var(--border))" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[9px] font-black text-foreground">{missionsComplete}/{missionsTotal}</span>
-              </div>
-            </div>
-            <div className="flex-1 min-w-0 space-y-1.5">
-              {ecosystem.activeMissions.slice(0, 2).map((m) => (
-                <div key={m.title}>
-                  <div className="flex items-center justify-between mb-0.5">
-                    <span className="text-[8px] font-medium text-muted-foreground truncate max-w-[60px]">{m.title.split(" ").slice(0, 2).join(" ")}</span>
-                    <span className="text-[8px] font-bold text-foreground">{m.progress}%</span>
-                  </div>
-                  <div className="w-full h-[5px] rounded-full bg-muted">
-                    <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${m.progress}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </button>
-
-        <button onClick={() => onNavigate("profile")}
-          className="col-span-2 rounded-2xl bg-gradient-to-br from-stage-conversion/8 to-stage-earnings/5 border border-stage-conversion/15 p-3.5 text-left active:scale-[0.98] transition-transform flex flex-col justify-between">
-          <div className="w-7 h-7 rounded-xl bg-stage-conversion/10 flex items-center justify-center">
-            <Share2 className="w-3.5 h-3.5 text-stage-conversion" />
-          </div>
-          <div className="mt-auto">
-            <p className="font-display font-black text-lg leading-none text-foreground">10%</p>
-            <p className="text-[9px] text-muted-foreground mt-0.5">Referral rate</p>
-          </div>
-        </button>
-      </div>
 
       {/* ── Active Missions ── */}
       <div>
