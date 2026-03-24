@@ -1071,10 +1071,10 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
       </div>
       <p className="font-display font-black text-4xl mt-1">{ecosystem.walletBalance}</p>
       <div className="flex gap-3 mt-4">
-        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center">
+        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center active:scale-95 transition-transform active:bg-primary-foreground/30">
           Withdraw
         </button>
-        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center">
+        <button className="flex-1 rounded-xl bg-primary-foreground/20 backdrop-blur py-2.5 text-xs font-bold text-center active:scale-95 transition-transform active:bg-primary-foreground/30">
           Redeem
         </button>
       </div>
