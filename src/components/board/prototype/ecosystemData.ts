@@ -378,7 +378,7 @@ export const ecosystems: EcosystemData[] = [
       },
       {
         id: "g6", title: "Compete in a LUUP tournament", brand: "GFUEL", reward: "$75",
-        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", locked: true,
+        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", status: "open", locked: true,
         slots: { taken: 0, total: 10 },
         description: "Enter and compete in a LUUP-sponsored gaming tournament.",
         requirements: ["Register via app", "Complete all matches", "Verified tournament"],
