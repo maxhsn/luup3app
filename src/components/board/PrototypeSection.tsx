@@ -5,15 +5,15 @@ import {
 } from "lucide-react";
 import {
   type Screen,
-  HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
+  StartScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
   OrderConfirmScreen, NotificationsScreen
 } from "./prototype/AppScreens";
 
 const PrototypeSection = () => {
-  const [screen, setScreen] = useState<Screen>("home");
-  const [history, setHistory] = useState<Screen[]>(["home"]);
+  const [screen, setScreen] = useState<Screen>("start");
+  const [history, setHistory] = useState<Screen[]>(["start"]);
 
   const navigate = (to: Screen) => {
     setHistory((h) => [...h, to]);
@@ -30,6 +30,7 @@ const PrototypeSection = () => {
 
   // Tab bar screens
   const isTabScreen = (s: Screen) => ["home", "explore", "missions", "store", "profile"].includes(s);
+  const isStartScreen = screen === "start";
 
   return (
     <div className="animate-fade-in">
@@ -108,6 +109,7 @@ const PrototypeSection = () => {
 
             {/* Screen Content */}
             <div className="min-h-[620px] max-h-[620px] overflow-y-auto no-scrollbar">
+              {screen === "start" && <StartScreen onNavigate={navigate} />}
               {screen === "home" && <HomeScreen onNavigate={navigate} />}
               {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
               {screen === "missions" && <MissionsScreen onNavigate={navigate} />}
