@@ -1323,6 +1323,8 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
 export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [activeTab, setActiveTab] = useState<"products" | "missions" | "social" | "community">("products");
   const [following, setFollowing] = useState(false);
+  const [addedProducts, setAddedProducts] = useState<string[]>([]);
+  const toggleProduct = (name: string) => setAddedProducts((prev) => prev.includes(name) ? prev.filter((p) => p !== name) : [...prev, name]);
   return (
     <div className="space-y-0">
       <div className="relative h-36 bg-gradient-to-br from-primary/30 to-primary/5">
