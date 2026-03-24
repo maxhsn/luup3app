@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import {
   type Screen,
-  HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
+  StartScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
   OrderConfirmScreen, NotificationsScreen
