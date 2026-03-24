@@ -1322,6 +1322,7 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
 /* ═══════ BRAND PAGE ═══════ */
 export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [activeTab, setActiveTab] = useState<"products" | "missions" | "social" | "community">("products");
+  const [following, setFollowing] = useState(false);
   return (
     <div className="space-y-0">
       <div className="relative h-36 bg-gradient-to-br from-primary/30 to-primary/5">
