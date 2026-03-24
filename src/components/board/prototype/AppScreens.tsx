@@ -1729,32 +1729,6 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         ))}
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-4 gap-1.5">
-        {[
-          { label: "Products", value: "12" },
-          { label: "Sales", value: "2.4k" },
-          { label: "Followers", value: "8.2k" },
-          { label: "Rating", value: "4.9★" },
-        ].map((s) => (
-          <div key={s.label} className="rounded-xl bg-muted/60 p-2 text-center">
-            <p className="font-display font-black text-sm text-foreground">{s.value}</p>
-            <p className="text-[8px] text-muted-foreground font-medium">{s.label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Referral Code Banner */}
-      <div className="rounded-2xl bg-gradient-to-r from-primary/10 to-stage-earnings/10 border border-primary/15 p-3 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center flex-shrink-0">
-          <Gift className="w-5 h-5 text-primary" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[10px] font-bold text-foreground">Use my code for bonus rewards</p>
-          <p className="font-mono text-xs font-bold text-primary mt-0.5">ALEX-LUUP</p>
-        </div>
-        <button className="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-[9px] font-bold flex-shrink-0">Copy</button>
-      </div>
 
       {/* ── FEATURED PRODUCT (Editorial hero) ── */}
       <div>
