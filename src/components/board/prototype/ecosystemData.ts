@@ -236,7 +236,7 @@ export const ecosystems: EcosystemData[] = [
       },
       {
         id: "o6", title: "Complete a 50km trail event", brand: "Salomon", reward: "$60",
-        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", locked: true,
+        type: "Event Check-in", submissionType: "checkin", difficulty: "Hard", status: "open", locked: true,
         slots: { taken: 0, total: 8 },
         description: "Complete a 50km+ trail event and check in via the app.",
         requirements: ["GPS check-in", "Finisher proof", "Verified event"],
