@@ -106,12 +106,12 @@ const PrototypeSection = () => {
               {screen === "notifications" && <NotificationsScreen onNavigate={navigate} onBack={goBack} />}
             </div>
 
-            {isTabScreen(screen) && (
+            {!hideNav(screen) && (
               <div className="border-t border-border bg-card px-2 pb-5 pt-2">
                 <div className="flex justify-around">
                   <TabBtn icon={<Home />} label="Home" active={screen === "home"} onClick={() => navigate("home")} />
-                  <TabBtn icon={<Users />} label="Community" active={screen === "explore"} onClick={() => navigate("explore")} />
                   <TabBtn icon={<Flame />} label="Missions" active={screen === "missions"} onClick={() => navigate("missions")} />
+                  <TabBtn icon={<Users />} label="Community" active={screen === "explore"} onClick={() => navigate("explore")} />
                   <TabBtn icon={<ShoppingBag />} label="Brands" active={screen === "store"} onClick={() => navigate("store")} />
                   <TabBtn icon={<User />} label="Profile" active={screen === "profile"} onClick={() => navigate("profile")} />
                 </div>
