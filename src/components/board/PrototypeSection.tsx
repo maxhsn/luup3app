@@ -34,6 +34,10 @@ const PrototypeSection = () => {
 
   const handleSelectEcosystem = (id: string) => {
     setEcosystemId(id);
+    navigate("ecosystem-setup");
+  };
+
+  const handleEcosystemSetupComplete = () => {
     navigate("home");
   };
 
