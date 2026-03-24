@@ -496,22 +496,6 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
         ))}
       </div>
 
-      {/* Submission Type Legend */}
-      <div className="flex gap-2 overflow-x-auto no-scrollbar">
-        {([
-          { icon: <Link className="w-3 h-3" />, label: "Link" },
-          { icon: <Camera className="w-3 h-3" />, label: "Screenshot" },
-          { icon: <Upload className="w-3 h-3" />, label: "Upload" },
-          { icon: <UserPlus className="w-3 h-3" />, label: "Referral" },
-          { icon: <PenLine className="w-3 h-3" />, label: "Review" },
-          { icon: <MapPinIcon className="w-3 h-3" />, label: "Check-in" },
-        ]).map(t => (
-          <div key={t.label} className="flex items-center gap-1 px-2 py-1 rounded-full bg-muted text-[9px] text-muted-foreground font-medium flex-shrink-0">
-            {t.icon}
-            <span>{t.label}</span>
-          </div>
-        ))}
-      </div>
 
       {/* Mission List */}
       <div className="space-y-2.5">
