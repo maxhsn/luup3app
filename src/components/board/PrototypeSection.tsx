@@ -107,6 +107,7 @@ const PrototypeSection = () => {
               {screen === "edit-profile" && <EditProfileScreen onBack={goBack} />}
               {screen === "saved-items" && <SavedItemsScreen onBack={goBack} onNavigate={navigate} />}
               {screen === "referral-code" && <ReferralCodeScreen onBack={goBack} />}
+              {screen === "share-storefront" && <ShareStorefrontScreen onBack={goBack} />}
             </div>
 
             {!hideNav(screen) && (
