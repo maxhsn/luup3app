@@ -132,95 +132,150 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
   onComplete: () => void;
 }) => {
   const [step, setStep] = useState(1);
+  const totalSteps = 4;
+
+  const categoryOptions: Record<string, string[]> = {
+    combat: ["MMA", "Boxing", "Kickboxing", "Muay Thai", "BJJ", "Wrestling", "Karate", "Judo"],
+    fitness: ["Bodybuilding", "Crossfit", "Powerlifting", "Calisthenics", "Running", "HIIT", "Yoga", "Swimming"],
+    beauty: ["Skincare", "Makeup", "Haircare", "Fragrance", "Nails", "Wellness"],
+    gaming: ["FPS", "MOBA", "Battle Royale", "RPG", "Sports", "Racing", "Sim", "Indie"],
+  };
+  const categories = categoryOptions[ecosystem.id] || ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"];
+
+  const interestOptions: Record<string, string[]> = {
+    combat: ["Training Gear", "Supplements", "Recovery", "Fight News", "Coaching", "Nutrition", "Apparel", "Events"],
+    fitness: ["Weight Training", "Nutrition", "Supplements", "Wearables", "Recovery", "Home Gym", "Apparel", "Coaching"],
+    beauty: ["Clean Beauty", "K-Beauty", "Anti-Aging", "SPF", "Tutorials", "Reviews", "Dupes", "Luxury"],
+    gaming: ["Esports", "Streaming", "Hardware", "Merch", "Reviews", "Mods", "Indie Dev", "Retro"],
+  };
+  const interests = interestOptions[ecosystem.id] || ["Topic 1", "Topic 2", "Topic 3", "Topic 4", "Topic 5", "Topic 6"];
 
   return (
-    <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col">
+    <div className="px-5 py-6 space-y-4 min-h-[620px] flex flex-col">
       {/* Progress bar */}
       <div className="flex gap-1.5">
-        {[1, 2, 3].map(s => (
+        {Array.from({ length: totalSteps }, (_, i) => i + 1).map(s => (
           <div key={s} className={`h-1 flex-1 rounded-full transition-all ${s <= step ? "bg-primary" : "bg-muted"}`} />
         ))}
       </div>
 
+      {/* Step 1: Profile basics */}
       {step === 1 && (
         <div className="flex-1 flex flex-col">
-          <div className="text-center space-y-3 pt-4 mb-6">
-            <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center text-2xl ${ecosystem.color}`}>
+          <div className="text-center space-y-2 pt-2 mb-5">
+            <div className={`w-14 h-14 rounded-2xl mx-auto flex items-center justify-center text-xl ${ecosystem.color}`}>
               {ecosystem.emoji}
             </div>
-            <p className="font-display font-black text-xl text-foreground">Welcome to {ecosystem.label}</p>
-            <p className="text-xs text-muted-foreground leading-relaxed">Set up your profile for this ecosystem</p>
+            <p className="font-display font-black text-lg text-foreground">Set Up Your Profile</p>
+            <p className="text-[11px] text-muted-foreground">Step 1 of {totalSteps} · {ecosystem.label}</p>
           </div>
 
-          {/* Display name */}
-          <div className="space-y-4 flex-1">
-            <div>
-              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Display Name</p>
-              <div className="h-11 rounded-xl border border-border bg-card px-3 flex items-center">
-                <span className="text-xs text-foreground">Alex Rivera</span>
+          <div className="space-y-3 flex-1">
+            {/* Avatar */}
+            <div className="flex items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center flex-shrink-0">
+                <span className="text-lg font-black text-primary-foreground">AR</span>
+              </div>
+              <div className="flex-1">
+                <button className="px-3 py-1.5 rounded-lg border border-border text-[10px] font-semibold text-foreground flex items-center gap-1.5">
+                  <Camera className="w-3 h-3" /> Change photo
+                </button>
               </div>
             </div>
 
-            {/* Avatar */}
+            {/* Username */}
             <div>
-              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Avatar</p>
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
-                  <span className="text-lg font-black text-primary-foreground">AR</span>
-                </div>
-                <button className="px-3 py-1.5 rounded-lg border border-border text-[10px] font-semibold text-foreground">
-                  Change photo
-                </button>
+              <p className="text-[10px] font-bold text-foreground mb-1 uppercase tracking-wider">Username</p>
+              <div className="h-10 rounded-xl border border-border bg-card px-3 flex items-center gap-2">
+                <span className="text-xs text-muted-foreground/60">@</span>
+                <span className="text-xs text-foreground">alex_rivera</span>
+              </div>
+              <p className="text-[9px] text-muted-foreground mt-0.5">luup.app/@alex_rivera</p>
+            </div>
+
+            {/* Display Name */}
+            <div>
+              <p className="text-[10px] font-bold text-foreground mb-1 uppercase tracking-wider">Display Name</p>
+              <div className="h-10 rounded-xl border border-border bg-card px-3 flex items-center">
+                <span className="text-xs text-foreground">Alex Rivera</span>
               </div>
             </div>
 
             {/* Bio */}
             <div>
-              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Bio</p>
-              <div className="h-20 rounded-xl border border-border bg-card px-3 pt-2.5">
+              <p className="text-[10px] font-bold text-foreground mb-1 uppercase tracking-wider">Bio</p>
+              <div className="h-16 rounded-xl border border-border bg-card px-3 pt-2">
                 <span className="text-xs text-muted-foreground">Tell the {ecosystem.label} community about you...</span>
               </div>
             </div>
           </div>
 
-          <button onClick={() => setStep(2)} className="w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold mt-4 active:scale-[0.98] transition-transform">
+          <button onClick={() => setStep(2)} className="w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold mt-3 active:scale-[0.98] transition-transform">
             Continue
           </button>
         </div>
       )}
 
+      {/* Step 2: Location, Category & Socials */}
       {step === 2 && (
         <div className="flex-1 flex flex-col">
-          <div className="text-center space-y-2 pt-2 mb-6">
-            <p className="font-display font-black text-xl text-foreground">Your Interests</p>
-            <p className="text-xs text-muted-foreground">Select topics you're interested in</p>
+          <div className="text-center space-y-1.5 pt-2 mb-5">
+            <p className="font-display font-black text-lg text-foreground">Details & Socials</p>
+            <p className="text-[11px] text-muted-foreground">Step 2 of {totalSteps} · Help others find you</p>
           </div>
 
-          <div className="flex flex-wrap gap-2 flex-1">
-            {ecosystem.id === "combat" && ["Boxing", "MMA", "Muay Thai", "BJJ", "Wrestling", "Kickboxing", "Training Gear", "Supplements", "Recovery", "Fight News"].map((tag, i) => (
-              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
-                i < 4 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
-              }`}>
-                {tag}
-              </button>
-            ))}
-            {ecosystem.id === "fitness" && ["Weight Training", "HIIT", "Yoga", "Running", "Crossfit", "Nutrition", "Supplements", "Wearables", "Recovery", "Home Gym"].map((tag, i) => (
-              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
-                i < 3 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
-              }`}>
-                {tag}
-              </button>
-            ))}
-            {ecosystem.id !== "combat" && ecosystem.id !== "fitness" && ["Topic 1", "Topic 2", "Topic 3", "Topic 4", "Topic 5", "Topic 6"].map((tag, i) => (
-              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
-                i < 2 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
-              }`}>
-                {tag}
-              </button>
-            ))}
+          <div className="space-y-3 flex-1">
+            {/* Country */}
+            <div>
+              <p className="text-[10px] font-bold text-foreground mb-1 uppercase tracking-wider">Country</p>
+              <div className="h-10 rounded-xl border border-border bg-card px-3 flex items-center justify-between">
+                <span className="text-xs text-foreground flex items-center gap-2">
+                  <MapPin className="w-3.5 h-3.5 text-muted-foreground" /> United Kingdom
+                </span>
+                <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+              </div>
+            </div>
+
+            {/* Category */}
+            <div>
+              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Category</p>
+              <div className="flex flex-wrap gap-1.5">
+                {categories.map((cat, i) => (
+                  <button key={cat} className={`px-3 py-1.5 rounded-full text-[11px] font-semibold border transition-all active:scale-95 ${
+                    i === 0 ? "bg-primary/10 border-primary/30 text-primary" : "bg-card border-border text-foreground"
+                  }`}>
+                    {cat}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[9px] text-muted-foreground mt-1">Select your primary discipline</p>
+            </div>
+
+            {/* Social handles */}
+            <div>
+              <p className="text-[10px] font-bold text-foreground mb-1.5 uppercase tracking-wider">Social Handles</p>
+              <div className="space-y-2">
+                <div className="h-10 rounded-xl border border-border bg-card px-3 flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-muted-foreground w-16 flex-shrink-0">Instagram</span>
+                  <span className="text-xs text-foreground">@alex_fights</span>
+                </div>
+                <div className="h-10 rounded-xl border border-border bg-card px-3 flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-muted-foreground w-16 flex-shrink-0">TikTok</span>
+                  <span className="text-xs text-muted-foreground">@username</span>
+                </div>
+                <div className="h-10 rounded-xl border border-border bg-card px-3 flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-muted-foreground w-16 flex-shrink-0">YouTube</span>
+                  <span className="text-xs text-muted-foreground">@channel</span>
+                </div>
+                <div className="h-10 rounded-xl border border-border bg-card px-3 flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-muted-foreground w-16 flex-shrink-0">X / Twitter</span>
+                  <span className="text-xs text-muted-foreground">@handle</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="flex gap-2 mt-4">
+          <div className="flex gap-2 mt-3">
             <button onClick={() => setStep(1)} className="flex-1 h-11 rounded-xl border border-border text-sm font-bold text-foreground active:scale-[0.98] transition-transform">
               Back
             </button>
@@ -231,7 +286,37 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
         </div>
       )}
 
+      {/* Step 3: Interests */}
       {step === 3 && (
+        <div className="flex-1 flex flex-col">
+          <div className="text-center space-y-1.5 pt-2 mb-5">
+            <p className="font-display font-black text-lg text-foreground">Your Interests</p>
+            <p className="text-[11px] text-muted-foreground">Step 3 of {totalSteps} · Personalise your feed</p>
+          </div>
+
+          <div className="flex flex-wrap gap-2 flex-1">
+            {interests.map((tag, i) => (
+              <button key={tag} className={`px-3.5 py-2 rounded-full text-xs font-semibold border transition-all active:scale-95 ${
+                i < 3 ? "bg-primary/10 border-primary/20 text-primary" : "bg-card border-border text-foreground"
+              }`}>
+                {tag}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-2 mt-3">
+            <button onClick={() => setStep(2)} className="flex-1 h-11 rounded-xl border border-border text-sm font-bold text-foreground active:scale-[0.98] transition-transform">
+              Back
+            </button>
+            <button onClick={() => setStep(4)} className="flex-[2] h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform">
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 4: Confirmation */}
+      {step === 4 && (
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           <div className={`w-20 h-20 rounded-3xl mx-auto flex items-center justify-center text-3xl mb-4 ${ecosystem.color}`}>
             {ecosystem.emoji}
@@ -241,7 +326,23 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
             Your {ecosystem.label} profile is ready. Start exploring brands, completing missions, and earning rewards.
           </p>
 
-          <div className="grid grid-cols-3 gap-3 mt-6 w-full">
+          <div className="w-full mt-5 rounded-xl border border-border bg-card p-3 text-left space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
+                <span className="text-sm font-black text-primary-foreground">AR</span>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-foreground">Alex Rivera</p>
+                <p className="text-[10px] text-muted-foreground">@alex_rivera · 🇬🇧 UK · MMA</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">📸 @alex_fights</span>
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">🎵 @alex_fights</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 mt-4 w-full">
             <div className="rounded-xl bg-muted p-3 text-center">
               <Flame className="w-4 h-4 text-primary mx-auto mb-1" />
               <p className="text-[10px] font-bold text-foreground">{ecosystem.missions.length}</p>
@@ -259,7 +360,7 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
             </div>
           </div>
 
-          <button onClick={onComplete} className="w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold mt-8 active:scale-[0.98] transition-transform">
+          <button onClick={onComplete} className="w-full h-11 rounded-xl bg-primary text-primary-foreground text-sm font-bold mt-6 active:scale-[0.98] transition-transform">
             Start Exploring
           </button>
         </div>
