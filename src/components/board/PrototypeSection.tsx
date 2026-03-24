@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import {
   type Screen,
-  StartScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
+  LoginScreen, StartScreen, EcosystemSetupScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
   OrderConfirmScreen, NotificationsScreen
@@ -13,8 +13,8 @@ import {
 import { getEcosystem } from "./prototype/ecosystemData";
 
 const PrototypeSection = () => {
-  const [screen, setScreen] = useState<Screen>("start");
-  const [history, setHistory] = useState<Screen[]>(["start"]);
+  const [screen, setScreen] = useState<Screen>("login");
+  const [history, setHistory] = useState<Screen[]>(["login"]);
   const [ecosystemId, setEcosystemId] = useState("combat");
 
   const eco = getEcosystem(ecosystemId);
@@ -34,6 +34,10 @@ const PrototypeSection = () => {
 
   const handleSelectEcosystem = (id: string) => {
     setEcosystemId(id);
+    navigate("ecosystem-setup");
+  };
+
+  const handleEcosystemSetupComplete = () => {
     navigate("home");
   };
 
@@ -83,7 +87,9 @@ const PrototypeSection = () => {
             </div>
 
             <div className="min-h-[620px] max-h-[620px] overflow-y-auto no-scrollbar">
+              {screen === "login" && <LoginScreen onNavigate={navigate} />}
               {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
+              {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
               {screen === "home" && <HomeScreen onNavigate={navigate} ecosystem={eco} onSwitchEcosystem={handleSwitchEcosystem} />}
               {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
               {screen === "missions" && <MissionsScreen onNavigate={navigate} ecosystem={eco} />}
