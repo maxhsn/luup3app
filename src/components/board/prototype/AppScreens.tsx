@@ -522,17 +522,21 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
             const iconColors = ["text-primary/50", "text-stage-participation/50", "text-stage-conversion/50"];
             return (
               <button key={m.title} onClick={() => onNavigate("missions")}
-                className={`flex-shrink-0 w-[150px] rounded-2xl border border-border ${bgColors[i % bgColors.length]} p-3.5 text-left active:scale-[0.97] transition-transform`}>
-                <div className="flex items-center justify-between mb-3">
+                className="flex-shrink-0 w-[150px] rounded-2xl border border-border bg-card overflow-hidden text-left active:scale-[0.97] transition-transform">
+                <div className={`w-full h-[70px] bg-gradient-to-br ${
+                  i === 0 ? "from-primary/20 to-primary/5" : i === 1 ? "from-stage-participation/20 to-stage-participation/5" : "from-stage-conversion/20 to-stage-conversion/5"
+                } relative flex items-center justify-center`}>
                   <Flame className={`w-5 h-5 ${iconColors[i % iconColors.length]}`} />
-                  <span className="px-2 py-0.5 rounded-lg bg-foreground/85 text-background text-[8px] font-black tracking-wide">{m.reward}</span>
+                  <span className="absolute top-1.5 right-1.5 px-2 py-0.5 rounded-lg bg-foreground/85 text-background text-[8px] font-black tracking-wide">{m.reward}</span>
                 </div>
-                <p className="text-[10px] font-bold text-foreground truncate leading-tight mb-2">{m.title}</p>
-                <div className="flex items-center gap-1.5">
-                  <div className="flex-1 h-1.5 rounded-full bg-muted/60">
-                    <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${m.progress}%` }} />
+                <div className="p-2.5">
+                  <p className="text-[10px] font-bold text-foreground truncate leading-tight mb-2">{m.title}</p>
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex-1 h-1.5 rounded-full bg-muted/60">
+                      <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${m.progress}%` }} />
+                    </div>
+                    <span className="text-[9px] font-bold text-muted-foreground">{m.progress}%</span>
                   </div>
-                  <span className="text-[9px] font-bold text-muted-foreground">{m.progress}%</span>
                 </div>
               </button>
             );
