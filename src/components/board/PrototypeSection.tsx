@@ -86,27 +86,29 @@ const PrototypeSection = () => {
               </div>
             </div>
 
-            <div className="min-h-[620px] max-h-[620px] overflow-y-auto no-scrollbar">
-              {screen === "login" && <LoginScreen onNavigate={navigate} />}
-              {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
-              {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
-              {screen === "home" && <HomeScreen onNavigate={navigate} ecosystem={eco} onSwitchEcosystem={handleSwitchEcosystem} />}
-              {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
-              {screen === "missions" && <MissionsScreen onNavigate={navigate} ecosystem={eco} />}
-              {screen === "store" && <StoreScreen onNavigate={navigate} ecosystem={eco} />}
-              {screen === "profile" && <ProfileScreen onNavigate={navigate} />}
-              {screen === "product" && <ProductScreen onBack={goBack} onNavigate={navigate} />}
-              {screen === "storefront" && <StorefrontScreen onNavigate={navigate} onBack={goBack} />}
-              {screen === "wallet" && <WalletScreen onNavigate={navigate} onBack={goBack} ecosystem={eco} />}
-              {screen === "leaderboard" && <LeaderboardScreen onBack={goBack} ecosystem={eco} />}
-              {screen === "social" && <SocialWallScreen onNavigate={navigate} onBack={goBack} />}
-              {screen === "brand" && <BrandScreen onNavigate={navigate} onBack={goBack} />}
-              {screen === "checkout" && <CheckoutScreen onNavigate={navigate} onBack={goBack} />}
-              {screen === "order-confirm" && <OrderConfirmScreen onNavigate={navigate} />}
-              {screen === "notifications" && <NotificationsScreen onNavigate={navigate} onBack={goBack} />}
-              {screen === "edit-profile" && <EditProfileScreen onBack={goBack} />}
-              {screen === "saved-items" && <SavedItemsScreen onBack={goBack} onNavigate={navigate} />}
-              {screen === "referral-code" && <ReferralCodeScreen onBack={goBack} />}
+            <div className="relative min-h-[620px] max-h-[620px]">
+              <div className="h-full overflow-y-auto no-scrollbar">
+                {screen === "login" && <LoginScreen onNavigate={navigate} />}
+                {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
+                {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
+                {screen === "home" && <HomeScreen onNavigate={navigate} ecosystem={eco} onSwitchEcosystem={handleSwitchEcosystem} />}
+                {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
+                {screen === "missions" && <MissionsScreen onNavigate={navigate} ecosystem={eco} />}
+                {screen === "store" && <StoreScreen onNavigate={navigate} ecosystem={eco} />}
+                {screen === "profile" && <ProfileScreen onNavigate={navigate} />}
+                {screen === "product" && <ProductScreen onBack={goBack} onNavigate={navigate} />}
+                {screen === "storefront" && <StorefrontScreen onNavigate={navigate} onBack={goBack} />}
+                {screen === "wallet" && <WalletScreen onNavigate={navigate} onBack={goBack} ecosystem={eco} />}
+                {screen === "leaderboard" && <LeaderboardScreen onBack={goBack} ecosystem={eco} />}
+                {screen === "social" && <SocialWallScreen onNavigate={navigate} onBack={goBack} />}
+                {screen === "brand" && <BrandScreen onNavigate={navigate} onBack={goBack} />}
+                {screen === "checkout" && <CheckoutScreen onNavigate={navigate} onBack={goBack} />}
+                {screen === "order-confirm" && <OrderConfirmScreen onNavigate={navigate} />}
+                {screen === "notifications" && <NotificationsScreen onNavigate={navigate} onBack={goBack} />}
+                {screen === "edit-profile" && <EditProfileScreen onBack={goBack} />}
+                {screen === "saved-items" && <SavedItemsScreen onBack={goBack} onNavigate={navigate} />}
+                {screen === "referral-code" && <ReferralCodeScreen onBack={goBack} />}
+              </div>
             </div>
 
             {!hideNav(screen) && (
