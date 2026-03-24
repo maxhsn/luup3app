@@ -1482,37 +1482,188 @@ export const MissionRow = ({ emoji, title, reward, progress }: { emoji: string; 
   </div>
 );
 
-const MissionCard = ({ emoji, title, brand, reward, type, difficulty, locked, action, image }: {
-  emoji: string; title: string; brand: string; reward: string; type: string; difficulty: string; locked?: boolean; action?: string; image?: string;
-}) => (
-  <div className={`p-3.5 rounded-2xl border bg-card ${locked ? "opacity-50 border-border" : "border-border"}`}>
-    <div className="flex items-start gap-3">
-      <div className="w-12 h-12 rounded-xl bg-muted border border-border flex-shrink-0 flex items-center justify-center overflow-hidden">
-        <div className="w-full h-full bg-muted-foreground/10 rounded-xl" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-0.5">
-          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-            difficulty === "Easy" ? "bg-stage-participation/10 text-stage-participation" :
-            difficulty === "Medium" ? "bg-stage-conversion/10 text-stage-conversion" :
-            "bg-stage-network/10 text-stage-network"
-          }`}>{type}</span>
-          {locked && <span className="text-[10px] text-muted-foreground">🔒 Locked</span>}
+const submissionTypeIcon = (type: MissionSubmissionType) => {
+  switch (type) {
+    case "link": return <Link className="w-3.5 h-3.5" />;
+    case "screenshot": return <Camera className="w-3.5 h-3.5" />;
+    case "upload": return <Upload className="w-3.5 h-3.5" />;
+    case "referral": return <UserPlus className="w-3.5 h-3.5" />;
+    case "review": return <PenLine className="w-3.5 h-3.5" />;
+    case "checkin": return <MapPinIcon className="w-3.5 h-3.5" />;
+  }
+};
+
+const submissionTypeLabel = (type: MissionSubmissionType) => {
+  switch (type) {
+    case "link": return "Submit Link";
+    case "screenshot": return "Upload Screenshot";
+    case "upload": return "Upload Content";
+    case "referral": return "Share Referral";
+    case "review": return "Write Review";
+    case "checkin": return "Check In";
+  }
+};
+
+const statusConfig = (status: MissionStatus) => {
+  switch (status) {
+    case "open": return { label: "Join Mission", color: "bg-primary text-primary-foreground", canAct: true };
+    case "joined": return { label: "Submit", color: "bg-stage-conversion text-white", canAct: true };
+    case "submitted": return { label: "Submitted", color: "bg-stage-onboarding/15 text-stage-onboarding", canAct: false };
+    case "in-review": return { label: "In Review", color: "bg-stage-conversion/15 text-stage-conversion", canAct: false };
+    case "approved": return { label: "Approved ✓", color: "bg-stage-participation/15 text-stage-participation", canAct: false };
+    case "rejected": return { label: "Rejected", color: "bg-destructive/15 text-destructive", canAct: false };
+  }
+};
+
+const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onSubmit }: {
+  mission: MissionData; currentStatus: MissionStatus; expanded: boolean;
+  onToggle: () => void; onJoin: () => void; onSubmit: () => void;
+}) => {
+  const sc = statusConfig(currentStatus);
+  const slotsPercent = Math.round((mission.slots.taken / mission.slots.total) * 100);
+
+  return (
+    <div className={`rounded-2xl border bg-card overflow-hidden transition-all ${
+      mission.locked ? "opacity-40 border-border" :
+      currentStatus === "approved" ? "border-stage-participation/30" :
+      currentStatus === "joined" ? "border-primary/30" :
+      "border-border"
+    }`}>
+      <button onClick={onToggle} className="w-full p-3.5 text-left">
+        <div className="flex items-start gap-3">
+          {/* Submission type icon */}
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+            currentStatus === "approved" ? "bg-stage-participation/10 text-stage-participation" :
+            currentStatus === "joined" ? "bg-primary/10 text-primary" :
+            "bg-muted text-muted-foreground"
+          }`}>
+            {mission.locked ? <Lock className="w-4 h-4" /> : submissionTypeIcon(mission.submissionType)}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+              <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full ${
+                mission.difficulty === "Easy" ? "bg-stage-participation/10 text-stage-participation" :
+                mission.difficulty === "Medium" ? "bg-stage-conversion/10 text-stage-conversion" :
+                "bg-stage-network/10 text-stage-network"
+              }`}>{mission.difficulty}</span>
+              <span className="text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground">{mission.type}</span>
+            </div>
+            <p className="text-[13px] font-bold text-foreground leading-tight">{mission.title}</p>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-[10px] text-muted-foreground">by {mission.brand}</span>
+              {mission.deadline && <span className="text-[9px] text-stage-conversion font-medium flex items-center gap-0.5"><Clock className="w-2.5 h-2.5" />{mission.deadline}</span>}
+            </div>
+          </div>
+          <div className="flex flex-col items-end gap-1 flex-shrink-0">
+            <span className="text-sm font-black text-primary">{mission.reward}</span>
+            {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
+          </div>
         </div>
-        <p className="text-sm font-bold text-foreground">{title}</p>
-        <p className="text-[10px] text-muted-foreground mt-0.5">by {brand}</p>
-        {!locked && action && (
-          <div className="mt-2 flex gap-2">
-            <button className="px-3 py-1 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">
-              {action === "share" ? "Share Now" : action === "review" ? "Write Review" : action === "upload" ? "Upload" : "Invite"}
-            </button>
+
+        {/* Slots bar (always visible) */}
+        {!mission.locked && (
+          <div className="mt-2.5 flex items-center gap-2">
+            <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+              <div className={`h-full rounded-full transition-all ${slotsPercent > 80 ? "bg-destructive" : "bg-primary/40"}`} style={{ width: `${slotsPercent}%` }} />
+            </div>
+            <span className={`text-[9px] font-semibold ${slotsPercent > 80 ? "text-destructive" : "text-muted-foreground"}`}>
+              {mission.slots.taken}/{mission.slots.total} slots
+            </span>
           </div>
         )}
-      </div>
-      <span className="text-sm font-bold text-primary flex-shrink-0">{reward}</span>
+      </button>
+
+      {/* Expanded detail */}
+      {expanded && !mission.locked && (
+        <div className="px-3.5 pb-3.5 space-y-3 border-t border-border pt-3">
+          <p className="text-[11px] text-muted-foreground leading-relaxed">{mission.description}</p>
+
+          {/* Requirements */}
+          <div>
+            <p className="text-[10px] font-bold text-foreground mb-1.5">Requirements</p>
+            <div className="space-y-1">
+              {mission.requirements.map((r, i) => (
+                <div key={i} className="flex items-start gap-1.5">
+                  <CircleDot className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-[10px] text-muted-foreground">{r}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Submission type indicator */}
+          <div className="flex items-center gap-2 p-2 rounded-xl bg-muted">
+            <div className="w-7 h-7 rounded-lg bg-card flex items-center justify-center text-foreground">
+              {submissionTypeIcon(mission.submissionType)}
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-foreground">{submissionTypeLabel(mission.submissionType)}</p>
+              <p className="text-[9px] text-muted-foreground">
+                {mission.submissionType === "link" && "Paste your post URL after publishing"}
+                {mission.submissionType === "screenshot" && "Upload a screenshot as proof"}
+                {mission.submissionType === "upload" && "Upload your content file directly"}
+                {mission.submissionType === "referral" && "Share your unique referral link"}
+                {mission.submissionType === "review" && "Write and submit your review in-app"}
+                {mission.submissionType === "checkin" && "Check in at the event location"}
+              </p>
+            </div>
+          </div>
+
+          {/* Status-aware CTA */}
+          <div className="flex gap-2">
+            {currentStatus === "open" && (
+              <button onClick={(e) => { e.stopPropagation(); onJoin(); }} className="flex-1 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-bold text-center transition-all active:scale-[0.97]">
+                Join Mission · Claim Slot
+              </button>
+            )}
+            {currentStatus === "joined" && (
+              <button onClick={(e) => { e.stopPropagation(); onSubmit(); }} className="flex-1 py-2.5 rounded-xl bg-stage-conversion text-white text-xs font-bold text-center transition-all active:scale-[0.97]">
+                {submissionTypeLabel(mission.submissionType)}
+              </button>
+            )}
+            {currentStatus === "submitted" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-stage-onboarding/10 text-stage-onboarding text-xs font-bold text-center">
+                Submitted · Awaiting Review
+              </div>
+            )}
+            {currentStatus === "in-review" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-stage-conversion/10 text-stage-conversion text-xs font-bold text-center flex items-center justify-center gap-1.5">
+                <Eye className="w-3.5 h-3.5" /> Under Review
+              </div>
+            )}
+            {currentStatus === "approved" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-stage-participation/10 text-stage-participation text-xs font-bold text-center flex items-center justify-center gap-1.5">
+                <Check className="w-3.5 h-3.5" /> Approved · {mission.reward} Earned
+              </div>
+            )}
+            {currentStatus === "rejected" && (
+              <div className="flex-1 py-2.5 rounded-xl bg-destructive/10 text-destructive text-xs font-bold text-center">
+                Rejected · Resubmit allowed
+              </div>
+            )}
+          </div>
+
+          {/* Flow indicator */}
+          <div className="flex items-center justify-between">
+            {(["open", "joined", "submitted", "in-review", "approved"] as MissionStatus[]).map((step, i) => {
+              const stepLabels = ["Open", "Joined", "Submitted", "Review", "Approved"];
+              const isActive = (["open", "joined", "submitted", "in-review", "approved"] as MissionStatus[]).indexOf(currentStatus) >= i;
+              return (
+                <div key={step} className="flex items-center gap-0.5">
+                  {i > 0 && <div className={`w-3 h-[1.5px] ${isActive ? "bg-primary" : "bg-border"}`} />}
+                  <div className={`w-4 h-4 rounded-full flex items-center justify-center ${isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                    {isActive && i <= (["open", "joined", "submitted", "in-review", "approved"] as MissionStatus[]).indexOf(currentStatus) ? <Check className="w-2.5 h-2.5" /> : <span className="text-[7px] font-bold">{i + 1}</span>}
+                  </div>
+                  <span className={`text-[7px] font-semibold ml-0.5 ${isActive ? "text-foreground" : "text-muted-foreground"}`}>{stepLabels[i]}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
 const EarningsRow = ({ label, amount }: { label: string; amount: string }) => (
   <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-muted/60 border border-border">
