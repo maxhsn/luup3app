@@ -127,13 +127,6 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-background/[0.04]" />
         <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-background/[0.03]" />
         <div className="relative z-10 flex items-center gap-3.5">
-          {/* Activity ring */}
-          <div className="relative flex-shrink-0">
-            <ActivityRing progress={72} size={56} stroke={5} color="hsl(var(--primary))" bgColor="hsla(0,0%,100%,0.08)" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Wallet className="w-4 h-4 text-primary" />
-            </div>
-          </div>
           <div className="flex-1 min-w-0 text-left">
             <p className="text-[9px] font-semibold opacity-50 uppercase tracking-widest mb-1">Total Earnings</p>
             <p className="font-display font-black text-[26px] leading-none tracking-tight">{ecosystem.walletBalance}</p>
