@@ -109,27 +109,57 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         <div className="flex-1 text-center py-1.5 rounded-lg text-xs font-medium text-muted-foreground">Following</div>
       </div>
 
-      {/* Earnings Card */}
-      <button onClick={() => onNavigate("wallet")} className="w-full rounded-2xl bg-primary p-4 text-primary-foreground text-left">
-        <div className="flex items-center gap-1.5 mb-1">
-          <span className="text-xs opacity-70">{ecosystem.emoji}</span>
-          <p className="text-[10px] opacity-70 font-medium">{ecosystem.label} Earnings</p>
+      {/* Earnings Infographic */}
+      <div className="w-full rounded-2xl bg-primary p-4 text-primary-foreground">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs">{ecosystem.emoji}</span>
+            <p className="text-[10px] opacity-80 font-medium">{ecosystem.label} Earnings</p>
+          </div>
+          <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary-foreground/15 text-[9px] font-semibold">
+            <TrendingUp className="w-2.5 h-2.5" />
+            {ecosystem.walletGrowth}
+          </div>
         </div>
-        <p className="font-display font-black text-3xl mt-1">{ecosystem.walletBalance}</p>
-        <div className="flex items-center gap-2 mt-2">
-          <TrendingUp className="w-3.5 h-3.5" />
-          <span className="text-xs font-semibold">{ecosystem.walletGrowth} this month</span>
+        <p className="font-display font-black text-3xl">{ecosystem.walletBalance}</p>
+        
+        {/* Mini bar chart infographic */}
+        <div className="flex gap-2 mt-3 items-end h-10">
+          {[35, 50, 40, 65, 55, 80, 70].map((h, i) => (
+            <div key={i} className="flex-1 rounded-sm bg-primary-foreground/20 relative" style={{ height: `${h}%` }}>
+              {i === 6 && <div className="absolute inset-0 rounded-sm bg-primary-foreground/40" />}
+            </div>
+          ))}
         </div>
+        <div className="flex justify-between mt-1">
+          <span className="text-[8px] opacity-50">Mon</span>
+          <span className="text-[8px] opacity-50">Today</span>
+        </div>
+
+        {/* Breakdown */}
         <div className="flex gap-3 mt-3">
-          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5 text-center">
-            <p className="text-[10px] opacity-80">Referrals</p>
+          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5">
+            <div className="flex items-center gap-1.5 mb-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground/60" />
+              <p className="text-[9px] opacity-70">Referrals</p>
+            </div>
             <p className="font-bold text-sm">{ecosystem.referralEarnings}</p>
           </div>
-          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5 text-center">
-            <p className="text-[10px] opacity-80">Missions</p>
+          <div className="flex-1 rounded-xl bg-primary-foreground/15 p-2.5">
+            <div className="flex items-center gap-1.5 mb-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />
+              <p className="text-[9px] opacity-70">Missions</p>
+            </div>
             <p className="font-bold text-sm">{ecosystem.missionEarnings}</p>
           </div>
         </div>
+
+        {/* View Wallet CTA */}
+        <button onClick={() => onNavigate("wallet")} className="w-full mt-3 py-2 rounded-xl bg-primary-foreground/20 backdrop-blur text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-primary-foreground/30 transition-colors">
+          <Wallet className="w-3.5 h-3.5" />
+          View Wallet
+          <ChevronRight className="w-3 h-3 opacity-60" />
+        </button>
       </button>
 
       {/* Active Mission Banner */}
