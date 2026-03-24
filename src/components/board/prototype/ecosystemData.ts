@@ -1,11 +1,15 @@
 export type MissionSubmissionType = "link" | "screenshot" | "upload" | "referral" | "review" | "checkin";
 export type MissionStatus = "open" | "joined" | "submitted" | "in-review" | "approved" | "rejected";
 
+export type MissionRewardType = "cash" | "points" | "mixed";
+
 export interface MissionData {
   id: string;
   title: string;
   brand: string;
   reward: string;
+  pointsReward?: number;
+  rewardType: MissionRewardType;
   type: string;
   submissionType: MissionSubmissionType;
   difficulty: "Easy" | "Medium" | "Hard";
