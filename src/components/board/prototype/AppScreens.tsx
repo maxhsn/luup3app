@@ -1950,6 +1950,17 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
   </div>
   );
 };
+const submissionTypeIcon = (type: MissionSubmissionType) => {
+  switch (type) {
+    case "link": return <Link className="w-3.5 h-3.5" />;
+    case "screenshot": return <Camera className="w-3.5 h-3.5" />;
+    case "upload": return <Upload className="w-3.5 h-3.5" />;
+    case "referral": return <UserPlus className="w-3.5 h-3.5" />;
+    case "review": return <PenLine className="w-3.5 h-3.5" />;
+    case "checkin": return <MapPinIcon className="w-3.5 h-3.5" />;
+  }
+};
+
 const submissionTypeLabel = (type: MissionSubmissionType) => {
   switch (type) {
     case "link": return "Submit Link";
