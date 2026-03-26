@@ -632,7 +632,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── FOR YOU (Algorithm feed) ── */}
       {tab === "foryou" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           {/* Story row */}
           <div className="flex gap-3 overflow-x-auto no-scrollbar py-0.5">
             {[
