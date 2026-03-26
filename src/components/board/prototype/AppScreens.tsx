@@ -307,7 +307,7 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 mt-4 w-full">
+          <div className="grid grid-cols-3 gap-3 mt-4 w-full stagger-grid">
             <div className="rounded-xl bg-muted p-3 text-center">
               <Flame className="w-4 h-4 text-primary mx-auto mb-1" />
               <p className="text-[10px] font-bold text-foreground">{ecosystem.missions.length}</p>
