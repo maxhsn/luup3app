@@ -1028,7 +1028,7 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
       </div>
 
       {/* Mission List */}
-      <div className="space-y-2.5">
+      <div className="space-y-2.5 stagger-children">
         {filtered.length === 0 && (
           <div className="text-center py-8">
             <p className="text-sm text-muted-foreground">No missions in this category</p>
