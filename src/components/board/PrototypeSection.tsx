@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import {
   type Screen,
+  OnboardingScreen1, OnboardingScreen2, OnboardingScreen3, OnboardingScreen4,
   LoginScreen, StartScreen, EcosystemSetupScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
