@@ -457,7 +457,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       </div>
 
       {/* ── Stats Bento Grid ── */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-2 stagger-grid">
         <button onClick={() => onNavigate("missions")}
           className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
           <div className="flex items-center justify-between mb-2">
