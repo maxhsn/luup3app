@@ -831,7 +831,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── GROUPS ── */}
       {tab === "groups" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           {/* Your Groups */}
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Your Groups</p>
           {[
