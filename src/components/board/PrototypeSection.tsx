@@ -12,8 +12,8 @@ import {
 import { getEcosystem } from "./prototype/ecosystemData";
 
 const PrototypeSection = () => {
-  const [screen, setScreen] = useState<Screen>("login");
-  const [history, setHistory] = useState<Screen[]>(["login"]);
+  const [screen, setScreen] = useState<Screen>("onboarding");
+  const [history, setHistory] = useState<Screen[]>(["onboarding"]);
   const [ecosystemId, setEcosystemId] = useState("combat");
   const [darkMode, setDarkMode] = useState(false);
 
