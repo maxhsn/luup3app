@@ -575,7 +575,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="font-display font-bold text-[13px] text-foreground">Hot Deals</p>
           <button onClick={() => onNavigate("store")} className="text-[10px] text-primary font-bold">Browse</button>
         </div>
-        <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4">
+        <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 stagger-scroll">
           {ecosystem.trendingOffers.map((p) => (
             <button key={p.name} onClick={() => onNavigate("product")}
               className="flex-shrink-0 w-[130px] rounded-2xl border border-border bg-card overflow-hidden text-left active:scale-[0.97] transition-transform group">
