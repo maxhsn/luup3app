@@ -749,7 +749,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── FOLLOWING ── */}
       {tab === "following" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           <p className="text-[10px] text-muted-foreground">Posts from people & groups you follow</p>
           <SocialPost
             author="Jake Shields"
