@@ -1600,7 +1600,7 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
 /* ═══════ SOCIAL WALL / COMMUNITY ═══════ */
 export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) => void; onBack: () => void }) => {
   const [activeChannel, setActiveChannel] = useState("general");
-  const [lbFilter, setLbFilter] = useState<"xp" | "posts" | "referrals" | "streak">("xp");
+  const [lbExpanded, setLbExpanded] = useState(false);
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center justify-between">
@@ -1620,6 +1620,85 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         </div>
       </div>
 
+      {/* ── GROUP LEADERBOARD (always visible) ── */}
+      <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-3 space-y-2.5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Crown className="w-4 h-4 text-primary" />
+            <p className="text-[10px] font-bold text-foreground uppercase tracking-wider">Leaderboard</p>
+          </div>
+          <button onClick={() => setLbExpanded(!lbExpanded)} className="text-[9px] font-bold text-primary flex items-center gap-0.5">
+            {lbExpanded ? "Collapse" : "View All"}
+            {lbExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+          </button>
+        </div>
+
+        {/* Top 3 compact row */}
+        <div className="flex items-center gap-2">
+          {[
+            { rank: 1, name: "Sarah M.", xp: "12,580" },
+            { rank: 2, name: "Mike T.", xp: "8,240" },
+            { rank: 3, name: "Jake S.", xp: "7,120" },
+          ].map((p) => (
+            <div key={p.rank} className="flex-1 flex items-center gap-1.5 p-2 rounded-xl bg-card border border-border">
+              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[8px] font-black flex-shrink-0 ${p.rank === 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                {p.rank}
+              </span>
+              <div className="min-w-0">
+                <p className="text-[9px] font-bold text-foreground truncate">{p.name}</p>
+                <p className="text-[8px] text-muted-foreground">{p.xp} XP</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Your position */}
+        <div className="flex items-center gap-2.5 p-2 rounded-xl border border-primary/30 bg-primary/5">
+          <span className="text-[10px] font-black text-primary">#7</span>
+          <div className="w-6 h-6 rounded-full bg-muted border border-primary/20 flex-shrink-0" />
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] font-bold text-foreground">You</p>
+            <p className="text-[8px] text-muted-foreground">4,580 XP</p>
+          </div>
+          <div className="flex items-center gap-0.5 text-[8px] font-bold text-green-500">
+            <TrendingUp className="w-2.5 h-2.5" /> +3
+          </div>
+        </div>
+
+        {/* Expanded rankings */}
+        {lbExpanded && (
+          <div className="space-y-1.5 pt-1">
+            {[
+              { rank: 4, name: "Chris P.", xp: "6,890", badge: "Gold" },
+              { rank: 5, name: "Dana W.", xp: "5,720", badge: "Silver" },
+              { rank: 6, name: "Leo R.", xp: "5,100" },
+              { rank: 8, name: "Amy K.", xp: "4,200" },
+              { rank: 9, name: "Tom H.", xp: "3,890" },
+              { rank: 10, name: "Nina F.", xp: "3,450" },
+            ].map((m) => (
+              <div key={m.rank} className="flex items-center gap-2.5 p-2 rounded-xl bg-card border border-border">
+                <span className="text-[9px] font-black text-muted-foreground w-4 text-center">{m.rank}</span>
+                <div className="w-6 h-6 rounded-full bg-muted flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1">
+                    <p className="text-[9px] font-bold text-foreground truncate">{m.name}</p>
+                    {m.badge && <span className="px-1 py-0.5 rounded bg-primary/10 text-[7px] font-bold text-primary">{m.badge}</span>}
+                  </div>
+                </div>
+                <p className="text-[9px] font-bold text-muted-foreground">{m.xp} XP</p>
+              </div>
+            ))}
+            <div className="flex items-center gap-2 p-2 rounded-xl border border-primary/20 bg-gradient-to-r from-primary/5 to-transparent mt-1">
+              <Gift className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+              <div>
+                <p className="text-[9px] font-bold text-foreground">Weekly Top 3 Prize</p>
+                <p className="text-[8px] text-muted-foreground">$50 store credit + exclusive badge</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Channel Tabs */}
       <div className="flex gap-2 overflow-x-auto no-scrollbar">
         {[
@@ -1627,7 +1706,6 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
           { id: "gear", label: "Gear Talk", icon: <ShoppingBag className="w-3 h-3" /> },
           { id: "training", label: "Training", icon: <Flame className="w-3 h-3" /> },
           { id: "wins", label: "Wins", icon: <Trophy className="w-3 h-3" /> },
-          { id: "leaderboard", label: "Leaderboard", icon: <Crown className="w-3 h-3" /> },
         ].map((ch) => (
           <button
             key={ch.id}
@@ -1641,149 +1719,50 @@ export const SocialWallScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
         ))}
       </div>
 
-      {/* ── LEADERBOARD TAB ── */}
-      {activeChannel === "leaderboard" && (
-        <div className="space-y-3">
-          {/* Filter pills */}
-          <div className="flex gap-1.5">
-            {([
-              { id: "xp" as const, label: "XP" },
-              { id: "posts" as const, label: "Posts" },
-              { id: "referrals" as const, label: "Referrals" },
-              { id: "streak" as const, label: "Streak" },
-            ]).map((f) => (
-              <button key={f.id} onClick={() => setLbFilter(f.id)}
-                className={`px-2.5 py-1 rounded-lg text-[9px] font-bold transition-all ${lbFilter === f.id ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"}`}>
-                {f.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Podium */}
-          <div className="flex items-end justify-center gap-3 pt-2 pb-1">
-            {[
-              { name: "Mike T.", value: lbFilter === "xp" ? "8,240" : lbFilter === "posts" ? "312" : lbFilter === "referrals" ? "28" : "45d", rank: 2, h: "h-16" },
-              { name: "Sarah M.", value: lbFilter === "xp" ? "12,580" : lbFilter === "posts" ? "467" : lbFilter === "referrals" ? "41" : "62d", rank: 1, h: "h-20" },
-              { name: "Jake S.", value: lbFilter === "xp" ? "7,120" : lbFilter === "posts" ? "289" : lbFilter === "referrals" ? "19" : "38d", rank: 3, h: "h-14" },
-            ].map((p) => (
-              <div key={p.rank} className="flex flex-col items-center gap-1.5">
-                <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-muted border-2 border-primary/30" />
-                  <div className={`absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[8px] font-black ${p.rank === 1 ? "bg-primary text-primary-foreground" : "bg-muted-foreground/20 text-foreground"}`}>
-                    {p.rank}
-                  </div>
-                </div>
-                <p className="text-[10px] font-bold text-foreground">{p.name}</p>
-                <div className={`w-16 ${p.h} rounded-t-xl ${p.rank === 1 ? "bg-primary/20" : "bg-muted"} flex items-center justify-center`}>
-                  <p className="text-[10px] font-black text-primary">{p.value}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Your Position */}
-          <div className="rounded-2xl border-2 border-primary/30 bg-primary/5 p-3">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-black text-primary w-6 text-center">#7</span>
-              <div className="w-8 h-8 rounded-full bg-muted border border-primary/20" />
-              <div className="flex-1">
-                <p className="text-xs font-bold text-foreground">You</p>
-                <p className="text-[10px] text-muted-foreground">
-                  {lbFilter === "xp" ? "4,580 XP" : lbFilter === "posts" ? "156 posts" : lbFilter === "referrals" ? "8 referrals" : "21d streak"}
-                </p>
-              </div>
-              <div className="flex items-center gap-1 text-[9px] font-bold text-green-500">
-                <TrendingUp className="w-3 h-3" /> +3
-              </div>
-            </div>
-          </div>
-
-          {/* Rankings */}
-          {[
-            { rank: 4, name: "Chris P.", value: lbFilter === "xp" ? "6,890" : lbFilter === "posts" ? "245" : lbFilter === "referrals" ? "15" : "34d", badge: "Gold" },
-            { rank: 5, name: "Dana W.", value: lbFilter === "xp" ? "5,720" : lbFilter === "posts" ? "198" : lbFilter === "referrals" ? "12" : "29d", badge: "Silver" },
-            { rank: 6, name: "Leo R.", value: lbFilter === "xp" ? "5,100" : lbFilter === "posts" ? "176" : lbFilter === "referrals" ? "10" : "25d" },
-            { rank: 8, name: "Amy K.", value: lbFilter === "xp" ? "4,200" : lbFilter === "posts" ? "142" : lbFilter === "referrals" ? "7" : "19d" },
-            { rank: 9, name: "Tom H.", value: lbFilter === "xp" ? "3,890" : lbFilter === "posts" ? "128" : lbFilter === "referrals" ? "6" : "17d" },
-            { rank: 10, name: "Nina F.", value: lbFilter === "xp" ? "3,450" : lbFilter === "posts" ? "112" : lbFilter === "referrals" ? "5" : "14d" },
-          ].map((m) => (
-            <div key={m.rank} className="flex items-center gap-3 p-2.5 rounded-xl bg-card border border-border">
-              <span className="text-[11px] font-black text-muted-foreground w-5 text-center">{m.rank}</span>
-              <div className="w-7 h-7 rounded-full bg-muted" />
-              <div className="flex-1">
-                <div className="flex items-center gap-1.5">
-                  <p className="text-[11px] font-bold text-foreground">{m.name}</p>
-                  {m.badge && <span className="px-1.5 py-0.5 rounded bg-primary/10 text-[7px] font-bold text-primary">{m.badge}</span>}
-                </div>
-              </div>
-              <p className="text-[10px] font-bold text-muted-foreground">
-                {m.value}{lbFilter === "streak" ? "" : lbFilter === "xp" ? " XP" : lbFilter === "posts" ? " posts" : " refs"}
-              </p>
-            </div>
-          ))}
-
-          {/* Weekly Prize */}
-          <div className="rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/5 to-transparent p-3 mt-1">
-            <div className="flex items-center gap-2">
-              <Gift className="w-4 h-4 text-primary" />
-              <div>
-                <p className="text-[10px] font-bold text-foreground">Weekly Top 3 Prize</p>
-                <p className="text-[9px] text-muted-foreground">$50 store credit + exclusive badge</p>
-              </div>
-            </div>
-          </div>
+      {/* Pinned Challenge */}
+      <div className="rounded-2xl border border-primary/20 bg-primary/5 p-3">
+        <div className="flex items-center gap-2 mb-2">
+          <Award className="w-4 h-4 text-primary" />
+          <p className="text-[10px] font-bold text-primary uppercase tracking-wide">Pinned Challenge</p>
         </div>
-      )}
-
-      {/* ── FEED TABS (general, gear, training, wins) ── */}
-      {activeChannel !== "leaderboard" && (
-        <>
-          {/* Pinned Challenge */}
-          <div className="rounded-2xl border border-primary/20 bg-primary/5 p-3">
-            <div className="flex items-center gap-2 mb-2">
-              <Award className="w-4 h-4 text-primary" />
-              <p className="text-[10px] font-bold text-primary uppercase tracking-wide">Pinned Challenge</p>
-            </div>
-            <p className="text-xs font-bold text-foreground">Show us your training setup</p>
-            <p className="text-[10px] text-muted-foreground mt-0.5">Share a photo of your home gym or training space. Best setup wins $100 store credit.</p>
-            <div className="flex items-center justify-between mt-2.5">
-              <div className="flex items-center gap-1.5">
-                <div className="flex -space-x-1.5">
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="w-5 h-5 rounded-full bg-muted border border-card" />
-                  ))}
-                </div>
-                <span className="text-[9px] text-muted-foreground">89 entries</span>
-              </div>
-              <button className="px-3 py-1 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">Enter</button>
-            </div>
-          </div>
-
-          {/* Trending in Community */}
-          <div>
-            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Trending Now</p>
-            <div className="flex gap-2 overflow-x-auto no-scrollbar">
-              {[
-                { tag: "#TrainHard", posts: "1.2k" },
-                { tag: "#GearReview", posts: "847" },
-                { tag: "#FightWeek", posts: "623" },
-                { tag: "#NewPR", posts: "412" },
-              ].map((t) => (
-                <div key={t.tag} className="flex-shrink-0 px-3 py-2 rounded-xl border border-border bg-card">
-                  <p className="text-[10px] font-bold text-primary">{t.tag}</p>
-                  <p className="text-[9px] text-muted-foreground">{t.posts} posts</p>
-                </div>
+        <p className="text-xs font-bold text-foreground">Show us your training setup</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5">Share a photo of your home gym or training space. Best setup wins $100 store credit.</p>
+        <div className="flex items-center justify-between mt-2.5">
+          <div className="flex items-center gap-1.5">
+            <div className="flex -space-x-1.5">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="w-5 h-5 rounded-full bg-muted border border-card" />
               ))}
             </div>
+            <span className="text-[9px] text-muted-foreground">89 entries</span>
           </div>
+          <button className="px-3 py-1 rounded-lg bg-primary text-primary-foreground text-[10px] font-bold">Enter</button>
+        </div>
+      </div>
 
-          {/* Posts */}
-          <SocialPost author="Sarah Martinez" time="2h ago" content="Just finished sparring with my new Venum Challenger 3.0 gloves! The padding is next level compared to the 2.0." likes={42} comments={8} reposts={6} hasImage productTag="Venum Challenger 3.0" onProductClick={() => onNavigate("product")} verified />
-          <SocialPost author="Mike Torres" time="5h ago" content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made." likes={89} comments={15} reposts={12} hasImage badge="Top Contributor" />
-          <SocialPost author="LUUP Official" time="1d ago" content="New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started." likes={234} comments={47} reposts={31} isBrand />
-          <SocialPost author="Jess Kim" time="2d ago" content="Just hit Gold tier on LUUP!! The rewards just keep getting better." likes={156} comments={23} reposts={8} badge="Gold Ambassador" />
-        </>
-      )}
+      {/* Trending in Community */}
+      <div>
+        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">Trending Now</p>
+        <div className="flex gap-2 overflow-x-auto no-scrollbar">
+          {[
+            { tag: "#TrainHard", posts: "1.2k" },
+            { tag: "#GearReview", posts: "847" },
+            { tag: "#FightWeek", posts: "623" },
+            { tag: "#NewPR", posts: "412" },
+          ].map((t) => (
+            <div key={t.tag} className="flex-shrink-0 px-3 py-2 rounded-xl border border-border bg-card">
+              <p className="text-[10px] font-bold text-primary">{t.tag}</p>
+              <p className="text-[9px] text-muted-foreground">{t.posts} posts</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Posts */}
+      <SocialPost author="Sarah Martinez" time="2h ago" content="Just finished sparring with my new Venum Challenger 3.0 gloves! The padding is next level compared to the 2.0." likes={42} comments={8} reposts={6} hasImage productTag="Venum Challenger 3.0" onProductClick={() => onNavigate("product")} verified />
+      <SocialPost author="Mike Torres" time="5h ago" content="Week 3 of the #TrainHard challenge — loving the Hayabusa T3s. Best investment I've made." likes={89} comments={15} reposts={12} hasImage badge="Top Contributor" />
+      <SocialPost author="LUUP Official" time="1d ago" content="New mission drop! Share your favourite gear setup and earn $25. Tag #LUUPGear to get started." likes={234} comments={47} reposts={31} isBrand />
+      <SocialPost author="Jess Kim" time="2d ago" content="Just hit Gold tier on LUUP!! The rewards just keep getting better." likes={156} comments={23} reposts={8} badge="Gold Ambassador" />
     </div>
   );
 };
