@@ -58,26 +58,41 @@ const PrototypeSection = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       {/* Phone frame */}
-      <div className={`wireframe-shell w-[393px] overflow-hidden relative flex flex-col ${darkMode ? "dark" : ""}`} style={{ height: '852px' }}>
+      <div className={`relative w-[393px] overflow-hidden flex flex-col ${darkMode ? "dark" : ""}`} style={{
+        height: '852px',
+        borderRadius: '52px',
+        background: darkMode ? 'hsl(222 47% 6%)' : 'hsl(220 14% 96%)',
+        boxShadow: '0 0 0 1px hsl(0 0% 0% / 0.08), 0 4px 16px hsl(0 0% 0% / 0.06), 0 24px 80px -12px hsl(0 0% 0% / 0.18), inset 0 0 0 1px hsl(0 0% 100% / 0.06)',
+      }}>
         {/* Status bar */}
-        <div className="flex items-center justify-between px-7 pt-3 pb-1 bg-background/80 backdrop-blur-xl relative z-20">
-          <span className="text-[11px] font-semibold text-foreground/60 tracking-tight">9:41</span>
-          <div className="w-[126px] h-[34px] rounded-full bg-foreground" />
-          <div className="flex items-center gap-1">
-            <div className="flex gap-[2px]">
-              {[10, 12, 14, 10].map((h, i) => (
-                <div key={i} className={`w-[3px] rounded-sm ${i < 3 ? "bg-foreground/60" : "bg-foreground/20"}`} style={{ height: `${h}px` }} />
-              ))}
-            </div>
-            <div className="w-[22px] h-[10px] rounded-[3px] border border-foreground/25 relative ml-0.5">
-              <div className="absolute inset-[1.5px] rounded-[1.5px] bg-foreground/60" style={{ width: '60%' }} />
-              <div className="absolute right-[-3px] top-[2.5px] w-[1.5px] h-[5px] rounded-r-sm bg-foreground/25" />
+        <div className="flex items-center justify-between px-8 pt-4 pb-1 relative z-20">
+          <span className="text-[13px] font-semibold text-foreground/70 tracking-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif' }}>9:41</span>
+          <div className="w-[126px] h-[36px] rounded-full bg-foreground" />
+          <div className="flex items-center gap-[5px]">
+            <svg width="17" height="12" viewBox="0 0 17 12" fill="none" className="text-foreground/60">
+              <rect x="0" y="3" width="3" height="9" rx="1" fill="currentColor" opacity="0.3"/>
+              <rect x="4.5" y="2" width="3" height="10" rx="1" fill="currentColor" opacity="0.5"/>
+              <rect x="9" y="1" width="3" height="11" rx="1" fill="currentColor" opacity="0.7"/>
+              <rect x="13.5" y="0" width="3" height="12" rx="1" fill="currentColor"/>
+            </svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" className="text-foreground/60">
+              <path d="M8 2.4C10.6 2.4 12.9 3.5 14.5 5.2L15.6 4.1C13.7 2.1 11 .8 8 .8S2.3 2.1.4 4.1L1.5 5.2C3.1 3.5 5.4 2.4 8 2.4Z" fill="currentColor" opacity="0.4"/>
+              <path d="M8 5.6C9.8 5.6 11.4 6.3 12.6 7.5L13.7 6.4C12.2 4.9 10.2 4 8 4S3.8 4.9 2.3 6.4L3.4 7.5C4.6 6.3 6.2 5.6 8 5.6Z" fill="currentColor" opacity="0.7"/>
+              <path d="M8 8.8C9 8.8 10 9.2 10.7 9.9L8 12.6L5.3 9.9C6 9.2 7 8.8 8 8.8Z" fill="currentColor"/>
+            </svg>
+            <div className="flex items-center">
+              <div className="w-[24px] h-[11px] rounded-[3px] border-[1.5px] border-foreground/30 relative">
+                <div className="absolute inset-[1.5px] rounded-[1.5px] bg-foreground/60" style={{ width: '65%' }} />
+              </div>
+              <div className="w-[1.5px] h-[5px] rounded-r-sm bg-foreground/30 ml-[1px]" />
             </div>
           </div>
         </div>
 
         {/* Screen content */}
-        <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 80px - 8px)' }}>
+        <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{
+          height: hideNav(screen) ? 'calc(852px - 54px)' : 'calc(852px - 54px - 88px)',
+        }}>
           <div key={screen} className="screen-enter">
             {screen === "login" && <LoginScreen onNavigate={navigate} />}
             {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} onSkip={() => navigate("home")} />}
@@ -103,29 +118,30 @@ const PrototypeSection = () => {
           </div>
         </div>
 
-        {/* Bottom tab bar */}
+        {/* Floating tab bar */}
         {!hideNav(screen) && (
-          <div className="bg-card/90 backdrop-blur-2xl border-t border-border/30 px-1 pb-6 pt-1.5">
-            <div className="flex justify-around">
+          <div className="px-5 pb-2 pt-1.5 bg-gradient-to-t from-background via-background to-transparent">
+            <div className="rounded-[28px] px-2 py-2 flex justify-around items-center" style={{
+              background: darkMode ? 'hsl(222 30% 14%)' : 'hsl(222 47% 11%)',
+              boxShadow: '0 8px 32px hsl(0 0% 0% / 0.2)',
+            }}>
               {tabs.map((t) => {
                 const active = screen === t.screen;
                 return (
                   <button key={t.label} onClick={() => navigate(t.screen)}
-                    className={`tab-pop flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-2xl transition-all ${active ? "text-primary" : "text-muted-foreground/60"}`}>
-                    <span className={`transition-all duration-200 ${active ? "scale-110" : ""}`}>{t.icon}</span>
-                    <span className={`text-[9px] font-semibold transition-all ${active ? "text-primary" : ""}`}>{t.label}</span>
-                    {active && <div className="w-4 h-[3px] rounded-full bg-primary" />}
+                    className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-[20px] transition-all duration-200 ${
+                      active ? "bg-background" : ""
+                    }`}>
+                    <span className={`transition-colors duration-200 ${active ? "text-foreground" : "text-white/40"}`}>{t.icon}</span>
+                    {active && <span className="text-[8px] font-bold text-foreground">{t.label}</span>}
                   </button>
                 );
               })}
             </div>
-          </div>
-        )}
-
-        {/* Home indicator */}
-        {!hideNav(screen) && (
-          <div className="flex justify-center pb-1.5 bg-card/90 backdrop-blur-2xl -mt-1">
-            <div className="w-32 h-[5px] rounded-full bg-foreground/10" />
+            {/* Home indicator */}
+            <div className="flex justify-center pt-2 pb-1">
+              <div className="w-32 h-[5px] rounded-full bg-foreground/10" />
+            </div>
           </div>
         )}
       </div>
