@@ -1187,7 +1187,7 @@ export const LeaderboardScreen = ({ onBack, ecosystem }: { onBack: () => void; e
       </div>
 
       {/* Rankings List */}
-      <div className="space-y-1.5">
+      <div className="space-y-1.5 stagger-children">
         {[
           { rank: 4, name: "Chris W.", points: "9,840", delta: "+2" },
           { rank: 5, name: "Emily R.", points: "8,720", delta: "-1" },
