@@ -2137,7 +2137,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
     {/* Activity Tab */}
     {profileTab === "activity" && (
-      <div className="space-y-2">
+      <div className="space-y-2 stagger-children">
         {[
           { text: "Earned $24 royalty from Venum gloves sale", time: "2h ago", icon: <Wallet className="w-3 h-3 text-primary" /> },
           { text: "New referral signed up: @mike_trains", time: "5h ago", icon: <UserPlus className="w-3 h-3 text-primary" /> },
