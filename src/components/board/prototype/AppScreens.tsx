@@ -1117,7 +1117,7 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
     {/* Reward Carousel */}
     <div>
       <p className="font-bold text-sm text-foreground mb-2">Available Rewards</p>
-      <div className="flex gap-3 overflow-x-auto no-scrollbar">
+      <div className="flex gap-3 overflow-x-auto no-scrollbar stagger-scroll">
         {[
           { title: `Free ${ecosystem.featuredBrand.name} Gift`, points: "2,500 pts", img: ecosystem.emoji },
           { title: "20% Off Next Order", points: "1,000 pts", img: "🏷️" },
