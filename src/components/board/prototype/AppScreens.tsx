@@ -2126,7 +2126,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
             ))}
           </div>
         </div>
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 stagger-children">
           <EarningsRow label="Storefront Royalties" amount="$542.00" />
           <EarningsRow label="Referral Commissions" amount="$318.40" />
           <EarningsRow label="Network Earnings (Tier 2-4)" amount="$247.40" />
