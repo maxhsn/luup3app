@@ -870,7 +870,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── DISCOVER ── */}
       {tab === "discover" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           {/* Featured */}
           <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-4 space-y-3">
             <div className="flex items-center gap-2">
