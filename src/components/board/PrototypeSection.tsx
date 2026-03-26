@@ -60,27 +60,29 @@ const PrototypeSection = () => {
 
         {/* Screen content */}
         <div className="flex-1 overflow-y-auto no-scrollbar" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 70px - 8px)' }}>
-          {screen === "login" && <LoginScreen onNavigate={navigate} />}
-          {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
-          {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
-          {screen === "home" && <HomeScreen onNavigate={navigate} ecosystem={eco} onSwitchEcosystem={handleSwitchEcosystem} />}
-          {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
-          {screen === "missions" && <MissionsScreen onNavigate={navigate} ecosystem={eco} />}
-          {screen === "store" && <StoreScreen onNavigate={navigate} ecosystem={eco} />}
-          {screen === "profile" && <ProfileScreen onNavigate={navigate} />}
-          {screen === "product" && <ProductScreen onBack={goBack} onNavigate={navigate} />}
-          {screen === "storefront" && <StorefrontScreen onNavigate={navigate} onBack={goBack} />}
-          {screen === "wallet" && <WalletScreen onNavigate={navigate} onBack={goBack} ecosystem={eco} />}
-          {screen === "leaderboard" && <LeaderboardScreen onBack={goBack} ecosystem={eco} />}
-          {screen === "social" && <SocialWallScreen onNavigate={navigate} onBack={goBack} />}
-          {screen === "brand" && <BrandScreen onNavigate={navigate} onBack={goBack} />}
-          {screen === "checkout" && <CheckoutScreen onNavigate={navigate} onBack={goBack} />}
-          {screen === "order-confirm" && <OrderConfirmScreen onNavigate={navigate} />}
-          {screen === "notifications" && <NotificationsScreen onNavigate={navigate} onBack={goBack} />}
-          {screen === "edit-profile" && <EditProfileScreen onBack={goBack} />}
-          {screen === "saved-items" && <SavedItemsScreen onBack={goBack} onNavigate={navigate} />}
-          {screen === "referral-code" && <ReferralCodeScreen onBack={goBack} />}
-          {screen === "share-storefront" && <ShareStorefrontScreen onBack={goBack} />}
+          <div key={screen} className="screen-enter">
+            {screen === "login" && <LoginScreen onNavigate={navigate} />}
+            {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
+            {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
+            {screen === "home" && <HomeScreen onNavigate={navigate} ecosystem={eco} onSwitchEcosystem={handleSwitchEcosystem} />}
+            {screen === "explore" && <ExploreScreen onNavigate={navigate} />}
+            {screen === "missions" && <MissionsScreen onNavigate={navigate} ecosystem={eco} />}
+            {screen === "store" && <StoreScreen onNavigate={navigate} ecosystem={eco} />}
+            {screen === "profile" && <ProfileScreen onNavigate={navigate} />}
+            {screen === "product" && <ProductScreen onBack={goBack} onNavigate={navigate} />}
+            {screen === "storefront" && <StorefrontScreen onNavigate={navigate} onBack={goBack} />}
+            {screen === "wallet" && <WalletScreen onNavigate={navigate} onBack={goBack} ecosystem={eco} />}
+            {screen === "leaderboard" && <LeaderboardScreen onBack={goBack} ecosystem={eco} />}
+            {screen === "social" && <SocialWallScreen onNavigate={navigate} onBack={goBack} />}
+            {screen === "brand" && <BrandScreen onNavigate={navigate} onBack={goBack} />}
+            {screen === "checkout" && <CheckoutScreen onNavigate={navigate} onBack={goBack} />}
+            {screen === "order-confirm" && <OrderConfirmScreen onNavigate={navigate} />}
+            {screen === "notifications" && <NotificationsScreen onNavigate={navigate} onBack={goBack} />}
+            {screen === "edit-profile" && <EditProfileScreen onBack={goBack} />}
+            {screen === "saved-items" && <SavedItemsScreen onBack={goBack} onNavigate={navigate} />}
+            {screen === "referral-code" && <ReferralCodeScreen onBack={goBack} />}
+            {screen === "share-storefront" && <ShareStorefrontScreen onBack={goBack} />}
+          </div>
         </div>
 
         {/* Bottom tab bar */}
@@ -115,8 +117,8 @@ const PrototypeSection = () => {
 export default PrototypeSection;
 
 const TabBtn = ({ icon, label, active, onClick }: { icon: React.ReactNode; label: string; active: boolean; onClick: () => void }) => (
-  <button onClick={onClick} className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors ${active ? "text-primary" : "text-muted-foreground"}`}>
-    <span className="w-5 h-5">{icon}</span>
+  <button onClick={onClick} className={`tab-pop flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors ${active ? "text-primary" : "text-muted-foreground"}`}>
+    <span className={`w-5 h-5 transition-transform duration-200 ${active ? "scale-110" : ""}`}>{icon}</span>
     <span className="text-[10px] font-semibold">{label}</span>
   </button>
 );

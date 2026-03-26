@@ -159,4 +159,52 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  /* Screen transition */
+  .screen-enter {
+    animation: screenIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes screenIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Staggered children */
+  .stagger-children > * {
+    animation: staggerFade 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .stagger-children > *:nth-child(1) { animation-delay: 0.04s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.08s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.12s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.16s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.20s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.24s; }
+  .stagger-children > *:nth-child(7) { animation-delay: 0.28s; }
+  .stagger-children > *:nth-child(8) { animation-delay: 0.32s; }
+
+  @keyframes staggerFade {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Tab bar icon pop */
+  .tab-pop {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .tab-pop:active {
+    transform: scale(0.9);
+  }
 }
