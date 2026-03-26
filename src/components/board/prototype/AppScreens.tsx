@@ -93,14 +93,35 @@ export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
 };
 
 /* ═══════ START / ECOSYSTEM SELECT ═══════ */
-export const StartScreen = ({ onSelectEcosystem }: { onSelectEcosystem: (id: string) => void }) => (
+export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: (id: string) => void; onSkip: () => void }) => (
   <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col">
     <div className="text-center space-y-2 pt-4">
       <div className="w-14 h-14 rounded-2xl bg-primary mx-auto flex items-center justify-center">
         <span className="text-2xl font-display font-black text-primary-foreground">L</span>
       </div>
       <p className="font-display font-black text-xl text-foreground">Choose Your World</p>
-      <p className="text-xs text-muted-foreground leading-relaxed">Pick an ecosystem to start earning</p>
+      <p className="text-xs text-muted-foreground leading-relaxed">Pick an ecosystem to personalise your experience</p>
+    </div>
+
+    {/* Skip option */}
+    <button
+      onClick={onSkip}
+      className="w-full flex items-center gap-3 p-3.5 rounded-2xl border-2 border-primary/20 bg-primary/5 hover:border-primary/40 hover:bg-primary/10 transition-all text-left group"
+    >
+      <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 bg-primary/10">
+        🌐
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="font-display font-bold text-sm text-foreground">Explore All Brands</p>
+        <p className="text-[11px] text-muted-foreground">Browse everything without picking a world</p>
+      </div>
+      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+    </button>
+
+    <div className="flex items-center gap-3">
+      <div className="flex-1 h-px bg-border" />
+      <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">or pick a world</span>
+      <div className="flex-1 h-px bg-border" />
     </div>
 
     <div className="flex-1 space-y-2.5 stagger-children">
