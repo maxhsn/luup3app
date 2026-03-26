@@ -1223,19 +1223,175 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
   </div>
 );
 
-/* ═══════ LEADERBOARD ═══════ */
-export const LeaderboardScreen = ({ onBack, ecosystem }: { onBack: () => void; ecosystem: EcosystemData }) => {
+/* ═══════ LEADERBOARD & GAMIFICATION ═══════ */
+export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: () => void; ecosystem: EcosystemData; onNavigate: (s: Screen) => void }) => {
   const [period, setPeriod] = useState<"week" | "month" | "all">("week");
+  const [boardType, setBoardType] = useState<"xp" | "earnings" | "referrals" | "streaks">("xp");
+  const [showBadges, setShowBadges] = useState(false);
+
+  const badges = [
+    { emoji: "🔥", name: "7-Day Streak", desc: "Active 7 days in a row", earned: true },
+    { emoji: "🥊", name: "Gear Expert", desc: "Reviewed 5+ products", earned: true },
+    { emoji: "⭐", name: "Top Reviewer", desc: "Top 10 reviewer this month", earned: true },
+    { emoji: "💰", name: "$1k Earned", desc: "Lifetime earnings over $1,000", earned: true },
+    { emoji: "👥", name: "Community Leader", desc: "10+ community posts", earned: true },
+    { emoji: "🏆", name: "Podium Finish", desc: "Top 3 on any leaderboard", earned: false },
+    { emoji: "💎", name: "Diamond Tier", desc: "Reach Diamond ambassador tier", earned: false },
+    { emoji: "🌍", name: "Global Top 100", desc: "Rank in global top 100", earned: false },
+    { emoji: "🎯", name: "Mission Master", desc: "Complete 50 missions", earned: false },
+    { emoji: "📢", name: "Influencer", desc: "100+ referrals", earned: false },
+  ];
+
+  const earnedCount = badges.filter(b => b.earned).length;
+
   return (
     <div className="px-5 py-4 space-y-4">
       <div className="flex items-center gap-3">
         <button onClick={onBack} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
           <ArrowLeft className="w-4 h-4 text-foreground" />
         </button>
-        <div>
+        <div className="flex-1">
           <p className="font-display font-bold text-lg text-foreground">Leaderboard</p>
           <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
         </div>
+      </div>
+
+      {/* Your Gamification Summary */}
+      <div className="rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/15 p-4">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-12 h-12 rounded-full bg-primary/15 border-2 border-primary flex items-center justify-center relative">
+            <span className="text-sm font-black text-primary">AR</span>
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-stage-earnings flex items-center justify-center border-2 border-card">
+              <span className="text-[7px] font-black text-white">12</span>
+            </div>
+          </div>
+          <div className="flex-1">
+            <p className="text-xs font-bold text-foreground">Level 12 · Silver Scout</p>
+            <div className="flex items-center gap-2 mt-1">
+              <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
+                <div className="h-full rounded-full bg-gradient-to-r from-primary to-stage-earnings transition-all" style={{ width: "65%" }} />
+              </div>
+              <span className="text-[9px] font-bold text-muted-foreground">3,250 / 5,000 XP</span>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-4 gap-2">
+          <div className="rounded-xl bg-card/60 p-2 text-center">
+            <p className="font-display font-black text-sm text-foreground">#12</p>
+            <p className="text-[8px] text-muted-foreground">Rank</p>
+          </div>
+          <div className="rounded-xl bg-card/60 p-2 text-center">
+            <p className="font-display font-black text-sm text-foreground">🔥 7</p>
+            <p className="text-[8px] text-muted-foreground">Streak</p>
+          </div>
+          <div className="rounded-xl bg-card/60 p-2 text-center">
+            <p className="font-display font-black text-sm text-foreground">{earnedCount}</p>
+            <p className="text-[8px] text-muted-foreground">Badges</p>
+          </div>
+          <div className="rounded-xl bg-card/60 p-2 text-center">
+            <p className="font-display font-black text-sm text-foreground">↑3</p>
+            <p className="text-[8px] text-stage-participation">This wk</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Streak Tracker */}
+      <div className="rounded-2xl border border-border bg-card p-3">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <Flame className="w-4 h-4 text-stage-conversion" />
+            <p className="text-xs font-bold text-foreground">Daily Streak</p>
+          </div>
+          <span className="text-xs font-bold text-stage-conversion">7 days 🔥</span>
+        </div>
+        <div className="flex gap-1.5">
+          {["M", "T", "W", "T", "F", "S", "S"].map((day, i) => (
+            <div key={day + i} className="flex-1 flex flex-col items-center gap-1">
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
+                i < 7 ? "bg-stage-conversion/15 text-stage-conversion border border-stage-conversion/30" : "bg-muted text-muted-foreground"
+              }`}>
+                {i < 7 ? "✓" : ""}
+              </div>
+              <span className="text-[8px] text-muted-foreground font-medium">{day}</span>
+            </div>
+          ))}
+        </div>
+        <p className="text-[9px] text-muted-foreground mt-2">Keep your streak alive! Next reward at <span className="font-bold text-stage-conversion">14 days</span> → 500 bonus XP</p>
+      </div>
+
+      {/* Badges */}
+      <div className="rounded-2xl border border-border bg-card p-3">
+        <button onClick={() => setShowBadges(!showBadges)} className="w-full flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Award className="w-4 h-4 text-stage-earnings" />
+            <p className="text-xs font-bold text-foreground">Badges</p>
+            <span className="px-1.5 py-0.5 rounded-full bg-stage-earnings/10 text-stage-earnings text-[9px] font-bold">{earnedCount}/{badges.length}</span>
+          </div>
+          <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${showBadges ? "rotate-180" : ""}`} />
+        </button>
+        {!showBadges && (
+          <div className="flex gap-1.5 mt-2 overflow-x-auto no-scrollbar">
+            {badges.filter(b => b.earned).map((b) => (
+              <div key={b.name} className="flex-shrink-0 w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-base pop-in">
+                {b.emoji}
+              </div>
+            ))}
+            <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-muted flex items-center justify-center text-[10px] text-muted-foreground font-bold">
+              +{badges.length - earnedCount}
+            </div>
+          </div>
+        )}
+        {showBadges && (
+          <div className="mt-3 space-y-2 expand-enter">
+            {badges.map((b) => (
+              <div key={b.name} className={`flex items-center gap-2.5 p-2 rounded-xl ${b.earned ? "bg-primary/5" : "bg-muted/50 opacity-50"}`}>
+                <span className="text-lg">{b.emoji}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-bold text-foreground">{b.name}</p>
+                  <p className="text-[9px] text-muted-foreground">{b.desc}</p>
+                </div>
+                {b.earned ? (
+                  <Check className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                ) : (
+                  <Lock className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Weekly Challenge */}
+      <div className="rounded-2xl border border-stage-discovery/20 bg-stage-discovery/5 p-3">
+        <div className="flex items-center gap-2 mb-2">
+          <Trophy className="w-4 h-4 text-stage-discovery" />
+          <p className="text-[10px] font-bold text-stage-discovery uppercase tracking-wide">Weekly Challenge</p>
+        </div>
+        <p className="text-xs font-bold text-foreground">Complete 5 missions this week</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5">Reward: 1,000 XP + "Mission Master" badge</p>
+        <div className="flex items-center gap-2 mt-2">
+          <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
+            <div className="h-full rounded-full bg-stage-discovery" style={{ width: "60%" }} />
+          </div>
+          <span className="text-[9px] font-bold text-stage-discovery">3/5</span>
+        </div>
+      </div>
+
+      {/* Leaderboard Type Tabs */}
+      <div className="flex gap-1 overflow-x-auto no-scrollbar">
+        {([
+          { id: "xp" as const, label: "XP", icon: <Zap className="w-3 h-3" /> },
+          { id: "earnings" as const, label: "Earnings", icon: <Wallet className="w-3 h-3" /> },
+          { id: "referrals" as const, label: "Referrals", icon: <Users className="w-3 h-3" /> },
+          { id: "streaks" as const, label: "Streaks", icon: <Flame className="w-3 h-3" /> },
+        ]).map((t) => (
+          <button key={t.id} onClick={() => setBoardType(t.id)}
+            className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0 transition-all ${
+              boardType === t.id ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+            }`}>
+            {t.icon} {t.label}
+          </button>
+        ))}
       </div>
 
       {/* Period Toggle */}
@@ -1249,32 +1405,36 @@ export const LeaderboardScreen = ({ onBack, ecosystem }: { onBack: () => void; e
 
       {/* Podium */}
       <div className="flex items-end justify-center gap-3 pt-4 pb-2">
-        <PodiumSpot name="Sarah M." points="12.4k" rank={2} height="h-20" />
-        <PodiumSpot name="Mike T." points="18.2k" rank={1} height="h-28" crown />
-        <PodiumSpot name="Jess K." points="11.1k" rank={3} height="h-16" />
+        <PodiumSpot name="Sarah M." points={boardType === "earnings" ? "$4.2k" : boardType === "referrals" ? "89" : boardType === "streaks" ? "42d" : "12.4k"} rank={2} height="h-20" />
+        <PodiumSpot name="Mike T." points={boardType === "earnings" ? "$6.8k" : boardType === "referrals" ? "142" : boardType === "streaks" ? "67d" : "18.2k"} rank={1} height="h-28" crown />
+        <PodiumSpot name="Jess K." points={boardType === "earnings" ? "$3.9k" : boardType === "referrals" ? "76" : boardType === "streaks" ? "38d" : "11.1k"} rank={3} height="h-16" />
       </div>
 
       {/* Rankings List */}
       <div className="space-y-1.5 stagger-children">
         {[
-          { rank: 4, name: "Chris W.", points: "9,840", delta: "+2" },
-          { rank: 5, name: "Emily R.", points: "8,720", delta: "-1" },
-          { rank: 6, name: "David L.", points: "7,650", delta: "+5" },
-          { rank: 7, name: "Ana P.", points: "6,980", delta: "0" },
-          { rank: 8, name: "Tom B.", points: "6,210", delta: "+1" },
-        ].map((u) => (
-          <div key={u.rank} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
-            <span className="text-sm font-bold text-muted-foreground w-6 text-center">#{u.rank}</span>
-            <div className="w-8 h-8 rounded-full bg-muted" />
-            <div className="flex-1">
-              <p className="text-xs font-bold text-foreground">{u.name}</p>
-              <p className="text-[10px] text-muted-foreground">{u.points} pts</p>
+          { rank: 4, name: "Chris W.", xp: "9,840", earnings: "$3.1k", referrals: "64", streak: "31d", delta: "+2" },
+          { rank: 5, name: "Emily R.", xp: "8,720", earnings: "$2.8k", referrals: "52", streak: "28d", delta: "-1" },
+          { rank: 6, name: "David L.", xp: "7,650", earnings: "$2.4k", referrals: "48", streak: "24d", delta: "+5" },
+          { rank: 7, name: "Ana P.", xp: "6,980", earnings: "$2.1k", referrals: "39", streak: "19d", delta: "0" },
+          { rank: 8, name: "Tom B.", xp: "6,210", earnings: "$1.8k", referrals: "31", streak: "15d", delta: "+1" },
+        ].map((u) => {
+          const val = boardType === "earnings" ? u.earnings : boardType === "referrals" ? u.referrals : boardType === "streaks" ? u.streak : u.xp;
+          const unit = boardType === "xp" ? " pts" : boardType === "referrals" ? " refs" : "";
+          return (
+            <div key={u.rank} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
+              <span className="text-sm font-bold text-muted-foreground w-6 text-center">#{u.rank}</span>
+              <div className="w-8 h-8 rounded-full bg-muted" />
+              <div className="flex-1">
+                <p className="text-xs font-bold text-foreground">{u.name}</p>
+                <p className="text-[10px] text-muted-foreground">{val}{unit}</p>
+              </div>
+              <span className={`text-[10px] font-bold ${parseInt(u.delta) > 0 ? "text-stage-participation" : parseInt(u.delta) < 0 ? "text-destructive" : "text-muted-foreground"}`}>
+                {parseInt(u.delta) > 0 ? `↑${u.delta}` : parseInt(u.delta) < 0 ? `↓${Math.abs(parseInt(u.delta))}` : "—"}
+              </span>
             </div>
-            <span className={`text-[10px] font-bold ${parseInt(u.delta) > 0 ? "text-stage-participation" : parseInt(u.delta) < 0 ? "text-destructive" : "text-muted-foreground"}`}>
-              {parseInt(u.delta) > 0 ? `↑${u.delta}` : parseInt(u.delta) < 0 ? `↓${Math.abs(parseInt(u.delta))}` : "—"}
-            </span>
-          </div>
-        ))}
+          );
+        })}
 
         {/* Your Position */}
         <div className="flex items-center gap-3 p-3 rounded-xl border-2 border-primary bg-primary/5">
@@ -1284,13 +1444,13 @@ export const LeaderboardScreen = ({ onBack, ecosystem }: { onBack: () => void; e
           </div>
           <div className="flex-1">
             <p className="text-xs font-bold text-foreground">You</p>
-            <p className="text-[10px] text-muted-foreground">3,250 pts</p>
+            <p className="text-[10px] text-muted-foreground">{boardType === "earnings" ? "$1,247" : boardType === "referrals" ? "14" : boardType === "streaks" ? "7d" : "3,250 pts"}</p>
           </div>
           <span className="text-[10px] font-bold text-stage-participation">↑3</span>
         </div>
 
         {/* Challenge CTA */}
-        <button className="w-full py-2.5 rounded-xl border border-primary/30 bg-primary/5 text-xs font-bold text-primary text-center mt-2">
+        <button onClick={() => onNavigate("missions")} className="w-full py-2.5 rounded-xl border border-primary/30 bg-primary/5 text-xs font-bold text-primary text-center mt-2">
           ⚔️ Challenge #11 — only 120 pts away!
         </button>
       </div>
