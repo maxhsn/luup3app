@@ -1634,7 +1634,7 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
 
         <div>
           <p className="text-xs font-bold text-foreground mb-2">You might also like</p>
-          <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
+          <div className="flex gap-2.5 overflow-x-auto no-scrollbar stagger-scroll">
             {["Hayabusa T3", "Sanabul Gloves", "Venum Elite"].map((n) => (
               <button key={n} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[100px] rounded-xl border border-border bg-card p-2 text-left active:scale-[0.97] transition-transform">
                 <div className="aspect-square rounded-lg bg-muted mb-1.5" />
