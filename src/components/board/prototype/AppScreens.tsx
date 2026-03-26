@@ -109,13 +109,13 @@ export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: 
         <div className="w-14 h-14 rounded-2xl bg-primary mx-auto flex items-center justify-center shadow-lg">
           <span className="text-2xl font-display font-black text-primary-foreground">L</span>
         </div>
-        <p className="font-display font-black text-xl text-foreground">Welcome to LUUP</p>
+        <p className="font-display font-black text-xl text-foreground">You're in.</p>
         <p className="text-xs text-muted-foreground leading-relaxed max-w-[260px] mx-auto">
-          Discover brands, earn rewards, and build your network — all in one place.
+          LUUP is your network for brands, missions, rewards, and real earning opportunities.
         </p>
       </div>
 
-      {/* Primary CTA — Explore LUUP */}
+      {/* Primary CTA — Enter LUUP */}
       <button
         onClick={onSkip}
         className="w-full p-4 rounded-2xl bg-primary text-primary-foreground active:scale-[0.98] transition-all text-left group relative overflow-hidden"
@@ -126,8 +126,8 @@ export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: 
             <Zap className="w-5 h-5" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-display font-bold text-sm">Start Exploring</p>
-            <p className="text-[11px] opacity-80">Browse all brands, missions & rewards</p>
+            <p className="font-display font-bold text-sm">Enter LUUP</p>
+            <p className="text-[11px] opacity-80">Full access to every brand, mission & reward</p>
           </div>
           <ChevronRight className="w-5 h-5 opacity-70 group-hover:translate-x-0.5 transition-transform" />
         </div>
@@ -136,11 +136,16 @@ export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: 
       {/* Divider */}
       <div className="flex items-center gap-3">
         <div className="flex-1 h-px bg-border" />
-        <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">or dive into a world</span>
+        <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">Go deeper</span>
         <div className="flex-1 h-px bg-border" />
       </div>
 
-      {/* Live ecosystem — Combat Market */}
+      {/* Ecosystem explanation */}
+      <p className="text-[11px] text-muted-foreground leading-relaxed px-1">
+        Ecosystems are focused worlds within LUUP — tailored brands, missions, and community for a specific interest.
+      </p>
+
+      {/* Live ecosystem — Combat Sports */}
       <div className="space-y-2">
         <button
           onClick={() => onSelectEcosystem("combat")}
@@ -172,7 +177,7 @@ export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: 
 
       {/* Coming Soon ecosystems */}
       <div className="space-y-2 flex-1">
-        <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider px-1">Coming Soon</p>
+        <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider px-1">More worlds opening soon</p>
         <div className="grid grid-cols-2 gap-2 stagger-grid">
           {comingSoonEcosystems.slice(0, 4).map((eco) => (
             <div
@@ -184,7 +189,6 @@ export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: 
             </div>
           ))}
         </div>
-        <p className="text-[10px] text-muted-foreground text-center">+ more worlds on the way</p>
       </div>
     </div>
   );
