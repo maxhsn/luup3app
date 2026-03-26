@@ -1246,22 +1246,138 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
 );
 
 /* ═══════ LEADERBOARD & GAMIFICATION ═══════ */
+
+const communityLeaderboards: Record<string, {
+  podium: { name: string; xp: string; earnings: string; referrals: string; streak: string }[];
+  ranks: { rank: number; name: string; xp: string; earnings: string; referrals: string; streak: string; delta: string }[];
+  you: { rank: number; xp: string; earnings: string; referrals: string; streak: string; delta: string; level: number; tier: string; xpCurrent: number; xpNext: number; streakDays: number };
+  challenge: { title: string; reward: string; progress: number; total: number };
+  totalMembers: number;
+}> = {
+  combat: {
+    podium: [
+      { name: "Sarah M.", xp: "18.2k", earnings: "$6.8k", referrals: "142", streak: "67d" },
+      { name: "Mike T.", xp: "12.4k", earnings: "$4.2k", referrals: "89", streak: "42d" },
+      { name: "Jess K.", xp: "11.1k", earnings: "$3.9k", referrals: "76", streak: "38d" },
+    ],
+    ranks: [
+      { rank: 4, name: "Chris W.", xp: "9,840", earnings: "$3.1k", referrals: "64", streak: "31d", delta: "+2" },
+      { rank: 5, name: "Jake S.", xp: "8,720", earnings: "$2.8k", referrals: "52", streak: "28d", delta: "-1" },
+      { rank: 6, name: "David L.", xp: "7,650", earnings: "$2.4k", referrals: "48", streak: "24d", delta: "+5" },
+      { rank: 7, name: "Ana P.", xp: "6,980", earnings: "$2.1k", referrals: "39", streak: "19d", delta: "0" },
+      { rank: 8, name: "Tom B.", xp: "6,210", earnings: "$1.8k", referrals: "31", streak: "15d", delta: "+1" },
+    ],
+    you: { rank: 12, xp: "3,250", earnings: "$1,247", referrals: "14", streak: "7d", delta: "+3", level: 12, tier: "Silver Scout", xpCurrent: 3250, xpNext: 5000, streakDays: 7 },
+    challenge: { title: "Complete 5 combat missions", reward: "1,000 XP + 🥊 Fighter badge", progress: 3, total: 5 },
+    totalMembers: 2847,
+  },
+  fitness: {
+    podium: [
+      { name: "Emma L.", xp: "22.1k", earnings: "$8.4k", referrals: "198", streak: "91d" },
+      { name: "Ryan P.", xp: "15.8k", earnings: "$5.1k", referrals: "112", streak: "54d" },
+      { name: "Zoe C.", xp: "14.2k", earnings: "$4.7k", referrals: "95", streak: "48d" },
+    ],
+    ranks: [
+      { rank: 4, name: "Marcus D.", xp: "12,100", earnings: "$3.8k", referrals: "78", streak: "35d", delta: "+1" },
+      { rank: 5, name: "Lina W.", xp: "10,950", earnings: "$3.4k", referrals: "67", streak: "29d", delta: "+3" },
+      { rank: 6, name: "Jordan K.", xp: "9,400", earnings: "$2.9k", referrals: "55", streak: "22d", delta: "-2" },
+      { rank: 7, name: "Priya S.", xp: "8,200", earnings: "$2.5k", referrals: "44", streak: "18d", delta: "+1" },
+      { rank: 8, name: "Noah R.", xp: "7,100", earnings: "$2.1k", referrals: "36", streak: "14d", delta: "0" },
+    ],
+    you: { rank: 18, xp: "2,180", earnings: "$832", referrals: "9", streak: "4d", delta: "+2", level: 8, tier: "Bronze Scout", xpCurrent: 2180, xpNext: 3500, streakDays: 4 },
+    challenge: { title: "Log 3 workout shares", reward: "750 XP + 💪 Iron Will badge", progress: 1, total: 3 },
+    totalMembers: 5420,
+  },
+  outdoor: {
+    podium: [
+      { name: "Tyler H.", xp: "16.5k", earnings: "$5.9k", referrals: "108", streak: "73d" },
+      { name: "Maya R.", xp: "13.9k", earnings: "$4.5k", referrals: "84", streak: "55d" },
+      { name: "Ben C.", xp: "12.0k", earnings: "$3.8k", referrals: "71", streak: "46d" },
+    ],
+    ranks: [
+      { rank: 4, name: "Kai N.", xp: "10,200", earnings: "$3.2k", referrals: "59", streak: "38d", delta: "+4" },
+      { rank: 5, name: "Sierra J.", xp: "9,100", earnings: "$2.7k", referrals: "47", streak: "30d", delta: "-1" },
+      { rank: 6, name: "Ethan B.", xp: "7,800", earnings: "$2.3k", referrals: "40", streak: "25d", delta: "+2" },
+      { rank: 7, name: "Olivia M.", xp: "6,500", earnings: "$1.9k", referrals: "33", streak: "20d", delta: "0" },
+      { rank: 8, name: "Liam D.", xp: "5,400", earnings: "$1.5k", referrals: "26", streak: "15d", delta: "+1" },
+    ],
+    you: { rank: 15, xp: "1,870", earnings: "$594", referrals: "7", streak: "5d", delta: "+1", level: 7, tier: "Bronze Scout", xpCurrent: 1870, xpNext: 3000, streakDays: 5 },
+    challenge: { title: "Share 2 trail photos", reward: "600 XP + 🏔️ Summit badge", progress: 1, total: 2 },
+    totalMembers: 1890,
+  },
+  beauty: {
+    podium: [
+      { name: "Ava K.", xp: "25.3k", earnings: "$9.2k", referrals: "215", streak: "102d" },
+      { name: "Mia T.", xp: "19.7k", earnings: "$7.1k", referrals: "168", streak: "78d" },
+      { name: "Luna S.", xp: "16.4k", earnings: "$5.8k", referrals: "134", streak: "61d" },
+    ],
+    ranks: [
+      { rank: 4, name: "Chloe B.", xp: "14,100", earnings: "$4.9k", referrals: "112", streak: "52d", delta: "+2" },
+      { rank: 5, name: "Isla W.", xp: "12,500", earnings: "$4.2k", referrals: "96", streak: "44d", delta: "-1" },
+      { rank: 6, name: "Ruby L.", xp: "10,800", earnings: "$3.6k", referrals: "81", streak: "37d", delta: "+3" },
+      { rank: 7, name: "Grace P.", xp: "9,200", earnings: "$3.0k", referrals: "68", streak: "30d", delta: "+1" },
+      { rank: 8, name: "Ella M.", xp: "7,900", earnings: "$2.5k", referrals: "54", streak: "24d", delta: "0" },
+    ],
+    you: { rank: 9, xp: "4,520", earnings: "$1,089", referrals: "21", streak: "11d", delta: "+5", level: 14, tier: "Silver Scout", xpCurrent: 4520, xpNext: 6000, streakDays: 11 },
+    challenge: { title: "Post 3 skincare routines", reward: "900 XP + ✨ Glow badge", progress: 2, total: 3 },
+    totalMembers: 7130,
+  },
+  gaming: {
+    podium: [
+      { name: "Ace X.", xp: "31.2k", earnings: "$7.5k", referrals: "245", streak: "120d" },
+      { name: "Nova Q.", xp: "24.8k", earnings: "$6.1k", referrals: "189", streak: "88d" },
+      { name: "Zero D.", xp: "20.1k", earnings: "$4.9k", referrals: "156", streak: "72d" },
+    ],
+    ranks: [
+      { rank: 4, name: "Pixel V.", xp: "17,500", earnings: "$4.2k", referrals: "128", streak: "58d", delta: "+3" },
+      { rank: 5, name: "Blaze K.", xp: "15,200", earnings: "$3.6k", referrals: "105", streak: "45d", delta: "-2" },
+      { rank: 6, name: "Storm L.", xp: "12,800", earnings: "$3.0k", referrals: "88", streak: "37d", delta: "+1" },
+      { rank: 7, name: "Echo R.", xp: "10,400", earnings: "$2.5k", referrals: "72", streak: "28d", delta: "+4" },
+      { rank: 8, name: "Flux M.", xp: "8,700", earnings: "$2.0k", referrals: "58", streak: "21d", delta: "0" },
+    ],
+    you: { rank: 22, xp: "5,100", earnings: "$723", referrals: "11", streak: "3d", delta: "+1", level: 10, tier: "Bronze Scout", xpCurrent: 5100, xpNext: 7500, streakDays: 3 },
+    challenge: { title: "Stream 2 sessions with gear", reward: "1,200 XP + 🎮 Streamer badge", progress: 0, total: 2 },
+    totalMembers: 9240,
+  },
+  food: {
+    podium: [
+      { name: "Chef A.", xp: "14.8k", earnings: "$5.2k", referrals: "92", streak: "58d" },
+      { name: "Tara N.", xp: "11.2k", earnings: "$3.8k", referrals: "74", streak: "43d" },
+      { name: "Leo F.", xp: "9.6k", earnings: "$3.1k", referrals: "61", streak: "35d" },
+    ],
+    ranks: [
+      { rank: 4, name: "Mila C.", xp: "8,100", earnings: "$2.6k", referrals: "52", streak: "28d", delta: "+1" },
+      { rank: 5, name: "Sam W.", xp: "6,900", earnings: "$2.1k", referrals: "41", streak: "22d", delta: "+2" },
+      { rank: 6, name: "Nora B.", xp: "5,500", earnings: "$1.7k", referrals: "33", streak: "17d", delta: "-1" },
+      { rank: 7, name: "Owen J.", xp: "4,200", earnings: "$1.3k", referrals: "25", streak: "12d", delta: "0" },
+      { rank: 8, name: "Ivy R.", xp: "3,400", earnings: "$1.0k", referrals: "19", streak: "9d", delta: "+1" },
+    ],
+    you: { rank: 14, xp: "1,450", earnings: "$456", referrals: "5", streak: "2d", delta: "+3", level: 6, tier: "Bronze Scout", xpCurrent: 1450, xpNext: 2500, streakDays: 2 },
+    challenge: { title: "Create 1 recipe video", reward: "500 XP + 🍜 Foodie badge", progress: 0, total: 1 },
+    totalMembers: 1340,
+  },
+};
+
 export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: () => void; ecosystem: EcosystemData; onNavigate: (s: Screen) => void }) => {
   const [period, setPeriod] = useState<"week" | "month" | "all">("week");
   const [boardType, setBoardType] = useState<"xp" | "earnings" | "referrals" | "streaks">("xp");
   const [showBadges, setShowBadges] = useState(false);
 
+  const board = communityLeaderboards[ecosystem.id] || communityLeaderboards.combat;
+  const you = board.you;
+  const xpProgress = Math.round((you.xpCurrent / you.xpNext) * 100);
+
   const badges = [
-    { emoji: "🔥", name: "7-Day Streak", desc: "Active 7 days in a row", earned: true },
-    { emoji: "🥊", name: "Gear Expert", desc: "Reviewed 5+ products", earned: true },
-    { emoji: "⭐", name: "Top Reviewer", desc: "Top 10 reviewer this month", earned: true },
-    { emoji: "💰", name: "$1k Earned", desc: "Lifetime earnings over $1,000", earned: true },
-    { emoji: "👥", name: "Community Leader", desc: "10+ community posts", earned: true },
-    { emoji: "🏆", name: "Podium Finish", desc: "Top 3 on any leaderboard", earned: false },
+    { emoji: "🔥", name: "7-Day Streak", desc: "Active 7 days in a row", earned: you.streakDays >= 7 },
+    { emoji: ecosystem.emoji, name: `${ecosystem.label.split(" ")[0]} Expert`, desc: `Reviewed 5+ ${ecosystem.label.toLowerCase()} products`, earned: you.level >= 10 },
+    { emoji: "⭐", name: "Top Reviewer", desc: "Top 10 reviewer this month", earned: you.rank <= 10 },
+    { emoji: "💰", name: "$1k Earned", desc: "Lifetime earnings over $1,000", earned: parseFloat(you.earnings.replace(/[$,k]/g, "")) >= 1 },
+    { emoji: "👥", name: "Community Leader", desc: "10+ community posts", earned: you.level >= 8 },
+    { emoji: "🏆", name: "Podium Finish", desc: "Top 3 on any leaderboard", earned: you.rank <= 3 },
     { emoji: "💎", name: "Diamond Tier", desc: "Reach Diamond ambassador tier", earned: false },
-    { emoji: "🌍", name: "Global Top 100", desc: "Rank in global top 100", earned: false },
+    { emoji: "🌍", name: "Global Top 100", desc: "Rank in global top 100", earned: you.rank <= 100 },
     { emoji: "🎯", name: "Mission Master", desc: "Complete 50 missions", earned: false },
-    { emoji: "📢", name: "Influencer", desc: "100+ referrals", earned: false },
+    { emoji: "📢", name: "Influencer", desc: "100+ referrals", earned: parseInt(you.referrals) >= 100 },
   ];
 
   const earnedCount = badges.filter(b => b.earned).length;
@@ -1273,8 +1389,8 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
           <ArrowLeft className="w-4 h-4 text-foreground" />
         </button>
         <div className="flex-1">
-          <p className="font-display font-bold text-lg text-foreground">Leaderboard</p>
-          <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {ecosystem.label}</p>
+          <p className="font-display font-bold text-lg text-foreground">{ecosystem.leaderboardTitle}</p>
+          <p className="text-[10px] text-muted-foreground">{ecosystem.emoji} {board.totalMembers.toLocaleString()} members competing</p>
         </div>
       </div>
 
@@ -1284,26 +1400,26 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
           <div className="w-12 h-12 rounded-full bg-primary/15 border-2 border-primary flex items-center justify-center relative">
             <span className="text-sm font-black text-primary">AR</span>
             <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-stage-earnings flex items-center justify-center border-2 border-card">
-              <span className="text-[7px] font-black text-white">12</span>
+              <span className="text-[7px] font-black text-white">{you.level}</span>
             </div>
           </div>
           <div className="flex-1">
-            <p className="text-xs font-bold text-foreground">Level 12 · Silver Scout</p>
+            <p className="text-xs font-bold text-foreground">Level {you.level} · {you.tier}</p>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
-                <div className="h-full rounded-full bg-gradient-to-r from-primary to-stage-earnings transition-all" style={{ width: "65%" }} />
+                <div className="h-full rounded-full bg-gradient-to-r from-primary to-stage-earnings transition-all" style={{ width: `${xpProgress}%` }} />
               </div>
-              <span className="text-[9px] font-bold text-muted-foreground">3,250 / 5,000 XP</span>
+              <span className="text-[9px] font-bold text-muted-foreground">{you.xpCurrent.toLocaleString()} / {you.xpNext.toLocaleString()} XP</span>
             </div>
           </div>
         </div>
         <div className="grid grid-cols-4 gap-2">
           <div className="rounded-xl bg-card/60 p-2 text-center">
-            <p className="font-display font-black text-sm text-foreground">#12</p>
+            <p className="font-display font-black text-sm text-foreground">#{you.rank}</p>
             <p className="text-[8px] text-muted-foreground">Rank</p>
           </div>
           <div className="rounded-xl bg-card/60 p-2 text-center">
-            <p className="font-display font-black text-sm text-foreground">🔥 7</p>
+            <p className="font-display font-black text-sm text-foreground">🔥 {you.streakDays}</p>
             <p className="text-[8px] text-muted-foreground">Streak</p>
           </div>
           <div className="rounded-xl bg-card/60 p-2 text-center">
@@ -1311,7 +1427,7 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
             <p className="text-[8px] text-muted-foreground">Badges</p>
           </div>
           <div className="rounded-xl bg-card/60 p-2 text-center">
-            <p className="font-display font-black text-sm text-foreground">↑3</p>
+            <p className="font-display font-black text-sm text-foreground">↑{you.delta}</p>
             <p className="text-[8px] text-stage-participation">This wk</p>
           </div>
         </div>
@@ -1324,21 +1440,26 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
             <Flame className="w-4 h-4 text-stage-conversion" />
             <p className="text-xs font-bold text-foreground">Daily Streak</p>
           </div>
-          <span className="text-xs font-bold text-stage-conversion">7 days 🔥</span>
+          <span className="text-xs font-bold text-stage-conversion">{you.streakDays} days 🔥</span>
         </div>
         <div className="flex gap-1.5">
           {["M", "T", "W", "T", "F", "S", "S"].map((day, i) => (
             <div key={day + i} className="flex-1 flex flex-col items-center gap-1">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
-                i < 7 ? "bg-stage-conversion/15 text-stage-conversion border border-stage-conversion/30" : "bg-muted text-muted-foreground"
+                i < Math.min(you.streakDays, 7) ? "bg-stage-conversion/15 text-stage-conversion border border-stage-conversion/30" : "bg-muted text-muted-foreground"
               }`}>
-                {i < 7 ? "✓" : ""}
+                {i < Math.min(you.streakDays, 7) ? "✓" : ""}
               </div>
               <span className="text-[8px] text-muted-foreground font-medium">{day}</span>
             </div>
           ))}
         </div>
-        <p className="text-[9px] text-muted-foreground mt-2">Keep your streak alive! Next reward at <span className="font-bold text-stage-conversion">14 days</span> → 500 bonus XP</p>
+        <p className="text-[9px] text-muted-foreground mt-2">
+          {you.streakDays >= 7
+            ? <>Great streak! Next reward at <span className="font-bold text-stage-conversion">14 days</span> → 500 bonus XP</>
+            : <>Keep going! <span className="font-bold text-stage-conversion">{7 - you.streakDays} more days</span> to unlock streak reward</>
+          }
+        </p>
       </div>
 
       {/* Badges */}
@@ -1389,13 +1510,13 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
           <Trophy className="w-4 h-4 text-stage-discovery" />
           <p className="text-[10px] font-bold text-stage-discovery uppercase tracking-wide">Weekly Challenge</p>
         </div>
-        <p className="text-xs font-bold text-foreground">Complete 5 missions this week</p>
-        <p className="text-[10px] text-muted-foreground mt-0.5">Reward: 1,000 XP + "Mission Master" badge</p>
+        <p className="text-xs font-bold text-foreground">{board.challenge.title}</p>
+        <p className="text-[10px] text-muted-foreground mt-0.5">Reward: {board.challenge.reward}</p>
         <div className="flex items-center gap-2 mt-2">
           <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
-            <div className="h-full rounded-full bg-stage-discovery" style={{ width: "60%" }} />
+            <div className="h-full rounded-full bg-stage-discovery" style={{ width: `${(board.challenge.progress / board.challenge.total) * 100}%` }} />
           </div>
-          <span className="text-[9px] font-bold text-stage-discovery">3/5</span>
+          <span className="text-[9px] font-bold text-stage-discovery">{board.challenge.progress}/{board.challenge.total}</span>
         </div>
       </div>
 
@@ -1427,20 +1548,16 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
 
       {/* Podium */}
       <div className="flex items-end justify-center gap-3 pt-4 pb-2">
-        <PodiumSpot name="Sarah M." points={boardType === "earnings" ? "$4.2k" : boardType === "referrals" ? "89" : boardType === "streaks" ? "42d" : "12.4k"} rank={2} height="h-20" />
-        <PodiumSpot name="Mike T." points={boardType === "earnings" ? "$6.8k" : boardType === "referrals" ? "142" : boardType === "streaks" ? "67d" : "18.2k"} rank={1} height="h-28" crown />
-        <PodiumSpot name="Jess K." points={boardType === "earnings" ? "$3.9k" : boardType === "referrals" ? "76" : boardType === "streaks" ? "38d" : "11.1k"} rank={3} height="h-16" />
+        {[board.podium[1], board.podium[0], board.podium[2]].map((p, idx) => {
+          const rank = idx === 0 ? 2 : idx === 1 ? 1 : 3;
+          const val = boardType === "earnings" ? p.earnings : boardType === "referrals" ? p.referrals : boardType === "streaks" ? p.streak : p.xp;
+          return <PodiumSpot key={p.name} name={p.name} points={val} rank={rank} height={rank === 1 ? "h-28" : rank === 2 ? "h-20" : "h-16"} crown={rank === 1} />;
+        })}
       </div>
 
       {/* Rankings List */}
       <div className="space-y-1.5 stagger-children">
-        {[
-          { rank: 4, name: "Chris W.", xp: "9,840", earnings: "$3.1k", referrals: "64", streak: "31d", delta: "+2" },
-          { rank: 5, name: "Emily R.", xp: "8,720", earnings: "$2.8k", referrals: "52", streak: "28d", delta: "-1" },
-          { rank: 6, name: "David L.", xp: "7,650", earnings: "$2.4k", referrals: "48", streak: "24d", delta: "+5" },
-          { rank: 7, name: "Ana P.", xp: "6,980", earnings: "$2.1k", referrals: "39", streak: "19d", delta: "0" },
-          { rank: 8, name: "Tom B.", xp: "6,210", earnings: "$1.8k", referrals: "31", streak: "15d", delta: "+1" },
-        ].map((u) => {
+        {board.ranks.map((u) => {
           const val = boardType === "earnings" ? u.earnings : boardType === "referrals" ? u.referrals : boardType === "streaks" ? u.streak : u.xp;
           const unit = boardType === "xp" ? " pts" : boardType === "referrals" ? " refs" : "";
           return (
@@ -1460,20 +1577,20 @@ export const LeaderboardScreen = ({ onBack, ecosystem, onNavigate }: { onBack: (
 
         {/* Your Position */}
         <div className="flex items-center gap-3 p-3 rounded-xl border-2 border-primary bg-primary/5">
-          <span className="text-sm font-bold text-primary w-6 text-center">#12</span>
+          <span className="text-sm font-bold text-primary w-6 text-center">#{you.rank}</span>
           <div className="w-8 h-8 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
             <span className="text-[10px] font-bold text-primary">AR</span>
           </div>
           <div className="flex-1">
             <p className="text-xs font-bold text-foreground">You</p>
-            <p className="text-[10px] text-muted-foreground">{boardType === "earnings" ? "$1,247" : boardType === "referrals" ? "14" : boardType === "streaks" ? "7d" : "3,250 pts"}</p>
+            <p className="text-[10px] text-muted-foreground">{boardType === "earnings" ? you.earnings : boardType === "referrals" ? you.referrals : boardType === "streaks" ? you.streak : you.xp + " pts"}</p>
           </div>
-          <span className="text-[10px] font-bold text-stage-participation">↑3</span>
+          <span className="text-[10px] font-bold text-stage-participation">↑{you.delta}</span>
         </div>
 
         {/* Challenge CTA */}
         <button onClick={() => onNavigate("missions")} className="w-full py-2.5 rounded-xl border border-primary/30 bg-primary/5 text-xs font-bold text-primary text-center mt-2">
-          ⚔️ Challenge #11 — only 120 pts away!
+          ⚔️ Challenge #{you.rank - 1} — only {Math.round(Math.random() * 200 + 50)} pts away!
         </button>
       </div>
     </div>
