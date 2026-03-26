@@ -990,7 +990,7 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
       </div>
 
       {/* Mission Pipeline Summary */}
-      <div className="grid grid-cols-4 gap-1.5">
+      <div className="grid grid-cols-4 gap-1.5 stagger-grid">
         {[
           { label: "Open", count: ecosystem.missions.filter(m => getStatus(m) === "open" && !m.locked).length, color: "bg-muted text-muted-foreground" },
           { label: "Joined", count: ecosystem.missions.filter(m => getStatus(m) === "joined").length, color: "bg-primary/10 text-primary" },
