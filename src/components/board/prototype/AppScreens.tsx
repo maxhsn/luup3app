@@ -22,31 +22,19 @@ const onboardingSlides = [
     icon: "🌐",
     gradient: "from-violet-500/80 via-fuchsia-400/60 to-pink-400/50",
     title: "Welcome to LUUP",
-    subtitle: "The platform where communities, brands, and creators connect — earn, engage, and grow together.",
+    subtitle: "One platform, many worlds. LUUP connects you to the communities, brands, and rewards you care about most.",
   },
   {
     icon: "🏟️",
     gradient: "from-indigo-500/80 via-blue-400/60 to-sky-400/50",
-    title: "Join Ecosystems\nYou're Passionate About",
-    subtitle: "Combat sports, fitness, beauty, gaming — pick your world and unlock tailored brands, content, and rewards.",
+    title: "Explore Ecosystems",
+    subtitle: "Ecosystems are industry worlds inside LUUP — combat sports, fitness, beauty, gaming & more. Each has its own brands, missions, and community.",
   },
   {
-    icon: "🎯",
-    gradient: "from-emerald-500/80 via-teal-400/60 to-cyan-400/50",
-    title: "Complete Missions,\nEarn Rewards",
-    subtitle: "Post reviews, share content, refer friends — every action earns XP, unlocks tiers, and pays real royalties.",
-  },
-  {
-    icon: "💸",
+    icon: "🚀",
     gradient: "from-amber-500/80 via-orange-400/60 to-rose-400/50",
-    title: "Earn Royalties\non Every Sale",
-    subtitle: "Build your storefront, share products you love, and earn commissions across 4 tiers of your network.",
-  },
-  {
-    icon: "🏆",
-    gradient: "from-pink-500/80 via-purple-400/60 to-indigo-400/50",
-    title: "Compete, Climb\n& Win Together",
-    subtitle: "Join groups, climb leaderboards, streak your way to the top, and unlock exclusive prizes and recognition.",
+    title: "One Profile,\nEndless Opportunities",
+    subtitle: "Your LUUP identity travels across every ecosystem. Earn, compete, and grow — no matter which world you join.",
   },
 ];
 
