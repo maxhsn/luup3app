@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  Home, ShoppingBag, User, Flame, Users,
+  Home, ShoppingBag, User, Flame, Users, Moon, Sun,
 } from "lucide-react";
 import {
   type Screen,
@@ -15,6 +15,7 @@ const PrototypeSection = () => {
   const [screen, setScreen] = useState<Screen>("login");
   const [history, setHistory] = useState<Screen[]>(["login"]);
   const [ecosystemId, setEcosystemId] = useState("combat");
+  const [darkMode, setDarkMode] = useState(false);
 
   const eco = getEcosystem(ecosystemId);
 
@@ -48,9 +49,9 @@ const PrototypeSection = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="wireframe-shell w-[393px] overflow-hidden relative" style={{ height: '852px' }}>
+      <div className={`wireframe-shell w-[393px] overflow-hidden relative ${darkMode ? "dark" : ""}`} style={{ height: '852px' }}>
         {/* Status bar */}
-        <div className="flex items-center justify-between px-7 pt-3 pb-1">
+        <div className="flex items-center justify-between px-7 pt-3 pb-1 bg-background">
           <span className="text-xs font-medium text-muted-foreground">9:41</span>
           <div className="w-[126px] h-[34px] rounded-full bg-foreground/10" />
           <div className="flex gap-1">
@@ -59,7 +60,7 @@ const PrototypeSection = () => {
         </div>
 
         {/* Screen content */}
-        <div className="flex-1 overflow-y-auto no-scrollbar" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 70px - 8px)' }}>
+        <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 70px - 8px)' }}>
           <div key={screen} className="screen-enter">
             {screen === "login" && <LoginScreen onNavigate={navigate} />}
             {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} onSkip={() => navigate("home")} />}
@@ -72,7 +73,7 @@ const PrototypeSection = () => {
             {screen === "product" && <ProductScreen onBack={goBack} onNavigate={navigate} />}
             {screen === "storefront" && <StorefrontScreen onNavigate={navigate} onBack={goBack} />}
             {screen === "wallet" && <WalletScreen onNavigate={navigate} onBack={goBack} ecosystem={eco} />}
-            {screen === "leaderboard" && <LeaderboardScreen onBack={goBack} ecosystem={eco} />}
+            {screen === "leaderboard" && <LeaderboardScreen onBack={goBack} ecosystem={eco} onNavigate={navigate} />}
             {screen === "social" && <SocialWallScreen onNavigate={navigate} onBack={goBack} />}
             {screen === "brand" && <BrandScreen onNavigate={navigate} onBack={goBack} />}
             {screen === "checkout" && <CheckoutScreen onNavigate={navigate} onBack={goBack} />}
@@ -99,17 +100,27 @@ const PrototypeSection = () => {
         )}
 
         {/* Home indicator */}
-        <div className="flex justify-center pb-2">
+        <div className="flex justify-center pb-2 bg-card">
           <div className="w-32 h-1.5 rounded-full bg-foreground/10" />
         </div>
       </div>
 
-      <button
-        onClick={() => { setScreen("login"); setHistory(["login"]); }}
-        className="mt-4 px-5 py-2 text-xs font-medium text-muted-foreground bg-muted hover:bg-muted/80 hover:text-foreground rounded-full transition-colors"
-      >
-        Reset
-      </button>
+      {/* Controls */}
+      <div className="flex items-center gap-3 mt-4">
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="px-4 py-2 text-xs font-medium text-muted-foreground bg-muted hover:bg-muted/80 hover:text-foreground rounded-full transition-colors flex items-center gap-1.5"
+        >
+          {darkMode ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+          {darkMode ? "Light" : "Dark"}
+        </button>
+        <button
+          onClick={() => { setScreen("login"); setHistory(["login"]); }}
+          className="px-5 py-2 text-xs font-medium text-muted-foreground bg-muted hover:bg-muted/80 hover:text-foreground rounded-full transition-colors"
+        >
+          Reset
+        </button>
+      </div>
     </div>
   );
 };
