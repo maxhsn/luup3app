@@ -1512,7 +1512,7 @@ export const StoreScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen)
       <div>
         <p className="font-display font-bold text-sm text-foreground mb-1">Top Products to Add</p>
         <p className="text-[10px] text-muted-foreground mb-3">Add products to your storefront and earn royalties on every sale</p>
-        <div className="space-y-2">
+        <div className="space-y-2 stagger-children">
           {ecosystem.trendingOffers.map((p) => (
             <div key={p.name} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
               <button onClick={() => onNavigate("product")} className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
