@@ -22,19 +22,25 @@ const onboardingSlides = [
     icon: "🌐",
     gradient: "from-violet-500/80 via-fuchsia-400/60 to-pink-400/50",
     title: "Welcome to LUUP",
-    subtitle: "One platform, many worlds. LUUP connects you to the communities, brands, and rewards you care about most.",
+    subtitle: "LUUP is the network. It holds your profile, wallet, earnings and connections — across every community you join.",
   },
   {
     icon: "🏟️",
     gradient: "from-indigo-500/80 via-blue-400/60 to-sky-400/50",
-    title: "Explore Ecosystems",
-    subtitle: "Ecosystems are industry worlds inside LUUP — combat sports, fitness, beauty, gaming & more. Each has its own brands, missions, and community.",
+    title: "What's an Ecosystem?",
+    subtitle: "Ecosystems are the worlds inside LUUP — Combat Sports, Fitness, Beauty, Gaming & more. Each one has its own brands, missions, leaderboards and community.",
+  },
+  {
+    icon: "⚡",
+    gradient: "from-emerald-500/80 via-teal-400/60 to-cyan-400/50",
+    title: "How It Works",
+    subtitle: "Join an ecosystem → complete missions → earn XP & rewards → climb the leaderboard → unlock royalties by sharing products you love.",
   },
   {
     icon: "🚀",
     gradient: "from-amber-500/80 via-orange-400/60 to-rose-400/50",
-    title: "One Profile,\nEndless Opportunities",
-    subtitle: "Your LUUP identity travels across every ecosystem. Earn, compete, and grow — no matter which world you join.",
+    title: "One Profile,\nEvery World",
+    subtitle: "Your LUUP identity, wallet and rank carry across every ecosystem. Join as many as you like — your progress is always yours.",
   },
 ];
 
