@@ -2076,7 +2076,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
     </button>
 
     {/* Quick Stats */}
-    <div className="grid grid-cols-4 gap-1.5">
+    <div className="grid grid-cols-4 gap-1.5 stagger-grid">
       {[
         { label: "Earned", value: "$1,247" },
         { label: "Referrals", value: "47" },
