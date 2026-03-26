@@ -998,7 +998,7 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
           { label: "Approved", count: completedCount, color: "bg-stage-participation/10 text-stage-participation" },
         ].map(p => (
           <div key={p.label} className={`rounded-xl p-2 text-center ${p.color}`}>
-            <p className="font-display font-black text-lg leading-none">{p.count}</p>
+            <p className="font-display font-black text-lg leading-none num-pop">{p.count}</p>
             <p className="text-[9px] font-semibold mt-0.5">{p.label}</p>
           </div>
         ))}
