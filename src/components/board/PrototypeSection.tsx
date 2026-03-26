@@ -4,7 +4,7 @@ import {
 } from "lucide-react";
 import {
   type Screen,
-  LoginScreen, StartScreen, EcosystemSetupScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
+  OnboardingScreen, LoginScreen, StartScreen, EcosystemSetupScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
   OrderConfirmScreen, NotificationsScreen, EditProfileScreen, SavedItemsScreen, ReferralCodeScreen, ShareStorefrontScreen
@@ -12,8 +12,8 @@ import {
 import { getEcosystem } from "./prototype/ecosystemData";
 
 const PrototypeSection = () => {
-  const [screen, setScreen] = useState<Screen>("login");
-  const [history, setHistory] = useState<Screen[]>(["login"]);
+  const [screen, setScreen] = useState<Screen>("onboarding");
+  const [history, setHistory] = useState<Screen[]>(["onboarding"]);
   const [ecosystemId, setEcosystemId] = useState("combat");
   const [darkMode, setDarkMode] = useState(false);
 
@@ -45,7 +45,7 @@ const PrototypeSection = () => {
     setEcosystemId(id);
   };
 
-  const hideNav = (s: Screen) => ["login", "start", "ecosystem-setup"].includes(s);
+  const hideNav = (s: Screen) => ["onboarding", "login", "start", "ecosystem-setup"].includes(s);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -62,6 +62,7 @@ const PrototypeSection = () => {
         {/* Screen content */}
         <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 70px - 8px)' }}>
           <div key={screen} className="screen-enter">
+            {screen === "onboarding" && <OnboardingScreen onNavigate={navigate} />}
             {screen === "login" && <LoginScreen onNavigate={navigate} />}
             {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} onSkip={() => navigate("home")} />}
             {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
@@ -115,7 +116,7 @@ const PrototypeSection = () => {
           {darkMode ? "Light" : "Dark"}
         </button>
         <button
-          onClick={() => { setScreen("login"); setHistory(["login"]); }}
+          onClick={() => { setScreen("onboarding"); setHistory(["onboarding"]); }}
           className="px-5 py-2 text-xs font-medium text-muted-foreground bg-muted hover:bg-muted/80 hover:text-foreground rounded-full transition-colors"
         >
           Reset
