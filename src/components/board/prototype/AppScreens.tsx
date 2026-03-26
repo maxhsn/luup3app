@@ -470,7 +470,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
               </svg>
             </div>
           </div>
-          <p className="font-display font-black text-lg leading-none text-foreground">{missionsComplete}</p>
+          <p className="font-display font-black text-lg leading-none text-foreground num-pop">{missionsComplete}</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Completed</p>
         </button>
         <button onClick={() => onNavigate("leaderboard")}
