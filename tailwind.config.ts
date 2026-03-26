@@ -17,8 +17,8 @@ export default {
         'xs': ['0.8125rem', { lineHeight: '1.25rem' }],
       },
       fontFamily: {
-        display: ['Space Grotesk', 'Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        body: ['Plus Jakarta Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        body: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
@@ -30,7 +30,6 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,11 +46,6 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
-          emerald: "hsl(var(--accent-emerald))",
-          teal: "hsl(var(--accent-teal))",
-          lime: "hsl(var(--accent-lime))",
-          coral: "hsl(var(--accent-coral))",
-          amber: "hsl(var(--accent-amber))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -60,18 +54,6 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        success: {
-          DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(var(--success-foreground))",
-        },
-        warning: {
-          DEFAULT: "hsl(var(--warning))",
-          foreground: "hsl(var(--warning-foreground))",
-        },
-        info: {
-          DEFAULT: "hsl(var(--info))",
-          foreground: "hsl(var(--info-foreground))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -101,11 +83,6 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
-      },
-      boxShadow: {
-        'card': 'var(--shadow-card)',
-        'elevated': 'var(--shadow-md)',
-        'float': 'var(--shadow-float)',
       },
       keyframes: {
         "accordion-down": {
