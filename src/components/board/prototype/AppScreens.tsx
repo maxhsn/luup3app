@@ -496,7 +496,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
               </svg>
             </div>
           </div>
-          <p className="font-display font-black text-lg leading-none text-foreground">14</p>
+          <p className="font-display font-black text-lg leading-none text-foreground num-pop">14</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Referrals</p>
         </button>
       </div>
