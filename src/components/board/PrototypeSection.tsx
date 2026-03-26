@@ -101,6 +101,13 @@ const PrototypeSection = () => {
           <div className="w-32 h-1.5 rounded-full bg-foreground/10" />
         </div>
       </div>
+
+      <button
+        onClick={() => { setScreen("login"); setHistory(["login"]); }}
+        className="mt-4 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-border rounded-lg transition-colors"
+      >
+        ↺ Reset to Login
+      </button>
     </div>
   );
 };
