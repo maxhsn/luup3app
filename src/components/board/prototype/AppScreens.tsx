@@ -11,10 +11,113 @@ import {
 import { type EcosystemData, type MissionData, type MissionSubmissionType, type MissionStatus, ecosystems } from "./ecosystemData";
 
 export type Screen =
-  | "login" | "start" | "ecosystem-setup" | "home" | "explore" | "missions" | "store" | "profile"
+  | "onboarding" | "login" | "start" | "ecosystem-setup" | "home" | "explore" | "missions" | "store" | "profile"
   | "product" | "storefront" | "wallet" | "leaderboard"
   | "social" | "brand" | "checkout" | "notifications"
   | "order-confirm" | "edit-profile" | "saved-items" | "referral-code" | "share-storefront";
+
+/* ═══════ ONBOARDING SPLASH ═══════ */
+const onboardingSlides = [
+  {
+    icon: "🚀",
+    gradient: "from-violet-500/80 via-fuchsia-400/60 to-pink-400/50",
+    title: "Discover Communities\nYou Love",
+    subtitle: "Join passionate communities across combat sports, fitness, beauty, gaming and more.",
+  },
+  {
+    icon: "🎯",
+    gradient: "from-blue-500/80 via-cyan-400/60 to-emerald-400/50",
+    title: "Complete Missions,\nEarn Rewards",
+    subtitle: "Engage with brands through missions and earn XP, tokens, and exclusive perks.",
+  },
+  {
+    icon: "💰",
+    gradient: "from-amber-500/80 via-orange-400/60 to-rose-400/50",
+    title: "Your Network,\nYour Earnings",
+    subtitle: "Build your storefront, grow your network, and earn real commissions on every sale.",
+  },
+];
+
+export const OnboardingScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slide = onboardingSlides[currentSlide];
+  const isLast = currentSlide === onboardingSlides.length - 1;
+
+  const handleNext = () => {
+    if (isLast) {
+      onNavigate("login");
+    } else {
+      setCurrentSlide((s) => s + 1);
+    }
+  };
+
+  return (
+    <div className="flex flex-col min-h-[700px]">
+      {/* Hero gradient area */}
+      <div className={`relative flex-1 bg-gradient-to-br ${slide.gradient} flex flex-col items-center justify-center px-8 transition-all duration-500`}>
+        {/* Skip button */}
+        {!isLast && (
+          <button
+            onClick={() => onNavigate("login")}
+            className="absolute top-4 right-5 text-xs font-semibold text-white/80 hover:text-white transition-colors"
+          >
+            Skip
+          </button>
+        )}
+
+        {/* Floating icon */}
+        <div className="text-7xl mb-2 animate-[scale-in_0.5s_ease-out_forwards]" key={currentSlide}>
+          {slide.icon}
+        </div>
+
+        {/* Decorative circles */}
+        <div className="absolute top-16 left-8 w-12 h-12 rounded-full bg-white/10 blur-sm" />
+        <div className="absolute top-28 right-12 w-8 h-8 rounded-full bg-white/15 blur-sm" />
+        <div className="absolute bottom-20 left-16 w-10 h-10 rounded-full bg-white/10 blur-sm" />
+        <div className="absolute bottom-32 right-8 w-6 h-6 rounded-full bg-white/20" />
+      </div>
+
+      {/* Content area */}
+      <div className="bg-background px-6 pt-8 pb-6 flex flex-col items-center text-center space-y-5">
+        <div className="space-y-2.5" key={currentSlide}>
+          <h2 className="font-display font-black text-2xl text-foreground leading-tight whitespace-pre-line animate-[fade-in_0.4s_ease-out_forwards]">
+            {slide.title}
+          </h2>
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-[280px] mx-auto animate-[fade-in_0.4s_ease-out_0.1s_forwards] opacity-0">
+            {slide.subtitle}
+          </p>
+        </div>
+
+        {/* Dots */}
+        <div className="flex gap-2">
+          {onboardingSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${i === currentSlide ? "w-6 bg-primary" : "w-2 bg-muted-foreground/25"}`}
+            />
+          ))}
+        </div>
+
+        {/* CTA */}
+        <button
+          onClick={handleNext}
+          className="w-full h-12 rounded-2xl bg-foreground text-background text-sm font-bold active:scale-[0.98] transition-transform"
+        >
+          {isLast ? "Get Started" : "Next"}
+        </button>
+
+        {/* Login link */}
+        <p className="text-xs text-muted-foreground">
+          Already have an account?{" "}
+          <button onClick={() => onNavigate("login")} className="text-primary font-semibold">
+            Login
+          </button>
+        </p>
+      </div>
+    </div>
+  );
+};
 
 /* ═══════ LOGIN / SIGNUP ═══════ */
 export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
