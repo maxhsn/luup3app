@@ -116,7 +116,7 @@ const PrototypeSection = () => {
           {darkMode ? "Light" : "Dark"}
         </button>
         <button
-          onClick={() => { setScreen("login"); setHistory(["login"]); }}
+          onClick={() => { setScreen("onboarding"); setHistory(["onboarding"]); }}
           className="px-5 py-2 text-xs font-medium text-muted-foreground bg-muted hover:bg-muted/80 hover:text-foreground rounded-full transition-colors"
         >
           Reset
