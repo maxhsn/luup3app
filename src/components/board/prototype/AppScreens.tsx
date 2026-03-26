@@ -113,8 +113,8 @@ export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
           <span className="text-3xl font-display font-black text-primary-foreground">L</span>
         </div>
         <div>
-          <p className="font-display font-black text-2xl text-foreground">LUUP</p>
-          <p className="text-xs text-muted-foreground mt-1">Earn while you engage</p>
+          <p className="font-display font-black text-2xl text-foreground">Enter LUUP</p>
+          <p className="text-xs text-muted-foreground mt-1">Sign in to start earning</p>
         </div>
       </div>
 
