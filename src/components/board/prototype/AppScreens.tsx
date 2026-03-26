@@ -508,7 +508,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="font-display font-bold text-[13px] text-foreground">Active Missions</p>
           <button onClick={() => onNavigate("missions")} className="text-[10px] text-primary font-bold">See all</button>
         </div>
-        <div className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-4 px-4">
+        <div className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-4 px-4 stagger-scroll">
           {ecosystem.activeMissions.slice(0, 3).map((m, i) => {
             const bgColors = ["bg-primary/8", "bg-stage-participation/8", "bg-stage-conversion/8"];
             const iconColors = ["text-primary/50", "text-stage-participation/50", "text-stage-conversion/50"];
