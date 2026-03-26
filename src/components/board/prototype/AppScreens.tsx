@@ -1135,7 +1135,7 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
     {/* Transaction History */}
     <div>
       <p className="font-bold text-sm text-foreground mb-2">Recent Transactions</p>
-      <div className="space-y-1">
+      <div className="space-y-1 stagger-children">
         {[
           { label: "Referral Commission", amount: "+$24.00", time: "2h ago", positive: true },
           { label: `Mission: ${ecosystem.activeMissions[0]?.title || "Completed"}`, amount: "+$15.00", time: "5h ago", positive: true },
