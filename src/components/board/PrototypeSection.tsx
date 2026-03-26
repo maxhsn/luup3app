@@ -48,18 +48,18 @@ const PrototypeSection = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="wireframe-shell w-[340px] md:w-[380px] overflow-hidden relative">
+      <div className="wireframe-shell w-[393px] overflow-hidden relative" style={{ height: '852px' }}>
         {/* Status bar */}
         <div className="flex items-center justify-between px-7 pt-3 pb-1">
           <span className="text-xs font-medium text-muted-foreground">9:41</span>
-          <div className="w-28 h-7 rounded-full bg-foreground/10" />
+          <div className="w-[126px] h-[34px] rounded-full bg-foreground/10" />
           <div className="flex gap-1">
             <div className="w-4 h-2.5 rounded-sm bg-muted-foreground/30" />
           </div>
         </div>
 
         {/* Screen content */}
-        <div className="min-h-[620px] max-h-[620px] overflow-y-auto no-scrollbar">
+        <div className="flex-1 overflow-y-auto no-scrollbar" style={{ height: 'calc(852px - 50px)' }}>
           {screen === "login" && <LoginScreen onNavigate={navigate} />}
           {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
           {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
