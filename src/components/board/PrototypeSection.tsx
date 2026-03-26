@@ -4,7 +4,6 @@ import {
 } from "lucide-react";
 import {
   type Screen,
-  OnboardingScreen1, OnboardingScreen2, OnboardingScreen3, OnboardingScreen4,
   LoginScreen, StartScreen, EcosystemSetupScreen, HomeScreen, ExploreScreen, MissionsScreen, StoreScreen,
   ProfileScreen, ProductScreen, StorefrontScreen, WalletScreen,
   LeaderboardScreen, SocialWallScreen, BrandScreen, CheckoutScreen,
@@ -13,8 +12,8 @@ import {
 import { getEcosystem } from "./prototype/ecosystemData";
 
 const PrototypeSection = () => {
-  const [screen, setScreen] = useState<Screen>("onboarding-1");
-  const [history, setHistory] = useState<Screen[]>(["onboarding-1"]);
+  const [screen, setScreen] = useState<Screen>("login");
+  const [history, setHistory] = useState<Screen[]>(["login"]);
   const [ecosystemId, setEcosystemId] = useState("combat");
   const [darkMode, setDarkMode] = useState(false);
 
@@ -46,7 +45,7 @@ const PrototypeSection = () => {
     setEcosystemId(id);
   };
 
-  const hideNav = (s: Screen) => ["onboarding-1", "onboarding-2", "onboarding-3", "onboarding-4", "login", "start", "ecosystem-setup"].includes(s);
+  const hideNav = (s: Screen) => ["login", "start", "ecosystem-setup"].includes(s);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -63,10 +62,6 @@ const PrototypeSection = () => {
         {/* Screen content */}
         <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 70px - 8px)' }}>
           <div key={screen} className="screen-enter">
-            {screen === "onboarding-1" && <OnboardingScreen1 onNavigate={navigate} />}
-            {screen === "onboarding-2" && <OnboardingScreen2 onNavigate={navigate} />}
-            {screen === "onboarding-3" && <OnboardingScreen3 onNavigate={navigate} />}
-            {screen === "onboarding-4" && <OnboardingScreen4 onNavigate={navigate} onSelectEcosystem={handleSelectEcosystem} />}
             {screen === "login" && <LoginScreen onNavigate={navigate} />}
             {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} onSkip={() => navigate("home")} />}
             {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
@@ -120,7 +115,7 @@ const PrototypeSection = () => {
           {darkMode ? "Light" : "Dark"}
         </button>
         <button
-          onClick={() => { setScreen("onboarding-1"); setHistory(["onboarding-1"]); }}
+          onClick={() => { setScreen("login"); setHistory(["login"]); }}
           className="px-5 py-2 text-xs font-medium text-muted-foreground bg-muted hover:bg-muted/80 hover:text-foreground rounded-full transition-colors"
         >
           Reset
