@@ -117,8 +117,8 @@ const PrototypeSection = () => {
 export default PrototypeSection;
 
 const TabBtn = ({ icon, label, active, onClick }: { icon: React.ReactNode; label: string; active: boolean; onClick: () => void }) => (
-  <button onClick={onClick} className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors ${active ? "text-primary" : "text-muted-foreground"}`}>
-    <span className="w-5 h-5">{icon}</span>
+  <button onClick={onClick} className={`tab-pop flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-colors ${active ? "text-primary" : "text-muted-foreground"}`}>
+    <span className={`w-5 h-5 transition-transform duration-200 ${active ? "scale-110" : ""}`}>{icon}</span>
     <span className="text-[10px] font-semibold">{label}</span>
   </button>
 );
