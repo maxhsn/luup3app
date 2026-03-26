@@ -92,60 +92,103 @@ export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void })
   );
 };
 
-/* ═══════ START / ECOSYSTEM SELECT ═══════ */
-export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: (id: string) => void; onSkip: () => void }) => (
-  <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col">
-    <div className="text-center space-y-2 pt-4">
-      <div className="w-14 h-14 rounded-2xl bg-primary mx-auto flex items-center justify-center">
-        <span className="text-2xl font-display font-black text-primary-foreground">L</span>
-      </div>
-      <p className="font-display font-black text-xl text-foreground">Choose Your World</p>
-      <p className="text-xs text-muted-foreground leading-relaxed">Pick an ecosystem to personalise your experience</p>
-    </div>
+/* ═══════ START / ONBOARDING ═══════ */
+export const StartScreen = ({ onSelectEcosystem, onSkip }: { onSelectEcosystem: (id: string) => void; onSkip: () => void }) => {
+  const comingSoonEcosystems = [
+    { emoji: "💪", label: "Fitness & Wellness" },
+    { emoji: "✨", label: "Beauty & Skincare" },
+    { emoji: "🏔️", label: "Outdoor & Adventure" },
+    { emoji: "🎮", label: "Gaming & Esports" },
+    { emoji: "🍜", label: "Food & Beverage" },
+  ];
 
-    {/* Skip option */}
-    <button
-      onClick={onSkip}
-      className="w-full flex items-center gap-3 p-3.5 rounded-2xl border-2 border-primary/20 bg-primary/5 hover:border-primary/40 hover:bg-primary/10 transition-all text-left group"
-    >
-      <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 bg-primary/10">
-        🌐
+  return (
+    <div className="px-5 py-6 space-y-5 min-h-[620px] flex flex-col">
+      {/* Header */}
+      <div className="text-center space-y-2 pt-2">
+        <div className="w-14 h-14 rounded-2xl bg-primary mx-auto flex items-center justify-center shadow-lg">
+          <span className="text-2xl font-display font-black text-primary-foreground">L</span>
+        </div>
+        <p className="font-display font-black text-xl text-foreground">Welcome to LUUP</p>
+        <p className="text-xs text-muted-foreground leading-relaxed max-w-[260px] mx-auto">
+          Discover brands, earn rewards, and build your network — all in one place.
+        </p>
       </div>
-      <div className="flex-1 min-w-0">
-        <p className="font-display font-bold text-sm text-foreground">Explore All Brands</p>
-        <p className="text-[11px] text-muted-foreground">Browse everything without picking a world</p>
-      </div>
-      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-    </button>
 
-    <div className="flex items-center gap-3">
-      <div className="flex-1 h-px bg-border" />
-      <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">or pick a world</span>
-      <div className="flex-1 h-px bg-border" />
-    </div>
-
-    <div className="flex-1 space-y-2.5 stagger-children">
-      {ecosystems.map((eco) => (
-        <button
-          key={eco.id}
-          onClick={() => onSelectEcosystem(eco.id)}
-          className="w-full flex items-center gap-3 p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-md transition-all text-left group"
-        >
-          <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${eco.color}`}>
-            {eco.emoji}
+      {/* Primary CTA — Explore LUUP */}
+      <button
+        onClick={onSkip}
+        className="w-full p-4 rounded-2xl bg-primary text-primary-foreground active:scale-[0.98] transition-all text-left group relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80" />
+        <div className="relative flex items-center gap-3">
+          <div className="w-11 h-11 rounded-xl bg-primary-foreground/15 flex items-center justify-center flex-shrink-0">
+            <Zap className="w-5 h-5" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-display font-bold text-sm text-foreground">{eco.label}</p>
-            <p className="text-[11px] text-muted-foreground">{eco.brands[0]?.name}, {eco.brands[1]?.name}, {eco.brands[2]?.name}...</p>
+            <p className="font-display font-bold text-sm">Start Exploring</p>
+            <p className="text-[11px] opacity-80">Browse all brands, missions & rewards</p>
+          </div>
+          <ChevronRight className="w-5 h-5 opacity-70 group-hover:translate-x-0.5 transition-transform" />
+        </div>
+      </button>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-border" />
+        <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider">or dive into a world</span>
+        <div className="flex-1 h-px bg-border" />
+      </div>
+
+      {/* Live ecosystem — Combat Market */}
+      <div className="space-y-2">
+        <button
+          onClick={() => onSelectEcosystem("combat")}
+          className="w-full flex items-center gap-3 p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-md transition-all text-left group"
+        >
+          <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 bg-destructive/10">
+            🥊
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5">
+              <p className="font-display font-bold text-sm text-foreground">Combat Sports</p>
+              <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 text-[9px] font-bold uppercase tracking-wide">Live</span>
+            </div>
+            <p className="text-[11px] text-muted-foreground">Hayabusa, Venum, Everlast & more</p>
           </div>
           <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
         </button>
-      ))}
-    </div>
 
-    <p className="text-[10px] text-muted-foreground text-center pb-2">More ecosystems coming soon</p>
-  </div>
-);
+        {/* Activity proof */}
+        <div className="flex items-center gap-2 px-3">
+          <div className="flex -space-x-1.5">
+            {["🟣", "🔵", "🟢"].map((c, i) => (
+              <div key={i} className="w-4 h-4 rounded-full bg-muted border border-card flex items-center justify-center text-[8px]">{c}</div>
+            ))}
+          </div>
+          <p className="text-[10px] text-muted-foreground">247 members earning this week</p>
+        </div>
+      </div>
+
+      {/* Coming Soon ecosystems */}
+      <div className="space-y-2 flex-1">
+        <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider px-1">Coming Soon</p>
+        <div className="grid grid-cols-2 gap-2 stagger-grid">
+          {comingSoonEcosystems.slice(0, 4).map((eco) => (
+            <div
+              key={eco.label}
+              className="flex items-center gap-2 p-2.5 rounded-xl border border-border/60 bg-muted/30"
+            >
+              <span className="text-base">{eco.emoji}</span>
+              <span className="text-[11px] text-muted-foreground font-medium truncate">{eco.label}</span>
+            </div>
+          ))}
+        </div>
+        <p className="text-[10px] text-muted-foreground text-center">+ more worlds on the way</p>
+      </div>
+    </div>
+  );
+};
 
 /* ═══════ ECOSYSTEM PROFILE SETUP ═══════ */
 export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
