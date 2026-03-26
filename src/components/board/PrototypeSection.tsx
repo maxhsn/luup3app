@@ -47,29 +47,37 @@ const PrototypeSection = () => {
 
   const hideNav = (s: Screen) => ["login", "start", "ecosystem-setup"].includes(s);
 
+  const tabs = [
+    { icon: <Home className="w-[18px] h-[18px]" />, label: "Home", screen: "home" as Screen },
+    { icon: <Flame className="w-[18px] h-[18px]" />, label: "Missions", screen: "missions" as Screen },
+    { icon: <Users className="w-[18px] h-[18px]" />, label: "Community", screen: "explore" as Screen },
+    { icon: <ShoppingBag className="w-[18px] h-[18px]" />, label: "Brands", screen: "store" as Screen },
+    { icon: <User className="w-[18px] h-[18px]" />, label: "Profile", screen: "profile" as Screen },
+  ];
+
   return (
     <div className="flex flex-col items-center justify-center">
       {/* Phone frame */}
-      <div className={`wireframe-shell w-[393px] overflow-hidden relative ${darkMode ? "dark" : ""}`} style={{ height: '852px' }}>
-        {/* Status bar — frosted */}
+      <div className={`wireframe-shell w-[393px] overflow-hidden relative flex flex-col ${darkMode ? "dark" : ""}`} style={{ height: '852px' }}>
+        {/* Status bar */}
         <div className="flex items-center justify-between px-7 pt-3 pb-1 bg-background/80 backdrop-blur-xl relative z-20">
-          <span className="text-[11px] font-semibold text-foreground/70 tracking-tight">9:41</span>
+          <span className="text-[11px] font-semibold text-foreground/60 tracking-tight">9:41</span>
           <div className="w-[126px] h-[34px] rounded-full bg-foreground" />
           <div className="flex items-center gap-1">
             <div className="flex gap-[2px]">
               {[10, 12, 14, 10].map((h, i) => (
-                <div key={i} className={`w-[3px] rounded-sm ${i < 3 ? "bg-foreground/70" : "bg-foreground/25"}`} style={{ height: `${h}px` }} />
+                <div key={i} className={`w-[3px] rounded-sm ${i < 3 ? "bg-foreground/60" : "bg-foreground/20"}`} style={{ height: `${h}px` }} />
               ))}
             </div>
-            <div className="w-[22px] h-[10px] rounded-[3px] border border-foreground/30 relative ml-0.5">
-              <div className="absolute inset-[1.5px] rounded-[1.5px] bg-foreground/70" style={{ width: '60%' }} />
-              <div className="absolute right-[-3px] top-[2.5px] w-[1.5px] h-[5px] rounded-r-sm bg-foreground/30" />
+            <div className="w-[22px] h-[10px] rounded-[3px] border border-foreground/25 relative ml-0.5">
+              <div className="absolute inset-[1.5px] rounded-[1.5px] bg-foreground/60" style={{ width: '60%' }} />
+              <div className="absolute right-[-3px] top-[2.5px] w-[1.5px] h-[5px] rounded-r-sm bg-foreground/25" />
             </div>
           </div>
         </div>
 
         {/* Screen content */}
-        <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 74px - 8px)' }}>
+        <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 80px - 8px)' }}>
           <div key={screen} className="screen-enter">
             {screen === "login" && <LoginScreen onNavigate={navigate} />}
             {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} onSkip={() => navigate("home")} />}
@@ -95,23 +103,31 @@ const PrototypeSection = () => {
           </div>
         </div>
 
-        {/* Bottom tab bar — glassmorphic */}
+        {/* Bottom tab bar */}
         {!hideNav(screen) && (
-          <div className="bg-card/80 backdrop-blur-2xl border-t border-border/50 px-2 pb-5 pt-2">
+          <div className="bg-card/90 backdrop-blur-2xl border-t border-border/30 px-1 pb-6 pt-1.5">
             <div className="flex justify-around">
-              <TabBtn icon={<Home />} label="Home" active={screen === "home"} onClick={() => navigate("home")} />
-              <TabBtn icon={<Flame />} label="Missions" active={screen === "missions"} onClick={() => navigate("missions")} />
-              <TabBtn icon={<Users />} label="Community" active={screen === "explore"} onClick={() => navigate("explore")} />
-              <TabBtn icon={<ShoppingBag />} label="Brands" active={screen === "store"} onClick={() => navigate("store")} />
-              <TabBtn icon={<User />} label="Profile" active={screen === "profile"} onClick={() => navigate("profile")} />
+              {tabs.map((t) => {
+                const active = screen === t.screen;
+                return (
+                  <button key={t.label} onClick={() => navigate(t.screen)}
+                    className={`tab-pop flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-2xl transition-all ${active ? "text-primary" : "text-muted-foreground/60"}`}>
+                    <span className={`transition-all duration-200 ${active ? "scale-110" : ""}`}>{t.icon}</span>
+                    <span className={`text-[9px] font-semibold transition-all ${active ? "text-primary" : ""}`}>{t.label}</span>
+                    {active && <div className="w-4 h-[3px] rounded-full bg-primary" />}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
 
         {/* Home indicator */}
-        <div className="flex justify-center pb-2 bg-card/80 backdrop-blur-2xl">
-          <div className="w-32 h-[5px] rounded-full bg-foreground/15" />
-        </div>
+        {!hideNav(screen) && (
+          <div className="flex justify-center pb-1.5 bg-card/90 backdrop-blur-2xl -mt-1">
+            <div className="w-32 h-[5px] rounded-full bg-foreground/10" />
+          </div>
+        )}
       </div>
 
       {/* Controls */}
@@ -136,11 +152,3 @@ const PrototypeSection = () => {
 };
 
 export default PrototypeSection;
-
-const TabBtn = ({ icon, label, active, onClick }: { icon: React.ReactNode; label: string; active: boolean; onClick: () => void }) => (
-  <button onClick={onClick} className={`tab-pop flex flex-col items-center gap-0.5 px-3 py-1 rounded-xl transition-all ${active ? "text-primary" : "text-muted-foreground"}`}>
-    <span className={`w-5 h-5 transition-all duration-200 ${active ? "scale-110" : ""}`}>{icon}</span>
-    <span className={`text-[10px] font-bold transition-all ${active ? "text-primary" : ""}`}>{label}</span>
-    {active && <div className="w-4 h-[3px] rounded-full bg-primary mt-0.5" />}
-  </button>
-);

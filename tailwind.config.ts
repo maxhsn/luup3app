@@ -47,6 +47,11 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          emerald: "hsl(var(--accent-emerald))",
+          teal: "hsl(var(--accent-teal))",
+          lime: "hsl(var(--accent-lime))",
+          coral: "hsl(var(--accent-coral))",
+          amber: "hsl(var(--accent-amber))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -96,6 +101,11 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'card': 'var(--shadow-card)',
+        'elevated': 'var(--shadow-md)',
+        'float': 'var(--shadow-float)',
       },
       keyframes: {
         "accordion-down": {
