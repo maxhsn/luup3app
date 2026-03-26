@@ -1398,7 +1398,7 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
           </div>
         )}
         {activeTab === "missions" && (
-          <div className="space-y-2">
+          <div className="space-y-2 stagger-children">
             {[
               { id: "bm1", title: "Share Venum gear photo", brand: "Venum", reward: "$15", pointsReward: 150, rewardType: "mixed" as const, type: "Social", submissionType: "link" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 20, total: 30 }, description: "Post a photo with Venum gear.", requirements: ["Tag @venum", "Public post"] },
               { id: "bm2", title: "Review any Venum product", brand: "Venum", reward: "$10", rewardType: "cash" as const, type: "Review", submissionType: "review" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 8, total: 15 }, description: "Write a detailed product review.", requirements: ["200+ words", "Include photos"] },
