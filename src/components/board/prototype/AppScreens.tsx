@@ -1793,7 +1793,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">All Products</p>
           <span className="text-[10px] text-primary font-semibold">12 items</span>
         </div>
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 gap-2.5 stagger-grid">
           {[
             { name: "Hayabusa T3 Gloves", price: "$159.99", brand: "Hayabusa", review: "Premium competition quality", sold: 28 },
             { name: "Sanabul Essential", price: "$24.99", brand: "Sanabul", review: "Best budget starter set", sold: 27 },
