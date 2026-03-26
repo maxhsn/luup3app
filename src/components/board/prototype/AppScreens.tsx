@@ -2430,7 +2430,7 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
 
       {/* Expanded detail */}
       {expanded && !mission.locked && (
-        <div className="px-3.5 pb-3.5 space-y-3 border-t border-border pt-3">
+        <div className="px-3.5 pb-3.5 space-y-3 border-t border-border pt-3 expand-enter">
           <p className="text-[11px] text-muted-foreground leading-relaxed">{mission.description}</p>
 
           {/* Requirements */}
