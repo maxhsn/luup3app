@@ -2084,7 +2084,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
         { label: "Network", value: "182" },
       ].map((s) => (
         <div key={s.label} className="rounded-xl bg-muted p-2 text-center">
-          <p className="font-display font-black text-sm text-foreground">{s.value}</p>
+          <p className="font-display font-black text-sm text-foreground num-pop">{s.value}</p>
           <p className="text-[8px] text-muted-foreground font-medium">{s.label}</p>
         </div>
       ))}
