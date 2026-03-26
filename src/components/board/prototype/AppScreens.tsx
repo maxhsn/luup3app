@@ -524,6 +524,32 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
         </button>
       </div>
 
+      {/* ── Streak & Level Bar ── */}
+      <button onClick={() => onNavigate("leaderboard")} className="w-full rounded-2xl border border-border bg-card p-3 flex items-center gap-3 active:scale-[0.98] transition-transform">
+        <div className="relative">
+          <ActivityRing progress={65} size={42} stroke={4} color="hsl(var(--stage-earnings))" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-[9px] font-black text-foreground">12</span>
+          </div>
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <p className="text-[11px] font-bold text-foreground">Silver Scout</p>
+            <span className="text-[9px] font-bold text-stage-conversion flex items-center gap-0.5">🔥 7 day streak</span>
+          </div>
+          <div className="flex items-center gap-2 mt-1">
+            <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+              <div className="h-full rounded-full bg-gradient-to-r from-primary to-stage-earnings transition-all" style={{ width: "65%" }} />
+            </div>
+            <span className="text-[8px] text-muted-foreground font-medium">3,250 XP</span>
+          </div>
+        </div>
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[9px] font-bold text-stage-participation">↑3</span>
+          <span className="text-[8px] text-muted-foreground">#12</span>
+        </div>
+      </button>
+
       {/* ── Stats Bento Grid ── */}
       <div className="grid grid-cols-3 gap-2 stagger-grid">
         <button onClick={() => onNavigate("missions")}
@@ -552,20 +578,16 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="font-display font-black text-lg leading-none text-foreground num-pop">#12</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Rank</p>
         </button>
-        <button onClick={() => onNavigate("profile")}
+        <button onClick={() => onNavigate("leaderboard")}
           className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-7 h-7 rounded-xl bg-stage-participation/10 flex items-center justify-center">
-              <Users className="w-3.5 h-3.5 text-stage-participation" />
+            <div className="w-7 h-7 rounded-xl bg-stage-conversion/10 flex items-center justify-center">
+              <Award className="w-3.5 h-3.5 text-stage-conversion" />
             </div>
-            <div className="w-8 h-5">
-              <svg viewBox="0 0 32 20" className="w-full h-full">
-                <polyline points="0,18 8,14 16,16 24,10 32,6" fill="none" stroke="hsl(var(--stage-participation))" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </div>
+            <span className="text-[9px] font-bold text-stage-earnings">5</span>
           </div>
-          <p className="font-display font-black text-lg leading-none text-foreground num-pop">14</p>
-          <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Referrals</p>
+          <p className="font-display font-black text-lg leading-none text-foreground num-pop">🏅</p>
+          <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Badges</p>
         </button>
       </div>
 
