@@ -481,7 +481,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
             </div>
             <span className="text-[9px] font-bold text-stage-participation">↑3</span>
           </div>
-          <p className="font-display font-black text-lg leading-none text-foreground">#12</p>
+          <p className="font-display font-black text-lg leading-none text-foreground num-pop">#12</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Rank</p>
         </button>
         <button onClick={() => onNavigate("profile")}
