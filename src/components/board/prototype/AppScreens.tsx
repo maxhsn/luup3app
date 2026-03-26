@@ -1372,7 +1372,7 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         </div>
 
         {activeTab === "products" && (
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-2 gap-2.5 stagger-grid">
             {[
               { name: "Challenger 3.0 Gloves", price: "$79.99" },
               { name: "Elite Rashguard", price: "$64.99" },
