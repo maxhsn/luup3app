@@ -63,6 +63,10 @@ const PrototypeSection = () => {
         {/* Screen content */}
         <div className="flex-1 overflow-y-auto no-scrollbar bg-background" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 70px - 8px)' }}>
           <div key={screen} className="screen-enter">
+            {screen === "onboarding-1" && <OnboardingScreen1 onNavigate={navigate} />}
+            {screen === "onboarding-2" && <OnboardingScreen2 onNavigate={navigate} />}
+            {screen === "onboarding-3" && <OnboardingScreen3 onNavigate={navigate} />}
+            {screen === "onboarding-4" && <OnboardingScreen4 onNavigate={navigate} onSelectEcosystem={handleSelectEcosystem} />}
             {screen === "login" && <LoginScreen onNavigate={navigate} />}
             {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} onSkip={() => navigate("home")} />}
             {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
