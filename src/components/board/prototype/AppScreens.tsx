@@ -1101,7 +1101,7 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
     </div>
 
     {/* Points Balance */}
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2 stagger-grid">
       <div className="rounded-xl bg-muted p-3">
         <p className="text-[10px] text-muted-foreground">Points</p>
         <p className="font-display font-black text-xl text-foreground">3,250</p>
