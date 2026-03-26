@@ -795,7 +795,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── BRAND UPDATES ── */}
       {tab === "brands" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           <p className="text-[10px] text-muted-foreground">Official updates from partner brands</p>
           {[
             { brand: "Venum", time: "2h ago", content: "🆕 New drop: Venum Elite boxing gloves with enhanced wrist support. Ambassadors earn 14% — our highest royalty rate!", tag: "New Product", royalty: "14%" },
