@@ -59,7 +59,7 @@ const PrototypeSection = () => {
         </div>
 
         {/* Screen content */}
-        <div className="flex-1 overflow-y-auto no-scrollbar" style={{ height: 'calc(852px - 50px)' }}>
+        <div className="flex-1 overflow-y-auto no-scrollbar" style={{ height: hideNav(screen) ? 'calc(852px - 50px - 8px)' : 'calc(852px - 50px - 70px - 8px)' }}>
           {screen === "login" && <LoginScreen onNavigate={navigate} />}
           {screen === "start" && <StartScreen onSelectEcosystem={handleSelectEcosystem} />}
           {screen === "ecosystem-setup" && <EcosystemSetupScreen ecosystem={eco} onComplete={handleEcosystemSetupComplete} />}
