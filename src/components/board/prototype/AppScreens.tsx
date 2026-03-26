@@ -19,22 +19,34 @@ export type Screen =
 /* ═══════ ONBOARDING SPLASH ═══════ */
 const onboardingSlides = [
   {
-    icon: "🚀",
+    icon: "🌐",
     gradient: "from-violet-500/80 via-fuchsia-400/60 to-pink-400/50",
-    title: "Discover Communities\nYou Love",
-    subtitle: "Join passionate communities across combat sports, fitness, beauty, gaming and more.",
+    title: "Welcome to LUUP",
+    subtitle: "The platform where communities, brands, and creators connect — earn, engage, and grow together.",
+  },
+  {
+    icon: "🏟️",
+    gradient: "from-indigo-500/80 via-blue-400/60 to-sky-400/50",
+    title: "Join Ecosystems\nYou're Passionate About",
+    subtitle: "Combat sports, fitness, beauty, gaming — pick your world and unlock tailored brands, content, and rewards.",
   },
   {
     icon: "🎯",
-    gradient: "from-blue-500/80 via-cyan-400/60 to-emerald-400/50",
+    gradient: "from-emerald-500/80 via-teal-400/60 to-cyan-400/50",
     title: "Complete Missions,\nEarn Rewards",
-    subtitle: "Engage with brands through missions and earn XP, tokens, and exclusive perks.",
+    subtitle: "Post reviews, share content, refer friends — every action earns XP, unlocks tiers, and pays real royalties.",
   },
   {
-    icon: "💰",
+    icon: "💸",
     gradient: "from-amber-500/80 via-orange-400/60 to-rose-400/50",
-    title: "Your Network,\nYour Earnings",
-    subtitle: "Build your storefront, grow your network, and earn real commissions on every sale.",
+    title: "Earn Royalties\non Every Sale",
+    subtitle: "Build your storefront, share products you love, and earn commissions across 4 tiers of your network.",
+  },
+  {
+    icon: "🏆",
+    gradient: "from-pink-500/80 via-purple-400/60 to-indigo-400/50",
+    title: "Compete, Climb\n& Win Together",
+    subtitle: "Join groups, climb leaderboards, streak your way to the top, and unlock exclusive prizes and recognition.",
   },
 ];
 
