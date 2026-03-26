@@ -307,7 +307,7 @@ export const EcosystemSetupScreen = ({ ecosystem, onComplete }: {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 mt-4 w-full">
+          <div className="grid grid-cols-3 gap-3 mt-4 w-full stagger-grid">
             <div className="rounded-xl bg-muted p-3 text-center">
               <Flame className="w-4 h-4 text-primary mx-auto mb-1" />
               <p className="text-[10px] font-bold text-foreground">{ecosystem.missions.length}</p>
@@ -457,7 +457,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
       </div>
 
       {/* ── Stats Bento Grid ── */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-2 stagger-grid">
         <button onClick={() => onNavigate("missions")}
           className="rounded-2xl bg-card border border-border p-3 text-left active:scale-[0.97] transition-transform">
           <div className="flex items-center justify-between mb-2">
@@ -470,7 +470,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
               </svg>
             </div>
           </div>
-          <p className="font-display font-black text-lg leading-none text-foreground">{missionsComplete}</p>
+          <p className="font-display font-black text-lg leading-none text-foreground num-pop">{missionsComplete}</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Completed</p>
         </button>
         <button onClick={() => onNavigate("leaderboard")}
@@ -481,7 +481,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
             </div>
             <span className="text-[9px] font-bold text-stage-participation">↑3</span>
           </div>
-          <p className="font-display font-black text-lg leading-none text-foreground">#12</p>
+          <p className="font-display font-black text-lg leading-none text-foreground num-pop">#12</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Rank</p>
         </button>
         <button onClick={() => onNavigate("profile")}
@@ -496,7 +496,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
               </svg>
             </div>
           </div>
-          <p className="font-display font-black text-lg leading-none text-foreground">14</p>
+          <p className="font-display font-black text-lg leading-none text-foreground num-pop">14</p>
           <p className="text-[9px] text-muted-foreground font-medium mt-0.5">Referrals</p>
         </button>
       </div>
@@ -508,7 +508,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="font-display font-bold text-[13px] text-foreground">Active Missions</p>
           <button onClick={() => onNavigate("missions")} className="text-[10px] text-primary font-bold">See all</button>
         </div>
-        <div className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-4 px-4">
+        <div className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-4 px-4 stagger-scroll">
           {ecosystem.activeMissions.slice(0, 3).map((m, i) => {
             const bgColors = ["bg-primary/8", "bg-stage-participation/8", "bg-stage-conversion/8"];
             const iconColors = ["text-primary/50", "text-stage-participation/50", "text-stage-conversion/50"];
@@ -542,7 +542,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="font-display font-bold text-[13px] text-foreground">🔥 Trending Missions</p>
           <button onClick={() => onNavigate("missions")} className="text-[10px] text-primary font-bold">Explore</button>
         </div>
-        <div className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-4 px-4">
+        <div className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-4 px-4 stagger-scroll">
           {ecosystem.missions.filter(m => m.status === "open").slice(0, 3).map((m, i) => {
             const gradients = ["from-primary/20 to-primary/5", "from-stage-participation/20 to-stage-participation/5", "from-stage-conversion/20 to-stage-conversion/5"];
             const iconColors = ["text-primary/50", "text-stage-participation/50", "text-stage-conversion/50"];
@@ -575,7 +575,7 @@ export const HomeScreen = ({ onNavigate, ecosystem, onSwitchEcosystem }: {
           <p className="font-display font-bold text-[13px] text-foreground">Hot Deals</p>
           <button onClick={() => onNavigate("store")} className="text-[10px] text-primary font-bold">Browse</button>
         </div>
-        <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4">
+        <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 stagger-scroll">
           {ecosystem.trendingOffers.map((p) => (
             <button key={p.name} onClick={() => onNavigate("product")}
               className="flex-shrink-0 w-[130px] rounded-2xl border border-border bg-card overflow-hidden text-left active:scale-[0.97] transition-transform group">
@@ -632,7 +632,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── FOR YOU (Algorithm feed) ── */}
       {tab === "foryou" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           {/* Story row */}
           <div className="flex gap-3 overflow-x-auto no-scrollbar py-0.5">
             {[
@@ -749,7 +749,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── FOLLOWING ── */}
       {tab === "following" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           <p className="text-[10px] text-muted-foreground">Posts from people & groups you follow</p>
           <SocialPost
             author="Jake Shields"
@@ -795,7 +795,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── BRAND UPDATES ── */}
       {tab === "brands" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           <p className="text-[10px] text-muted-foreground">Official updates from partner brands</p>
           {[
             { brand: "Venum", time: "2h ago", content: "🆕 New drop: Venum Elite boxing gloves with enhanced wrist support. Ambassadors earn 14% — our highest royalty rate!", tag: "New Product", royalty: "14%" },
@@ -831,7 +831,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── GROUPS ── */}
       {tab === "groups" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           {/* Your Groups */}
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Your Groups</p>
           {[
@@ -870,7 +870,7 @@ export const ExploreScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
       {/* ── DISCOVER ── */}
       {tab === "discover" && (
-        <div className="space-y-3">
+        <div className="space-y-3 stagger-children">
           {/* Featured */}
           <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-4 space-y-3">
             <div className="flex items-center gap-2">
@@ -990,7 +990,7 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
       </div>
 
       {/* Mission Pipeline Summary */}
-      <div className="grid grid-cols-4 gap-1.5">
+      <div className="grid grid-cols-4 gap-1.5 stagger-grid">
         {[
           { label: "Open", count: ecosystem.missions.filter(m => getStatus(m) === "open" && !m.locked).length, color: "bg-muted text-muted-foreground" },
           { label: "Joined", count: ecosystem.missions.filter(m => getStatus(m) === "joined").length, color: "bg-primary/10 text-primary" },
@@ -998,7 +998,7 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
           { label: "Approved", count: completedCount, color: "bg-stage-participation/10 text-stage-participation" },
         ].map(p => (
           <div key={p.label} className={`rounded-xl p-2 text-center ${p.color}`}>
-            <p className="font-display font-black text-lg leading-none">{p.count}</p>
+            <p className="font-display font-black text-lg leading-none num-pop">{p.count}</p>
             <p className="text-[9px] font-semibold mt-0.5">{p.label}</p>
           </div>
         ))}
@@ -1028,7 +1028,7 @@ export const MissionsScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Scre
       </div>
 
       {/* Mission List */}
-      <div className="space-y-2.5">
+      <div className="space-y-2.5 stagger-children">
         {filtered.length === 0 && (
           <div className="text-center py-8">
             <p className="text-sm text-muted-foreground">No missions in this category</p>
@@ -1101,7 +1101,7 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
     </div>
 
     {/* Points Balance */}
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2 stagger-grid">
       <div className="rounded-xl bg-muted p-3">
         <p className="text-[10px] text-muted-foreground">Points</p>
         <p className="font-display font-black text-xl text-foreground">3,250</p>
@@ -1117,7 +1117,7 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
     {/* Reward Carousel */}
     <div>
       <p className="font-bold text-sm text-foreground mb-2">Available Rewards</p>
-      <div className="flex gap-3 overflow-x-auto no-scrollbar">
+      <div className="flex gap-3 overflow-x-auto no-scrollbar stagger-scroll">
         {[
           { title: `Free ${ecosystem.featuredBrand.name} Gift`, points: "2,500 pts", img: ecosystem.emoji },
           { title: "20% Off Next Order", points: "1,000 pts", img: "🏷️" },
@@ -1135,7 +1135,7 @@ export const WalletScreen = ({ onNavigate, onBack, ecosystem }: { onNavigate: (s
     {/* Transaction History */}
     <div>
       <p className="font-bold text-sm text-foreground mb-2">Recent Transactions</p>
-      <div className="space-y-1">
+      <div className="space-y-1 stagger-children">
         {[
           { label: "Referral Commission", amount: "+$24.00", time: "2h ago", positive: true },
           { label: `Mission: ${ecosystem.activeMissions[0]?.title || "Completed"}`, amount: "+$15.00", time: "5h ago", positive: true },
@@ -1187,7 +1187,7 @@ export const LeaderboardScreen = ({ onBack, ecosystem }: { onBack: () => void; e
       </div>
 
       {/* Rankings List */}
-      <div className="space-y-1.5">
+      <div className="space-y-1.5 stagger-children">
         {[
           { rank: 4, name: "Chris W.", points: "9,840", delta: "+2" },
           { rank: 5, name: "Emily R.", points: "8,720", delta: "-1" },
@@ -1372,7 +1372,7 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
         </div>
 
         {activeTab === "products" && (
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-2 gap-2.5 stagger-grid">
             {[
               { name: "Challenger 3.0 Gloves", price: "$79.99" },
               { name: "Elite Rashguard", price: "$64.99" },
@@ -1398,7 +1398,7 @@ export const BrandScreen = ({ onNavigate, onBack }: { onNavigate: (s: Screen) =>
           </div>
         )}
         {activeTab === "missions" && (
-          <div className="space-y-2">
+          <div className="space-y-2 stagger-children">
             {[
               { id: "bm1", title: "Share Venum gear photo", brand: "Venum", reward: "$15", pointsReward: 150, rewardType: "mixed" as const, type: "Social", submissionType: "link" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 20, total: 30 }, description: "Post a photo with Venum gear.", requirements: ["Tag @venum", "Public post"] },
               { id: "bm2", title: "Review any Venum product", brand: "Venum", reward: "$10", rewardType: "cash" as const, type: "Review", submissionType: "review" as MissionSubmissionType, difficulty: "Easy" as const, status: "open" as MissionStatus, slots: { taken: 8, total: 15 }, description: "Write a detailed product review.", requirements: ["200+ words", "Include photos"] },
@@ -1512,7 +1512,7 @@ export const StoreScreen = ({ onNavigate, ecosystem }: { onNavigate: (s: Screen)
       <div>
         <p className="font-display font-bold text-sm text-foreground mb-1">Top Products to Add</p>
         <p className="text-[10px] text-muted-foreground mb-3">Add products to your storefront and earn royalties on every sale</p>
-        <div className="space-y-2">
+        <div className="space-y-2 stagger-children">
           {ecosystem.trendingOffers.map((p) => (
             <div key={p.name} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card">
               <button onClick={() => onNavigate("product")} className="w-14 h-14 rounded-xl bg-muted flex-shrink-0" />
@@ -1634,7 +1634,7 @@ export const ProductScreen = ({ onBack, onNavigate }: { onBack: () => void; onNa
 
         <div>
           <p className="text-xs font-bold text-foreground mb-2">You might also like</p>
-          <div className="flex gap-2.5 overflow-x-auto no-scrollbar">
+          <div className="flex gap-2.5 overflow-x-auto no-scrollbar stagger-scroll">
             {["Hayabusa T3", "Sanabul Gloves", "Venum Elite"].map((n) => (
               <button key={n} onClick={() => onNavigate("product")} className="flex-shrink-0 w-[100px] rounded-xl border border-border bg-card p-2 text-left active:scale-[0.97] transition-transform">
                 <div className="aspect-square rounded-lg bg-muted mb-1.5" />
@@ -1793,7 +1793,7 @@ export const StorefrontScreen = ({ onNavigate, onBack }: { onNavigate: (s: Scree
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">All Products</p>
           <span className="text-[10px] text-primary font-semibold">12 items</span>
         </div>
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 gap-2.5 stagger-grid">
           {[
             { name: "Hayabusa T3 Gloves", price: "$159.99", brand: "Hayabusa", review: "Premium competition quality", sold: 28 },
             { name: "Sanabul Essential", price: "$24.99", brand: "Sanabul", review: "Best budget starter set", sold: 27 },
@@ -2076,7 +2076,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
     </button>
 
     {/* Quick Stats */}
-    <div className="grid grid-cols-4 gap-1.5">
+    <div className="grid grid-cols-4 gap-1.5 stagger-grid">
       {[
         { label: "Earned", value: "$1,247" },
         { label: "Referrals", value: "47" },
@@ -2084,7 +2084,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
         { label: "Network", value: "182" },
       ].map((s) => (
         <div key={s.label} className="rounded-xl bg-muted p-2 text-center">
-          <p className="font-display font-black text-sm text-foreground">{s.value}</p>
+          <p className="font-display font-black text-sm text-foreground num-pop">{s.value}</p>
           <p className="text-[8px] text-muted-foreground font-medium">{s.label}</p>
         </div>
       ))}
@@ -2126,7 +2126,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
             ))}
           </div>
         </div>
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 stagger-children">
           <EarningsRow label="Storefront Royalties" amount="$542.00" />
           <EarningsRow label="Referral Commissions" amount="$318.40" />
           <EarningsRow label="Network Earnings (Tier 2-4)" amount="$247.40" />
@@ -2137,7 +2137,7 @@ export const ProfileScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void 
 
     {/* Activity Tab */}
     {profileTab === "activity" && (
-      <div className="space-y-2">
+      <div className="space-y-2 stagger-children">
         {[
           { text: "Earned $24 royalty from Venum gloves sale", time: "2h ago", icon: <Wallet className="w-3 h-3 text-primary" /> },
           { text: "New referral signed up: @mike_trains", time: "5h ago", icon: <UserPlus className="w-3 h-3 text-primary" /> },
@@ -2430,7 +2430,7 @@ const MissionCardV2 = ({ mission, currentStatus, expanded, onToggle, onJoin, onS
 
       {/* Expanded detail */}
       {expanded && !mission.locked && (
-        <div className="px-3.5 pb-3.5 space-y-3 border-t border-border pt-3">
+        <div className="px-3.5 pb-3.5 space-y-3 border-t border-border pt-3 expand-enter">
           <p className="text-[11px] text-muted-foreground leading-relaxed">{mission.description}</p>
 
           {/* Requirements */}
