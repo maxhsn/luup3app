@@ -103,7 +103,7 @@ export const StartScreen = ({ onSelectEcosystem }: { onSelectEcosystem: (id: str
       <p className="text-xs text-muted-foreground leading-relaxed">Pick an ecosystem to start earning</p>
     </div>
 
-    <div className="flex-1 space-y-2.5">
+    <div className="flex-1 space-y-2.5 stagger-children">
       {ecosystems.map((eco) => (
         <button
           key={eco.id}
