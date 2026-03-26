@@ -47,7 +47,7 @@ const PrototypeSection = () => {
   const hideNav = (s: Screen) => ["login", "start", "ecosystem-setup"].includes(s);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center justify-center">
       <div className="wireframe-shell w-[340px] md:w-[380px] overflow-hidden relative">
         {/* Status bar */}
         <div className="flex items-center justify-between px-7 pt-3 pb-1">
