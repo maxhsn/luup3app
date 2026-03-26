@@ -11,10 +11,96 @@ import {
 import { type EcosystemData, type MissionData, type MissionSubmissionType, type MissionStatus, ecosystems } from "./ecosystemData";
 
 export type Screen =
+  | "onboarding-1" | "onboarding-2" | "onboarding-3" | "onboarding-4"
   | "login" | "start" | "ecosystem-setup" | "home" | "explore" | "missions" | "store" | "profile"
   | "product" | "storefront" | "wallet" | "leaderboard"
   | "social" | "brand" | "checkout" | "notifications"
   | "order-confirm" | "edit-profile" | "saved-items" | "referral-code" | "share-storefront";
+
+import onboarding1Img from "@/assets/onboarding-1.jpg";
+import onboarding2Img from "@/assets/onboarding-2.jpg";
+import onboarding3Img from "@/assets/onboarding-3.jpg";
+import onboarding4Img from "@/assets/onboarding-4.jpg";
+
+/* ═══════ ONBOARDING SCREENS ═══════ */
+export const OnboardingScreen1 = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
+  <div className="flex flex-col items-center justify-between min-h-[620px] px-6 py-8">
+    <div className="flex-1 flex items-center justify-center">
+      <img src={onboarding1Img} alt="LUUP Identity" className="w-56 h-56 object-contain" />
+    </div>
+    <div className="space-y-4 text-center pb-4 w-full">
+      <div className="flex justify-center gap-1.5 mb-2">
+        {[0,1,2,3].map(i => <div key={i} className={`h-1.5 rounded-full transition-all ${i === 0 ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/20"}`} />)}
+      </div>
+      <h2 className="font-display font-black text-xl text-foreground leading-tight">LUUP is where people earn<br/>from participation</h2>
+      <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px] mx-auto">Discover brands, share what you love, and turn activity into income</p>
+      <button onClick={() => onNavigate("onboarding-2")} className="w-full h-12 rounded-2xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform">Continue</button>
+    </div>
+  </div>
+);
+
+export const OnboardingScreen2 = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
+  <div className="flex flex-col items-center justify-between min-h-[620px] px-6 py-8">
+    <div className="flex-1 flex items-center justify-center">
+      <img src={onboarding2Img} alt="How You Earn" className="w-56 h-56 object-contain" />
+    </div>
+    <div className="space-y-4 text-center pb-4 w-full">
+      <div className="flex justify-center gap-1.5 mb-2">
+        {[0,1,2,3].map(i => <div key={i} className={`h-1.5 rounded-full transition-all ${i === 1 ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/20"}`} />)}
+      </div>
+      <h2 className="font-display font-black text-xl text-foreground leading-tight">Earn by doing,<br/>not just buying</h2>
+      <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px] mx-auto">Complete missions, share products, and earn from every sale you influence</p>
+      <p className="text-xs text-muted-foreground/70 max-w-[260px] mx-auto">Your activity turns into rewards, commissions, and ongoing income</p>
+      <button onClick={() => onNavigate("onboarding-3")} className="w-full h-12 rounded-2xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform">Continue</button>
+    </div>
+  </div>
+);
+
+export const OnboardingScreen3 = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
+  <div className="flex flex-col items-center justify-between min-h-[620px] px-6 py-8">
+    <div className="flex-1 flex items-center justify-center">
+      <img src={onboarding3Img} alt="Your Network" className="w-56 h-56 object-contain" />
+    </div>
+    <div className="space-y-4 text-center pb-4 w-full">
+      <div className="flex justify-center gap-1.5 mb-2">
+        {[0,1,2,3].map(i => <div key={i} className={`h-1.5 rounded-full transition-all ${i === 2 ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/20"}`} />)}
+      </div>
+      <h2 className="font-display font-black text-xl text-foreground leading-tight">Your network is<br/>your advantage</h2>
+      <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px] mx-auto">Invite others, build your community, and grow your earnings over time</p>
+      <p className="text-xs text-muted-foreground/70 max-w-[260px] mx-auto">The more your network grows, the more you earn</p>
+      <button onClick={() => onNavigate("onboarding-4")} className="w-full h-12 rounded-2xl bg-primary text-primary-foreground text-sm font-bold active:scale-[0.98] transition-transform">Continue</button>
+    </div>
+  </div>
+);
+
+export const OnboardingScreen4 = ({ onNavigate, onSelectEcosystem }: { onNavigate: (s: Screen) => void; onSelectEcosystem: (id: string) => void }) => (
+  <div className="flex flex-col items-center justify-between min-h-[620px] px-6 py-8">
+    <div className="flex-1 flex items-center justify-center">
+      <img src={onboarding4Img} alt="LUUP vs Ecosystems" className="w-48 h-48 object-contain" />
+    </div>
+    <div className="space-y-4 text-center pb-4 w-full">
+      <div className="flex justify-center gap-1.5 mb-2">
+        {[0,1,2,3].map(i => <div key={i} className={`h-1.5 rounded-full transition-all ${i === 3 ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/20"}`} />)}
+      </div>
+      <h2 className="font-display font-black text-xl text-foreground leading-tight">One platform.<br/>Multiple worlds</h2>
+      <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px] mx-auto">LUUP gives you access to everything. Ecosystems are focused spaces where you can go deeper into specific interests</p>
+      <p className="text-xs text-muted-foreground/70 max-w-[260px] mx-auto">You can stay in LUUP or explore ecosystems anytime</p>
+
+      {/* Two options */}
+      <div className="space-y-2.5 pt-1">
+        <button onClick={() => onNavigate("login")} className="w-full p-3.5 rounded-2xl bg-primary text-primary-foreground active:scale-[0.98] transition-all text-left">
+          <p className="font-display font-bold text-sm">Enter LUUP</p>
+          <p className="text-[11px] opacity-80 mt-0.5">Access all brands, missions, and opportunities</p>
+        </button>
+        <button onClick={() => onNavigate("start")} className="w-full p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 active:scale-[0.98] transition-all text-left">
+          <p className="font-display font-bold text-sm text-foreground">Explore Ecosystems</p>
+          <p className="text-[11px] text-muted-foreground mt-0.5">Join focused communities like Combat Market</p>
+          <p className="text-[10px] text-muted-foreground/60 mt-0.5">More ecosystems coming soon</p>
+        </button>
+      </div>
+    </div>
+  </div>
+);
 
 /* ═══════ LOGIN / SIGNUP ═══════ */
 export const LoginScreen = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => {
