@@ -45,7 +45,7 @@ const PrototypeSection = () => {
     setEcosystemId(id);
   };
 
-  const hideNav = (s: Screen) => ["login", "start", "ecosystem-setup"].includes(s);
+  const hideNav = (s: Screen) => ["onboarding", "login", "start", "ecosystem-setup"].includes(s);
 
   return (
     <div className="flex flex-col items-center justify-center">
