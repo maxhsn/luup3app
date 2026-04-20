@@ -1,0 +1,32 @@
+{
+  "id": "merchant-create-mission",
+  "title": "Create your first mission",
+  "subtitle": "From dashboard to live in 30 seconds",
+  "duration": 32,
+  "aspect": "16:9",
+  "scene": "merchant.dashboard.desktop",
+  "theme": "luup",
+  "captions": true,
+  "data": {
+    "merchant": { "name": "Combat Athletics" }
+  },
+  "steps": [
+    { "at": 0,    "page": "command-center", "state": { "launchProgress": 60 }, "caption": "Welcome to Activate — your merchant command center", "captionHold": 4.5 },
+    { "at": 1.8,  "hover": "stat-0" },
+    { "at": 4.0,  "hover": "stat-2" },
+    { "at": 5.0,  "state": { "sidebarHighlight": "launch-guide", "guideExpanded": false }, "hover": "launch-guide", "caption": "Your Launch Guide tracks setup progress", "captionHold": 3.5 },
+    { "at": 6.0,  "state": { "sidebarHighlight": "launch-guide", "guideExpanded": true } },
+    { "at": 8.5,  "state": { "sidebarHighlight": "nav-missions" }, "hover": "nav-missions" },
+    { "at": 9.6,  "page": "missions", "state": { "sidebarHighlight": null }, "click": "nav-missions", "caption": "Open Missions to launch your first one", "captionHold": 3.0 },
+    { "at": 11.5, "state": { "missionsHighlight": "create-btn" }, "hover": "create-btn" },
+    { "at": 13.0, "page": "missions/create-modal", "state": { "missionsHighlight": null }, "click": "create-btn", "caption": "Create Mission opens the builder", "captionHold": 2.5 },
+    { "at": 14.0, "type": { "target": "field-title", "text": "Pre-Workout Routine Reel", "cps": 18 } },
+    { "at": 17.5, "type": { "target": "field-description", "text": "Post a 30-60s reel of your pre-workout routine using Combat gear. Tag @combat and #PoweredByCombat.", "cps": 32 } },
+    { "at": 20.5, "state": { "highlightField": "capacity" }, "hover": "field-capacity", "caption": "Title, brief, capacity, reward — that's it", "captionHold": 4.0 },
+    { "at": 22.0, "state": { "highlightField": "cash" }, "hover": "field-cash" },
+    { "at": 24.0, "state": { "highlightField": null, "highlightLaunch": true }, "hover": "launch-mission" },
+    { "at": 25.5, "click": "launch-mission", "state": { "submitting": true, "highlightLaunch": false }, "effect": "burst", "effectTarget": "launch-mission", "caption": "Launch — your mission goes live to the network", "captionHold": 3.5 },
+    { "at": 27.5, "state": { "submitting": false, "success": true } },
+    { "at": 28.7, "state": { "withNewMission": true, "launchProgress": 80 }, "page": "missions", "toast": "Mission live · +5 entries earned", "toastHold": 3.5, "caption": "+5 entries earned · Launch Guide 4 of 5", "captionHold": 3.0 }
+  ]
+}
